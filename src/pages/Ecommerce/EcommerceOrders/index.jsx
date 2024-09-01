@@ -234,27 +234,6 @@ const EcommerceOrder = () => {
   const columns = useMemo(
     () => [
       {
-        header: () => {
-          return (
-            <FormGroup check className="font-size-16">
-              <Label check>
-                <Input type="checkbox" id="checkAll" />
-              </Label>
-            </FormGroup>
-          );
-        },
-        accessorKey: "prs_id",
-        cell: () => (
-          <FormGroup check className="font-size-16">
-            <Label check>
-              <Input type="checkbox" id="checkAll" />
-            </Label>
-          </FormGroup>
-        ),
-        enableColumnFilter: false,
-        enableSorting: true,
-      },
-      {
         header: "Order Number",
         accessorKey: "prs_order_number",
         enableColumnFilter: false,
