@@ -95,8 +95,6 @@ const project_duration = [
   { label: '3 years ', value: '3 years' },
 ]
 
-
-
 // Pass both dropdown configurations as an array
 const dropdawntotal = [project_duration,project_status,budget_year,project_year];
 const TableContainer = ({
