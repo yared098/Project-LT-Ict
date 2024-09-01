@@ -3,7 +3,7 @@ import accessToken from "./jwt-token-access/accessToken";
 
 //pass new generated access token here
 const token = accessToken;
-const API_URL =  import.meta.env.BASE_API_URL;
+
 //apply base url for axios
 const API_URL = "https://pms.awashsol.com/api/";
 
