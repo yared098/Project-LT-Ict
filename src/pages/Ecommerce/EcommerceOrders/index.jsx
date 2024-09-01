@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
@@ -7,7 +8,7 @@ import TableContainer from "../../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Spinners from "../../../components/Common/Spinner";
-import SearchComponent from "../../../SearchComponent";
+import SearchComponent from "../../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../../components/Common/Breadcrumb";
 import DeleteModal from "../../../components/Common/DeleteModal";
@@ -60,6 +61,30 @@ const EcommerceOrder = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const [order, setOrder] = useState(null);
+  const [budgetYearOptions, setBudgetYearOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchBudgetYears = async () => {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
+        );
+        const transformedData = response.data.data.map((item) => ({
+          label: item.prp_budget_year.toString(),
+          value: item.prp_budget_year.toString(),
+        }));
+        const optionsWithDefault = [
+          { label: "select budget year", value: "" },
+          ...transformedData,
+        ];
+
+        setBudgetYearOptions(optionsWithDefault);
+      } catch (error) {
+        console.error("Error fetching budget years:", error);
+      }
+    };
+    fetchBudgetYears();
+  }, []);
 
   // validation
   const validation = useFormik({
@@ -324,7 +349,7 @@ const EcommerceOrder = () => {
                 setTransaction(cellProps.row.original);
               }}
             >
-             {t("View Details")}
+              {t("View Details")}
             </Button>
           );
         },
@@ -383,24 +408,34 @@ const EcommerceOrder = () => {
 
     return baseColumns;
   }, [handleOrderClick, toggleViewModal, onClickDelete]);
-  const dropdown1 = [
+
+  const project_year = [
+    { label: "select Status name", value: "" },
     { label: "OR Name", value: "prs_status_name_or" },
     { label: "Amharic Name", value: "prs_status_name_am" },
     { label: "English Name", value: "prs_status_name_en" },
   ];
-  const dropdown2 = [
-    { label: "OR Name", value: "prs_status_name_or" },
-    { label: "Amharic Name", value: "prs_status_name_am" },
-    { label: "English Name", value: "prs_status_name_en" },
-  ];
-  const dropdown3 = [
+  const project_status = [
+    { label: "select Status name", value: "" },
     { label: "OR Name", value: "prs_status_name_or" },
     { label: "Amharic Name", value: "prs_status_name_am" },
     { label: "English Name", value: "prs_status_name_en" },
   ];
 
+  const project_duration = [
+    { label: "select Status name", value: "" },
+    { label: "1 years", value: "1 year" },
+    { label: "2 years", value: "2 years" },
+    { label: "3 years ", value: "3 years" },
+  ];
+
   // Pass both dropdown configurations as an array
-  const dropdawntotal = [dropdown1, dropdown2, dropdown3];
+  const dropdawntotal = [
+    project_duration,
+    project_status,
+    budgetYearOptions,
+    project_year,
+  ];
 
   return (
     <React.Fragment>
@@ -418,6 +453,7 @@ const EcommerceOrder = () => {
         {/* <SearchComponent data={orders} dropdown={dropdawntotal} />; */}
         <div className="container-fluid">
           <Breadcrumbs title="Ecommerce" breadcrumbItem="Projects" />
+          <SearchComponent data={[]} dropdown={dropdawntotal} />;
           {isLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
@@ -446,7 +482,6 @@ const EcommerceOrder = () => {
               </Col>
             </Row>
           )}
-
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
               {!!isEdit ? t("Edit Project Status") : t("Add Project Status")}
@@ -473,7 +508,7 @@ const EcommerceOrder = () => {
                 <Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_order_number')}</Label>
+                      <Label>{t("prs_order_number")}</Label>
                       <Input
                         name="prs_order_number"
                         type="text"
@@ -496,7 +531,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_status_name_en')}</Label>
+                      <Label>{t("prs_status_name_en")}</Label>
                       <Input
                         name="prs_status_name_en"
                         type="text"
@@ -521,7 +556,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_status_name_or')}</Label>
+                      <Label>{t("prs_status_name_or")}</Label>
                       <Input
                         name="prs_status_name_or"
                         type="text"
@@ -544,7 +579,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_status_name_am')}</Label>
+                      <Label>{t("prs_status_name_am")}</Label>
                       <Input
                         name="prs_status_name_am"
                         type="text"
@@ -569,7 +604,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_description')}</Label>
+                      <Label>{t("prs_description")}</Label>
                       <Input
                         name="prs_description"
                         type="textarea"
@@ -592,7 +627,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_status')}</Label>
+                      <Label>{t("prs_status")}</Label>
                       <Input
                         name="prs_status"
                         type="select"
@@ -606,8 +641,8 @@ const EcommerceOrder = () => {
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status || 0}
                       >
-                        <option value={1}>{t('Active')}</option>
-                        <option value={0}>{t('Inactive')}</option>
+                        <option value={1}>{t("Active")}</option>
+                        <option value={0}>{t("Inactive")}</option>
                       </Input>
                       {validation.touched.prs_status &&
                       validation.errors.prs_status ? (
@@ -619,7 +654,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>{t('prs_color_code')}</Label>
+                      <Label>{t("prs_color_code")}</Label>
                       <Input
                         name="prs_color_code"
                         type="text"
@@ -651,7 +686,7 @@ const EcommerceOrder = () => {
                         type="submit"
                         className="save-user"
                       >
-                        {t('Save')}
+                        {t("Save")}
                       </Button>
                     </div>
                   </Col>

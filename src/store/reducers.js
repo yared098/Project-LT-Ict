@@ -30,7 +30,6 @@ import JobReducer from "./jobs/reducer";
 //projects
 import projects from "./projects/reducer";
 
-
 //tasks
 import tasks from "./tasks/reducer";
 
@@ -40,7 +39,7 @@ import contacts from "./contacts/reducer";
 //mails
 import mails from "./mails/reducer";
 
-//Dashboard 
+//Dashboard
 import Dashboard from "./dashboard/reducer";
 
 //Dasboard saas
@@ -54,6 +53,8 @@ import DashboardBlog from "./dashboard-blog/reducer";
 
 //Dasboard job
 import DashboardJob from "./dashboard-jobs/reducer";
+
+import Search from "./search/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -76,7 +77,8 @@ const rootReducer = combineReducers({
   DashboardSaas,
   DashboardCrypto,
   DashboardBlog,
-  DashboardJob
+  DashboardJob,
+  Search,
 });
 
 export default rootReducer;
