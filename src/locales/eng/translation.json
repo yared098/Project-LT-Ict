@@ -176,5 +176,12 @@
   "delete": "Delete",
   "Edit Project Status": "Edit Project Status",
   "Add Project Status": "Add Project Status",
-  "Add New Order": "Add New Order"
+  "Add New Order": "Add New Order",
+
+  "Order Delete Successfully": "Order Delete Successfully",
+  "Order Delete Failed": "Order Delete Failed",
+  "Order Added Successfully": "Order Added Successfully",
+  "Order Added Failed": "Order Added Failed",
+  "Order Updated Successfully": "Order Updated Successfully",
+  "Order Update Failed": "Order Update Failed"
 }

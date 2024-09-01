@@ -193,7 +193,16 @@
   "delete": "Haqi",
   "Edit Project Status": "Haala Proojektii Fooyyeessi",
   "Add Project Status": "Haala Proojektii Dabalata",
-  "Add New Order": "Ajaja Haaraa Dabalata"
+  "Add New Order": "Ajaja Haaraa Dabalata",
+
+  "Order Delete Successfully": "Ajajni milkaa'inaan haquamee jira",
+  "Order Delete Failed": "Ajajni haquun hin milkaa'inne",
+  "Order Added Successfully": "Ajajni milkaa'inaan dabalee jira",
+  "Order Added Failed": "Ajajni dabaluun hin milkaa'inne",
+  "Order Updated Successfully": "Ajajni milkaa'inaan haaromfamee jira",
+  "Order Update Failed": "Ajajni haaromsuu hin milkaa'inne"
+
+  
   
   
 }

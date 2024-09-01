@@ -191,6 +191,13 @@
   "delete": "አጥፋ",
   "Edit Project Status": "ፕሮጀክት ሁኔታ አርትዕ",
   "Add Project Status": "ፕሮጀክት ሁኔታ ያክሉ",
-  "Add New Order": "አዲስ ትእዛዝ አክል"
+  "Add New Order": "አዲስ ትእዛዝ አክል",
+  
+  "Order Delete Successfully": "ትዕዛዝ በተሳካ ሁኔታ ተሰርዟል",
+  "Order Delete Failed": "ትዕዛዝ መሰረዝ አልተሳካም",
+  "Order Added Successfully": "ትዕዛዝ በተሳካ ሁኔታ ታክሏል",
+  "Order Added Failed": "ትዕዛዝ መጨመር አልተሳካም",
+  "Order Updated Successfully": "ትዕዛዝ በተሳካ ሁኔታ ታድሷል",
+  "Order Update Failed": "ትዕዛዝ ማደስ አልተሳካም"
   
 }
