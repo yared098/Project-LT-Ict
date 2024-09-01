@@ -408,6 +408,24 @@ const EcommerceOrder = () => {
     ],
     [handleOrderClick, toggleViewModal, onClickDelete]
   );
+  const dropdown1 = [
+    { label: 'OR Name', value: 'prs_status_name_or' },
+    { label: 'Amharic Name', value: 'prs_status_name_am' },
+    { label: 'English Name', value: 'prs_status_name_en' },
+  ]
+  const dropdown2 = [
+    { label: 'OR Name', value: 'prs_status_name_or' },
+    { label: 'Amharic Name', value: 'prs_status_name_am' },
+    { label: 'English Name', value: 'prs_status_name_en' },
+  ]
+  const dropdown3 = [
+    { label: 'OR Name', value: 'prs_status_name_or' },
+    { label: 'Amharic Name', value: 'prs_status_name_am' },
+    { label: 'English Name', value: 'prs_status_name_en' },
+  ]
+
+  // Pass both dropdown configurations as an array
+const dropdawntotal = [dropdown1, dropdown2,dropdown3];
 
   return (
     <React.Fragment>
@@ -418,7 +436,7 @@ const EcommerceOrder = () => {
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
-        {/* <SearchComponent data={orders}/> */}
+      {/* <SearchComponent data={orders} dropdown={dropdawntotal} />; */}
         <div className="container-fluid">
           <Breadcrumbs title="Ecommerce" breadcrumbItem="Projects" />
           {isLoading ? (
