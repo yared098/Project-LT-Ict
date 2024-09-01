@@ -1,39 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { filter } from 'lodash';
 
-const SearchComponent = ({ data }) => {
+const SearchComponent = ({ data, dropdown }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [selectedFields, setSelectedFields] = useState(dropdown.map(() => "")); // Initialize with empty strings for each dropdown
 
   useEffect(() => {
     setFilteredData(data); // Initialize filteredData with the entire data array
   }, [data]);
 
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
+  const performSearch = () => {
+    const term = searchTerm.toLowerCase();
 
-    // Filter data based on search term matching prs_status_name_or field
     const filtered = data.filter(item =>
-      item.prs_status_name_or.toLowerCase().includes(term)
+      selectedFields.some(field => field && item[field]?.toLowerCase().includes(term))
     );
-   
 
     setFilteredData(filtered);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFieldChange = (dropdownIndex, e) => {
+    const newFields = [...selectedFields];
+    newFields[dropdownIndex] = e.target.value;
+    setSelectedFields(newFields);
+  };
+
   return (
-    <div className="container mt-5">
-      <form className="mb-3">
-        <div className="form-group">
+    <div className="container-fluid mt-4">
+      <form className="d-flex flex-wrap align-items-center mb-3">
+        <div className="form-group me-2 mb-2 flex-grow-1">
           <input
             type="text"
             value={searchTerm}
-            onChange={handleSearch}
-            placeholder="Search by name..."
+            onChange={handleSearchChange}
+            placeholder="Search..."
             className="form-control"
           />
+        </div>
+        {dropdown.map((dropdownOptions, dropdownIndex) => (
+          <div key={dropdownIndex} className="form-group me-2 mb-2 flex-grow-1">
+            <select
+              value={selectedFields[dropdownIndex]}
+              onChange={(e) => handleFieldChange(dropdownIndex, e)}
+              className="form-select"
+            >
+              <option value="">Select a field</option>
+              {dropdownOptions.map((opt, index) => (
+                <option key={index} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
+        <div className="form-group mb-2 flex-shrink-0">
+          <button
+            type="button"
+            onClick={performSearch}
+            className="btn btn-primary"
+          >
+            Search
+          </button>
         </div>
       </form>
       <ul className="list-group">

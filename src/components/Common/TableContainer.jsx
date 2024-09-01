@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Row, Table, Button, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import SearchComponent from "../../SearchComponent";
 
 import {
   useReactTable,
@@ -22,6 +23,7 @@ const Filter = ({
   const columnFilterValue = column.getFilterValue();
 
  
+
 
   return (
     <>
@@ -68,7 +70,33 @@ const DebouncedInput = ({
     </React.Fragment>
   );
 };
+const project_year = [
+  { label: 'OR Name', value: 'prs_status_name_or' },
+  { label: 'Amharic Name', value: 'prs_status_name_am' },
+  { label: 'English Name', value: 'prs_status_name_en' },
+]
+const budget_year = [
+  { label: '2012', value: '2012' },
+  { label: ' 2013', value: '2013' },
+  { label: '2014', value: '2014' },
+  { label: '2015', value: '2015' },
+  { label: ' 2016', value: '2016' },
+  { label: '2017', value: '2017' },
+]
+const project_status = [
+  { label: 'OR Name', value: 'prs_status_name_or' },
+  { label: 'Amharic Name', value: 'prs_status_name_am' },
+  { label: 'English Name', value: 'prs_status_name_en' },
+]
 
+const project_duration = [
+  { label: '1 years', value: '1 year' },
+  { label: '2 years', value: '2 years' },
+  { label: '3 years ', value: '3 years' },
+]
+
+// Pass both dropdown configurations as an array
+const dropdawntotal = [project_duration,project_status,budget_year,project_year];
 const TableContainer = ({
   columns,
   data,
@@ -139,7 +167,7 @@ const TableContainer = ({
 
   return (
     <Fragment>
-
+    
       <Row className="mb-2">
         {isCustomPageSize && (
           <Col sm={2}>
@@ -175,7 +203,7 @@ const TableContainer = ({
           </div>
         </Col>}
       </Row>
-     
+      <SearchComponent data={[]} dropdown={dropdawntotal} />;
 
       <div className={divClassName ? divClassName : "table-responsive"}>
         <Table hover className={tableClass} bordered={isBordered}>
