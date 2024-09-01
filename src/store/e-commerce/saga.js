@@ -168,14 +168,16 @@ function* fetchShops() {
     yield put(getShopsFail(error));
   }
 }
-function* onUpdateOrder({ payload: order }) {
+function* onUpdateOrder({ payload: order, modalCallback }) {
   try {
     const response = yield call(updateOrder, order);
     yield put(updateOrderSuccess(response.data));
     toast.success("Order Updated Successfully", { autoClose: 2000 });
+    if (modalCallback) modalCallback();
   } catch (error) {
     yield put(updateOrderFail(error));
     toast.error("Order Update Failed", { autoClose: 2000 });
+    if (modalCallback) modalCallback();
   }
 }
 
@@ -190,15 +192,17 @@ function* onDeleteOrder({ payload: order }) {
   }
 }
 
-function* onAddNewOrder({ payload: order }) {
+function* onAddNewOrder({ payload: order, modalCallback }) {
   try {
     const response = yield call(addNewOrder, order);
     console.log("response in saga", response);
     yield put(addOrderSuccess(response.data));
     toast.success("Order Added Successfully", { autoClose: 2000 });
+    if (modalCallback) modalCallback();
   } catch (error) {
     yield put(addOrderFail(error));
     toast.error("Order Added Failed", { autoClose: 2000 });
+    if (modalCallback) modalCallback();
   }
 }
 

@@ -74,7 +74,7 @@ const EcommerceOrder = () => {
       prs_status_name_am: (order && order.prs_status_name_am) || "",
       prs_description: (order && order.prs_description) || "",
       prs_color_code: (order && order.prs_color_code) || "#fff",
-      prs_status: (order && order.prs_status) || 1,
+      prs_status: (order && order.prs_status) || 0,
       is_deletable: (order && order.is_deletable) || 1,
       is_editable: (order && order.is_editable) || 1,
     },
@@ -103,9 +103,6 @@ const EcommerceOrder = () => {
 
     onSubmit: (values) => {
       if (isEdit) {
-        // console.log("update data")
-        // console.log(order);
-        // console.log("update data")
         const updateOrder = {
           prs_id: order ? order.prs_id : 0,
           prs_order_number: values.prs_order_number,
@@ -119,14 +116,11 @@ const EcommerceOrder = () => {
           is_editable: values.is_editable,
         };
         // update order
+        console.log("updated order", updateOrder);
         dispatch(onUpdateOrder(updateOrder));
         validation.resetForm();
       } else {
-        console.log("update data  add new");
-        console.log(order);
-        console.log("update data add");
         const newOrder = {
-          // prs_id: Math.floor(Math.random() * (1000 - 100)) + 100, // Random ID
           prs_order_number: values.prs_order_number,
           prs_status_name_or: values.prs_status_name_or,
           prs_status_name_en: values.prs_status_name_en,
@@ -135,8 +129,6 @@ const EcommerceOrder = () => {
           prs_color_code: values.prs_color_code,
           prs_status: values.prs_status,
           prs_created_by: 1,
-          // is_deletable: values.is_deletable,
-          // is_editable: values.is_editable,
         };
         // save new order
         dispatch(onAddNewOrder(newOrder));
@@ -384,12 +376,7 @@ const EcommerceOrder = () => {
                 className="text-danger"
                 onClick={() => {
                   const orderData = cellProps.row.original;
-                  // console.log("order delted clicked");
-                  // console.log(orderData.prs_id);
-                  // console.log("order delted clicked");
                   dispatch(onDeleteOrder(orderData.prs_id));
-                  // deleteProjectStatus(orderData.prs_id);
-                  // onClickDelete(orderData);
                 }}
               >
                 <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
@@ -462,15 +449,13 @@ const EcommerceOrder = () => {
                   console.log("onSubmit called");
 
                   validation.handleSubmit();
+                  const modalCallback = () => setModal(false);
 
                   if (isEdit) {
                     console.log("update the project ");
-                    onUpdateOrder(validation.values);
-                    setModal(false);
+                    onUpdateOrder(validation.values, modalCallback);
                   } else {
-                    onAddNewOrder(validation.values);
-                    // return false;
-                    setModal(false);
+                    onAddNewOrder(validation.values, modalCallback);
                   }
                   return false;
                 }}
@@ -602,12 +587,17 @@ const EcommerceOrder = () => {
                         name="prs_status"
                         type="select"
                         className="form-select"
-                        onChange={validation.handleChange}
+                        onChange={(e) => {
+                          validation.setFieldValue(
+                            "prs_status",
+                            Number(e.target.value)
+                          );
+                        }}
                         onBlur={validation.handleBlur}
-                        value={validation.values.prs_status || ""}
+                        value={validation.values.prs_status || 0}
                       >
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value={1}>Active</option>
+                        <option value={0}>Inactive</option>
                       </Input>
                       {validation.touched.prs_status &&
                       validation.errors.prs_status ? (
