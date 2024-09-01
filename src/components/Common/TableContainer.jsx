@@ -89,7 +89,6 @@ const project_status = [
   { label: 'English Name', value: 'prs_status_name_en' },
 ]
 
-
 const project_duration = [
   { label: '1 years', value: '1 year' },
   { label: '2 years', value: '2 years' },
