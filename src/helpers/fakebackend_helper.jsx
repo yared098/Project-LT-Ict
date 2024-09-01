@@ -2,7 +2,7 @@ import axios from "axios";
 import { del, get, post, put } from "./api_helper";
 import * as url from "./url_helper";
 
-const apiUrl =  import.meta.env.BASE_API_URL;
+const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 // Gets the logged in user data from local session
 const getLoggedInUser = () => {
@@ -153,7 +153,7 @@ export const setfolderonmails = (selectedmails, folderId, activeTab) =>
 export const getOrders = async () => {
   try {
     const response = await post(url.GET_ORDERS);
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error); // Handle any errors
   }
@@ -163,7 +163,7 @@ export const getOrders = async () => {
 export const addNewOrder = async (order) => {
   try {
     const response = await axios.post(
-      `${apiUrl}/insertgrid`,
+      `${apiUrl}project_status/insertgrid`,
       order,
       {
         headers: {
@@ -186,7 +186,7 @@ export const updateOrder = (order) =>
 // delete order
 export const deleteOrder = (order) =>
   // post(`${url.DELETE_ORDER}?prs_id=${order?.prs_id}`);
-post(`${url.DELETE_ORDER}?prs_id=${order}`);
+  post(`${url.DELETE_ORDER}?prs_id=${order}`);
 
 // get cart data
 export const getCartData = () => get(url.GET_CART_DATA);

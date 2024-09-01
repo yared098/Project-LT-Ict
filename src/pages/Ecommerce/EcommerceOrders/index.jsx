@@ -156,27 +156,29 @@ const EcommerceOrder = () => {
     })
   );
 
-  const { orders, loading } = useSelector(EcommerceOrderProperties);
-  console.log(orders);
+  const {
+    orders: { data, previledge },
+    loading,
+  } = useSelector(EcommerceOrderProperties);
 
   const [isLoading, setLoading] = useState(loading);
 
   useEffect(() => {
-    if (orders && !orders.length) {
+    if (data && !data.length) {
       dispatch(onGetOrders());
     }
-  }, [dispatch, orders]);
+  }, [dispatch, data]);
 
   useEffect(() => {
-    setOrder(orders);
-  }, [orders]);
+    setOrder(data);
+  }, [data]);
 
   useEffect(() => {
-    if (!isEmpty(orders) && !!isEdit) {
-      setOrder(orders);
+    if (!isEmpty(data) && !!isEdit) {
+      setOrder(data);
       setIsEdit(false);
     }
-  }, [orders]);
+  }, [data]);
 
   const toggle = () => {
     if (modal) {
@@ -231,8 +233,8 @@ const EcommerceOrder = () => {
     toggle();
   };
 
-  const columns = useMemo(
-    () => [
+  const columns = useMemo(() => {
+    const baseColumns = [
       {
         header: "Order Number",
         accessorKey: "prs_order_number",
@@ -327,7 +329,9 @@ const EcommerceOrder = () => {
           );
         },
       },
-      {
+    ];
+    if (previledge?.is_role_editable && previledge?.is_role_deletable) {
+      baseColumns.push({
         header: t("Action"),
         accessorKey: "action",
         enableColumnFilter: false,
@@ -335,59 +339,68 @@ const EcommerceOrder = () => {
         cell: (cellProps) => {
           return (
             <div className="d-flex gap-3">
-              <Link
-                to="#"
-                className="text-success"
-                onClick={() => {
-                  const orderData = cellProps.row.original;
-                  console.log(orderData);
-                  console.log("order edit clicked");
-                  handleOrderClick(orderData);
-                }}
-              >
-                <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
-                <UncontrolledTooltip placement="top" target="edittooltip">
-                  Edit
-                </UncontrolledTooltip>
-              </Link>
-              <Link
-                to="#"
-                className="text-danger"
-                onClick={() => {
-                  const orderData = cellProps.row.original;
-                  dispatch(onDeleteOrder(orderData.prs_id));
-                }}
-              >
-                <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
-                <UncontrolledTooltip placement="top" target="deletetooltip">
-                  Delete
-                </UncontrolledTooltip>
-              </Link>
+              {cellProps.row.original.is_editable && (
+                <Link
+                  to="#"
+                  className="text-success"
+                  onClick={() => {
+                    const orderData = cellProps.row.original;
+                    console.log(orderData);
+                    console.log("order edit clicked");
+                    handleOrderClick(orderData);
+                  }}
+                >
+                  <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
+                  <UncontrolledTooltip placement="top" target="edittooltip">
+                    Edit
+                  </UncontrolledTooltip>
+                </Link>
+              )}
+
+              {cellProps.row.original.is_deletable && (
+                <Link
+                  to="#"
+                  className="text-danger"
+                  onClick={() => {
+                    const orderData = cellProps.row.original;
+                    dispatch(onDeleteOrder(orderData.prs_id));
+                  }}
+                >
+                  <i
+                    className="mdi mdi-delete font-size-18"
+                    id="deletetooltip"
+                  />
+                  <UncontrolledTooltip placement="top" target="deletetooltip">
+                    Delete
+                  </UncontrolledTooltip>
+                </Link>
+              )}
             </div>
           );
         },
-      },
-    ],
-    [handleOrderClick, toggleViewModal, onClickDelete]
-  );
+      });
+    }
+
+    return baseColumns;
+  }, [handleOrderClick, toggleViewModal, onClickDelete]);
   const dropdown1 = [
-    { label: 'OR Name', value: 'prs_status_name_or' },
-    { label: 'Amharic Name', value: 'prs_status_name_am' },
-    { label: 'English Name', value: 'prs_status_name_en' },
-  ]
+    { label: "OR Name", value: "prs_status_name_or" },
+    { label: "Amharic Name", value: "prs_status_name_am" },
+    { label: "English Name", value: "prs_status_name_en" },
+  ];
   const dropdown2 = [
-    { label: 'OR Name', value: 'prs_status_name_or' },
-    { label: 'Amharic Name', value: 'prs_status_name_am' },
-    { label: 'English Name', value: 'prs_status_name_en' },
-  ]
+    { label: "OR Name", value: "prs_status_name_or" },
+    { label: "Amharic Name", value: "prs_status_name_am" },
+    { label: "English Name", value: "prs_status_name_en" },
+  ];
   const dropdown3 = [
-    { label: 'OR Name', value: 'prs_status_name_or' },
-    { label: 'Amharic Name', value: 'prs_status_name_am' },
-    { label: 'English Name', value: 'prs_status_name_en' },
-  ]
+    { label: "OR Name", value: "prs_status_name_or" },
+    { label: "Amharic Name", value: "prs_status_name_am" },
+    { label: "English Name", value: "prs_status_name_en" },
+  ];
 
   // Pass both dropdown configurations as an array
-const dropdawntotal = [dropdown1, dropdown2,dropdown3];
+  const dropdawntotal = [dropdown1, dropdown2, dropdown3];
 
   return (
     <React.Fragment>
@@ -402,7 +415,7 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
-      {/* <SearchComponent data={orders} dropdown={dropdawntotal} />; */}
+        {/* <SearchComponent data={orders} dropdown={dropdawntotal} />; */}
         <div className="container-fluid">
           <Breadcrumbs title="Ecommerce" breadcrumbItem="Projects" />
           {isLoading ? (
@@ -414,7 +427,7 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                   <CardBody>
                     <TableContainer
                       columns={columns}
-                      data={orders || []}
+                      data={data || []}
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}

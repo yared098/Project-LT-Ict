@@ -34,13 +34,16 @@ import {
 const INIT_STATE = {
   products: [],
   product: {},
-  orders: [],
+  orders: {
+    data: [],
+    previledge: {},
+  },
   cartData: {},
   customers: [],
   shops: [],
   error: {},
   productComments: [],
-  loading: true
+  loading: true,
 };
 
 const Ecommerce = (state = INIT_STATE, action) => {
@@ -49,7 +52,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         products: action.payload,
-        loading: true
+        loading: true,
       };
 
     case GET_PRODUCTS_FAIL:
@@ -73,20 +76,27 @@ const Ecommerce = (state = INIT_STATE, action) => {
     case GET_ORDERS_SUCCESS:
       return {
         ...state,
-        orders: action.payload,
-        loading: true
+        orders: {
+          data: action.payload.data, // Set the orders data
+          previledge: action.payload.previledge, // Set the previledge
+        },
+        loading: false, // Assuming you want to stop loading when the data is fetched
       };
 
     case GET_ORDERS_FAIL:
       return {
         ...state,
         error: action.payload,
+        loading: false, // Stop loading if there is an error
       };
 
     case ADD_ORDER_SUCCESS:
       return {
         ...state,
-        orders: [action.payload, ...state.orders],
+        orders: {
+          ...state.orders,
+          data: [action.payload, ...state.orders.data], // Add new order to the beginning of the list
+        },
       };
 
     case ADD_ORDER_FAIL:
@@ -98,11 +108,14 @@ const Ecommerce = (state = INIT_STATE, action) => {
     case UPDATE_ORDER_SUCCESS:
       return {
         ...state,
-        orders: state.orders.map(order =>
-          order.prs_id.toString() === action.payload.prs_id.toString()
-            ? { order, ...action.payload }
-            : order
-        ),
+        orders: {
+          ...state.orders,
+          data: state.orders.data.map((order) =>
+            order.prs_id.toString() === action.payload.prs_id.toString()
+              ? { ...order, ...action.payload } // Update the specific order
+              : order
+          ),
+        },
       };
 
     case UPDATE_ORDER_FAIL:
@@ -114,9 +127,13 @@ const Ecommerce = (state = INIT_STATE, action) => {
     case DELETE_ORDER_SUCCESS:
       return {
         ...state,
-        orders: state.orders.filter(
-          order => order.prs_id.toString() !== action.payload.deleted_id.toString()
-        ),
+        orders: {
+          ...state.orders,
+          data: state.orders.data.filter(
+            (order) =>
+              order.prs_id.toString() !== action.payload.deleted_id.toString()
+          ),
+        },
       };
 
     case DELETE_ORDER_FAIL:
@@ -141,7 +158,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         customers: action.payload,
-        loading: true
+        loading: true,
       };
 
     case GET_CUSTOMERS_FAIL:
@@ -165,7 +182,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
     case UPDATE_CUSTOMER_SUCCESS:
       return {
         ...state,
-        customers: state.customers.map(customer =>
+        customers: state.customers.map((customer) =>
           customer.id.toString() === action.payload.id.toString()
             ? { customer, ...action.payload }
             : customer
@@ -182,7 +199,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         customers: state.customers.filter(
-          customer => customer.id.toString() !== action.payload.toString()
+          (customer) => customer.id.toString() !== action.payload.toString()
         ),
       };
 
@@ -196,7 +213,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         shops: action.payload,
-        loading: true
+        loading: true,
       };
 
     case GET_SHOPS_FAIL:
