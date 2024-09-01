@@ -324,7 +324,7 @@ const EcommerceOrder = () => {
                 setTransaction(cellProps.row.original);
               }}
             >
-              View Details
+             {t("View Details")}
             </Button>
           );
         },
@@ -473,7 +473,7 @@ const EcommerceOrder = () => {
                 <Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>Order Number</Label>
+                      <Label>{t('prs_order_number')}</Label>
                       <Input
                         name="prs_order_number"
                         type="text"
@@ -496,7 +496,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>Status Name (English)</Label>
+                      <Label>{t('prs_status_name_en')}</Label>
                       <Input
                         name="prs_status_name_en"
                         type="text"
@@ -521,7 +521,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>Status Name (Oromo)</Label>
+                      <Label>{t('prs_status_name_or')}</Label>
                       <Input
                         name="prs_status_name_or"
                         type="text"
@@ -544,7 +544,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>Status Name (Amharic)</Label>
+                      <Label>{t('prs_status_name_am')}</Label>
                       <Input
                         name="prs_status_name_am"
                         type="text"
@@ -569,7 +569,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>Description</Label>
+                      <Label>{t('prs_description')}</Label>
                       <Input
                         name="prs_description"
                         type="textarea"
@@ -592,7 +592,7 @@ const EcommerceOrder = () => {
                       ) : null}
                     </Col>
                     <Col className="col-md-6 mb-3">
-                      <Label>Status</Label>
+                      <Label>{t('prs_status')}</Label>
                       <Input
                         name="prs_status"
                         type="select"
@@ -606,8 +606,8 @@ const EcommerceOrder = () => {
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status || 0}
                       >
-                        <option value={1}>Active</option>
-                        <option value={0}>Inactive</option>
+                        <option value={1}>{t('Active')}</option>
+                        <option value={0}>{t('Inactive')}</option>
                       </Input>
                       {validation.touched.prs_status &&
                       validation.errors.prs_status ? (
@@ -619,7 +619,7 @@ const EcommerceOrder = () => {
                   </Row>
                   <Row>
                     <Col className="col-md-6 mb-3">
-                      <Label>Color Code</Label>
+                      <Label>{t('prs_color_code')}</Label>
                       <Input
                         name="prs_color_code"
                         type="text"
@@ -651,7 +651,7 @@ const EcommerceOrder = () => {
                         type="submit"
                         className="save-user"
                       >
-                        Save
+                        {t('Save')}
                       </Button>
                     </div>
                   </Col>

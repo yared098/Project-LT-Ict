@@ -171,10 +171,22 @@
  "prs_status_name_en": "English",
   "prs_status_name_am": "Amharic",
   "prs_status_name_or": "Oromo",
-  "view_details": "View Details",
+  "View Details": "View Details",
   "edit": "Edit",
   "delete": "Delete",
   "Edit Project Status": "Edit Project Status",
   "Add Project Status": "Add Project Status",
-  "Add New Order": "Add New Order"
+  "Add New Order": "Add New Order",
+
+  "Order Delete Successfully": "Order Delete Successfully",
+  "Order Delete Failed": "Order Delete Failed",
+  "Order Added Successfully": "Order Added Successfully",
+  "Order Added Failed": "Order Added Failed",
+  "Order Updated Successfully": "Order Updated Successfully",
+  "Order Update Failed": "Order Update Failed",
+
+  "Active": "Active",
+  "Inactive": "Inactive",
+  "Add": "Add",
+  "Save": "Save"
 }
