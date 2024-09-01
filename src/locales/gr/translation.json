@@ -187,8 +187,8 @@
  "prs_status_name_en": "Ingiliziffa",
   "prs_status_name_am": "Amharic",
   "prs_status_name_or": "Afaan Oromo",
-  "View Details":"View Details",
-  "view_details": "Detaa Ilaali",
+ 
+  "View Details": "Detaa Ilaali",
   "edit": "Fooyyeessi",
   "delete": "Haqi",
   "Edit Project Status": "Haala Proojektii Fooyyeessi",
@@ -200,7 +200,12 @@
   "Order Added Successfully": "Ajajni milkaa'inaan dabalee jira",
   "Order Added Failed": "Ajajni dabaluun hin milkaa'inne",
   "Order Updated Successfully": "Ajajni milkaa'inaan haaromfamee jira",
-  "Order Update Failed": "Ajajni haaromsuu hin milkaa'inne"
+  "Order Update Failed": "Ajajni haaromsuu hin milkaa'inne",
+
+  "Active": "Hojii irra jiru",
+  "Inactive": "Hojii irra hin jirre",
+  "Add": "Dabalata",
+  "Save": "Ittisaa"
 
   
   

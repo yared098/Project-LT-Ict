@@ -186,6 +186,7 @@
   "prs_status_name_en": "እንግሊዝኛ",
   "prs_status_name_am": "አማርኛ",
   "prs_status_name_or": "ኦሮሚፍፋ",
+  "View Details": "ዝርዝር ይመልከቱ",
   "view_details": "ዝርዝር ይመልከቱ",
   "edit": "አርትዕ",
   "delete": "አጥፋ",
@@ -198,6 +199,11 @@
   "Order Added Successfully": "ትዕዛዝ በተሳካ ሁኔታ ታክሏል",
   "Order Added Failed": "ትዕዛዝ መጨመር አልተሳካም",
   "Order Updated Successfully": "ትዕዛዝ በተሳካ ሁኔታ ታድሷል",
-  "Order Update Failed": "ትዕዛዝ ማደስ አልተሳካም"
+  "Order Update Failed": "ትዕዛዝ ማደስ አልተሳካም",
+
+  "Active": "አስተዳደር",
+  "Inactive": "ያልተጠቃሚ",
+  "Add": "አክል",
+  "Save": "ቀስት"
   
 }
