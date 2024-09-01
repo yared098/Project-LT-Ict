@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -8,7 +7,7 @@ import TableContainer from "../../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Spinners from "../../../components/Common/Spinner";
-import SearchComponent from "../../../SearchComponent"
+import SearchComponent from "../../../SearchComponent";
 //import components
 import Breadcrumbs from "../../../components/Common/Breadcrumb";
 import DeleteModal from "../../../components/Common/DeleteModal";
@@ -24,7 +23,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import EcommerceOrdersModal from "./EcommerceOrdersModal";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 import {
   Button,
@@ -53,10 +52,8 @@ import Flatpickr from "react-flatpickr";
 const EcommerceOrder = () => {
   //meta title
   document.title = "Orders | Skote - Vite React Admin & Dashboard Template";
-  
- 
 
-  const {t}=useTranslation();
+  const { t } = useTranslation();
 
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
@@ -77,7 +74,7 @@ const EcommerceOrder = () => {
       prs_status_name_am: (order && order.prs_status_name_am) || "",
       prs_description: (order && order.prs_description) || "",
       prs_color_code: (order && order.prs_color_code) || "#fff",
-      prs_status: (order && order.prs_status) || 1,
+      prs_status: (order && order.prs_status) || 0,
       is_deletable: (order && order.is_deletable) || 1,
       is_editable: (order && order.is_editable) || 1,
     },
@@ -106,9 +103,6 @@ const EcommerceOrder = () => {
 
     onSubmit: (values) => {
       if (isEdit) {
-        // console.log("update data")
-        // console.log(order);
-        // console.log("update data")
         const updateOrder = {
           prs_id: order ? order.prs_id : 0,
           prs_order_number: values.prs_order_number,
@@ -122,14 +116,11 @@ const EcommerceOrder = () => {
           is_editable: values.is_editable,
         };
         // update order
+        console.log("updated order", updateOrder);
         dispatch(onUpdateOrder(updateOrder));
         validation.resetForm();
       } else {
-        console.log("update data  add new")
-        console.log(order);
-        console.log("update data add")
         const newOrder = {
-          // prs_id: Math.floor(Math.random() * (1000 - 100)) + 100, // Random ID
           prs_order_number: values.prs_order_number,
           prs_status_name_or: values.prs_status_name_or,
           prs_status_name_en: values.prs_status_name_en,
@@ -138,8 +129,6 @@ const EcommerceOrder = () => {
           prs_color_code: values.prs_color_code,
           prs_status: values.prs_status,
           prs_created_by: 1,
-          // is_deletable: values.is_deletable,
-          // is_editable: values.is_editable,
         };
         // save new order
         dispatch(onAddNewOrder(newOrder));
@@ -154,10 +143,9 @@ const EcommerceOrder = () => {
 
   const dispatch = useDispatch();
 
-   // Fetch orders on component mount
-   useEffect(() => {
+  // Fetch orders on component mount
+  useEffect(() => {
     dispatch(onGetOrders());
-    
   }, [dispatch]);
 
   const EcommerceOrderProperties = createSelector(
@@ -169,7 +157,7 @@ const EcommerceOrder = () => {
   );
 
   const { orders, loading } = useSelector(EcommerceOrderProperties);
-  console.log(orders)
+  console.log(orders);
 
   const [isLoading, setLoading] = useState(loading);
 
@@ -226,7 +214,6 @@ const EcommerceOrder = () => {
   const [deleteModal, setDeleteModal] = useState(false);
 
   const onClickDelete = (order) => {
-    
     setOrder(order);
     deleteProjectStatus(order.prs_id);
     setDeleteModal(true);
@@ -341,19 +328,20 @@ const EcommerceOrder = () => {
         },
       },
       {
-        header: t('View Details'),
+        header: t("View Details"),
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <Button
-            type="button"
-            color="primary"
-            className="btn-sm btn-rounded"
-            onClick={() => {
-              const orderData = cellProps.row.original; toggleViewModal(orderData);
-              setTransaction(cellProps.row.original)
-            }}
+              type="button"
+              color="primary"
+              className="btn-sm btn-rounded"
+              onClick={() => {
+                const orderData = cellProps.row.original;
+                toggleViewModal(orderData);
+                setTransaction(cellProps.row.original);
+              }}
             >
               View Details
             </Button>
@@ -361,7 +349,7 @@ const EcommerceOrder = () => {
         },
       },
       {
-        header: t('Action'),
+        header: t("Action"),
         accessorKey: "action",
         enableColumnFilter: false,
         enableSorting: true,
@@ -388,12 +376,7 @@ const EcommerceOrder = () => {
                 className="text-danger"
                 onClick={() => {
                   const orderData = cellProps.row.original;
-                  // console.log("order delted clicked");
-                  // console.log(orderData.prs_id);
-                  // console.log("order delted clicked");
                   dispatch(onDeleteOrder(orderData.prs_id));
-                  // deleteProjectStatus(orderData.prs_id);
-                  // onClickDelete(orderData);
                 }}
               >
                 <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
@@ -429,7 +412,11 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
 
   return (
     <React.Fragment>
-      <EcommerceOrdersModal isOpen={modal1} toggle={toggleViewModal} transaction={transaction} />
+      <EcommerceOrdersModal
+        isOpen={modal1}
+        toggle={toggleViewModal}
+        transaction={transaction}
+      />
       <DeleteModal
         show={deleteModal}
         onDeleteClick={handleDeleteOrder}
@@ -456,7 +443,7 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                       isPagination={true}
                       SearchPlaceholder="26 records..."
                       buttonClass="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t('Add New Order')}
+                      buttonName={t("Add New Order")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -467,10 +454,10 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
               </Col>
             </Row>
           )}
-          
-          <Modal isOpen={modal} toggle={toggle}>
+
+          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? t('Edit Project Status') : t('Add Project Status')}
+              {!!isEdit ? t("Edit Project Status") : t("Add Project Status")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -480,45 +467,20 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                   console.log("onSubmit called");
 
                   validation.handleSubmit();
+                  const modalCallback = () => setModal(false);
 
                   if (isEdit) {
                     console.log("update the project ");
-                    onUpdateOrder(validation.values);
-
-                    // return false;
-                    setModal(false);
+                    onUpdateOrder(validation.values, modalCallback);
                   } else {
-                    onAddNewOrder(validation.values);
-                    // return false;
-                    setModal(false);
+                    onAddNewOrder(validation.values, modalCallback);
                   }
                   return false;
                 }}
               >
                 <Row>
-                  <Col className="col-12">
-                    {/* <div className="mb-3">
-                      <Label>Project Status ID</Label>
-                      <Input
-                        name="prs_id"
-                        type="text"
-                        placeholder="Insert Project Status ID"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.prs_id || ""}
-                        invalid={
-                          validation.touched.prs_id && validation.errors.prs_id
-                            ? true
-                            : false
-                        }
-                      />
-                      {validation.touched.prs_id && validation.errors.prs_id ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prs_id}
-                        </FormFeedback>
-                      ) : null}
-                    </div> */}
-                    <div className="mb-3">
+                  <Row>
+                    <Col className="col-md-6 mb-3">
                       <Label>Order Number</Label>
                       <Input
                         name="prs_order_number"
@@ -540,8 +502,8 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_order_number}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                    <Col className="col-md-6 mb-3">
                       <Label>Status Name (English)</Label>
                       <Input
                         name="prs_status_name_en"
@@ -563,8 +525,10 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_status_name_en}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="col-md-6 mb-3">
                       <Label>Status Name (Oromo)</Label>
                       <Input
                         name="prs_status_name_or"
@@ -586,8 +550,8 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_status_name_or}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                    <Col className="col-md-6 mb-3">
                       <Label>Status Name (Amharic)</Label>
                       <Input
                         name="prs_status_name_am"
@@ -609,8 +573,10 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_status_name_am}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="col-md-6 mb-3">
                       <Label>Description</Label>
                       <Input
                         name="prs_description"
@@ -632,19 +598,24 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_description}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                    <Col className="col-md-6 mb-3">
                       <Label>Status</Label>
                       <Input
                         name="prs_status"
                         type="select"
                         className="form-select"
-                        onChange={validation.handleChange}
+                        onChange={(e) => {
+                          validation.setFieldValue(
+                            "prs_status",
+                            Number(e.target.value)
+                          );
+                        }}
                         onBlur={validation.handleBlur}
-                        value={validation.values.prs_status || ""}
+                        value={validation.values.prs_status || 0}
                       >
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value={1}>Active</option>
+                        <option value={0}>Inactive</option>
                       </Input>
                       {validation.touched.prs_status &&
                       validation.errors.prs_status ? (
@@ -652,8 +623,10 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_status}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                    <div className="mb-3">
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="col-md-6 mb-3">
                       <Label>Color Code</Label>
                       <Input
                         name="prs_color_code"
@@ -675,8 +648,8 @@ const dropdawntotal = [dropdown1, dropdown2,dropdown3];
                           {validation.errors.prs_color_code}
                         </FormFeedback>
                       ) : null}
-                    </div>
-                  </Col>
+                    </Col>
+                  </Row>
                 </Row>
                 <Row>
                   <Col>
