@@ -164,16 +164,14 @@ const SidebarContent = (props) => {
                   <Link to="/blog">{props.t("Blog")}</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard-job">
-                    {props.t("Job")}
-                  </Link>
+                  <Link to="/dashboard-job">{props.t("Job")}</Link>
                 </li>
               </ul>
             </li>
 
             <li className="menu-title">{props.t("Apps")}</li>
 
-            <li>
+            {/* <li>
               <Link to="/calendar" className=" ">
                 <i className="bx bx-calendar"></i>
                 <span>{props.t("Calendar")}</span>
@@ -191,26 +189,28 @@ const SidebarContent = (props) => {
                 <i className="bx bx-file"></i>
                 <span>{props.t("File Manager")}</span>
               </Link>
-            </li>
+            </li> */}
 
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-store"></i>
-                <span>{props.t("Ecommerce")}</span>
+                <span>{props.t("Projects")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                <li>
+                {/* <li>
                   <Link to="/ecommerce-products">{props.t("Products")}</Link>
                 </li>
                 <li>
                   <Link to="/ecommerce-product-detail/1">
                     {props.t("Product Detail")}
                   </Link>
-                </li>
+                </li> */}
                 <li>
-                  <Link to="/ecommerce-orders">{props.t("Orders")}</Link>
+                  <Link to="/projects-status">
+                    {props.t("Projects Status")}
+                  </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/ecommerce-customers">{props.t("Customers")}</Link>
                 </li>
                 <li>
@@ -226,11 +226,11 @@ const SidebarContent = (props) => {
                   <Link to="/ecommerce-add-product">
                     {props.t("Add Product")}
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </li>
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow ">
                 <i className="bx bx-bitcoin"></i>
                 <span>{props.t("Crypto")}</span>
@@ -653,9 +653,9 @@ const SidebarContent = (props) => {
                   <Link to="/form-mask">{props.t("Form Mask")}</Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow ">
                 <i className="bx bx-list-ul"></i>
                 <span>{props.t("Tables")}</span>
@@ -667,19 +667,19 @@ const SidebarContent = (props) => {
                 <li>
                   <Link to="/tables-datatable">{props.t("Data Tables")}</Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link to="/tables-responsive">
                     {props.t("Responsive Table")}
                   </Link>
-                </li> */}
-                {/* <li>
+                </li> 
+                 <li>
                   <Link to="/tables-dragndrop">
                     {props.t("Drag & Drop Table")}
                   </Link>
-                </li> */}
+                </li>
               </ul>
-            </li>
-
+            </li> */}
+            {/* 
             <li>
               <Link to="/#" className="has-arrow ">
                 <i className="bx bxs-bar-chart-alt-2"></i>
@@ -769,7 +769,7 @@ const SidebarContent = (props) => {
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </SimpleBar>

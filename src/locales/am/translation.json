@@ -80,7 +80,7 @@
   "Register": "ተመዝግብ",
   "Forget Password": "የምስጥር ቃል መረዳት",
   "Utility": "አጠቃላይነት",
- "Starter Page": "መነሣት ገፅ",
+  "Starter Page": "መነሣት ገፅ",
   "Maintenance": "ጥንቃቄ",
   "Coming Soon": "እንደገና ይጠበቃል",
   "Timeline": "ጊዜ መሰረት",
@@ -168,7 +168,6 @@
   "Horizontal layout": "አንፀባራሪ እቅድ",
   "Light Sidebar": "ቀለል እንደ እቅድ",
   "Compact Sidebar": "ኮምፓክት እንደ እቅድ",
-  
 
   "is_deletable": "ሊወገድ ይችላል",
   "is_editable": "ሊማረም ይችላል",
@@ -193,7 +192,7 @@
   "Edit Project Status": "ፕሮጀክት ሁኔታ አርትዕ",
   "Add Project Status": "ፕሮጀክት ሁኔታ ያክሉ",
   "Add New Order": "አዲስ ትእዛዝ አክል",
-  
+
   "Order Delete Successfully": "ትዕዛዝ በተሳካ ሁኔታ ተሰርዟል",
   "Order Delete Failed": "ትዕዛዝ መሰረዝ አልተሳካም",
   "Order Added Successfully": "ትዕዛዝ በተሳካ ሁኔታ ታክሏል",
@@ -205,8 +204,8 @@
   "Inactive": "ያልተጠቃሚ",
   "Add": "አክል",
   "Save": "ቀስት",
-  
+
   "Results": "ውጤቶች",
-  "Showing": "እየታዩ"
-  
+  "Showing": "እየታዩ",
+  "Projects Status": "የፕሮግራሞች ሁኔታ"
 }

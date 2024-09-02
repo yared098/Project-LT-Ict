@@ -448,7 +448,7 @@ const EcommerceOrder = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs title="Ecommerce" breadcrumbItem="Projects" />
+          <Breadcrumbs title="Projects" breadcrumbItem="projects status" />
           <SearchComponent
             data={[]}
             dropdown={dropdawntotal}

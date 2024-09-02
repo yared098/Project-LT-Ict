@@ -28,7 +28,6 @@
   "ICO Landing": "ICO Bu'aa",
   "Email": "Imeeli",
 
-
   "Inbox": "Bokksii",
   "Read Email": "Imeeli Dubbisi",
   "Invoices": "Fakkii",
@@ -57,7 +56,6 @@
   "Jobs Categories": "Kaatigorii Hojiiwwan",
   "Candidate": "Kandidaata",
   "List": "Tarree",
-
 
   "Overview": "Hubannoo",
   "Templates": "Maaloo",
@@ -89,7 +87,6 @@
   "Coming Soon": "Kooti Dhihoo",
   "Timeline": "Yeroo",
   "FAQs": "Gaaffiiwwan",
-
 
   "Pricing": "Gatii",
   "Error 404": "Dogoggora 404",
@@ -127,7 +124,6 @@
   "Form Advanced": "Fooramii Guddaa",
   "Form Editors": "Editoroota Fooramii",
 
-
   "Form File Upload": "Faayiloota Fooramii Olkaa'uu",
   "Form Xeditable": "Fooramii Xeditable",
   "Form Repeater": "Fooramii Repeater",
@@ -163,8 +159,7 @@
   "Lock Screen": "Skrinicha Cufi",
   "Logout": "Ba'u",
 
-
-   "View all": "Hunda Ilaali",
+  "View all": "Hunda Ilaali",
   "Your order is placed": "Ajajni Kee Ergamuu",
   "If several languages coalesce the grammar": "Yoo Afaanota Baay'een Hawaasa Qabatu",
   "3 min ago": "Daqiiqaa 3 darbe",
@@ -179,8 +174,6 @@
   "Light Sidebar": "Sidbaara ifaa",
   "Compact Sidebar": "Sidbaara Komaapakti",
 
-
-
   "is_deletable": "Haala Haqummaa Qabu",
   "is_editable": "Haala Sirreessaa Qabu",
   "prs_color_code": "Koodii Halluu",
@@ -194,10 +187,10 @@
   "prs_status": "Sadarkaa",
   "prs_status_name": "Jalqabame",
   "prs_update_time": "Yeroo Haaromsaa",
- "prs_status_name_en": "Ingiliziffa",
+  "prs_status_name_en": "Ingiliziffa",
   "prs_status_name_am": "Amharic",
   "prs_status_name_or": "Afaan Oromo",
- 
+
   "View Details": "Detaa Ilaali",
   "edit": "Fooyyeessi",
   "delete": "Haqi",
@@ -217,10 +210,7 @@
   "Add": "Dabalata",
   "Save": "Ittisaa",
 
-   "Results": "Bu'aa",
-  "Showing": "Agarsiisaa"
-
-  
-  
-  
+  "Results": "Bu'aa",
+  "Showing": "Agarsiisaa",
+  "Projects Status": "Haala pirojektootaa"
 }
