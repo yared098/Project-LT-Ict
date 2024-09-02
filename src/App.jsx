@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -20,6 +20,8 @@ import NonAuthLayout from "./components/NonAuthLayout";
 
 // Import scss
 import "./assets/scss/theme.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
@@ -44,6 +46,27 @@ fakeBackend();
 // initFirebaseBackend(firebaseConfig)
 
 const App = (props) => {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    const handleOnlineStatusChange = () => {
+      setIsOnline(navigator.onLine);
+    };
+    window.addEventListener("online", handleOnlineStatusChange);
+    window.addEventListener("offline", handleOnlineStatusChange);
+    return () => {
+      window.removeEventListener("online", handleOnlineStatusChange);
+      window.removeEventListener("offline", handleOnlineStatusChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isOnline) {
+      toast.error("You are currently offline", { autoClose: 1000 });
+    } else {
+      toast.success("You are back online", { autoClose: 1000 });
+    }
+  }, [isOnline]);
+
   const LayoutProperties = createSelector(
     (state) => state.Layout,
     (layout) => ({
@@ -51,9 +74,7 @@ const App = (props) => {
     })
   );
 
-  const {
-    layoutType
-  } = useSelector(LayoutProperties);
+  const { layoutType } = useSelector(LayoutProperties);
 
   function getLayout(layoutType) {
     let layoutCls = VerticalLayout;
