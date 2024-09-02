@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PERFORM_SEARCH_REQUEST } from "../../store/search/actionTypes";
+import { useTranslation } from "react-i18next";
 
 const SearchComponent = ({ data, dropdown }) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFields, setSelectedFields] = useState(dropdown.map(() => ""));
   const dispatch = useDispatch();
@@ -58,9 +60,9 @@ const SearchComponent = ({ data, dropdown }) => {
           <button
             type="button"
             onClick={performSearch}
-            className="btn btn-primary"
+            className="btn btn-success rounded-lg"
           >
-            Search
+            {t('Search')}
           </button>
         </div>
       </form>
