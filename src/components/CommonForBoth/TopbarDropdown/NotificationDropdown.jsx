@@ -1,20 +1,19 @@
-import React, { useState } from "react"
-import PropTypes from 'prop-types'
-import { Link } from "react-router-dom"
-import { Dropdown, DropdownToggle, DropdownMenu, Row, Col } from "reactstrap"
-import SimpleBar from "simplebar-react"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { Dropdown, DropdownToggle, DropdownMenu, Row, Col } from "reactstrap";
+import SimpleBar from "simplebar-react";
 
 //Import images
-import avatar3 from "../../../assets/images/users/avatar-3.jpg"
-import avatar4 from "../../../assets/images/users/avatar-4.jpg"
+import avatar3 from "../../../assets/images/users/avatar-3.jpg";
+import avatar4 from "../../../assets/images/users/avatar-4.jpg";
 
 //i18n
-import { withTranslation } from "react-i18next"
+import { withTranslation } from "react-i18next";
 
-const NotificationDropdown = props => {
-  console.log(props);
+const NotificationDropdown = (props) => {
   // Declare a new state variable, which we'll call "menu"
-  const [menu, setMenu] = useState(false)
+  const [menu, setMenu] = useState(false);
 
   return (
     <React.Fragment>
@@ -146,19 +145,18 @@ const NotificationDropdown = props => {
               className="btn btn-sm btn-link font-size-14 btn-block text-center"
               to="#"
             >
-              <i className="mdi mdi-arrow-right-circle me-1"></i>
-              {" "}
+              <i className="mdi mdi-arrow-right-circle me-1"></i>{" "}
               {props.t("View all")}{" "}
             </Link>
           </div>
         </DropdownMenu>
       </Dropdown>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default withTranslation()(NotificationDropdown)
+export default withTranslation()(NotificationDropdown);
 
 NotificationDropdown.propTypes = {
-  t: PropTypes.any
-}
+  t: PropTypes.any,
+};

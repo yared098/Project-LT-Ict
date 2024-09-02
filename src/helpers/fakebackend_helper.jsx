@@ -347,6 +347,28 @@ const onAddComment = (productId, commentText) => {
   });
 };
 
+export const fetchSearchResults = async (searchTerm, selectedFields) => {
+  let queryParams = [];
+  if (searchTerm && searchTerm.search_en_value) {
+    queryParams.push(
+      `search_en_name=${encodeURIComponent(searchTerm.search_en_value)}`
+    );
+  }
+  selectedFields.forEach((field) => {
+    const [key] = Object.keys(field);
+    const value = field[key];
+    if (value !== undefined && value !== "") {
+      queryParams.push(`${key}=${encodeURIComponent(value)}`);
+    }
+  });
+  const queryString = queryParams.join("&");
+
+  const response = await axios.post(
+    `${apiUrl}project_status/listgrid?${queryString}`
+  );
+  return response.data.data;
+};
+
 export {
   getLoggedInUser,
   isUserAuthenticated,

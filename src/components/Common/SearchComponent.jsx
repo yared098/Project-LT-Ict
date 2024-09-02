@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PERFORM_SEARCH_REQUEST } from "../../store/search/actionTypes";
 
-const SearchComponent = ({ data, dropdown }) => {
+const SearchComponent = ({
+  data,
+  dropdown,
+  handleSearch,
+  handleClearSearch,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFields, setSelectedFields] = useState(dropdown.map(() => ""));
   const dispatch = useDispatch();
@@ -17,13 +22,27 @@ const SearchComponent = ({ data, dropdown }) => {
     setSelectedFields(newSelectedFields);
   };
 
+  const resetForm = () => {
+    setSearchTerm("");
+    setSelectedFields(dropdown.map(() => ""));
+  };
+
+  const handleClear = () => {
+    resetForm();
+    handleClearSearch();
+  };
   const performSearch = () => {
+    handleSearch();
+    const fieldKeys = ["status", "budgetYear"];
+    const transformedData = {
+      searchTerm: { search_en_value: searchTerm },
+      selectedFields: selectedFields.map((field, index) => ({
+        [fieldKeys[index]]: field,
+      })),
+    };
     dispatch({
       type: PERFORM_SEARCH_REQUEST,
-      payload: {
-        searchTerm,
-        selectedFields,
-      },
+      payload: transformedData,
     });
   };
 
@@ -58,9 +77,18 @@ const SearchComponent = ({ data, dropdown }) => {
           <button
             type="button"
             onClick={performSearch}
-            className="btn btn-primary"
+            className="btn btn-success"
           >
             Search
+          </button>
+        </div>
+        <div className="form-group mb-2 flex-shrink-0 ms-2">
+          <button
+            type="button"
+            onClick={handleClear}
+            className="btn btn-danger"
+          >
+            Clear
           </button>
         </div>
       </form>

@@ -5,8 +5,9 @@ import {
 } from "./actionTypes";
 
 const initialState = {
-  searchResults: [],
-  loading: false,
+  searchTerm: {},
+  selectedFields: [],
+  results: [],
   error: null,
 };
 
@@ -15,22 +16,20 @@ const searchReducer = (state = initialState, action) => {
     case PERFORM_SEARCH_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        searchTerm: action.payload.searchTerm,
+        selectedFields: action.payload.selectedFields,
       };
 
     case PERFORM_SEARCH_SUCCESS:
       return {
         ...state,
-        searchResults: action.payload,
-        loading: false,
+        results: action.payload,
       };
 
     case PERFORM_SEARCH_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        error: action.payload.error,
       };
 
     default:

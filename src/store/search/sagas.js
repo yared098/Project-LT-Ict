@@ -1,27 +1,17 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import axios from "axios";
-import {
-  PERFORM_SEARCH_REQUEST,
-  PERFORM_SEARCH_SUCCESS,
-  PERFORM_SEARCH_FAIL,
-} from "./actionTypes";
-import { performSearchSuccess, performSearchFail } from "./actions";
+import { call, put, takeLatest, takeEvery } from "redux-saga/effects";
+import { PERFORM_SEARCH_REQUEST } from "./actionTypes";
+import { performSearchSuccess, performSearchFail } from "./action";
+import { fetchSearchResults } from "../../helpers/fakebackend_helper";
 
 function* performSearchSaga(action) {
   try {
     const { searchTerm, selectedFields } = action.payload;
-    const response = yield call(axios.get, "https://api.example.com/search", {
-      params: {
-        searchTerm,
-        selectedFields,
-      },
-    });
-    yield put(performSearchSuccess(response.data));
+    const results = yield call(fetchSearchResults, searchTerm, selectedFields);
+    yield put(performSearchSuccess(results));
   } catch (error) {
-    yield put(performSearchFail(error.message));
+    yield put(performSearchFail(error));
   }
 }
-
 export default function* watchSearchSaga() {
-  yield takeLatest(PERFORM_SEARCH_REQUEST, performSearchSaga);
+  yield takeEvery(PERFORM_SEARCH_REQUEST, performSearchSaga);
 }

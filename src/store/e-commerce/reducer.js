@@ -77,17 +77,17 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         orders: {
-          data: action.payload.data, // Set the orders data
-          previledge: action.payload.previledge, // Set the previledge
+          data: action.payload.data, 
+          previledge: action.payload.previledge, 
         },
-        loading: false, // Assuming you want to stop loading when the data is fetched
+        loading: false,
       };
 
     case GET_ORDERS_FAIL:
       return {
         ...state,
         error: action.payload,
-        loading: false, // Stop loading if there is an error
+        loading: false, 
       };
 
     case ADD_ORDER_SUCCESS:
@@ -95,7 +95,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
         ...state,
         orders: {
           ...state.orders,
-          data: [action.payload, ...state.orders.data], // Add new order to the beginning of the list
+          data: [action.payload, ...state.orders.data], 
         },
       };
 

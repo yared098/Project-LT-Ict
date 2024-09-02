@@ -63,6 +63,9 @@ const EcommerceOrder = () => {
   const [order, setOrder] = useState(null);
   const [budgetYearOptions, setBudgetYearOptions] = useState([]);
 
+  const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
+  const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
+
   useEffect(() => {
     const fetchBudgetYears = async () => {
       try {
@@ -141,7 +144,6 @@ const EcommerceOrder = () => {
           is_editable: values.is_editable,
         };
         // update order
-        console.log("updated order", updateOrder);
         dispatch(onUpdateOrder(updateOrder));
         validation.resetForm();
       } else {
@@ -186,6 +188,14 @@ const EcommerceOrder = () => {
     loading,
   } = useSelector(EcommerceOrderProperties);
 
+  const selectSearchProperties = createSelector(
+    (state) => state.search,
+    (search) => ({
+      results: search.results,
+    })
+  );
+
+  const { results } = useSelector(selectSearchProperties);
   const [isLoading, setLoading] = useState(loading);
 
   useEffect(() => {
@@ -256,6 +266,15 @@ const EcommerceOrder = () => {
     setIsEdit(false);
     setOrder("");
     toggle();
+  };
+  const handleSearch = () => {
+    setSearchLoading(true); // Set loading to true when search is initiated// Update filtered data with search results
+    setShowSearchResults(true); // Show search results
+    setSearchLoading(false);
+  };
+
+  const handleClearSearch = () => {
+    setShowSearchResults(false);
   };
 
   const columns = useMemo(() => {
@@ -370,8 +389,6 @@ const EcommerceOrder = () => {
                   className="text-success"
                   onClick={() => {
                     const orderData = cellProps.row.original;
-                    console.log(orderData);
-                    console.log("order edit clicked");
                     handleOrderClick(orderData);
                   }}
                 >
@@ -409,33 +426,13 @@ const EcommerceOrder = () => {
     return baseColumns;
   }, [handleOrderClick, toggleViewModal, onClickDelete]);
 
-  const project_year = [
-    { label: "select Status name", value: "" },
-    { label: "OR Name", value: "prs_status_name_or" },
-    { label: "Amharic Name", value: "prs_status_name_am" },
-    { label: "English Name", value: "prs_status_name_en" },
-  ];
   const project_status = [
     { label: "select Status name", value: "" },
-    { label: "OR Name", value: "prs_status_name_or" },
-    { label: "Amharic Name", value: "prs_status_name_am" },
-    { label: "English Name", value: "prs_status_name_en" },
+    { label: "Active", value: 1 },
+    { label: "Inactive", value: 0 },
   ];
 
-  const project_duration = [
-    { label: "select Status name", value: "" },
-    { label: "1 years", value: "1 year" },
-    { label: "2 years", value: "2 years" },
-    { label: "3 years ", value: "3 years" },
-  ];
-
-  // Pass both dropdown configurations as an array
-  const dropdawntotal = [
-    project_duration,
-    project_status,
-    budgetYearOptions,
-    project_year,
-  ];
+  const dropdawntotal = [project_status, budgetYearOptions];
 
   return (
     <React.Fragment>
@@ -450,11 +447,15 @@ const EcommerceOrder = () => {
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
-        {/* <SearchComponent data={orders} dropdown={dropdawntotal} />; */}
         <div className="container-fluid">
           <Breadcrumbs title="Ecommerce" breadcrumbItem="Projects" />
-          <SearchComponent data={[]} dropdown={dropdawntotal} />;
-          {isLoading ? (
+          <SearchComponent
+            data={[]}
+            dropdown={dropdawntotal}
+            handleSearch={handleSearch}
+            handleClearSearch={handleClearSearch}
+          />
+          {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
             <Row>
@@ -463,7 +464,7 @@ const EcommerceOrder = () => {
                   <CardBody>
                     <TableContainer
                       columns={columns}
-                      data={data || []}
+                      data={showSearchResults ? results : data}
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}
@@ -491,13 +492,11 @@ const EcommerceOrder = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
 
-                  console.log("onSubmit called");
-
                   validation.handleSubmit();
                   const modalCallback = () => setModal(false);
 
                   if (isEdit) {
-                    console.log("update the project ");
+                
                     onUpdateOrder(validation.values, modalCallback);
                   } else {
                     onAddNewOrder(validation.values, modalCallback);
