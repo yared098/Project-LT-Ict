@@ -12,6 +12,7 @@ const SearchComponent = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFields, setSelectedFields] = useState(dropdown.map(() => ""));
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -80,7 +81,7 @@ const SearchComponent = ({
             onClick={performSearch}
             className="btn btn-success"
           >
-            {t('Search')}
+            {t("Search")}
           </button>
         </div>
         <div className="form-group mb-2 flex-shrink-0 ms-2">
