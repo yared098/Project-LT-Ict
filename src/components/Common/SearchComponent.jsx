@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PERFORM_SEARCH_REQUEST } from "../../store/search/actionTypes";
+import { useTranslation } from "react-i18next";
 
 const SearchComponent = ({
   data,
@@ -79,7 +80,7 @@ const SearchComponent = ({
             onClick={performSearch}
             className="btn btn-success"
           >
-            Search
+            {t('Search')}
           </button>
         </div>
         <div className="form-group mb-2 flex-shrink-0 ms-2">
