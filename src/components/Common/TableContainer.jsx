@@ -257,7 +257,7 @@ const TableContainer = ({
         <Row>
           <Col sm={12} md={5}>
             <div className="dataTables_info">
-              Showing {getState().pagination.pageSize} of {data.length} Results
+              {t('Showing')} {getState().pagination.pageSize} of {data.length} {t('Results')}
             </div>
           </Col>
           <Col sm={12} md={7}>

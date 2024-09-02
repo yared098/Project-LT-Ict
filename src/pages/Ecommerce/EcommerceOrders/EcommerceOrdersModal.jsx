@@ -35,19 +35,19 @@ const EcommerceOrdersModal = (props) => {
         <ModalHeader toggle={toggle}>{t("View Details")}</ModalHeader>
         <ModalBody>
           <p className="mb-2">
-            {t('Project ID')}: <span className="text-primary">{transaction.prs_id}</span>
+            {t('prs_id')}: <span className="text-primary">{transaction.prs_id}</span>
           </p>
           <p className="mb-2">
-            {t('Last Update Time')}: <span className="text-primary">{transaction.prs_update_time}</span>
+            {t('prs_update_time')}: <span className="text-primary">{transaction.prs_update_time}</span>
           </p>
           <p className="mb-2">
-            {t('Order Number')}: <span className="text-primary">{transaction.prs_order_number}</span>
+            {t('prs_order_number')}: <span className="text-primary">{transaction.prs_order_number}</span>
           </p>
           <p className="mb-2">
-            {t('Description')}: <span>{transaction.prs_description}</span>
+            {t('prs_description')}: <span>{transaction.prs_description}</span>
           </p>
           <p className="mb-2">
-            {t('Status')}: <span>{transaction.prs_status_name_en}</span>
+            {t('prs_status_name_en')}: <span>{transaction.prs_status_name_en}</span>
           </p>
 
           {transaction.is_deletable === 1 && (
@@ -64,30 +64,30 @@ const EcommerceOrdersModal = (props) => {
                 <tr>
                   <td>
                     <h5 className="font-size-14">
-                      {t('Status (AM)')}: {transaction.prs_status_name_am}
+                      {t('prs_status_name_am')}: {transaction.prs_status_name_am}
                     </h5>
                   </td>
                   <td>
                     <h5 className="font-size-14">
-                      {t('Status (OR)')}: {transaction.prs_status_name_or}
+                      {t('prs_status_name_or')}: {transaction.prs_status_name_or}
                     </h5>
                   </td>
                 </tr>
                 <tr>
                   <td colSpan="2">
-                    <h6 className="m-0 text-right">{t('Budget Year')}:</h6>
+                    <h6 className="m-0 text-right">{t('prs_budget_year')}:</h6>
                   </td>
                   <td>{transaction.prs_budget_year || "N/A"}</td>
                 </tr>
                 <tr>
                   <td colSpan="2">
-                    <h6 className="m-0 text-right">{t('Created By')}:</h6>
+                    <h6 className="m-0 text-right">{t('prs_created_by')}:</h6>
                   </td>
                   <td>{transaction.prs_created_by}</td>
                 </tr>
                 <tr>
                   <td colSpan="2">
-                    <h6 className="m-0 text-right">{t('Color Code')}:</h6>
+                    <h6 className="m-0 text-right">{t('prs_color_code')}:</h6>
                   </td>
                   <td style={{ backgroundColor: transaction.prs_color_code }}>{transaction.prs_color_code}</td>
                 </tr>
