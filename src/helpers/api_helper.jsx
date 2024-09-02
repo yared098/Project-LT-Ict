@@ -6,6 +6,7 @@ const token = accessToken;
 
 //apply base url for axios
 const API_URL = "https://pms.awashsol.com/api/";
+const apiUrl =  import.meta.env.VITE_BASE_API_URL;
 
 const axiosApi = axios.create({
   baseURL: API_URL,
