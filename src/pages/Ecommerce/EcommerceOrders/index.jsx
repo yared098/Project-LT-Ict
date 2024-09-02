@@ -253,13 +253,12 @@ const EcommerceOrder = () => {
 
   const onClickDelete = (order) => {
     setOrder(order);
-    deleteProjectStatus(order.prs_id);
     setDeleteModal(true);
   };
 
   const handleDeleteOrder = () => {
-    if (order && order.id) {
-      dispatch(onDeleteOrder(order.id));
+    if (order && order.prs_id) {
+      dispatch(onDeleteOrder(order.prs_id));
       setDeleteModal(false);
     }
   };
@@ -406,7 +405,7 @@ const EcommerceOrder = () => {
                   className="text-danger"
                   onClick={() => {
                     const orderData = cellProps.row.original;
-                    dispatch(onDeleteOrder(orderData.prs_id));
+                    onClickDelete(orderData);
                   }}
                 >
                   <i
@@ -492,12 +491,10 @@ const EcommerceOrder = () => {
               <Form
                 onSubmit={(e) => {
                   e.preventDefault();
-
                   validation.handleSubmit();
                   const modalCallback = () => setModal(false);
 
                   if (isEdit) {
-                
                     onUpdateOrder(validation.values, modalCallback);
                   } else {
                     onAddNewOrder(validation.values, modalCallback);
@@ -639,7 +636,7 @@ const EcommerceOrder = () => {
                           );
                         }}
                         onBlur={validation.handleBlur}
-                        value={validation.values.prs_status || 0}
+                        value={validation.values.prs_status}
                       >
                         <option value={1}>{t("Active")}</option>
                         <option value={0}>{t("Inactive")}</option>

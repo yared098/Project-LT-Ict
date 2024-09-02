@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Row, Table, Button, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -90,25 +90,26 @@ const TableContainer = ({
 }) => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const { t } = useTranslation(); // Access translation function
+  const { t } = useTranslation();
+  const pageIndexRef = useRef(0); // Store the page index
 
   const fuzzyFilter = (row, columnId, value, addMeta) => {
     const itemRank = rankItem(row.getValue(columnId), value);
-    addMeta({
-      itemRank,
-    });
+    addMeta({ itemRank });
     return itemRank.passed;
   };
 
   const table = useReactTable({
     columns,
     data,
-    filterFns: {
-      fuzzy: fuzzyFilter,
-    },
+    filterFns: { fuzzy: fuzzyFilter },
     state: {
       columnFilters,
       globalFilter,
+      pagination: {
+        pageIndex: pageIndexRef.current,
+        pageSize: 10,
+      },
     },
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
@@ -128,13 +129,12 @@ const TableContainer = ({
     setPageIndex,
     nextPage,
     previousPage,
-    // setPageSize,
     getState,
   } = table;
 
-  // useEffect(() => {
-  //   Number(customPageSize) && setPageSize(Number(customPageSize));
-  // }, [customPageSize, setPageSize]);
+  useEffect(() => {
+    setPageIndex(pageIndexRef.current); // Apply the saved page index
+  }, [data]); // Reapply the page index after data update
 
   return (
     <Fragment>
@@ -164,9 +164,6 @@ const TableContainer = ({
             placeholder={SearchPlaceholder}
           />
         )}
-        {isJobListGlobalFilter && (
-          <JobListGlobalFilter setGlobalFilter={setGlobalFilter} />
-        )}
         {isAddButton && (
           <Col sm={6}>
             <div className="text-sm-end">
@@ -187,69 +184,54 @@ const TableContainer = ({
           <thead className={theadClass}>
             {getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  //  console.log(header.column.columnDef.header)
-                  return (
-                    <th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className={`${
-                        header.column.columnDef.enableSorting
-                          ? "sorting sorting_desc"
-                          : ""
-                      }`}
-                    >
-                      {header.isPlaceholder ? null : (
-                        <React.Fragment>
-                          <div
-                            {...{
-                              className: header.column.getCanSort()
-                                ? "cursor-pointer select-none"
-                                : "",
-                              onClick: header.column.getToggleSortingHandler(),
-                            }}
-                          >
-                            {flexRender(
-                              t(header.id),
-                              // header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                            {{
-                              asc: "",
-                              desc: "",
-                            }[header.column.getIsSorted()] ?? null}
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={`${
+                      header.column.columnDef.enableSorting
+                        ? "sorting sorting_desc"
+                        : ""
+                    }`}
+                  >
+                    {header.isPlaceholder ? null : (
+                      <Fragment>
+                        <div
+                          {...{
+                            className: header.column.getCanSort()
+                              ? "cursor-pointer select-none"
+                              : "",
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                        >
+                          {flexRender(t(header.id), header.getContext())}
+                          {{
+                            asc: "",
+                            desc: "",
+                          }[header.column.getIsSorted()] ?? null}
+                        </div>
+                        {header.column.getCanFilter() ? (
+                          <div>
+                            <Filter column={header.column} table={table} />
                           </div>
-                          {header.column.getCanFilter() ? (
-                            <div>
-                              <Filter column={header.column} table={table} />
-                            </div>
-                          ) : null}
-                        </React.Fragment>
-                      )}
-                    </th>
-                  );
-                })}
+                        ) : null}
+                      </Fragment>
+                    )}
+                  </th>
+                ))}
               </tr>
             ))}
           </thead>
-
           <tbody>
-            {getRowModel().rows.map((row) => {
-              return (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
-                    return (
-                      <td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
+            {getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
@@ -257,7 +239,8 @@ const TableContainer = ({
         <Row>
           <Col sm={12} md={5}>
             <div className="dataTables_info">
-              {t('Showing')} {getState().pagination.pageSize} of {data.length} {t('Results')}
+              {t("Showing")} {getState().pagination.pageSize} of {data.length}{" "}
+              {t("Results")}
             </div>
           </Col>
           <Col sm={12} md={7}>
@@ -268,7 +251,14 @@ const TableContainer = ({
                     !getCanPreviousPage() ? "disabled" : ""
                   }`}
                 >
-                  <Link to="#" className="page-link" onClick={previousPage}>
+                  <Link
+                    to="#"
+                    className="page-link"
+                    onClick={() => {
+                      pageIndexRef.current = getState().pagination.pageIndex;
+                      previousPage();
+                    }}
+                  >
                     <i className="mdi mdi-chevron-left"></i>
                   </Link>
                 </li>
@@ -282,7 +272,10 @@ const TableContainer = ({
                     <Link
                       to="#"
                       className="page-link"
-                      onClick={() => setPageIndex(item)}
+                      onClick={() => {
+                        pageIndexRef.current = item;
+                        setPageIndex(item);
+                      }}
                     >
                       {item + 1}
                     </Link>
@@ -293,7 +286,14 @@ const TableContainer = ({
                     !getCanNextPage() ? "disabled" : ""
                   }`}
                 >
-                  <Link to="#" className="page-link" onClick={nextPage}>
+                  <Link
+                    to="#"
+                    className="page-link"
+                    onClick={() => {
+                      pageIndexRef.current = getState().pagination.pageIndex;
+                      nextPage();
+                    }}
+                  >
                     <i className="mdi mdi-chevron-right"></i>
                   </Link>
                 </li>
