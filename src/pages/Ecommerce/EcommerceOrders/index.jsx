@@ -377,7 +377,7 @@ const EcommerceOrder = () => {
     if (previledge?.is_role_editable && previledge?.is_role_deletable) {
       baseColumns.push({
         header: t("Action"),
-        accessorKey: "action",
+        accessorKey: t('Action'),
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
@@ -470,7 +470,8 @@ const EcommerceOrder = () => {
                       isCustomPageSize={true}
                       handleUserClick={handleOrderClicks}
                       isPagination={true}
-                      SearchPlaceholder="26 records..."
+                      // SearchPlaceholder="26 records..."
+                      SearchPlaceholder={26+" "+t('Results')+"..."}
                       buttonClass="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2 addOrder-modal"
                       buttonName={t("Add New Order")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"

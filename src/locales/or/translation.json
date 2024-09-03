@@ -209,8 +209,12 @@
   "Inactive": "Hojii irra hin jirre",
   "Add": "Dabalata",
   "Save": "Ittisaa",
+  "Action": "Dalagaa",
+  "Clean": "Qulqulluu",
 
   "Results": "Bu'aa",
   "Showing": "Agarsiisaa",
-  "Projects Status": "Haala pirojektootaa"
+  "Projects Status": "Haala pirojektootaa",
+  "select Status name": "Haala Projeektii Filadhu",
+  "select budget year": "Bara Baajataa Filadhu"
 }

@@ -56,20 +56,22 @@ const SearchComponent = ({
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
-            placeholder="Search..."
+            placeholder={t('Search')+"..."}
             className="form-control"
           />
         </div>
         {dropdown.map((dropdownOptions, dropdownIndex) => (
+          console.log(dropdownOptions),
           <div key={dropdownIndex} className="form-group me-2 mb-2 flex-grow-1">
             <select
+             
               value={selectedFields[dropdownIndex]}
               onChange={(e) => handleFieldChange(dropdownIndex, e)}
               className="form-select"
             >
               {dropdownOptions.map((opt, index) => (
                 <option key={index} value={opt.value}>
-                  {opt.label}
+                  {t(`${opt.label}`)}
                 </option>
               ))}
             </select>
@@ -90,7 +92,7 @@ const SearchComponent = ({
             onClick={handleClear}
             className="btn btn-danger"
           >
-            Clear
+            {t('Clean')}
           </button>
         </div>
       </form>
