@@ -377,7 +377,7 @@ const EcommerceOrder = () => {
     if (previledge?.is_role_editable && previledge?.is_role_deletable) {
       baseColumns.push({
         header: t("Action"),
-        accessorKey: t('Action'),
+        accessorKey: t("Action"),
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
@@ -448,7 +448,10 @@ const EcommerceOrder = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs title="Projects" breadcrumbItem="projects status" />
+          <Breadcrumbs
+            title={t("Projects")}
+            breadcrumbItem={t("Projects Status")}
+          />
           <SearchComponent
             data={[]}
             dropdown={dropdawntotal}
@@ -471,7 +474,7 @@ const EcommerceOrder = () => {
                       handleUserClick={handleOrderClicks}
                       isPagination={true}
                       // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26+" "+t('Results')+"..."}
+                      SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2 addOrder-modal"
                       buttonName={t("Add New Order")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
