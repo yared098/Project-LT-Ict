@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import withRouter from "../../components/Common/withRouter";
 
 import { Badge, Button, Card, CardBody } from "reactstrap";
-import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal";
+import ProjectsModel from "../Projects/ProjectLists/ProjectModel";
 
 import TableContainer from "../../components/Common/TableContainer";
 import { latestTransaction } from "../../common/data";
@@ -103,7 +103,7 @@ const LatestTransaction = () => {
 
   return (
     <React.Fragment>
-      <EcommerceOrdersModal isOpen={modal1} toggle={toggleViewModal} transaction={transaction} />
+      <ProjectsModel isOpen={modal1} toggle={toggleViewModal} transaction={transaction} />
       <Card>
         <CardBody>
           <div className="mb-4 h4 card-title">Latest Transaction</div>

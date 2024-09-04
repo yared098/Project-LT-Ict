@@ -70,7 +70,7 @@ import ProjectLists from "../pages/Projects/ProjectLists/index";
 // import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2";
 
 // // Dashboard
-// import Dashboard from "../pages/Dashboard/index";
+import Dashboard from "../pages/Dashboard/index";
 // import DashboardSaas from "../pages/Dashboard-saas/index";
 // import DashboardCrypto from "../pages/Dashboard-crypto/index";
 // import Blog from "../pages/Dashboard-Blog/index";
@@ -177,7 +177,7 @@ import UiProgressbar from "../pages/Ui/UiProgressbar";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 
 const authProtectedRoutes = [
-  // { path: "/dashboard", component: <ProjectLists /> },
+  { path: "/dashboard", component: <Dashboard /> },
   // { path: "/dashboard-saas", component: <DashboardSaas /> },
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
   // { path: "/blog", component: <Blog /> },
@@ -327,7 +327,7 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
 ];
 
-const publicRoutes = [
+const publicRoutes = [ 
   // { path: "/logout", component: <Logout /> },
   // { path: "/login", component: <Login /> },
   // { path: "/forgot-password", component: <ForgetPwd /> },
