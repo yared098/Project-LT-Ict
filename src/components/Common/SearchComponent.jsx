@@ -92,7 +92,7 @@ const SearchComponent = ({
             onClick={handleClear}
             className="btn btn-danger"
           >
-            {t('Clean')}
+            {t('Clear')}
           </button>
         </div>
       </form>
