@@ -4,6 +4,60 @@ import * as url from "./url_helper";
 
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
+
+
+
+
+
+// get Projects
+export const getProjects = async () => {
+  try {
+    const response = await post(url.GET_ORDERS);
+    return response;
+  } catch (error) {
+    console.log(error); // Handle any errors
+  }
+};
+
+// add Projects
+export const addnewProject = async (project) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}project_status/insertgrid`,
+      project,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update grid:", error);
+    throw error;
+  }
+};
+
+// update Projects
+export const updateProject = (project) =>
+  post(`${url.UPDATE_ORDER}?prs_id=${project?.prs_id}`, project);
+
+// delete Projects
+export const deleteProject = (project) =>
+  // post(`${url.DELETE_ORDER}?prs_id=${order?.prs_id}`);
+  post(`${url.DELETE_ORDER}?prs_id=${project}`);
+
+
+  // ----------------------------project operations
+
+
+
+
+
+
+
+
 // Gets the logged in user data from local session
 const getLoggedInUser = () => {
   const user = localStorage.getItem("user");
@@ -149,44 +203,7 @@ export const getselectedmails = (selectedmails) =>
 export const setfolderonmails = (selectedmails, folderId, activeTab) =>
   post(url.SET_FOLDER_SELECTED_MAILS, { selectedmails, folderId, activeTab });
 
-// get orders
-export const getOrders = async () => {
-  try {
-    const response = await post(url.GET_ORDERS);
-    return response;
-  } catch (error) {
-    console.log(error); // Handle any errors
-  }
-};
 
-// add order
-export const addNewOrder = async (order) => {
-  try {
-    const response = await axios.post(
-      `${apiUrl}project_status/insertgrid`,
-      order,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error("Failed to update grid:", error);
-    throw error;
-  }
-};
-
-// update order
-export const updateOrder = (order) =>
-  post(`${url.UPDATE_ORDER}?prs_id=${order?.prs_id}`, order);
-
-// delete order
-export const deleteOrder = (order) =>
-  // post(`${url.DELETE_ORDER}?prs_id=${order?.prs_id}`);
-  post(`${url.DELETE_ORDER}?prs_id=${order}`);
 
 // get cart data
 export const getCartData = () => get(url.GET_CART_DATA);
@@ -230,12 +247,7 @@ export const getJobList = () => get(url.GET_JOB_LIST);
 // get Apply Jobs
 export const getApplyJob = () => get(url.GET_APPLY_JOB);
 
-// get project
-export const getProjects = () => get(url.GET_PROJECTS);
 
-// get project details
-export const getProjectsDetails = (id) =>
-  get(`${url.GET_PROJECT_DETAIL}/${id}`, { params: { id } });
 
 // get tasks
 export const getTasks = () => get(url.GET_TASKS);
@@ -279,11 +291,11 @@ export const deleteApplyJob = (data) =>
 /** PROJECT */
 
 // update user
-export const updateProject = (project) => put(url.UPDATE_PROJECT, project);
+// export const updateProject = (project) => put(url.UPDATE_PROJECT, project);
 
-// delete user
-export const deleteProject = (project) =>
-  del(url.DELETE_PROJECT, { headers: { project } });
+// // delete user
+// export const deleteProject = (project) =>
+//   del(url.DELETE_PROJECT, { headers: { project } });
 
 export const getUserProfile = () => get(url.GET_USER_PROFILE);
 

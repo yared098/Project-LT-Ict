@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 // Pages Component
-import Chat from "../pages/Chat/Chat";
+// import Chat from "../pages/Chat/Chat";
 
 // // File Manager
 import FileManager from "../pages/FileManager/index";
@@ -13,37 +13,37 @@ import FileManager from "../pages/FileManager/index";
 // Pages Calendar
 import Calendar from "../pages/Calendar/index";
 
-// // //Tasks
-import TasksList from "../pages/Tasks/tasks-list";
-import TasksCreate from "../pages/Tasks/tasks-create";
-import TasksKanban from "../pages/Tasks/tasks-kanban";
+// // // //Tasks
+// import TasksList from "../pages/Tasks/tasks-list";
+// import TasksCreate from "../pages/Tasks/tasks-create";
+// import TasksKanban from "../pages/Tasks/tasks-kanban";
 
 // // //Projects
-import ProjectsGrid from "../pages/Projects/projects-grid";
-import ProjectsList from "../pages/Projects/projects-list";
-import ProjectsOverview from "../pages/Projects/ProjectOverview/projects-overview";
-import ProjectsCreate from "../pages/Projects/projects-create";
+// import ProjectsGrid from "../pages/Projects/projects-grid";
+// import ProjectsList from "../pages/Projects/projects-list";
+// import ProjectsOverview from "../pages/Projects/ProjectOverview/projects-overview";
+// import ProjectsCreate from "../pages/Projects/projects-create";
 
 // // //Ecommerce Pages
-import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts";
-import EcommerceProductDetail from "../pages/Ecommerce/EcommerceProductDetail/index";
-import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders/index";
-import EcommerceCustomers from "../pages/Ecommerce/EcommerceCustomers/index";
-import EcommerceCart from "../pages/Ecommerce/EcommerceCart";
-import EcommerceCheckout from "../pages/Ecommerce/EcommerceCheckout";
-import EcommerceShops from "../pages/Ecommerce/EcommerceShops/index";
-import EcommerenceAddProduct from "../pages/Ecommerce/EcommerceAddProduct";
+// import EcommerceProducts from "../pages/Projects/EcommerceProducts";
+// import EcommerceProductDetail from "../pages/Projects/EcommerceProductDetail/index";
+import ProjectLists from "../pages/Projects/ProjectLists/index";
+// import EcommerceCustomers from "../pages/Projects/EcommerceCustomers/index";
+// import EcommerceCart from "../pages/Projects/EcommerceCart";
+// import EcommerceCheckout from "../pages/Projects/EcommerceCheckout";
+// import EcommerceShops from "../pages/Projects/EcommerceShops/index";
+// import EcommerenceAddProduct from "../pages/Projects/EcommerceAddProduct";
 
 // //Email
-import EmailInbox from "../pages/Email/email-inbox";
-import EmailRead from "../pages/Email/email-read";
-import EmailBasicTemplte from "../pages/Email/email-basic-templte";
-import EmailAlertTemplte from "../pages/Email/email-template-alert";
-import EmailTemplateBilling from "../pages/Email/email-template-billing";
+// import EmailInbox from "../pages/Email/email-inbox";
+// import EmailRead from "../pages/Email/email-read";
+// import EmailBasicTemplte from "../pages/Email/email-basic-templte";
+// import EmailAlertTemplte from "../pages/Email/email-template-alert";
+// import EmailTemplateBilling from "../pages/Email/email-template-billing";
 
 // //Invoices
-import InvoicesList from "../pages/Invoices/invoices-list";
-import InvoiceDetail from "../pages/Invoices/invoices-detail";
+// import InvoicesList from "../pages/Invoices/invoices-list";
+// import InvoiceDetail from "../pages/Invoices/invoices-detail";
 
 // // Authentication related pages
 // import Login from "../pages/Authentication/Login";
@@ -70,11 +70,11 @@ import InvoiceDetail from "../pages/Invoices/invoices-detail";
 // import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2";
 
 // // Dashboard
-import Dashboard from "../pages/Dashboard/index";
-import DashboardSaas from "../pages/Dashboard-saas/index";
-import DashboardCrypto from "../pages/Dashboard-crypto/index";
-import Blog from "../pages/Dashboard-Blog/index";
-import DashboardJob from "../pages/DashboardJob/index";
+// import Dashboard from "../pages/Dashboard/index";
+// import DashboardSaas from "../pages/Dashboard-saas/index";
+// import DashboardCrypto from "../pages/Dashboard-crypto/index";
+// import Blog from "../pages/Dashboard-Blog/index";
+// import DashboardJob from "../pages/DashboardJob/index";
 
 // //Crypto
 // import CryptoWallet from "../pages/Crypto/CryptoWallet/crypto-wallet";
@@ -161,27 +161,27 @@ import UiUtilities from "../pages/Ui/UiUtilities";
 
 // //Pages
 import PagesStarter from "../pages/Utility/pages-starter";
-import PagesMaintenance from "../pages/Utility/pages-maintenance";
-import PagesComingsoon from "../pages/Utility/pages-comingsoon";
+// import PagesMaintenance from "../pages/Utility/pages-maintenance";
+// import PagesComingsoon from "../pages/Utility/pages-comingsoon";
 import PagesTimeline from "../pages/Utility/pages-timeline";
 import PagesFaqs from "../pages/Utility/pages-faqs";
 import PagesPricing from "../pages/Utility/pages-pricing";
-import Pages404 from "../pages/Utility/pages-404";
-import Pages500 from "../pages/Utility/pages-500";
+// import Pages404 from "../pages/Utility/pages-404";
+// import Pages500 from "../pages/Utility/pages-500";
 
 // //Contacts
-import ContactsGrid from "../pages/Contacts/contacts-grid";
-import ContactsList from "../pages/Contacts/ContactList/contacts-list";
-import ContactsProfile from "../pages/Contacts/ContactsProfile/index";
+// import ContactsGrid from "../pages/Contacts/contacts-grid";
+// import ContactsList from "../pages/Contacts/ContactList/contacts-list";
+// import ContactsProfile from "../pages/Contacts/ContactsProfile/index";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 
 const authProtectedRoutes = [
-  { path: "/dashboard", component: <Dashboard /> },
-  { path: "/dashboard-saas", component: <DashboardSaas /> },
-  { path: "/dashboard-crypto", component: <DashboardCrypto /> },
-  { path: "/blog", component: <Blog /> },
-  { path: "/dashboard-job", component: <DashboardJob /> },
+  // { path: "/dashboard", component: <ProjectLists /> },
+  // { path: "/dashboard-saas", component: <DashboardSaas /> },
+  // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
+  // { path: "/blog", component: <Blog /> },
+  // { path: "/dashboard-job", component: <DashboardJob /> },
 
   //   //Crypto
   // { path: "/crypto-wallet", component: <CryptoWallet /> },
@@ -192,7 +192,7 @@ const authProtectedRoutes = [
   // { path: "/crypto-kyc-application", component: <CryptoKYCApplication /> },
 
   //chat
-  { path: "/chat", component: <Chat /> },
+  // { path: "/chat", component: <Chat /> },
 
   //File Manager
   { path: "/apps-filemanager", component: <FileManager /> },
@@ -204,17 +204,17 @@ const authProtectedRoutes = [
   // { path: "/profile", component: <UserProfile /> },
 
   //   //Ecommerce
-  {
-    path: "/ecommerce-product-detail/:id",
-    component: <EcommerceProductDetail />,
-  },
-  { path: "/ecommerce-products", component: <EcommerceProducts /> },
-  { path: "/projects-status", component: <EcommerceOrders /> },
-  { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
-  { path: "/ecommerce-cart", component: <EcommerceCart /> },
-  { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
-  { path: "/ecommerce-shops", component: <EcommerceShops /> },
-  { path: "/ecommerce-add-product", component: <EcommerenceAddProduct /> },
+  // {
+  //   path: "/ecommerce-product-detail/:id",
+  //   component: <EcommerceProductDetail />,
+  // },
+  // { path: "/ecommerce-products", component: <EcommerceProducts /> },
+  { path: "/projects-status", component: <ProjectLists /> },
+  // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
+  // { path: "/ecommerce-cart", component: <EcommerceCart /> },
+  // { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
+  // { path: "/ecommerce-shops", component: <EcommerceShops /> },
+  // { path: "/ecommerce-add-product", component: <EcommerenceAddProduct /> },
 
   //   //Email
   // { path: "/email-inbox", component: <EmailInbox /> },

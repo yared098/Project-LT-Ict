@@ -10,25 +10,25 @@ import ForgetPassword from "./auth/forgetpwd/reducer";
 import Profile from "./auth/profile/reducer";
 
 //E-commerce
-import ecommerce from "./e-commerce/reducer";
+import ecommerce from "./project/reducer";
 
 //Calendar
 import calendar from "./calendar/reducer";
 
 //chat
-import chat from "./chat/reducer";
+// import chat from "./chat/reducer";
 
 //crypto
-import crypto from "./crypto/reducer";
+// import crypto from "./crypto/reducer";
 
 //invoices
 import invoices from "./invoices/reducer";
 
-//jobs
-import JobReducer from "./jobs/reducer";
+// //jobs
+// import JobReducer from "./jobs/reducer";
 
-//projects
-import projects from "./projects/reducer";
+// //projects
+// import projects from "./projects/reducer";
 
 //tasks
 import tasks from "./tasks/reducer";
@@ -43,16 +43,16 @@ import mails from "./mails/reducer";
 import Dashboard from "./dashboard/reducer";
 
 //Dasboard saas
-import DashboardSaas from "./dashboard-saas/reducer";
+// import DashboardSaas from "./dashboard-saas/reducer";
 
-//Dasboard crypto
-import DashboardCrypto from "./dashboard-crypto/reducer";
+// //Dasboard crypto
+// import DashboardCrypto from "./dashboard-crypto/reducer";
 
 //Dasboard blog
-import DashboardBlog from "./dashboard-blog/reducer";
+// import DashboardBlog from "./dashboard-blog/reducer";
 
-//Dasboard job
-import DashboardJob from "./dashboard-jobs/reducer";
+// //Dasboard job
+// import DashboardJob from "./dashboard-jobs/reducer";
 
 import search from "./search/reducer";
 
@@ -65,19 +65,19 @@ const rootReducer = combineReducers({
   Profile,
   ecommerce,
   calendar,
-  chat,
+  // chat,
   mails,
-  crypto,
+  // crypto,
   invoices,
-  JobReducer,
-  projects,
+  // JobReducer,
+  // projects,
   tasks,
   contacts,
   Dashboard,
-  DashboardSaas,
-  DashboardCrypto,
-  DashboardBlog,
-  DashboardJob,
+  // DashboardSaas,
+  // DashboardCrypto,
+  // DashboardBlog,
+  // DashboardJob,
   search,
 });
 

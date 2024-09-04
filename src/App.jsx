@@ -21,6 +21,7 @@ import NonAuthLayout from "./components/NonAuthLayout";
 // Import scss
 import "./assets/scss/theme.scss";
 import { toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 // Import Firebase Configuration file
