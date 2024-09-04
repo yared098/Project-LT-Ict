@@ -177,8 +177,8 @@ const ProjectModel = () => {
   }, [dispatch]);
 
   const ProjectStatusProperties = createSelector(
-    (state) => state.ecommerce,
-    (ProjectReducer) => ({
+    (state) => state.Projects, // this is geting from  reducer
+    (ProjectReducer) => ({     // this is from Project.reducer
       projects: ProjectReducer.projects,
       loading: ProjectReducer.loading,
     })

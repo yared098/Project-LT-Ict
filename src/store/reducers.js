@@ -10,7 +10,7 @@ import ForgetPassword from "./auth/forgetpwd/reducer";
 import Profile from "./auth/profile/reducer";
 
 //E-commerce
-import ecommerce from "./project/reducer";
+import Projects from "./project/reducer";
 
 //Calendar
 import calendar from "./calendar/reducer";
@@ -63,7 +63,7 @@ const rootReducer = combineReducers({
   Account,
   ForgetPassword,
   Profile,
-  ecommerce,
+  Projects,
   calendar,
   // chat,
   mails,
