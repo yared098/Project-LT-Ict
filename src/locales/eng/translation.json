@@ -176,7 +176,7 @@
   "delete": "Delete",
   "Edit Project Status": "Edit Project Status",
   "Add Project Status": "Add Project Status",
-  "Add New Order": "Add New Order",
+  "Add New Project": "Add New Project",
 
   "Order Delete Successfully": "Order Delete Successfully",
   "Order Delete Failed": "Order Delete Failed",
@@ -196,7 +196,29 @@
   "Showing": "Showing",
   "select Status name": "Select Status Name",
   "select budget year": "Select Budget Year",
-  "budget Year":"Budget Year"
+  "budget Year":"Budget Year",
+  "budget year not defined":"Budget year is not defined",
+
+  "insert_order_number": "Insert Order Number",
+  "insert_status_name_english": "Insert Status Name (English)",
+  "insert_status_name_oromo": "Insert Status Name (Oromo)",
+  "insert_status_name_amharic": "Insert Status Name (Amharic)",
+  "insert_description": "Insert Description",
+  "insert_color_code": "Insert Color Code",
+
+  "please_enter_the_status": "Please enter the status",
+  "please_enter_the_oromo_status_name": "Please enter the Oromo status name",
+  "please_enter_the_english_status_name": "Please enter the English status name",
+  "please_enter_the_amharic_status_name": "Please enter the Amharic status name",
+  "please_enter_the_color_code": "Please enter the color code",
+  "please_specify_if_deletable": "Please specify if deletable",
+  "please_specify_if_editable": "Please specify if editable",
+  "please_enter_the_status_number": "Please enter the status number",
+
+
+  "delete_now": "Delete Now",
+  "confirm_erase": "Are you sure you want to permanently erase the data?",
+  "close": "Close"
 
   
 

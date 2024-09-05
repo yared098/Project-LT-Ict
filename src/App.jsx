@@ -27,7 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
 
-import fakeBackend from "/src/helpers/AuthType/fakeBackend";
+import fakeBackend from "/src/helpers/AuthType/projectBackend";
 
 // Activating fake backend
 fakeBackend();

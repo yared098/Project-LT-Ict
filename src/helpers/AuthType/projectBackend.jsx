@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import * as url from "../url_helper";
+import * as url from "../url_Lists";
 import accessToken from "../jwt-token-access/accessToken";
 import {
   calenderDefaultCategories,
@@ -46,7 +46,7 @@ let users = [
   },
 ];
 
-const fakeBackend = () => {
+const projectBackend = () => {
   // This sets the mock adapter on the default instance
   const mock = new MockAdapter(axios, { onNoMatch: "passthrough" });
 
@@ -109,7 +109,7 @@ const fakeBackend = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (validUser["length"] === 1) {
-          // You have to generate AccessToken by jwt. but this is fakeBackend so, right now its dummy
+          // You have to generate AccessToken by jwt. but this is projectBackend so, right now its dummy
           const token = accessToken;
           const userName = user.name;
 
@@ -209,7 +209,7 @@ const fakeBackend = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (user && user.token) {
-          // You have to generate AccessToken by jwt. but this is fakeBackend so, right now its dummy
+          // You have to generate AccessToken by jwt. but this is projectBackend so, right now its dummy
           const token = accessToken;
           const userName = user.name;
 
@@ -1285,4 +1285,4 @@ const fakeBackend = () => {
   });
 };
 
-export default fakeBackend;
+export default projectBackend;

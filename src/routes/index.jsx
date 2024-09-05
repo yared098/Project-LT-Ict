@@ -27,7 +27,7 @@ import Calendar from "../pages/Calendar/index";
 // // //Ecommerce Pages
 // import EcommerceProducts from "../pages/Projects/EcommerceProducts";
 // import EcommerceProductDetail from "../pages/Projects/EcommerceProductDetail/index";
-import ProjectLists from "../pages/Projects/ProjectLists/index";
+import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
 // import EcommerceCustomers from "../pages/Projects/EcommerceCustomers/index";
 // import EcommerceCart from "../pages/Projects/EcommerceCart";
 // import EcommerceCheckout from "../pages/Projects/EcommerceCheckout";
