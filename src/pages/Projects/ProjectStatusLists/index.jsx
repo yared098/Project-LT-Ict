@@ -2,11 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { isEmpty } from "lodash";
+import { isEmpty, update } from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TableContainer from "../../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Spinner } from "reactstrap";
 import Spinners from "../../../components/Common/Spinner";
 import SearchComponent from "../../../components/Common/SearchComponent";
 //import components
@@ -175,7 +176,6 @@ const ProjectModel = () => {
         dispatch(onAddNewProjectStatus(newProject));
         validation.resetForm();
       }
-      toggle();
     },
   });
   const [transaction, setTransaction] = useState("");
@@ -195,13 +195,20 @@ const ProjectModel = () => {
       // this is from Project.reducer
       projects: ProjectReducer.projects,
       loading: ProjectReducer.loading,
+      update_loading: ProjectReducer.update_loading,
     })
   );
 
   const {
     projects: { data, previledge },
     loading,
+    update_loading,
   } = useSelector(ProjectStatusProperties);
+
+  useEffect(() => {
+    console.log("update_loading in useEffect", update_loading);
+    setModal(false);
+  }, [update_loading]);
 
   const selectSearchProperties = createSelector(
     (state) => state.search,
@@ -230,8 +237,6 @@ const ProjectModel = () => {
       setIsEdit(false);
     }
   }, [data]);
-
-  useEffect(() => {}, []);
 
   const toggle = () => {
     if (modal) {
@@ -394,7 +399,7 @@ const ProjectModel = () => {
       },
     ];
     if (previledge?.is_role_editable && previledge?.is_role_deletable) {
-       baseColumns.push({
+      baseColumns.push({
         header: t("Action"),
         accessorKey: t("Action"),
         enableColumnFilter: false,
@@ -736,14 +741,26 @@ const ProjectModel = () => {
                 <Row>
                   <Col>
                     <div className="text-end">
-                      <Button
-                        color="success"
-                        type="submit"
-                        className="save-user"
-                        disabled={loading || !validation.dirty}
-                      >
-                        {t("Save")}
-                      </Button>
+                      {update_loading ? (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          <Spinner size={"sm"} color="#fff" />
+                          {t("Save")}
+                        </Button>
+                      ) : (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          {t("Save")}
+                        </Button>
+                      )}
                     </div>
                   </Col>
                 </Row>
