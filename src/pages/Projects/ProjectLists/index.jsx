@@ -14,10 +14,10 @@ import Breadcrumbs from "../../../components/Common/Breadcrumb";
 import DeleteModal from "../../../components/Common/DeleteModal";
 
 import {
-  getProjects as onGetProjects,
-  addNewProject as onAddNewProject,
-  updateProject as onUpdateProject,
-  deleteProject as onDeleteProject,
+  getProjectsStatus as onGetProjectsStatus,
+  addNewProjectStatus as onAddNewProjectStatus,
+  updateProjectStatus as onUpdateProjectStatus,
+  deleteProjectStatus as onDeleteProjectStatus,
 } from "../../../store/project/actions";
 
 //redux
@@ -116,15 +116,15 @@ const ProjectModel = () => {
     },
 
     validationSchema: Yup.object({
-      prs_order_number: Yup.number().required("Please Enter the Status"),
+      prs_order_number: Yup.number().required(t('please_enter_the_status_number')),
       prs_status_name_or: Yup.string().required(
-        "Please Enter the Oromo Status Name"
+        t('please_enter_the_oromo_status_name')
       ),
       prs_status_name_en: Yup.string().required(
-        "Please Enter the English Status Name"
+        t('please_enter_the_english_status_name')
       ),
       prs_status_name_am: Yup.string().required(
-        "Please Enter the Amharic Status Name"
+        t('please_enter_the_amharic_status_name')
       ),
       prs_description: Yup.string(),
       prs_color_code: Yup.string().required(t('please_enter_the_color_code')),
@@ -157,7 +157,7 @@ const ProjectModel = () => {
         console.log("updateProject", updateProjects);
 
         // update projects
-        dispatch(onUpdateProject(updateProjects));
+        dispatch(onUpdateProjectStatus(updateProjects));
         validation.resetForm();
       } else {
         const newProject = {
@@ -172,7 +172,7 @@ const ProjectModel = () => {
           prs_created_by: 1,
         };
         // save new projects
-        dispatch(onAddNewProject(newProject));
+        dispatch(onAddNewProjectStatus(newProject));
         validation.resetForm();
       }
       toggle();
@@ -186,7 +186,7 @@ const ProjectModel = () => {
 
   // Fetch projects on component mount
   useEffect(() => {
-    dispatch(onGetProjects());
+    dispatch(onGetProjectsStatus());
   }, [dispatch]);
 
   const ProjectStatusProperties = createSelector(
@@ -216,7 +216,7 @@ const ProjectModel = () => {
 
   useEffect(() => {
     if (data && !data.length) {
-      dispatch(onGetProjects());
+      dispatch(onGetProjectsStatus());
     }
   }, [dispatch, data]);
 
@@ -277,7 +277,7 @@ const ProjectModel = () => {
 
   const handleDeleteProject = () => {
     if (project && project.prs_id) {
-      dispatch(onDeleteProject(project.prs_id));
+      dispatch(onDeleteProjectStatus(project.prs_id));
       setDeleteModal(false);
     }
   };
@@ -519,9 +519,9 @@ const ProjectModel = () => {
                   const modalCallback = () => setModal(false);
 
                   if (isEdit) {
-                    onUpdateProject(validation.values, modalCallback);
+                    onUpdateProjectStatus(validation.values, modalCallback);
                   } else {
-                    onAddNewProject(validation.values, modalCallback);
+                    onAddNewProjectStatus(validation.values, modalCallback);
                   }
                   return false;
                 }}

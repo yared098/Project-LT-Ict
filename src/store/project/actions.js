@@ -15,7 +15,7 @@ import {
 } from "./actionTypes"
 
 
-export const getProjects = () => ({
+export const getProjectsStatus = () => ({
   type: GET_PROJECTS,
 })
 
@@ -29,7 +29,7 @@ export const getProjectsFail = error => ({
   payload: error,
 })
 
-export const addNewProject = PROJECT => ({
+export const addNewProjectStatus = PROJECT => ({
   type: ADD_NEW_PROJECT,
   payload: PROJECT,
 })
@@ -44,7 +44,7 @@ export const addProjectFail = error => ({
   payload: error,
 })
 
-export const updateProject = PROJECT => ({
+export const updateProjectStatus = PROJECT => ({
   type: UPDATE_PROJECT,
   payload: PROJECT,
 })
@@ -59,7 +59,7 @@ export const updateProjectFail = error => ({
   payload: error,
 })
 
-export const deleteProject = PROJECT => ({
+export const deleteProjectStatus = PROJECT => ({
   type: DELETE_PROJECT,
   payload: PROJECT,
 })
