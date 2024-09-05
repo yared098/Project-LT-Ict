@@ -23,7 +23,7 @@ import {
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
-import ProjectStatusModel from "./ProjectModel";
+import ProjectStatusModel from "./ProjectStatusModal";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -244,7 +244,7 @@ const ProjectModel = () => {
 
   const handleProjectClick = (arg) => {
     const project = arg;
-    console.log("handleProjectClick", project);
+    // console.log("handleProjectClick", project);
     setProject({
       prs_id: project.prs_id,
       prs_order_number: project.prs_order_number,
