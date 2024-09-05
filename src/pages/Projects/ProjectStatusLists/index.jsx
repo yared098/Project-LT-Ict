@@ -178,7 +178,7 @@ const ProjectModel = () => {
       }
     },
   });
-  const [transaction, setTransaction] = useState("");
+  const [transaction, setTransaction] = useState({});
 
   const toggleViewModal = () => setModal1(!modal1);
 
