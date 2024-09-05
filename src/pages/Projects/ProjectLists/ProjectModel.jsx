@@ -15,7 +15,7 @@ const modalStyle = {
   height: '100%',
 };
 
-const EcommerceOrdersModal = (props) => {
+const ProjectStatusModel = (props) => {
   const { t } = useTranslation();
   const { isOpen, toggle, transaction } = props;
 
@@ -104,10 +104,10 @@ const EcommerceOrdersModal = (props) => {
   );
 };
 
-EcommerceOrdersModal.propTypes = {
+ProjectStatusModel.propTypes = {
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
   transaction: PropTypes.object,
 };
 
-export default EcommerceOrdersModal;
+export default ProjectStatusModel;

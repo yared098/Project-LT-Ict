@@ -70,8 +70,8 @@ const ProjectModel = () => {
     const fetchBudgetYears = async () => {
       try {
         const response = await axios.post(
-          // `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
-          `https://pms.awashsol.com/api/budget_year/listgrid`
+          `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
+          // `https://pms.awashsol.com/api/budget_year/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.prp_budget_year.toString(),
@@ -380,7 +380,7 @@ const ProjectModel = () => {
       },
     ];
     if (previledge?.is_role_editable && previledge?.is_role_deletable) {
-      baseColumns.push({
+       baseColumns.push({
         header: t("Action"),
         accessorKey: t("Action"),
         enableColumnFilter: false,
@@ -394,7 +394,6 @@ const ProjectModel = () => {
                   className="text-success"
                   onClick={() => {
                     const ProjectData = cellProps.row.original;
-                    console.log(ProjectData);
                     handleProjectClick(ProjectData);
                   }}
                 >
