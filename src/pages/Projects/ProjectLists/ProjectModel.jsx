@@ -1,14 +1,8 @@
-import React, { useTransition } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Table,
-} from "reactstrap"
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Table } from "reactstrap"
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa"; // Import icons
 
 const modalStyle = {
   width: '100%',
@@ -49,14 +43,6 @@ const ProjectStatusModel = (props) => {
             {t('prs_status_name_en')}: <span>{transaction.prs_status_name_en}</span>
           </p>
 
-          {transaction.is_deletable === 1 && (
-            <p className="text-danger">This project is deletable</p>
-          )}
-          
-          {transaction.is_editable === 1 && (
-            <p className="text-success">Editable</p>
-          )}
-
           <div className="table-responsive">
             <Table className="table align-middle table-nowrap">
               <tbody>
@@ -74,7 +60,7 @@ const ProjectStatusModel = (props) => {
                 </tr>
                 <tr>
                   <td colSpan="2">
-                    <h6 className="m-0 text-right">{t('prs_budget_year')}:</h6>
+                    <h6 className="m-0 text-right">{t('budget Year')}:</h6>
                   </td>
                   <td>{transaction.prs_budget_year || "N/A"}</td>
                 </tr>
@@ -89,6 +75,30 @@ const ProjectStatusModel = (props) => {
                     <h6 className="m-0 text-right">{t('prs_color_code')}:</h6>
                   </td>
                   <td style={{ backgroundColor: transaction.prs_color_code }}>{transaction.prs_color_code}</td>
+                </tr>
+                <tr>
+                  <td colSpan="2">
+                    <h6 className="m-0 text-right">{t('is_editable')}:</h6>
+                  </td>
+                  <td className="text-center">
+                    {transaction.is_editable === 1 ? (
+                      <FaCheckCircle className="text-success" size={20} />
+                    ) : (
+                      <FaTimesCircle className="text-danger" size={20} />
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2">
+                    <h6 className="m-0 text-right">{t('is_deletable')}:</h6>
+                  </td>
+                  <td className="text-center">
+                    {transaction.is_deletable === 1 ? (
+                      <FaCheckCircle className="text-success" size={20} />
+                    ) : (
+                      <FaTimesCircle className="text-danger" size={20} />
+                    )}
+                  </td>
                 </tr>
               </tbody>
             </Table>
