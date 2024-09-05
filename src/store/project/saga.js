@@ -56,40 +56,40 @@ function* fetchProjects() {
 }
 
 
-function* onUpdateProject({ payload: order, modalCallback }) {
+function* onUpdateProject({ payload: project, modalCallback }) {
   try {
-    const response = yield call(updateProject, order);
+    const response = yield call(updateProject, project);
     yield put(updateProjectSuccess(response.data));
-    toast.success("Order Updated Successfully", { autoClose: 2000 });
+    toast.success(`Project ${project.prs_id} Is Updated Successfully`, { autoClose: 2000 });
     if (modalCallback) modalCallback();
   } catch (error) {
     yield put(updateProjectFail(error));
-    toast.error("Order Update Failed", { autoClose: 2000 });
+    toast.error(`Project ${project.prs_id} Is Update Failed`, { autoClose: 2000 });
     if (modalCallback) modalCallback();
   }
 }
 
-function* onDeleteProject({ payload: order }) {
+function* onDeleteProject({ payload: project }) {
   try {
-    const response = yield call(deleteProject, order);
+    const response = yield call(deleteProject, project);
     yield put(deleteProjectuccess(response));
-    toast.success(`Order Delete Successfully`, { autoClose: 2000 });
+    toast.success(`Project ${project} Is Delete Successfully`, { autoClose: 2000 });
   } catch (error) {
     yield put(deleteProjectfail(error));
-    toast.error("Order Delete Failed", { autoClose: 2000 });
+    toast.error(`Project ${project.prs_id} Is Delete Failed`, { autoClose: 2000 });
   }
 }
 
-function* onAddNewProject({ payload: order, modalCallback }) {
+function* onAddNewProject({ payload: project, modalCallback }) {
   try {
-    const response = yield call(addnewProject, order);
-    console.log("response in saga", response);
+    const response = yield call(addnewProject, project);
+
     yield put(addProjectSuccess(response.data));
-    toast.success("Order Added Successfully", { autoClose: 2000 });
+    toast.success(`Project ${project.prs_id} Is Added Successfully`, { autoClose: 2000 });
     if (modalCallback) modalCallback();
   } catch (error) {
     yield put(addProjectFail(error));
-    toast.error("Order Added Failed", { autoClose: 2000 });
+    toast.error("Project Added Failed", { autoClose: 2000 });
     if (modalCallback) modalCallback();
   }
 }

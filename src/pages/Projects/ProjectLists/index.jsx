@@ -390,7 +390,7 @@ const ProjectModel = () => {
       },
     ];
     if (previledge?.is_role_editable && previledge?.is_role_deletable) {
-      baseColumns.push({
+       baseColumns.push({
         header: t("Action"),
         accessorKey: t("Action"),
         enableColumnFilter: false,
