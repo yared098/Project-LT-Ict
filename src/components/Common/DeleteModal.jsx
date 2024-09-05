@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Modal, ModalBody } from "reactstrap";
+import { useTranslation } from "react-i18next";
 
 const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
+  const { t } = useTranslation();
   return (
     <Modal size="md" isOpen={show} toggle={onCloseClick} centered={true}>
       <div className="modal-content">
@@ -18,7 +20,7 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
             </div>
           </div>
           <p className="text-muted font-size-16 mb-4">
-            Are you sure you want to permanently erase the data ?.
+            {t('confirm_erase')}
           </p>
 
           <div className="hstack gap-2 justify-content-center mb-0">
@@ -27,14 +29,14 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
               className="btn btn-danger"
               onClick={onDeleteClick}
             >
-              Delete Now
+              {t('delete_now')}
             </button>
             <button
               type="button"
               className="btn btn-secondary"
               onClick={onCloseClick}
             >
-              Close
+              {t('close')}
             </button>
           </div>
         </ModalBody>

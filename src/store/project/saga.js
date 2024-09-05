@@ -2,11 +2,10 @@ import { call, put, takeEvery } from "redux-saga/effects";
 
 // Project Redux States
 import {
-  GET_PROJECTS,
- 
-  ADD_NEW_PROJECT,
-  DELETE_PROJECT,
-  UPDATE_PROJECT,
+  GET_PROJECTS_STATUS,
+  ADD_NEW_PROJECT_STATUS,
+  DELETE_PROJECT_STATUS,
+  UPDATE_PROJECT_STATUS
 
 } from "./actionTypes";
 import {
@@ -28,10 +27,10 @@ import {
 //Include Both Helper File with needed methods
 import {
 
-  getProjects,
-  addnewProject,
-  updateProject,
-  deleteProject,
+  getProjectsStatus,
+  addnewProjectStatus,
+  updateProjectStatus,
+  deleteProjectStatus,
   
   // getProductComents as getProductComentsApi,
   // onLikeComment as onLikeCommentApi,
@@ -46,19 +45,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
-function* fetchProjects() {
+function* fetchProjectsStatus() {
   try {
-    const response = yield call(getProjects);
+    const response = yield call(getProjectsStatus);
+
     yield put(getProjectsSuccess(response));
+    // toast.success(`Projects Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {
     yield put(getProjectsFail(error));
+    toast.success(`Projects Loading Failed`, { autoClose: 2000 });
   }
 }
 
 
-function* onUpdateProject({ payload: project, modalCallback }) {
+function* onUpdateProjectStatus({ payload: project, modalCallback }) {
   try {
-    const response = yield call(updateProject, project);
+    const response = yield call(updateProjectStatus, project);
     yield put(updateProjectSuccess(response.data));
     toast.success(`Project ${project.prs_id} Is Updated Successfully`, { autoClose: 2000 });
     if (modalCallback) modalCallback();
@@ -69,9 +71,9 @@ function* onUpdateProject({ payload: project, modalCallback }) {
   }
 }
 
-function* onDeleteProject({ payload: project }) {
+function* onDeleteProjectStatus({ payload: project }) {
   try {
-    const response = yield call(deleteProject, project);
+    const response = yield call(deleteProjectStatus, project);
     yield put(deleteProjectuccess(response));
     toast.success(`Project ${project} Is Delete Successfully`, { autoClose: 2000 });
   } catch (error) {
@@ -80,9 +82,9 @@ function* onDeleteProject({ payload: project }) {
   }
 }
 
-function* onAddNewProject({ payload: project, modalCallback }) {
+function* onAddNewProjectStatus({ payload: project, modalCallback }) {
   try {
-    const response = yield call(addnewProject, project);
+    const response = yield call(addnewProjectStatus, project);
 
     yield put(addProjectSuccess(response.data));
     toast.success(`Project ${project.prs_id} Is Added Successfully`, { autoClose: 2000 });
@@ -96,12 +98,12 @@ function* onAddNewProject({ payload: project, modalCallback }) {
 
 
 
-function* ProjectSaga() {
-  yield takeEvery(GET_PROJECTS, fetchProjects);
+function* ProjectStatusSaga() {
+  yield takeEvery(GET_PROJECTS_STATUS, fetchProjectsStatus);
   
-  yield takeEvery(ADD_NEW_PROJECT, onAddNewProject);
-  yield takeEvery(UPDATE_PROJECT, onUpdateProject);
-  yield takeEvery(DELETE_PROJECT, onDeleteProject);
+  yield takeEvery(ADD_NEW_PROJECT_STATUS, onAddNewProjectStatus);
+  yield takeEvery(UPDATE_PROJECT_STATUS, onUpdateProjectStatus);
+  yield takeEvery(DELETE_PROJECT_STATUS, onDeleteProjectStatus);
 }
 
-export default ProjectSaga;
+export default ProjectStatusSaga;

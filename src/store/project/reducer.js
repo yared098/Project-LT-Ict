@@ -1,14 +1,18 @@
 import {
   
-  GET_PROJECTS_FAIL,
-  GET_PROJECTS_SUCCESS,
+  GET_PROJECTS_STATUS_FAIL,
+  GET_PROJECTS_STATUS_SUCCESS,
 
-  ADD_PROJECT_SUCCESS,
-  ADD_PROJECT_FAIL,
-  UPDATE_PROJECT_SUCCESS,
-  UPDATE_PROJECT_FAIL,
-  DELETE_PROJECT_SUCCESS,
-  DELETE_PROJECT_FAIL,
+  ADD_PROJECT_STATUS_SUCCESS,
+  ADD_PROJECT_STATUS_FAIL,
+
+
+  UPDATE_PROJECT_STATUS_SUCCESS,
+  UPDATE_PROJECT_STATUS_FAIL,
+
+  DELETE_PROJECT_STATUS_SUCCESS,
+  DELETE_PROJECT_STATUS_FAIL,
+  
  
 } from "./actionTypes";
 
@@ -25,7 +29,7 @@ const ProjectReducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     
 
-    case GET_PROJECTS_SUCCESS:
+    case GET_PROJECTS_STATUS_SUCCESS:
       return {
         ...state,
         projects: {
@@ -35,14 +39,14 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         loading: false,
       };
 
-    case GET_PROJECTS_FAIL:
+    case GET_PROJECTS_STATUS_FAIL:
       return {
         ...state,
         error: action.payload,
         loading: false, 
       };
 
-    case ADD_PROJECT_SUCCESS:
+    case ADD_PROJECT_STATUS_SUCCESS:
       return {
         ...state,
         projects: {
@@ -51,13 +55,13 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         },
       };
 
-    case ADD_PROJECT_FAIL:
+    case ADD_PROJECT_STATUS_FAIL:
       return {
         ...state,
         error: action.payload,
       };
 
-    case UPDATE_PROJECT_SUCCESS:
+    case UPDATE_PROJECT_STATUS_SUCCESS:
       return {
         ...state,
         projects: {
@@ -70,13 +74,13 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         },
       };
 
-    case UPDATE_PROJECT_FAIL:
+    case UPDATE_PROJECT_STATUS_FAIL:
       return {
         ...state,
         error: action.payload,
       };
 
-    case DELETE_PROJECT_SUCCESS:
+    case DELETE_PROJECT_STATUS_SUCCESS:
       return {
         ...state,
         projects: {
@@ -88,7 +92,7 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         },
       };
 
-    case DELETE_PROJECT_FAIL:
+    case DELETE_PROJECT_STATUS_FAIL:
       return {
         ...state,
         error: action.payload,

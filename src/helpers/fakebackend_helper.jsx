@@ -10,7 +10,7 @@ const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 
 // get Projects
-export const getProjects = async () => {
+export const getProjectsStatus = async () => {
   try {
     const response = await post(url.GET_ORDERS);
     return response;
@@ -20,7 +20,7 @@ export const getProjects = async () => {
 };
 
 // add Projects
-export const addnewProject = async (project) => {
+export const addnewProjectStatus = async (project) => {
   try {
     const response = await axios.post(
       `${apiUrl}project_status/insertgrid`,
@@ -40,11 +40,11 @@ export const addnewProject = async (project) => {
 };
 
 // update Projects
-export const updateProject = (project) =>
+export const updateProjectStatus = (project) =>
   post(`${url.UPDATE_ORDER}?prs_id=${project?.prs_id}`, project);
 
 // delete Projects
-export const deleteProject = (project) =>
+export const deleteProjectStatus = (project) =>
   // post(`${url.DELETE_ORDER}?prs_id=${order?.prs_id}`);
   post(`${url.DELETE_ORDER}?prs_id=${project}`);
 

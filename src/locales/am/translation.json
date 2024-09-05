@@ -213,6 +213,7 @@
   "select Status name": "የሁኔታ ስም ይምረጡ",
   "select budget year": "የበጀት አመት ይምረጡ",
   "budget Year":"በጀት ዓመት",
+  "budget year not defined":"በጀት ዓመት አልተገለጸም",
 
 
   "insert_order_number": "ቁጥር ትዕዛዝ አስገባ",
@@ -229,5 +230,10 @@
   "please_enter_the_color_code": "እባኮትን ቀለም ኮድ አስገባ",
   "please_specify_if_deletable": "እባኮትን እንደሚሰረዝ ተገልጸው ይግለጹ",
   "please_specify_if_editable": "እባኮትን እንደሚሻሽል ተገልጸው ይግለጹ",
-  "please_enter_the_status_number": "እባኮትን ሁኔታ ቁጥር አስገባ"
+  "please_enter_the_status_number": "እባኮትን ሁኔታ ቁጥር አስገባ",
+
+  "delete_now": "አሁን አጥፋ",
+  "confirm_erase": "መረጃን በድረስ ለማጥፋት እርግጠኛ ነህ/ነሽ?",
+  "close": "ዝጋ"
+
 }

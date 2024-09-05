@@ -61,7 +61,7 @@ const SearchComponent = ({
           />
         </div>
         {dropdown.map((dropdownOptions, dropdownIndex) => (
-          console.log(dropdownOptions),
+          // console.log(dropdownOptions),
           <div key={dropdownIndex} className="form-group me-2 mb-2 flex-grow-1">
             <select
              

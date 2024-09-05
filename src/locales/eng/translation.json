@@ -197,6 +197,7 @@
   "select Status name": "Select Status Name",
   "select budget year": "Select Budget Year",
   "budget Year":"Budget Year",
+  "budget year not defined":"Budget year is not defined",
 
   "insert_order_number": "Insert Order Number",
   "insert_status_name_english": "Insert Status Name (English)",
@@ -212,7 +213,12 @@
   "please_enter_the_color_code": "Please enter the color code",
   "please_specify_if_deletable": "Please specify if deletable",
   "please_specify_if_editable": "Please specify if editable",
-  "please_enter_the_status_number": "Please enter the status number"
+  "please_enter_the_status_number": "Please enter the status number",
+
+
+  "delete_now": "Delete Now",
+  "confirm_erase": "Are you sure you want to permanently erase the data?",
+  "close": "Close"
 
   
 

@@ -76,6 +76,21 @@ const ProjectStatusModel = (props) => {
                   </td>
                   <td style={{ backgroundColor: transaction.prs_color_code }}>{transaction.prs_color_code}</td>
                 </tr>
+               {/* add budget year */}
+                  <tr>
+                    <td colSpan="2">
+                      <h6 className="m-0 text-right">{t('budget Year')}:</h6>
+                    </td>
+                    <td style={{ backgroundColor: transaction.prs_budget_year ? transaction.prs_budget_year : '#f8d7da' }}>
+                      {transaction.prs_budget_year ? (
+                        transaction.prs_budget_year
+                      ) : (
+                        <span className="text-danger">{t('budget year not defined')}</span>
+                      )}
+                    </td>
+                  </tr>
+
+                
                 <tr>
                   <td colSpan="2">
                     <h6 className="m-0 text-right">{t('is_editable')}:</h6>
@@ -100,6 +115,7 @@ const ProjectStatusModel = (props) => {
                     )}
                   </td>
                 </tr>
+                
               </tbody>
             </Table>
           </div>

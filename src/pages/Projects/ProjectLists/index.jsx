@@ -69,7 +69,7 @@ const ProjectModel = () => {
 
   const [project, setProject] = useState(null);
   const [budgetYearOptions, setBudgetYearOptions] = useState([]);
-
+  const [selectedBudgetYear, setSelectedBudgetYear] = useState("");
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
 
@@ -454,6 +454,11 @@ const ProjectModel = () => {
 
   const dropdawntotal = [project_status, budgetYearOptions];
 
+  const handleBudgetYearChange = (e) => {
+    setSelectedBudgetYear(e.target.value);
+    validation.setFieldValue('prs_budget_year', e.target.value);
+  };
+
   return (
     <React.Fragment>
       <ProjectStatusModel
@@ -703,35 +708,28 @@ const ProjectModel = () => {
                     </Col>
                     {/* add budget year drop dawn  */}
                     <Col className="col-md-6 mb-3">
-                      <Label>{t("select budget year")}</Label>
-                      <Input
-                        name={t('select budget year')}
-                        type="select"
-                        className="form-select"
-                        onChange={(e) => {
-                          setSelectedBudgetYear(e.target.value);
-                          validation.setFieldValue(
-                            t('select budget year'),
-                            e.target.value
-                          );
-                        }}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.prs_budget_year || ""}
-                      >
-                        {budgetYearOptions.map(option => (
-                          <option key={option.value} value={option.value}>
-                            {/* {option.label} */}
-                            {t(`${option.label}`)}
-                          </option>
-                        ))}
-                      </Input>
-                      {validation.touched.prs_budget_year &&
-                      validation.errors.prs_budget_year ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prs_budget_year}
-                        </FormFeedback>
-                      ) : null}
-                    </Col>
+              <Label>{t("select_budget_year")}</Label>
+              <Input
+                name="prs_budget_year"
+                type="select"
+                className="form-select"
+                onChange={handleBudgetYearChange}
+                onBlur={validation.handleBlur}
+                value={selectedBudgetYear}
+              >
+                {budgetYearOptions.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {t(`${option.label}`)}
+                  </option>
+                ))}
+              </Input>
+              {validation.touched.prs_budget_year &&
+              validation.errors.prs_budget_year ? (
+                <FormFeedback type="invalid">
+                  {validation.errors.prs_budget_year}
+                </FormFeedback>
+              ) : null}
+            </Col>
                   </Row>
                 </Row>
                 <Row>
