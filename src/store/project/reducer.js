@@ -1,18 +1,18 @@
 import {
-  
   GET_PROJECTS_FAIL,
   GET_PROJECTS_SUCCESS,
-
   ADD_PROJECT_SUCCESS,
   ADD_PROJECT_FAIL,
   UPDATE_PROJECT_SUCCESS,
   UPDATE_PROJECT_FAIL,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
- 
+  TOGGLE_LOADING,
+  TOGGLE_UPDATE_LOADING,
 } from "./actionTypes";
 
 const INIT_STATE = {
+  update_loading: false,
   projects: {
     data: [],
     previledge: {},
@@ -23,14 +23,12 @@ const INIT_STATE = {
 
 const ProjectReducer = (state = INIT_STATE, action) => {
   switch (action.type) {
-    
-
     case GET_PROJECTS_SUCCESS:
       return {
         ...state,
         projects: {
-          data: action.payload.data, 
-          previledge: action.payload.previledge, 
+          data: action.payload.data,
+          previledge: action.payload.previledge,
         },
         loading: false,
       };
@@ -39,7 +37,7 @@ const ProjectReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         error: action.payload,
-        loading: false, 
+        loading: false,
       };
 
     case ADD_PROJECT_SUCCESS:
@@ -47,7 +45,7 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         ...state,
         projects: {
           ...state.projects,
-          data: [action.payload, ...state.projects.data], 
+          data: [action.payload, ...state.projects.data],
         },
       };
 
@@ -93,8 +91,17 @@ const ProjectReducer = (state = INIT_STATE, action) => {
         ...state,
         error: action.payload,
       };
+    case TOGGLE_LOADING:
+      return {
+        ...state,
+        loading: !state.loading,
+      };
+    case TOGGLE_UPDATE_LOADING:
+      return {
+        ...state,
+        update_loading: action.payload,
+      };
 
-    
     default:
       return state;
   }
