@@ -191,7 +191,7 @@
   "delete": "አጥፋ",
   "Edit Project Status": "ፕሮጀክት ሁኔታ አርትዕ",
   "Add Project Status": "ፕሮጀክት ሁኔታ ያክሉ",
-  "Add New Order": "አዲስ ትእዛዝ አክል",
+  "Add New Project": "አዲስ ፕሮግራም ጨምር",
 
   "Order Delete Successfully": "ትዕዛዝ በተሳካ ሁኔታ ተሰርዟል",
   "Order Delete Failed": "ትዕዛዝ መሰረዝ አልተሳካም",
@@ -212,5 +212,22 @@
   "Projects Status": "የፕሮግራሞች ሁኔታ",
   "select Status name": "የሁኔታ ስም ይምረጡ",
   "select budget year": "የበጀት አመት ይምረጡ",
-  "budget Year":"በጀት ዓመት"
+  "budget Year":"በጀት ዓመት",
+
+
+  "insert_order_number": "ቁጥር ትዕዛዝ አስገባ",
+  "insert_status_name_english": "የሁኔታ ስም (በእንግሊዝኛ) አስገባ",
+  "insert_status_name_oromo": "የሁኔታ ስም (በኦሮምኛ) አስገባ",
+  "insert_status_name_amharic": "የሁኔታ ስም (በአማርኛ) አስገባ",
+  "insert_description": "መግለጫ አስገባ",
+  "insert_color_code": "የቀለም ኮድ አስገባ",
+
+  "please_enter_the_status": "እባኮትን ሁኔታውን አስገባ",
+  "please_enter_the_oromo_status_name": "እባኮትን ኦሮሞ ሁኔታ ስም አስገባ",
+  "please_enter_the_english_status_name": "እባኮትን እንግሊዝኛ ሁኔታ ስም አስገባ",
+  "please_enter_the_amharic_status_name": "እባኮትን አማርኛ ሁኔታ ስም አስገባ",
+  "please_enter_the_color_code": "እባኮትን ቀለም ኮድ አስገባ",
+  "please_specify_if_deletable": "እባኮትን እንደሚሰረዝ ተገልጸው ይግለጹ",
+  "please_specify_if_editable": "እባኮትን እንደሚሻሽል ተገልጸው ይግለጹ",
+  "please_enter_the_status_number": "እባኮትን ሁኔታ ቁጥር አስገባ"
 }

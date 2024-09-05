@@ -196,7 +196,7 @@
   "delete": "Haqi",
   "Edit Project Status": "Haala Proojektii Fooyyeessi",
   "Add Project Status": "Haala Proojektii Dabalata",
-  "Add New Order": "Ajaja Haaraa Dabalata",
+  "Add New Project": "Projeektii Haaraa Dabali",
 
   "Order Delete Successfully": "Ajajni milkaa'inaan haquamee jira",
   "Order Delete Failed": "Ajajni haquun hin milkaa'inne",
@@ -217,5 +217,21 @@
   "Projects Status": "Haala pirojektootaa",
   "select Status name": "Haala Projeektii Filadhu",
   "select budget year": "Bara Baajataa Filadhu",
-  "budget Year":"Waggaa Baajataa"
+  "budget Year":"Waggaa Baajataa",
+
+  "insert_order_number": "Lakkoofsa Ajajaa Galchi",
+  "insert_status_name_english": "Maqaa Haala (Afaan Ingilizii) Galchi",
+  "insert_status_name_oromo": "Maqaa Haala (Afaan Oromoo) Galchi",
+  "insert_status_name_amharic": "Maqaa Haala (Afaan Amaaraa) Galchi",
+  "insert_description": "Ibsa Galchi",
+  "insert_color_code": "Kaayyoo Akaakuu Galchi",
+  
+  "please_enter_the_status": "Maalummaa galchaa",
+  "please_enter_the_oromo_status_name": "Maalummaa Oromoo galchaa",
+  "please_enter_the_english_status_name": "Maalummaa Ingiliffaa galchaa",
+  "please_enter_the_amharic_status_name": "Maalummaa Amaariffaa galchaa",
+  "please_enter_the_color_code": "Koodii addaamii galchaa",
+  "please_specify_if_deletable": "Sakatta'i yoo meeshaa haquu ta'e",
+  "please_specify_if_editable": "Sakatta'i yoo jijjiiramu ta'e",
+  "please_enter_the_status_number": "Lakkaddaa haala galchaa"
 }

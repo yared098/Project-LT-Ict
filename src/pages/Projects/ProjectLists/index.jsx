@@ -103,31 +103,32 @@ const ProjectModel = () => {
       prs_status_name_am: (project && project.prs_status_name_am) || "",
       prs_description: (project && project.prs_description) || "",
       prs_color_code: (project && project.prs_color_code) || "#fff",
+      prs_budget_year: (project && project.prs_budget_year) || new Date().getFullYear().toString(),
       prs_status: (project && project.prs_status) || 0,
       is_deletable: (project && project.is_deletable) || 1,
       is_editable: (project && project.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      prs_order_number: Yup.number().required("Please Enter the Status"),
+      prs_order_number: Yup.number().required(t('please_enter_the_status_number')),
       prs_status_name_or: Yup.string().required(
-        "Please Enter the Oromo Status Name"
+        t('please_enter_the_oromo_status_name')
       ),
       prs_status_name_en: Yup.string().required(
-        "Please Enter the English Status Name"
+        t('please_enter_the_english_status_name')
       ),
       prs_status_name_am: Yup.string().required(
-        "Please Enter the Amharic Status Name"
+        t('please_enter_the_amharic_status_name')
       ),
       prs_description: Yup.string(),
-      prs_color_code: Yup.string().required("Please Enter the Color Code"),
-      prs_status: Yup.number().required("Please Enter the Status"),
+      prs_color_code: Yup.string().required(t('please_enter_the_color_code')),
+      prs_status: Yup.number().required(t('please_enter_the_status')),
       is_deletable: Yup.number()
         .oneOf([0, 1])
-        .required("Please Specify if Deletable"),
+        .required(t('please_specify_if_deletable')),
       is_editable: Yup.number()
         .oneOf([0, 1])
-        .required("Please Specify if Editable"),
+        .required(t('please_specify_if_editable')),
     }),
 
     onSubmit: (values) => {
@@ -518,7 +519,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_order_number"
                         type="text"
-                        placeholder="Insert Order Number"
+                        placeholder={t('insert_order_number')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_order_number || ""}
@@ -541,7 +542,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_en"
                         type="text"
-                        placeholder="Insert Status Name (English)"
+                        placeholder={t('insert_status_name_english')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_en || ""}
@@ -566,7 +567,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_or"
                         type="text"
-                        placeholder="Insert Status Name (Oromo)"
+                        placeholder={t('insert_status_name_oromo')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_or || ""}
@@ -589,7 +590,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_am"
                         type="text"
-                        placeholder="Insert Status Name (Amharic)"
+                        placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_am || ""}
@@ -614,7 +615,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_description"
                         type="textarea"
-                        placeholder="Insert Description"
+                        placeholder={t('insert_description')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_description || ""}
@@ -664,7 +665,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_color_code"
                         type="text"
-                        placeholder="Insert Color Code"
+                        placeholder={t('insert_color_code')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_color_code || ""}
@@ -679,6 +680,37 @@ const ProjectModel = () => {
                       validation.errors.prs_color_code ? (
                         <FormFeedback type="invalid">
                           {validation.errors.prs_color_code}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+                    {/* add budget year drop dawn  */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("select budget year")}</Label>
+                      <Input
+                        name={t('select budget year')}
+                        type="select"
+                        className="form-select"
+                        onChange={(e) => {
+                          setSelectedBudgetYear(e.target.value);
+                          validation.setFieldValue(
+                            t('select budget year'),
+                            e.target.value
+                          );
+                        }}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prs_budget_year || ""}
+                      >
+                        {budgetYearOptions.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {/* {option.label} */}
+                            {t(`${option.label}`)}
+                          </option>
+                        ))}
+                      </Input>
+                      {validation.touched.prs_budget_year &&
+                      validation.errors.prs_budget_year ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prs_budget_year}
                         </FormFeedback>
                       ) : null}
                     </Col>
