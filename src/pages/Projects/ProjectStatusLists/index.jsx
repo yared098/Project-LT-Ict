@@ -59,7 +59,7 @@ const truncateText = (text, maxLength) => {
 
 const ProjectModel = () => {
   //meta title
-  document.title = "Orders | Skote - Vite React Admin & Dashboard Template";
+  document.title = " Projectstatus  |  Project Managment";
 
   const { t } = useTranslation();
 
@@ -410,6 +410,7 @@ const ProjectModel = () => {
                     const ProjectData = cellProps.row.original;
                     console.log("handleProjectClick before edit", ProjectData);
                     handleProjectClick(ProjectData);
+                    // console.log("update search result table dtata",)
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />

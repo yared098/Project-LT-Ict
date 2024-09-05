@@ -8,7 +8,7 @@ import { apiSuccess, apiFail } from "./actions";
 
 //Include Both Helper File with needed methods
 import { getDashboardEmailChart as getDashboardEmailChartApi }
-    from "../../helpers/fakebackend_helper";
+    from "../../helpers/Project_Backend";
 
 function* getChartsData({ payload: periodType }) {
     try {

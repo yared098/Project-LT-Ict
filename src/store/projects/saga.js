@@ -37,7 +37,7 @@ import {
   // onLikeReply as onLikeReplyApi,
   // onAddReply as onAddReplyApi,
   // onAddComment as onAddCommentApi,
-} from "../../helpers/fakebackend_helper";
+} from "../../helpers/Project_Backend";
 
 // toast
 import { toast } from "react-toastify";

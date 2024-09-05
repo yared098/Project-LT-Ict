@@ -41,7 +41,7 @@ import {
   trashMail,
   staredMail,
   getMailsListsId
-} from "../../helpers/fakebackend_helper";
+} from "../../helpers/Project_Backend";
 
 function* fetchMailsLists({ payload: filter }) {
   try {
