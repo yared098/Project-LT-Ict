@@ -18,7 +18,7 @@ import {
   addNewProjectStatus as onAddNewProjectStatus,
   updateProjectStatus as onUpdateProjectStatus,
   deleteProjectStatus as onDeleteProjectStatus,
-} from "../../../store/project/actions";
+} from "../../../store/projects/actions";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

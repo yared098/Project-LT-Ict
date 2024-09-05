@@ -6,7 +6,7 @@ import AuthSaga from "./auth/login/saga";
 import ForgetSaga from "./auth/forgetpwd/saga";
 import ProfileSaga from "./auth/profile/saga";
 import LayoutSaga from "./layout/saga";
-import ProjectStatusSaga from "./project/saga";
+import ProjectStatusSaga from "./projects/saga";
 import calendarSaga from "./calendar/saga";
 // import chatSaga from "./chat/saga";
 // import cryptoSaga from "./crypto/saga";

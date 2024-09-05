@@ -7,7 +7,7 @@ export * from "./auth/forgetpwd/actions";
 export * from "./auth/profile/actions";
 
 //Ecommerce
-export * from "./project/actions";
+export * from "./projects/actions";
 
 //Calendar
 export * from "./calendar/actions";

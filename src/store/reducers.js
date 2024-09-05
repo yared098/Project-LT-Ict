@@ -10,7 +10,7 @@ import ForgetPassword from "./auth/forgetpwd/reducer";
 import Profile from "./auth/profile/reducer";
 
 //E-commerce
-import Projects from "./project/reducer";
+import Projects from "./projects/reducer";
 
 //Calendar
 import calendar from "./calendar/reducer";
