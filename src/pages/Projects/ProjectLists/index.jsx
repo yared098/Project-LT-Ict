@@ -70,8 +70,7 @@ const ProjectModel = () => {
     const fetchBudgetYears = async () => {
       try {
         const response = await axios.post(
-          // `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
-          `https://pms.awashsol.com/api/budget_year/listgrid`
+          `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.prp_budget_year.toString(),
@@ -178,7 +177,8 @@ const ProjectModel = () => {
 
   const ProjectStatusProperties = createSelector(
     (state) => state.Projects, // this is geting from  reducer
-    (ProjectReducer) => ({     // this is from Project.reducer
+    (ProjectReducer) => ({
+      // this is from Project.reducer
       projects: ProjectReducer.projects,
       loading: ProjectReducer.loading,
     })
@@ -189,7 +189,6 @@ const ProjectModel = () => {
     loading,
   } = useSelector(ProjectStatusProperties);
 
-
   const selectSearchProperties = createSelector(
     (state) => state.search,
     (search) => ({
@@ -198,7 +197,7 @@ const ProjectModel = () => {
   );
 
   const { results } = useSelector(selectSearchProperties);
-  
+
   const [isLoading, setLoading] = useState(loading);
 
   useEffect(() => {
@@ -218,7 +217,7 @@ const ProjectModel = () => {
     }
   }, [data]);
 
-  useEffect(()=>{},[])
+  useEffect(() => {}, []);
 
   const toggle = () => {
     if (modal) {
@@ -480,7 +479,7 @@ const ProjectModel = () => {
                       handleUserClick={handleProjectClicks}
                       isPagination={true}
                       // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26+" "+t('Results')+"..."}
+                      SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2 addOrder-modal"
                       buttonName={t("Add New Project")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"

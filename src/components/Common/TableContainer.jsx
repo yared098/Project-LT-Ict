@@ -92,6 +92,7 @@ const TableContainer = ({
   const [globalFilter, setGlobalFilter] = useState("");
   const { t } = useTranslation();
   const pageIndexRef = useRef(0); // Store the page index
+  const [pageSize, setPageSize] = useState(10);
 
   const fuzzyFilter = (row, columnId, value, addMeta) => {
     const itemRank = rankItem(row.getValue(columnId), value);
@@ -108,7 +109,7 @@ const TableContainer = ({
       globalFilter,
       pagination: {
         pageIndex: pageIndexRef.current,
-        pageSize: 10,
+        pageSize,
       },
     },
     onColumnFiltersChange: setColumnFilters,
@@ -145,12 +146,13 @@ const TableContainer = ({
               className="form-select pageSize mb-2"
               value={table.getState().pagination.pageSize}
               onChange={(e) => {
+                setPageSize(Number(e.target.value));
                 table.setPageSize(Number(e.target.value));
               }}
             >
               {[10, 20, 30, 40, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
-                  {t('Showing')} {pageSize}
+                  {t("Showing")} {pageSize}
                 </option>
               ))}
             </select>
