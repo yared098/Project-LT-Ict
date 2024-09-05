@@ -50,6 +50,13 @@ import moment from "moment";
 import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
 
+const truncateText = (text, maxLength) => {
+  if (typeof text !== "string") {
+    return text;
+  }
+  return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
+};
+
 const ProjectModel = () => {
   //meta title
   document.title = "Orders | Skote - Vite React Admin & Dashboard Template";
@@ -71,7 +78,6 @@ const ProjectModel = () => {
       try {
         const response = await axios.post(
           `${import.meta.env.VITE_BASE_API_URL}budget_year/listgrid`
-          // `https://pms.awashsol.com/api/budget_year/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.prp_budget_year.toString(),
@@ -103,22 +109,21 @@ const ProjectModel = () => {
       prs_status_name_am: (project && project.prs_status_name_am) || "",
       prs_description: (project && project.prs_description) || "",
       prs_color_code: (project && project.prs_color_code) || "#fff",
-      prs_budget_year: (project && project.prs_budget_year) || new Date().getFullYear().toString(),
       prs_status: (project && project.prs_status) || 0,
       is_deletable: (project && project.is_deletable) || 1,
       is_editable: (project && project.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      prs_order_number: Yup.number().required(t('please_enter_the_status_number')),
+      prs_order_number: Yup.number().required("Please Enter the Status"),
       prs_status_name_or: Yup.string().required(
-        t('please_enter_the_oromo_status_name')
+        "Please Enter the Oromo Status Name"
       ),
       prs_status_name_en: Yup.string().required(
-        t('please_enter_the_english_status_name')
+        "Please Enter the English Status Name"
       ),
       prs_status_name_am: Yup.string().required(
-        t('please_enter_the_amharic_status_name')
+        "Please Enter the Amharic Status Name"
       ),
       prs_description: Yup.string(),
       prs_color_code: Yup.string().required(t('please_enter_the_color_code')),
@@ -130,6 +135,8 @@ const ProjectModel = () => {
         .oneOf([0, 1])
         .required(t('please_specify_if_editable')),
     }),
+    validateOnBlur: true,
+    validateOnChange: false,
 
     onSubmit: (values) => {
       if (isEdit) {
@@ -145,6 +152,8 @@ const ProjectModel = () => {
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
         };
+        console.log("updateProject", updateProjects);
+
         // update projects
         dispatch(onUpdateProject(updateProjects));
         validation.resetForm();
@@ -179,7 +188,8 @@ const ProjectModel = () => {
 
   const ProjectStatusProperties = createSelector(
     (state) => state.Projects, // this is geting from  reducer
-    (ProjectReducer) => ({     // this is from Project.reducer
+    (ProjectReducer) => ({
+      // this is from Project.reducer
       projects: ProjectReducer.projects,
       loading: ProjectReducer.loading,
     })
@@ -190,7 +200,6 @@ const ProjectModel = () => {
     loading,
   } = useSelector(ProjectStatusProperties);
 
-
   const selectSearchProperties = createSelector(
     (state) => state.search,
     (search) => ({
@@ -199,7 +208,7 @@ const ProjectModel = () => {
   );
 
   const { results } = useSelector(selectSearchProperties);
-  
+
   const [isLoading, setLoading] = useState(loading);
 
   useEffect(() => {
@@ -219,7 +228,7 @@ const ProjectModel = () => {
     }
   }, [data]);
 
-  useEffect(()=>{},[])
+  useEffect(() => {}, []);
 
   const toggle = () => {
     if (modal) {
@@ -232,7 +241,7 @@ const ProjectModel = () => {
 
   const handleProjectClick = (arg) => {
     const project = arg;
-    console.log(project);
+    console.log("handleProjectClick", project);
     setProject({
       prs_id: project.prs_id,
       prs_order_number: project.prs_order_number,
@@ -352,7 +361,7 @@ const ProjectModel = () => {
         cell: (cellProps) => {
           return (
             <span>
-              {cellProps.row.original.prs_description ||
+              {truncateText(cellProps.row.original.prs_description, 30) ||
                 "No description available"}
             </span>
           );
@@ -395,6 +404,7 @@ const ProjectModel = () => {
                   className="text-success"
                   onClick={() => {
                     const ProjectData = cellProps.row.original;
+                    console.log("handleProjectClick before edit", ProjectData);
                     handleProjectClick(ProjectData);
                   }}
                 >
@@ -480,7 +490,7 @@ const ProjectModel = () => {
                       handleUserClick={handleProjectClicks}
                       isPagination={true}
                       // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26+" "+t('Results')+"..."}
+                      SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2 addOrder-modal"
                       buttonName={t("Add New Project")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
@@ -552,6 +562,7 @@ const ProjectModel = () => {
                             ? true
                             : false
                         }
+                        maxLength={20}
                       />
                       {validation.touched.prs_status_name_en &&
                       validation.errors.prs_status_name_en ? (
@@ -577,6 +588,7 @@ const ProjectModel = () => {
                             ? true
                             : false
                         }
+                        maxLength={20}
                       />
                       {validation.touched.prs_status_name_or &&
                       validation.errors.prs_status_name_or ? (
@@ -600,6 +612,7 @@ const ProjectModel = () => {
                             ? true
                             : false
                         }
+                        maxLength={20}
                       />
                       {validation.touched.prs_status_name_am &&
                       validation.errors.prs_status_name_am ? (
@@ -648,6 +661,7 @@ const ProjectModel = () => {
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status}
                       >
+                        <option value={""}>Select status</option>
                         <option value={1}>{t("Active")}</option>
                         <option value={0}>{t("Inactive")}</option>
                       </Input>
@@ -723,6 +737,7 @@ const ProjectModel = () => {
                         color="success"
                         type="submit"
                         className="save-user"
+                        disabled={loading || !validation.dirty}
                       >
                         {t("Save")}
                       </Button>
