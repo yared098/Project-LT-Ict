@@ -182,7 +182,7 @@ const ProjectModel = () => {
       }
     },
   });
-  const [transaction, setTransaction] = useState("");
+  const [transaction, setTransaction] = useState({});
 
   const toggleViewModal = () => setModal1(!modal1);
 
@@ -417,7 +417,7 @@ const ProjectModel = () => {
                   className="text-success"
                   onClick={() => {
                     const ProjectData = cellProps.row.original;
-                    console.log("handleProjectClick before edit", ProjectData);
+                    // console.log("handleProjectClick before edit", ProjectData);
                     handleProjectClick(ProjectData);
                     // console.log("update search result table dtata",)
                   }}
@@ -719,7 +719,7 @@ const ProjectModel = () => {
                     </Col>
                     {/* add budget year drop dawn  */}
                     <Col className="col-md-6 mb-3">
-                      <Label>{t("select_budget_year")}</Label>
+                      <Label>{t("select budget year")}</Label>
                       <Input
                         name="prs_budget_year"
                         type="select"
