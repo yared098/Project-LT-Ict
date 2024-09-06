@@ -19,7 +19,9 @@ import {
   addNewProjectStatus as onAddNewProjectStatus,
   updateProjectStatus as onUpdateProjectStatus,
   deleteProjectStatus as onDeleteProjectStatus,
+  toggleShowResult,
 } from "../../../store/projects/actions";
+import { updateSearchResults } from "../../../store/search/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -72,7 +74,6 @@ const ProjectModel = () => {
   const [budgetYearOptions, setBudgetYearOptions] = useState([]);
   const [selectedBudgetYear, setSelectedBudgetYear] = useState("");
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
-  const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
 
   useEffect(() => {
     const fetchBudgetYears = async () => {
@@ -160,8 +161,6 @@ const ProjectModel = () => {
           is_editable: values.is_editable,
         };
         console.log("updateProject", updateProjects);
-
-        // update projects
         dispatch(onUpdateProjectStatus(updateProjects));
         validation.resetForm();
       } else {
@@ -200,6 +199,7 @@ const ProjectModel = () => {
       projects: ProjectReducer.projects,
       loading: ProjectReducer.loading,
       update_loading: ProjectReducer.update_loading,
+      show_result: ProjectReducer.show_result,
     })
   );
 
@@ -207,6 +207,7 @@ const ProjectModel = () => {
     projects: { data, previledge },
     loading,
     update_loading,
+    show_result,
   } = useSelector(ProjectStatusProperties);
 
   useEffect(() => {
@@ -222,7 +223,6 @@ const ProjectModel = () => {
   );
 
   const { results } = useSelector(selectSearchProperties);
-
   const [isLoading, setLoading] = useState(loading);
 
   useEffect(() => {
@@ -297,12 +297,12 @@ const ProjectModel = () => {
   };
   const handleSearch = () => {
     setSearchLoading(true); // Set loading to true when search is initiated// Update filtered data with search results
-    setShowSearchResults(true); // Show search results
+    dispatch(toggleShowResult(true)); // Show search results
     setSearchLoading(false);
   };
 
   const handleClearSearch = () => {
-    setShowSearchResults(false);
+    dispatch(toggleShowResult(false));
   };
 
   const columns = useMemo(() => {
@@ -503,7 +503,7 @@ const ProjectModel = () => {
                   <CardBody>
                     <TableContainer
                       columns={columns}
-                      data={showSearchResults ? results : data}
+                      data={show_result ? results : data}
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}

@@ -8,6 +8,7 @@ import {
   DELETE_PROJECT_STATUS_SUCCESS,
   DELETE_PROJECT_STATUS_FAIL,
   TOGGLE_UPDATE_LOADING,
+  TOGGLE_SHOW_RESULT,
 } from "./actionTypes";
 
 const INIT_STATE = {
@@ -17,6 +18,7 @@ const INIT_STATE = {
     previledge: {},
   },
   error: {},
+  show_result: false,
   loading: true,
 };
 
@@ -94,6 +96,11 @@ const ProjectReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         update_loading: action.payload,
+      };
+    case TOGGLE_SHOW_RESULT:
+      return {
+        ...state,
+        show_result: action.payload,
       };
 
     default:

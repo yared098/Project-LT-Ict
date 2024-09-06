@@ -11,7 +11,8 @@ import {
   DELETE_PROJECT_STATUS,
   DELETE_PROJECT_STATUS_SUCCESS,
   DELETE_PROJECT_STATUS_FAIL,
-  TOGGLE_UPDATE_LOADING
+  TOGGLE_UPDATE_LOADING,
+  TOGGLE_SHOW_RESULT,
 } from "./actionTypes";
 
 export const getProjectsStatus = () => ({
@@ -72,5 +73,10 @@ export const deleteProjectfail = (error) => ({
 
 export const toggleUpdateLoading = (value) => ({
   type: TOGGLE_UPDATE_LOADING,
+  payload: value,
+});
+
+export const toggleShowResult = (value) => ({
+  type: TOGGLE_SHOW_RESULT,
   payload: value,
 });

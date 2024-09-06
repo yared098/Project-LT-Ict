@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, select } from "redux-saga/effects";
 
 // Project Redux States
 import {
@@ -19,6 +19,8 @@ import {
   toggleUpdateLoading,
 } from "./actions";
 
+import { deleteSearchResult, updateSearchResults } from "../search/action";
+
 //Include Both Helper File with needed methods
 import {
   getProjectsStatus,
@@ -37,6 +39,8 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const selectShowResult = (state) => state.Projects.show_result;
+
 function* fetchProjectsStatus() {
   try {
     const response = yield call(getProjectsStatus);
@@ -52,6 +56,11 @@ function* onUpdateProjectStatus({ payload: project, modalCallback }) {
     yield put(toggleUpdateLoading(true));
     const response = yield call(updateProjectStatus, project);
     yield put(updateProjectSuccess(response.data));
+    const showResult = yield select(selectShowResult);
+
+    if (showResult) {
+      yield put(updateSearchResults(project));
+    }
     toast.success(`Project ${project.prs_id} Is Updated Successfully`, {
       autoClose: 2000,
     });
@@ -73,7 +82,11 @@ function* onDeleteProjectStatus({ payload: project }) {
     yield put(toggleUpdateLoading(true));
     const response = yield call(deleteProjectStatus, project);
     yield put(deleteProjectuccess(response));
-    console.log("deleted", response);
+    const showResult = yield select(selectShowResult);
+
+    if (showResult) {
+      yield put(deleteSearchResult(project));
+    }
     toast.success(`Project ${response.deleted_id} Is Delete Successfully`, {
       autoClose: 2000,
     });

@@ -2,6 +2,8 @@ import {
   PERFORM_SEARCH_REQUEST,
   PERFORM_SEARCH_SUCCESS,
   PERFORM_SEARCH_FAIL,
+  UPDATE_SEARCH_RESULTS,
+  DELETE_SEARCH_RESULT,
 } from "./actionTypes";
 
 const initialState = {
@@ -32,6 +34,21 @@ const searchReducer = (state = initialState, action) => {
         error: action.payload.error,
       };
 
+    case UPDATE_SEARCH_RESULTS:
+      return {
+        ...state,
+        results: state.results.map((result) =>
+          result.prs_id === action.payload.prs_id ? action.payload : result
+        ),
+      };
+
+    case DELETE_SEARCH_RESULT:
+      return {
+        ...state,
+        results: state.results.filter(
+          (result) => result.prs_id !== action.payload
+        ),
+      };
     default:
       return state;
   }
