@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Modal, ModalBody } from "reactstrap";
 import { useTranslation } from "react-i18next";
+import { Spinner } from "reactstrap";
 
-const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
+const DeleteModal = ({ show, onDeleteClick, onCloseClick, update_loading }) => {
   const { t } = useTranslation();
   return (
     <Modal size="md" isOpen={show} toggle={onCloseClick} centered={true}>
@@ -19,24 +20,35 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
               <i className="mdi mdi-trash-can-outline"></i>
             </div>
           </div>
-          <p className="text-muted font-size-16 mb-4">
-            {t('confirm_erase')}
-          </p>
+          <p className="text-muted font-size-16 mb-4">{t("confirm_erase")}</p>
 
           <div className="hstack gap-2 justify-content-center mb-0">
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={onDeleteClick}
-            >
-              {t('delete_now')}
-            </button>
+            {update_loading ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onDeleteClick}
+                disabled={true}
+              >
+                <Spinner size={"sm"} color="#fff" />
+                {t("delete_now")}
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onDeleteClick}
+              >
+                {t("delete_now")}
+              </button>
+            )}
+
             <button
               type="button"
               className="btn btn-secondary"
               onClick={onCloseClick}
             >
-              {t('close')}
+              {t("close")}
             </button>
           </div>
         </ModalBody>

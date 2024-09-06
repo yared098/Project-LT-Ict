@@ -110,32 +110,36 @@ const ProjectModel = () => {
       prs_status_name_am: (project && project.prs_status_name_am) || "",
       prs_description: (project && project.prs_description) || "",
       prs_color_code: (project && project.prs_color_code) || "#fff",
-      prs_budget_year: (project && project.prs_budget_year) || new Date().getFullYear().toString(),
+      prs_budget_year:
+        (project && project.prs_budget_year) ||
+        new Date().getFullYear().toString(),
       prs_status: (project && project.prs_status) || 0,
       is_deletable: (project && project.is_deletable) || 1,
       is_editable: (project && project.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      prs_order_number: Yup.number().required(t('please_enter_the_status_number')),
+      prs_order_number: Yup.number().required(
+        t("please_enter_the_status_number")
+      ),
       prs_status_name_or: Yup.string().required(
-        t('please_enter_the_oromo_status_name')
+        t("please_enter_the_oromo_status_name")
       ),
       prs_status_name_en: Yup.string().required(
-        t('please_enter_the_english_status_name')
+        t("please_enter_the_english_status_name")
       ),
       prs_status_name_am: Yup.string().required(
-        t('please_enter_the_amharic_status_name')
+        t("please_enter_the_amharic_status_name")
       ),
       prs_description: Yup.string(),
-      prs_color_code: Yup.string().required(t('please_enter_the_color_code')),
-      prs_status: Yup.number().required(t('please_enter_the_status')),
+      prs_color_code: Yup.string().required(t("please_enter_the_color_code")),
+      prs_status: Yup.number().required(t("please_enter_the_status")),
       is_deletable: Yup.number()
         .oneOf([0, 1])
-        .required(t('please_specify_if_deletable')),
+        .required(t("please_specify_if_deletable")),
       is_editable: Yup.number()
         .oneOf([0, 1])
-        .required(t('please_specify_if_editable')),
+        .required(t("please_specify_if_editable")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -462,7 +466,7 @@ const ProjectModel = () => {
 
   const handleBudgetYearChange = (e) => {
     setSelectedBudgetYear(e.target.value);
-    validation.setFieldValue('prs_budget_year', e.target.value);
+    validation.setFieldValue("prs_budget_year", e.target.value);
   };
 
   return (
@@ -476,6 +480,7 @@ const ProjectModel = () => {
         show={deleteModal}
         onDeleteClick={handleDeleteProject}
         onCloseClick={() => setDeleteModal(false)}
+        update_loading={update_loading}
       />
       <div className="page-content">
         <div className="container-fluid">
@@ -544,7 +549,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_order_number"
                         type="text"
-                        placeholder={t('insert_order_number')}
+                        placeholder={t("insert_order_number")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_order_number || ""}
@@ -567,7 +572,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_en"
                         type="text"
-                        placeholder={t('insert_status_name_english')}
+                        placeholder={t("insert_status_name_english")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_en || ""}
@@ -593,7 +598,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_or"
                         type="text"
-                        placeholder={t('insert_status_name_oromo')}
+                        placeholder={t("insert_status_name_oromo")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_or || ""}
@@ -617,7 +622,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_status_name_am"
                         type="text"
-                        placeholder={t('insert_status_name_amharic')}
+                        placeholder={t("insert_status_name_amharic")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_status_name_am || ""}
@@ -643,7 +648,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_description"
                         type="textarea"
-                        placeholder={t('insert_description')}
+                        placeholder={t("insert_description")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_description || ""}
@@ -694,7 +699,7 @@ const ProjectModel = () => {
                       <Input
                         name="prs_color_code"
                         type="text"
-                        placeholder={t('insert_color_code')}
+                        placeholder={t("insert_color_code")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.prs_color_code || ""}
@@ -714,28 +719,28 @@ const ProjectModel = () => {
                     </Col>
                     {/* add budget year drop dawn  */}
                     <Col className="col-md-6 mb-3">
-              <Label>{t("select_budget_year")}</Label>
-              <Input
-                name="prs_budget_year"
-                type="select"
-                className="form-select"
-                onChange={handleBudgetYearChange}
-                onBlur={validation.handleBlur}
-                value={selectedBudgetYear}
-              >
-                {budgetYearOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {t(`${option.label}`)}
-                  </option>
-                ))}
-              </Input>
-              {validation.touched.prs_budget_year &&
-              validation.errors.prs_budget_year ? (
-                <FormFeedback type="invalid">
-                  {validation.errors.prs_budget_year}
-                </FormFeedback>
-              ) : null}
-            </Col>
+                      <Label>{t("select_budget_year")}</Label>
+                      <Input
+                        name="prs_budget_year"
+                        type="select"
+                        className="form-select"
+                        onChange={handleBudgetYearChange}
+                        onBlur={validation.handleBlur}
+                        value={selectedBudgetYear}
+                      >
+                        {budgetYearOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {t(`${option.label}`)}
+                          </option>
+                        ))}
+                      </Input>
+                      {validation.touched.prs_budget_year &&
+                      validation.errors.prs_budget_year ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prs_budget_year}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
                   </Row>
                 </Row>
                 <Row>

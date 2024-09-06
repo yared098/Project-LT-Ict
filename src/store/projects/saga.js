@@ -70,7 +70,7 @@ function* onUpdateProjectStatus({ payload: project, modalCallback }) {
 
 function* onDeleteProjectStatus({ payload: project }) {
   try {
-    yield put(toggleUpdateLoading(false));
+    yield put(toggleUpdateLoading(true));
     const response = yield call(deleteProjectStatus, project);
     yield put(deleteProjectuccess(response));
     console.log("deleted", response);
