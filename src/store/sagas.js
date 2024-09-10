@@ -22,6 +22,7 @@ import contactsSaga from "./contacts/saga";
 // import dashboardBlogSaga from "./dashboard-blog/saga";
 // import dashboardJobSaga from "./dashboard-jobs/saga";
 import watchSearchSaga from "./search/sagas";
+import treeSaga from "./tree/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -47,5 +48,6 @@ export default function* rootSaga() {
     // fork(dashboardBlogSaga),
     // fork(dashboardJobSaga),
     fork(watchSearchSaga),
+    fork(treeSaga),
   ]);
 }
