@@ -210,11 +210,11 @@ const SidebarContent = (props) => {
                     {props.t("Projects Status")}
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/Project-Tree">
                     {props.t("Project Tree")}
                   </Link>
-                </li>
+                </li> */}
 
                 {/* <li>
                   <Link to="/ProjectNodetree">
@@ -243,7 +243,7 @@ const SidebarContent = (props) => {
 
             <li>
               <Link to="/#" className="has-arrow">
-                <i className="bx bx-store"></i>
+                <i className="bx bx-receipt"></i>
                 <span>{props.t("Test Tree")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
