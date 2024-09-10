@@ -211,16 +211,16 @@ const SidebarContent = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/apps-filemanager">
+                  <Link to="/Project-Tree">
                     {props.t("Project Tree")}
                   </Link>
                 </li>
 
-                <li>
+                {/* <li>
                   <Link to="/ProjectNodetree">
                     {props.t("Project old tree")}
                   </Link>
-                </li>
+                </li> */}
                 {/* <li>
                   <Link to="/ecommerce-customers">{props.t("Customers")}</Link>
                 </li>

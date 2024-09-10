@@ -28,7 +28,7 @@ import Calendar from "../pages/Calendar/index";
 // import EcommerceProducts from "../pages/Projects/EcommerceProducts";
 // import EcommerceProductDetail from "../pages/Projects/EcommerceProductDetail/index";
 import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
-import ProjectTree from "../pages/ProjectTee/index";
+// import ProjectTree from "../pages/ProjectTee/index";
 // import EcommerceCustomers from "../pages/Projects/EcommerceCustomers/index";
 // import EcommerceCart from "../pages/Projects/EcommerceCart";
 // import EcommerceCheckout from "../pages/Projects/EcommerceCheckout";
@@ -197,7 +197,7 @@ const authProtectedRoutes = [
   // { path: "/chat", component: <Chat /> },
 
   //File Manager
-  { path: "/apps-filemanager", component: <ProjectsTreeView /> },
+  { path: "/Project-Tree", component: <ProjectsTreeView /> },
 
   // //calendar
   { path: "/calendar", component: <Calendar /> },
@@ -212,7 +212,7 @@ const authProtectedRoutes = [
   // },
   // { path: "/ecommerce-products", component: <EcommerceProducts /> },
   { path: "/projects-status", component: <ProjectLists /> },
-  { path :  "/ProjectNodetree",components: <ProjectTree/> },
+  // { path :  "/ProjectNodetree",components: <ProjectTree/> },
   // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
   // { path: "/ecommerce-cart", component: <EcommerceCart /> },
   // { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
