@@ -52,6 +52,7 @@ import moment from "moment";
 //Import Flatepicker
 import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
+import RightOffCanvas from "../../../components/Common/RightOffCanvas";
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
@@ -70,10 +71,16 @@ const ProjectModel = () => {
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
+  const [showCanvas, setShowCanvas] = useState(false);
+
   const [project, setProject] = useState(null);
   const [budgetYearOptions, setBudgetYearOptions] = useState([]);
   const [selectedBudgetYear, setSelectedBudgetYear] = useState("");
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
+
+  const handleClick = () => {
+    setShowCanvas(!showCanvas); // Toggle canvas visibility
+  };
 
   useEffect(() => {
     const fetchBudgetYears = async () => {
@@ -411,6 +418,14 @@ const ProjectModel = () => {
         cell: (cellProps) => {
           return (
             <div className="d-flex gap-3">
+              <Link to="#" className="text-secondary" onClick={handleClick}>
+                <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
+
+                <UncontrolledTooltip placement="top" target="viewtooltip">
+                  View
+                </UncontrolledTooltip>
+              </Link>
+
               {cellProps.row.original.is_editable && (
                 <Link
                   to="#"
@@ -774,6 +789,9 @@ const ProjectModel = () => {
           </Modal>
         </div>
       </div>
+      {showCanvas && (
+        <RightOffCanvas handleClick={handleClick} showCanvas={showCanvas} />
+      )}
       <ToastContainer />
     </React.Fragment>
   );
