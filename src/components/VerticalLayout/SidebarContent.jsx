@@ -210,6 +210,17 @@ const SidebarContent = (props) => {
                     {props.t("Projects Status")}
                   </Link>
                 </li>
+                <li>
+                  <Link to="/Project-Tree">
+                    {props.t("Project Tree")}
+                  </Link>
+                </li>
+
+                {/* <li>
+                  <Link to="/ProjectNodetree">
+                    {props.t("Project old tree")}
+                  </Link>
+                </li> */}
                 {/* <li>
                   <Link to="/ecommerce-customers">{props.t("Customers")}</Link>
                 </li>

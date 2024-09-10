@@ -5,7 +5,12 @@ export const GET_ORDERS = "project_status/listgrid";
 export const ADD_NEW_ORDER = "project_status/insertgrid";
 export const UPDATE_ORDER = "project_status/updategrid";
 export const DELETE_ORDER = "project_status/deletegrid";
-
+// project tree
+export const GET_PROJECT_TREE='address_structure/listgrid';
+export const ADD_PROJECT_TREE='address_structure/insertgrid';
+export const RENAME_PROJECT_TREE='address_structure/updategrid';
+export const DELETE_PROJECT_TREE='address_structure/deletegrid';
+// END OF PROJECT TREE
 
 //REGISTER
 export const POST_FAKE_REGISTER = "/post-fake-register";
