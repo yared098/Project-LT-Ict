@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 // import Chat from "../pages/Chat/Chat";
 
 // // File Manager
-import FileManager from "../pages/FileManager/index";
+import ProjectsTreeView from "../pages/ProjectStatusTree/index";
 
 // // Profile
 // import UserProfile from "../pages/Authentication/user-profile";
@@ -28,6 +28,7 @@ import Calendar from "../pages/Calendar/index";
 // import EcommerceProducts from "../pages/Projects/EcommerceProducts";
 // import EcommerceProductDetail from "../pages/Projects/EcommerceProductDetail/index";
 import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
+import ProjectTree from "../pages/ProjectTee/index";
 // import EcommerceCustomers from "../pages/Projects/EcommerceCustomers/index";
 // import EcommerceCart from "../pages/Projects/EcommerceCart";
 // import EcommerceCheckout from "../pages/Projects/EcommerceCheckout";
@@ -174,6 +175,7 @@ import PagesPricing from "../pages/Utility/pages-pricing";
 // import ContactsList from "../pages/Contacts/ContactList/contacts-list";
 // import ContactsProfile from "../pages/Contacts/ContactsProfile/index";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
+import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 
 const authProtectedRoutes = [
@@ -195,7 +197,7 @@ const authProtectedRoutes = [
   // { path: "/chat", component: <Chat /> },
 
   //File Manager
-  { path: "/apps-filemanager", component: <FileManager /> },
+  { path: "/apps-filemanager", component: <ProjectsTreeView /> },
 
   // //calendar
   { path: "/calendar", component: <Calendar /> },
@@ -210,6 +212,7 @@ const authProtectedRoutes = [
   // },
   // { path: "/ecommerce-products", component: <EcommerceProducts /> },
   { path: "/projects-status", component: <ProjectLists /> },
+  { path :  "/ProjectNodetree",components: <ProjectTree/> },
   // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
   // { path: "/ecommerce-cart", component: <EcommerceCart /> },
   // { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },

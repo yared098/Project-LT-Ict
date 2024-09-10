@@ -4,6 +4,19 @@ import * as url from "./url_Lists";
 
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
+// PROJECT TREE
+export const getProjectTreeStatus=async()=>{
+  
+  try{
+    const response=await post(url.GET_PROJECT_TREE);
+    return response;
+  }
+  catch(error){
+    console.log("errer on backend ")
+    console.log(error);
+  }
+}
+
 
 
 
@@ -397,4 +410,6 @@ export {
   onLikeReply,
   onAddReply,
   onAddComment,
+  // this is for project tree
+  
 };
