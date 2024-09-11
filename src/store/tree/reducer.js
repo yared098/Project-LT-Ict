@@ -21,7 +21,6 @@ const initialState = {
 
 // Helper function to recursively add a subfolder to the correct parent node
 const addSubFolder = (tree, parentId, newFolder) => {
-  console.log("add sub folder helper", tree, parentId, newFolder);
   return tree.map((node) => {
     if (node.id == parentId) {
       return {
@@ -118,7 +117,6 @@ const TreeReducer = (state = initialState, action) => {
         error: null,
       };
     case ADD_FOLDER_SUCCESS:
-      console.log("add reducer", action.payload);
       return {
         ...state,
         loading: false,
@@ -131,7 +129,6 @@ const TreeReducer = (state = initialState, action) => {
         data: renameFolder(state.data, action.payload.id, action.payload.name),
       };
     case DELETE_FOLDER_SUCCESS:
-      console.log("delete reducer", action.payload);
       return {
         ...state,
         loading: false,

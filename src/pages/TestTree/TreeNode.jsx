@@ -1,73 +1,69 @@
-import React, { useState } from 'react';
-import { FaChevronRight, FaChevronDown } from 'react-icons/fa';
-import { AiOutlineFolder } from 'react-icons/ai';
+import { useState } from "react";
+import { Collapse } from "reactstrap";
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { AiOutlineFolder } from "react-icons/ai";
+import { HiOutlineFolder } from "react-icons/hi";
 
-// TreeNode component representing a project or folder
 const TreeNode = ({ node, onNodeClick, level = 0 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   return (
-    <div style={{ position: 'relative', marginLeft: level * 20, padding: '5px 0' }}>
+    <div
+      className="position-relative ms-3 py-1"
+      style={{ marginLeft: level * 20 }}
+    >
       {/* Draw lines to show hierarchy */}
       {level > 0 && (
         <>
-         
           <div
+            className="position-absolute"
             style={{
-              position: 'absolute',
-              top: '0px',   
-              left: '-10px',  
-              height: '100%',
-              borderLeft: '2px solid #007bff',  
-              zIndex: 0,  
+              top: 0,
+              left: "-10px",
+              height: "100%",
+              borderLeft: "1px solid #74788d",
+              zIndex: 0,
             }}
           ></div>
-         
           <div
+            className="position-absolute"
             style={{
-              position: 'absolute',
-              top: '50%',    
-              left: '-10px',  
-              width: '10px', 
-              borderTop: '2px solid #007bff',  
-              zIndex: 0,  
+              top: "50%",
+              left: "-10px",
+              width: "10px",
+              borderTop: "1px solid #74788d",
+              zIndex: 0,
             }}
           ></div>
         </>
       )}
 
-     
+      {/* Tree node display */}
       <div
         onClick={() => onNodeClick(node)}
+        className={`d-flex align-items-center position-relative p-2 rounded ${
+          node.selected ? "bg-light shadow" : "bg-transparent"
+        }`}
         style={{
-          cursor: 'pointer',
-          backgroundColor: node.selected ? '#e0f7fa' : 'transparent',
-          padding: '8px 12px',
-          borderRadius: '5px',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'relative',
-          boxShadow: node.selected ? '0 4px 8px rgba(0,0,0,0.2)' : 'none',
-          transition: 'background-color 0.3s, box-shadow 0.3s',
+          cursor: "pointer",
+          transition: "background-color 0.3s, box-shadow 0.3s",
           zIndex: 1,
         }}
       >
-       
         {node.children && node.children.length > 0 && (
-          <span onClick={toggleExpand} style={{ marginRight: 8 }}>
+          <span onClick={toggleExpand} className="me-2">
             {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
           </span>
         )}
-        <AiOutlineFolder style={{ marginRight: '8px', color: '#007bff' }} />
+        <HiOutlineFolder className="text-warning mx-1" />
         <span>{node.name}</span>
       </div>
 
-     
-      {isExpanded && node.children && (
-        <div style={{ marginLeft: 20, position: 'relative' }}>
-          {node.children.map((childNode) => (
+      {/* Collapse for child nodes */}
+      <Collapse isOpen={isExpanded} className="ms-2">
+        {node.children &&
+          node.children.map((childNode) => (
             <TreeNode
               key={childNode.id}
               node={childNode}
@@ -75,8 +71,7 @@ const TreeNode = ({ node, onNodeClick, level = 0 }) => {
               level={level + 1}
             />
           ))}
-        </div>
-      )}
+      </Collapse>
     </div>
   );
 };
