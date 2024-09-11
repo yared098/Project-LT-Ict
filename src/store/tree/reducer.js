@@ -16,6 +16,7 @@ import {
 const initialState = {
   data: [], // The tree structure will be held here
   loading: false,
+  fetch_loading: false,
   error: null,
 };
 
@@ -93,19 +94,19 @@ const TreeReducer = (state = initialState, action) => {
     case FETCH_PROJECTS_REQUEST:
       return {
         ...state,
-        loading: true,
+        fetch_loading: true,
         error: null,
       };
     case FETCH_PROJECTS_SUCCESS:
       return {
         ...state,
-        loading: false,
+        fetch_loading: false,
         data: buildTree(action.payload), // Build the tree structure from flat data
       };
     case FETCH_PROJECTS_FAILURE:
       return {
         ...state,
-        loading: false,
+        fetch_loading: false,
         error: action.error,
       };
     case ADD_FOLDER_REQUEST:

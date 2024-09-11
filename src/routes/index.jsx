@@ -177,7 +177,7 @@ import PagesPricing from "../pages/Utility/pages-pricing";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
 import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
-import Tree from "../pages/TestTree";
+import Tree from "../pages/AddressStructure";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
