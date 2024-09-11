@@ -53,6 +53,7 @@ const App_tree = () => {
   const addSubFolder = () => {
     if (!newSubFolderName) return; // Ensure input is not empty
     const parentId = selectedNode ? selectedNode.id : null; // If node is selected, it will be the parent
+    console.log("addSubFolder", parentId, newSubFolderName);
     dispatch(addFolderRequest(parentId, newSubFolderName));
     setNewSubFolderName(""); // Clear the input field
   };
@@ -92,43 +93,19 @@ const App_tree = () => {
     );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        backgroundColor: "#eaeaea",
-        marginTop: "70px",
-      }}
-    >
+    <div className="d-flex vh-100 bg-light mt-5 pt-3">
       {/* <ToastContainer /> */}
-      <div
-        style={{
-          width: "30%",
-          padding: "20px",
-          backgroundColor: "#ffffff",
-          borderRight: "1px solid #ddd",
-          overflowY: "auto",
-          boxShadow: "2px 0 5px rgba(0,0,0,0.1)",
-        }}
-      >
-        <h2 style={{ marginBottom: "20px", color: "#333" }}>
-          Sub-city Structures
-        </h2>
+      <div className="w-30 p-3 bg-white border-end overflow-auto shadow-sm">
+        <h2 className="mb-4 text-dark">Sub-city Structures</h2>
         {data?.map((node) => (
           <TreeNode key={node.id} node={node} onNodeClick={handleNodeClick} />
         ))}
       </div>
-      <div style={{ padding: "20px", flex: 1, backgroundColor: "#f9f9f9" }}>
-        <h3 style={{ marginBottom: "20px" }}>
+      <div className="p-3 flex-grow-1 bg-light">
+        <h3 className="mb-4">
           Selected Node: {selectedNode ? selectedNode.name : "None"}
         </h3>
-        <div
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <div className="mb-4 d-flex align-items-center">
           <input
             type="text"
             value={newSubFolderName}
@@ -138,56 +115,24 @@ const App_tree = () => {
                 ? "Enter new name or sub-folder"
                 : "Enter sub-folder name"
             }
-            style={{
-              padding: "10px",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              marginRight: "10px",
-              flex: 1,
-            }}
+            className="form-control me-2 flex-grow-1"
           />
-          <button
-            onClick={addSubFolder}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-              marginRight: "10px",
-            }}
-          >
+          <button onClick={addSubFolder} className="btn btn-primary me-2">
             Add Sub-Folder
           </button>
           <button
             onClick={renameFolder}
-            disabled={!selectedNode} // Disable rename button if no node is selected
-            style={{
-              padding: "10px 20px",
-              backgroundColor: selectedNode ? "#28a745" : "#ccc", // Change color based on selection
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: selectedNode ? "pointer" : "not-allowed",
-            }}
+            disabled={!selectedNode}
+            className={`btn ${
+              selectedNode ? "btn-success" : "btn-secondary disabled"
+            }`}
           >
             Rename Folder
           </button>
         </div>
         {selectedNode && (
-          <div style={{ marginBottom: "20px" }}>
-            <button
-              onClick={deleteFolder}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#dc3545",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
+          <div className="mb-4">
+            <button onClick={deleteFolder} className="btn btn-danger">
               Delete Folder
             </button>
           </div>

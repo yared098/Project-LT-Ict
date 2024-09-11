@@ -69,12 +69,14 @@ function* deleteFolderSaga(action) {
 
 // Worker saga: Add folder
 function* addFolderSaga(action) {
+  console.log("add saga", action.payload);
   try {
     const response = yield call(
       addFolder,
       action.payload.rootId,
       action.payload.name
     );
+    console.log("after saga", response.data)
     yield put(addFolderSuccess(response.data));
   } catch (error) {
     yield put(addFolderFailure(error.message));
