@@ -30,7 +30,7 @@ import * as Yup from "yup";
 import Dropzone from "react-dropzone";
 import { Link } from "react-router-dom";
 
-const RightOffCanvas = ({ handleClick, showCanvas }) => {
+const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
   //meta title
   document.title = "Right OffCanvas | For Project";
 
@@ -105,7 +105,7 @@ const RightOffCanvas = ({ handleClick, showCanvas }) => {
         isOpen={showCanvas}
         direction="end"
         toggle={handleClick}
-        style={{ width: "60vw" }}
+        style={{ width: `${canvasWidth}vw` }}
       >
         <OffcanvasHeader toggle={handleClick}>Project One</OffcanvasHeader>
         <OffcanvasBody>

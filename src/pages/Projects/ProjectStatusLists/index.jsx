@@ -790,7 +790,11 @@ const ProjectModel = () => {
         </div>
       </div>
       {showCanvas && (
-        <RightOffCanvas handleClick={handleClick} showCanvas={showCanvas} />
+        <RightOffCanvas
+          handleClick={handleClick}
+          showCanvas={showCanvas}
+          canvasWidth={60}
+        />
       )}
       <ToastContainer />
     </React.Fragment>

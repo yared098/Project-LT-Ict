@@ -330,7 +330,7 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
 ];
 
-const publicRoutes = [ 
+const publicRoutes = [
   // { path: "/logout", component: <Logout /> },
   // { path: "/login", component: <Login /> },
   // { path: "/forgot-password", component: <ForgetPwd /> },
