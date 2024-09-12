@@ -1,13 +1,13 @@
 const apiUrl = import.meta.env.VITE_APP_API_TREE_BASE_URL;
-import React, { useState, useEffect } from 'react';
-import TreeNode from './TreeNode'; // Import the updated TreeNode component
-import { Container, Row, Col, Button, Input, Spinner, Alert } from 'reactstrap'; // Import components from reactstrap
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import React, { useState, useEffect } from "react";
+import TreeNode from "./TreeNode"; // Import the updated TreeNode component
+import { Container, Row, Col, Button, Input, Spinner, Alert } from "reactstrap"; // Import components from reactstrap
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 
 const Index = () => {
   const [treeDataState, setTreeData] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
-  const [newSubFolderName, setNewSubFolderName] = useState('');
+  const [newSubFolderName, setNewSubFolderName] = useState("");
   const [loading, setLoading] = useState(true); // Loading state for data fetching
   const [error, setError] = useState(null); // Error state
   const [operationInProgress, setOperationInProgress] = useState(false); // Loading state for operations
@@ -17,13 +17,13 @@ const Index = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${apiUrl}/listgrid`, {
-          method: 'POST',
+          method: "POST",
         });
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        setTreeData(buildTree(data['data']));
+        setTreeData(buildTree(data["data"]));
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -79,16 +79,26 @@ const Index = () => {
     setOperationInProgress(true); // Show spinner
 
     try {
-      const response = await fetch(`${apiUrl}/insertgrid?rootId=${encodeURIComponent(selectedNode.id)}&name=${encodeURIComponent(newSubFolderName)}`, {
-        method: 'POST',
-      });
+      const response = await fetch(
+        `${apiUrl}/insertgrid?rootId=${encodeURIComponent(
+          selectedNode.id
+        )}&name=${encodeURIComponent(newSubFolderName)}`,
+        {
+          method: "POST",
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to add subfolder');
+        throw new Error("Failed to add subfolder");
       }
 
       const data = await response.json();
-      const newSubFolder = { id: data.id, name: newSubFolderName, children: [], selected: false };
+      const newSubFolder = {
+        id: data.id,
+        name: newSubFolderName,
+        children: [],
+        selected: false,
+      };
 
       const addChild = (nodes) => {
         return nodes.map((node) => {
@@ -102,7 +112,7 @@ const Index = () => {
       };
 
       setTreeData(addChild(treeDataState));
-      setNewSubFolderName(''); // Clear the input field after adding
+      setNewSubFolderName(""); // Clear the input field after adding
     } catch (error) {
       setError(error.message);
     } finally {
@@ -113,17 +123,24 @@ const Index = () => {
   const renameFolder = async (selectedNode) => {
     if (!selectedNode) return;
 
-    const newName = prompt('Enter new name:', selectedNode.name);
+    const newName = prompt("Enter new name:", selectedNode.name);
     if (newName) {
       setOperationInProgress(true); // Show spinner
 
       try {
-        const response = await fetch(`${apiUrl}/updategrid?rootId=${encodeURIComponent(selectedNode.rootId)}&name=${encodeURIComponent(newName)}&id=${encodeURIComponent(selectedNode.id)}&selected=${encodeURIComponent(selectedNode.selected ? 1 : 0)}`, {
-          method: 'POST',
-        });
+        const response = await fetch(
+          `${apiUrl}/updategrid?rootId=${encodeURIComponent(
+            selectedNode.rootId
+          )}&name=${encodeURIComponent(newName)}&id=${encodeURIComponent(
+            selectedNode.id
+          )}&selected=${encodeURIComponent(selectedNode.selected ? 1 : 0)}`,
+          {
+            method: "POST",
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to rename folder');
+          throw new Error("Failed to rename folder");
         }
 
         const renameChild = (nodes) => {
@@ -152,12 +169,15 @@ const Index = () => {
     setOperationInProgress(true); // Show spinner
 
     try {
-      const response = await fetch(`https://pms.awashsol.com/api/address_structure/deletegrid?id=${node.id}`, {
-        method: 'POST',
-      });
+      const response = await fetch(
+        `https://pms.awashsol.com/api/address_structure/deletegrid?id=${node.id}`,
+        {
+          method: "POST",
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to delete folder');
+        throw new Error("Failed to delete folder");
       }
 
       const removeChild = (nodes, idToDelete) => {
@@ -181,7 +201,11 @@ const Index = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-5"><Spinner color="primary" /></div>;
+    return (
+      <div className="text-center mt-5">
+        <Spinner color="primary" />
+      </div>
+    );
   }
 
   if (error) {
@@ -189,9 +213,13 @@ const Index = () => {
   }
 
   return (
-    <Container fluid className="vh-100 bg-light">
+    <Container fluid className="vh-100 bg-danger">
       <Row className="h-100">
-        <Col md={4} className="p-3 bg-white border-right overflow-auto shadow-sm" style={{ maxHeight: '80vh' }}>
+        <Col
+          md={4}
+          className="p-3 bg-white border-right overflow-auto shadow-sm"
+          style={{ maxHeight: "80vh" }}
+        >
           <h2 className="mb-4 text-dark">Project LT ICT Projects</h2>
           {treeDataState.map((node) => (
             <TreeNode key={node.id} node={node} onNodeClick={handleNodeClick} />
@@ -199,7 +227,7 @@ const Index = () => {
         </Col>
         <Col md={8} className="p-4 bg-light">
           <h3 className="mb-4">Selected Node</h3>
-          <p>{selectedNode ? selectedNode.name : 'None'}</p>
+          <p>{selectedNode ? selectedNode.name : "None"}</p>
           <div className="mb-4 d-flex align-items-center">
             <Input
               type="text"
@@ -208,7 +236,6 @@ const Index = () => {
               placeholder="Enter new sub-folder name"
               className="mr-2"
             />
-           
           </div>
           <div className="d-flex gap-2">
             <Button

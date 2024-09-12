@@ -178,6 +178,7 @@ import UiProgressbar from "../pages/Ui/UiProgressbar";
 import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 import Tree from "../pages/AddressStructure";
+import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
@@ -213,6 +214,7 @@ const authProtectedRoutes = [
   // },
   // { path: "/ecommerce-products", component: <EcommerceProducts /> },
   { path: "/projects-status", component: <ProjectLists /> },
+  { path: "/view-project", component: <ViewProjectPage /> },
   // { path :  "/ProjectNodetree",components: <ProjectTree/> },
   // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
   // { path: "/ecommerce-cart", component: <EcommerceCart /> },

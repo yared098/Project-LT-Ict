@@ -116,7 +116,7 @@ const App_tree = () => {
           <div className="d-flex vh-100">
             {/* <ToastContainer /> */}
             <div className="w-30 p-3 bg-white border-end overflow-auto shadow-sm">
-              <h2 className="mb-2 text-secondary">Address Structures</h2>
+              <h4 className="mb-2 text-secondary">Address Structures</h4>
               <hr className="text-dark" />
               {data?.map((node) => (
                 <TreeNode
