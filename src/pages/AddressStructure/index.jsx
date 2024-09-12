@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { Spinner, Row, Col } from "reactstrap";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
+import DeleteModal from "../../components/Common/DeleteModal";
 import { useTranslation } from "react-i18next";
 import TreeNode from "./TreeNode";
 // import { ToastContainer } from 'react-toastify';
@@ -30,6 +31,7 @@ const App_tree = () => {
   const { data, loading, error, fetch_loading } = useSelector(TreeProperties);
   const [selectedNode, setSelectedNode] = useState(null);
   const [newSubFolderName, setNewSubFolderName] = useState("");
+  const [deleteModal, setDeleteModal] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const App_tree = () => {
     if (!selectedNode) return;
     dispatch(deleteFolderRequest(selectedNode.id));
     setSelectedNode(null);
+    setDeleteModal(false);
   };
 
   if (fetch_loading)
@@ -97,86 +100,94 @@ const App_tree = () => {
     );
 
   return (
-    <div className="page-content">
-      <div className="container-fluid">
-        <Breadcrumbs
-          title={t("Address Structure")}
-          breadcrumbItem={t("tree")}
-        />
-        <div className="d-flex vh-100">
-          {/* <ToastContainer /> */}
-          <div className="w-30 p-3 bg-white border-end overflow-auto shadow-sm">
-            <h2 className="mb-2 text-secondary">Address Structures</h2>
-            <hr className="text-dark" />
-            {data?.map((node) => (
-              <TreeNode
-                key={node.id}
-                node={node}
-                onNodeClick={handleNodeClick}
-              />
-            ))}
-          </div>
-          <div className="p-3 flex-grow-1 bg-light">
-            <div className="mb-4 d-flex-col align-items-center w-75 mx-auto mt-5">
-              <h5 className="mb-2">
-                Selected Address: {selectedNode ? selectedNode.name : "None"}
-              </h5>
-              <Row className="mb-2">
-                <input
-                  type="text"
-                  value={newSubFolderName}
-                  onChange={(e) => setNewSubFolderName(e.target.value)}
-                  placeholder={
-                    selectedNode
-                      ? "Enter new name or sub-folder"
-                      : "Enter sub-folder name"
-                  }
-                  className="form-control me-2"
+    <>
+      <DeleteModal
+        show={deleteModal}
+        onDeleteClick={deleteFolder}
+        onCloseClick={() => setDeleteModal(false)}
+        update_loading={loading}
+      />
+      <div className="page-content">
+        <div className="container-fluid">
+          <Breadcrumbs
+            title={t("Address Structure")}
+            breadcrumbItem={t("tree")}
+          />
+          <div className="d-flex vh-100">
+            {/* <ToastContainer /> */}
+            <div className="w-30 p-3 bg-white border-end overflow-auto shadow-sm">
+              <h2 className="mb-2 text-secondary">Address Structures</h2>
+              <hr className="text-dark" />
+              {data?.map((node) => (
+                <TreeNode
+                  key={node.id}
+                  node={node}
+                  onNodeClick={handleNodeClick}
                 />
-              </Row>
-              <Row className="mb-2 d-flex align-items-center">
-                <Col>
-                  <button
-                    onClick={addSubFolder}
-                    className={`btn btn-primary ${loading ? "disabled" : ""}`}
-                  >
-                    Add Sub-Address
-                  </button>
-                </Col>
-                <Col>
-                  <button
-                    onClick={renameFolder}
-                    disabled={!selectedNode}
-                    className={`btn ${
-                      selectedNode ? "btn-success" : "btn-secondary disabled"
-                    } ${loading ? "disabled" : ""} `}
-                  >
-                    Rename Address
-                  </button>
-                </Col>
+              ))}
+            </div>
+            <div className="p-3 flex-grow-1 bg-light">
+              <div className="mb-4 d-flex-col align-items-center w-75 mx-auto mt-5">
+                <h5 className="mb-2">
+                  Selected Address: {selectedNode ? selectedNode.name : "None"}
+                </h5>
+                <Row className="mb-2">
+                  <input
+                    type="text"
+                    value={newSubFolderName}
+                    onChange={(e) => setNewSubFolderName(e.target.value)}
+                    placeholder={
+                      selectedNode
+                        ? "Enter new name or sub-folder"
+                        : "Enter sub-folder name"
+                    }
+                    className="form-control me-2"
+                  />
+                </Row>
+                <Row className="mb-2 d-flex align-items-center">
+                  <Col>
+                    <button
+                      onClick={addSubFolder}
+                      className={`btn btn-primary ${loading ? "disabled" : ""}`}
+                    >
+                      Add Sub-Address
+                    </button>
+                  </Col>
+                  <Col>
+                    <button
+                      onClick={renameFolder}
+                      disabled={!selectedNode}
+                      className={`btn ${
+                        selectedNode ? "btn-success" : "btn-secondary disabled"
+                      } ${loading ? "disabled" : ""} `}
+                    >
+                      Rename Address
+                    </button>
+                  </Col>
 
-                <Col>
-                  <>
-                    {selectedNode && (
-                      <div className="">
-                        <button
-                          onClick={deleteFolder}
-                          className={`btn btn-danger ${
-                            loading ? "disabled" : ""
-                          }`}
-                        >
-                          Delete Address
-                        </button>
-                      </div>
-                    )}
-                  </>
-                </Col>
-              </Row>
+                  <Col>
+                    <>
+                      {selectedNode && (
+                        <div className="">
+                          <button
+                            onClick={() => setDeleteModal(true)}
+                            className={`btn btn-danger ${
+                              loading ? "disabled" : ""
+                            }`}
+                          >
+                            Delete Address
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  </Col>
+                </Row>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
