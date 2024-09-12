@@ -177,6 +177,7 @@ import PagesPricing from "../pages/Utility/pages-pricing";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
 import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
+import Tree from "../pages/AddressStructure";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
@@ -328,6 +329,7 @@ const authProtectedRoutes = [
   //   // this route should be at the end of all other routes
   //   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
+  { path: "/tree", component: <Tree /> },
 ];
 
 const publicRoutes = [

@@ -55,6 +55,7 @@ import Dashboard from "./dashboard/reducer";
 // import DashboardJob from "./dashboard-jobs/reducer";
 
 import search from "./search/reducer";
+import TreeReducer from "./tree/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -79,6 +80,7 @@ const rootReducer = combineReducers({
   // DashboardBlog,
   // DashboardJob,
   search,
+  TreeReducer,
 });
 
 export default rootReducer;

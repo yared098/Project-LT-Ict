@@ -31,7 +31,7 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick, update_loading }) => {
                 disabled={true}
               >
                 <Spinner size={"sm"} color="#fff" />
-                {t("delete_now")}
+                <span> {t("delete_now")}</span>
               </button>
             ) : (
               <button
