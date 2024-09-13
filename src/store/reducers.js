@@ -56,6 +56,14 @@ import Dashboard from "./dashboard/reducer";
 
 import search from "./search/reducer";
 import TreeReducer from "./tree/reducer";
+import DocumentTypeR from "./documenttype/reducer";
+import ProjectR from "./project/reducer";
+import ProjectCategoryR from "./projectcategory/reducer";
+import ProjectContractorR from "./projectcontractor/reducer";
+import ProjectDocumentR from "./projectdocument/reducer";
+import ProjectPaymentR from "./projectpayment/reducer";
+import PagesR from "./pages/reducer";
+import PermissionR from "./permission/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -81,6 +89,14 @@ const rootReducer = combineReducers({
   // DashboardJob,
   search,
   TreeReducer,
+  DocumentTypeR,
+  ProjectR,
+  ProjectCategoryR,
+  ProjectContractorR,
+  ProjectDocumentR,
+  ProjectPaymentR,
+  PagesR,
+  PermissionR,
 });
 
 export default rootReducer;

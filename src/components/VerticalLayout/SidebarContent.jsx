@@ -250,34 +250,104 @@ const SidebarContent = (props) => {
                 <span>{props.t("Address Structure")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                {/* <li>
-                  <Link to="/ecommerce-products">{props.t("Products")}</Link>
-                </li>
-                <li>
-                  <Link to="/ecommerce-product-detail/1">
-                    {props.t("Product Detail")}
-                  </Link>
-                </li> */}
                 <li>
                   <Link to="/tree">{props.t("Tree")}</Link>
                 </li>
-                {/* <li>
-                  <Link to="/ecommerce-customers">{props.t("Customers")}</Link>
-                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Document Type")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/ecommerce-cart">{props.t("Cart")}</Link>
+                  <Link to="/document_type">{props.t("Type")}</Link>
                 </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Projects")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/ecommerce-checkout">{props.t("Checkout")}</Link>
+                  <Link to="/project">{props.t("Project")}</Link>
                 </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Category")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/ecommerce-shops">{props.t("Shops")}</Link>
-                </li>
-                <li>
-                  <Link to="/ecommerce-add-product">
-                    {props.t("Add Product")}
+                  <Link to="/project_category">
+                    {props.t("Project Category")}
                   </Link>
-                </li> */}
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Contractor")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/project_contractor">
+                    {props.t("Project Contractor")}
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Document")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/project_document">{props.t("Document")}</Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Payment")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/project_payment">
+                    {props.t("Project Payment")}
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Pages")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/pages">{props.t("Pages")}</Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Permission")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/permission">{props.t("Permission")}</Link>
+                </li>
               </ul>
             </li>
 

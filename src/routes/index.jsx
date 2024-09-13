@@ -179,6 +179,14 @@ import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 import Tree from "../pages/AddressStructure";
 import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
+import DocumentType from "../pages/Documenttype/index";
+import Project from "../pages/Project/index";
+import ProjectCategory from "../pages/Projectcategory/index";
+import ProjectContractor from "../pages/Projectcontractor/index";
+import ProjectDocument from "../pages/Projectdocument/index";
+import ProjectPayment from "../pages/Projectpayment/index";
+import Pages from "../pages/Pages/index";
+import Permission from "../pages/Permission/index";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
@@ -215,6 +223,15 @@ const authProtectedRoutes = [
   // { path: "/ecommerce-products", component: <EcommerceProducts /> },
   { path: "/projects-status", component: <ProjectLists /> },
   { path: "/view-project", component: <ViewProjectPage /> },
+  { path: "/document_type", component: <DocumentType /> },
+  { path: "/project", component: <Project /> },
+  { path: "/project_category", component: <ProjectCategory /> },
+  { path: "/project_contractor", component: <ProjectContractor /> },
+  { path: "/project_document", component: <ProjectDocument /> },
+  { path: "/project_payment", component: <ProjectPayment /> },
+  { path: "/pages", component: <Pages /> },
+  { path: "/permission", component: <Permission /> },
+
   // { path :  "/ProjectNodetree",components: <ProjectTree/> },
   // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
   // { path: "/ecommerce-cart", component: <EcommerceCart /> },

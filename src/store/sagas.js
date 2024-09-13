@@ -23,7 +23,14 @@ import contactsSaga from "./contacts/saga";
 // import dashboardJobSaga from "./dashboard-jobs/saga";
 import watchSearchSaga from "./search/sagas";
 import treeSaga from "./tree/saga";
-
+import DocumentTypesaga from "./documenttype/saga";
+import Projectsaga from "./project/saga";
+import ProjectCategorysaga from "./projectcategory/saga";
+import ProjectContractorsaga from "./projectcontractor/saga";
+import ProjectDocumentsaga from "./projectdocument/saga";
+import ProjectPaymentsaga from "./projectpayment/saga";
+import Pagessaga from "./pages/saga";
+import Permissionsaga from "./permission/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -50,6 +57,13 @@ export default function* rootSaga() {
     // fork(dashboardJobSaga),
     fork(watchSearchSaga),
     fork(treeSaga),
-
+    fork(DocumentTypesaga),
+    fork(Projectsaga),
+    fork(ProjectCategorysaga),
+    fork(ProjectContractorsaga),
+    fork(ProjectDocumentsaga),
+    fork(ProjectPaymentsaga),
+    fork(Pagessaga),
+    fork(Permissionsaga),
   ]);
 }

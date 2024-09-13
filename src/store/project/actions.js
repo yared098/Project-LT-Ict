@@ -1,8 +1,8 @@
 import {
-  GET_PROJECTS,
-  GET_PROJECTS_FAIL,
-  GET_PROJECTS_SUCCESS,
-  ADD_NEW_PROJECT,
+  GET_PROJECT,
+  GET_PROJECT_FAIL,
+  GET_PROJECT_SUCCESS,
+  ADD_PROJECT,
   ADD_PROJECT_SUCCESS,
   ADD_PROJECT_FAIL,
   UPDATE_PROJECT,
@@ -11,32 +11,38 @@ import {
   DELETE_PROJECT,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
-  TOGGLE_LOADING,
-  TOGGLE_UPDATE_LOADING,
+  TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getProjects = () => ({
-  type: GET_PROJECTS,
+export const getProject = () => ({
+  type: GET_PROJECT,
+});
+export const addProject = (Project) => ({
+  type: ADD_PROJECT,
+  payload: Project,
+});
+export const updateProject = (Project) => ({
+  type: UPDATE_PROJECT,
+  payload: Project,
+});
+export const deleteProject = (Project) => ({
+  type: DELETE_PROJECT,
+  payload: Project,
 });
 
-export const getProjectsSuccess = (PROJECTs) => ({
-  type: GET_PROJECTS_SUCCESS,
-  payload: PROJECTs,
+export const getProjectSuccess = (Projects) => ({
+  type: GET_PROJECT_SUCCESS,
+  payload: Projects,
 });
 
-export const getProjectsFail = (error) => ({
-  type: GET_PROJECTS_FAIL,
+export const getProjectFail = (error) => ({
+  type: GET_PROJECT_FAIL,
   payload: error,
 });
 
-export const addNewProject = (PROJECT) => ({
-  type: ADD_NEW_PROJECT,
-  payload: PROJECT,
-});
-
-export const addProjectSuccess = (PROJECT) => ({
+export const addProjectSuccess = (Project) => ({
   type: ADD_PROJECT_SUCCESS,
-  payload: PROJECT,
+  payload: Project,
 });
 
 export const addProjectFail = (error) => ({
@@ -44,14 +50,9 @@ export const addProjectFail = (error) => ({
   payload: error,
 });
 
-export const updateProject = (PROJECT) => ({
-  type: UPDATE_PROJECT,
-  payload: PROJECT,
-});
-
-export const updateProjectSuccess = (PROJECT) => ({
+export const updateProjectSuccess = (Project) => ({
   type: UPDATE_PROJECT_SUCCESS,
-  payload: PROJECT,
+  payload: Project,
 });
 
 export const updateProjectFail = (error) => ({
@@ -59,26 +60,17 @@ export const updateProjectFail = (error) => ({
   payload: error,
 });
 
-export const deleteProject = (PROJECT) => ({
-  type: DELETE_PROJECT,
-  payload: PROJECT,
-});
-
-export const deleteProjectuccess = (PROJECT) => ({
+export const deleteProjectSuccess = (Project) => ({
   type: DELETE_PROJECT_SUCCESS,
-  payload: PROJECT,
+  payload: Project,
 });
 
-export const deleteProjectfail = (error) => ({
+export const deleteProjectFail = (error) => ({
   type: DELETE_PROJECT_FAIL,
   payload: error,
 });
 
-export const toggleLoading = () => ({
-  type: TOGGLE_LOADING,
-});
-
 export const toggleUpdateLoading = (value) => ({
   type: TOGGLE_UPDATE_LOADING,
-  payload: value
+  payload: value,
 });
