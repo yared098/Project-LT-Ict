@@ -187,6 +187,14 @@ import ProjectDocument from "../pages/Projectdocument/index";
 import ProjectPayment from "../pages/Projectpayment/index";
 import Pages from "../pages/Pages/index";
 import Permission from "../pages/Permission/index";
+import ProjectStatus from '../pages/Projectstatus/index';
+import SectorCategory from '../pages/Sectorcategory/index';
+import Users from '../pages/Users/index';
+import UserRole from '../pages/Userrole/index';
+import Roles from '../pages/Roles/index';
+import SectorInformation from '../pages/Sectorinformation/index';
+import ProjectStakeholder from '../pages/Projectstakeholder/index';
+import StakeholderType from '../pages/Stakeholdertype/index';
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
@@ -223,6 +231,14 @@ const authProtectedRoutes = [
   // { path: "/ecommerce-products", component: <EcommerceProducts /> },
   { path: "/projects-status", component: <ProjectLists /> },
   { path: "/view-project", component: <ViewProjectPage /> },
+  {path: '/project_status', component: <ProjectStatus/> },
+  {path: '/sector_category', component: <SectorCategory/> },
+  {path: '/users', component: <Users/> },
+  {path: '/user_role', component: <UserRole/> },
+  {path: '/roles', component: <Roles/> },
+  {path: '/sector_information', component: <SectorInformation/> },
+  {path: '/project_stakeholder', component: <ProjectStakeholder/> },
+  {path: '/stakeholder_type', component: <StakeholderType/> },
   { path: "/document_type", component: <DocumentType /> },
   { path: "/project", component: <Project /> },
   { path: "/project_category", component: <ProjectCategory /> },

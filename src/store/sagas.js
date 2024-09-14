@@ -31,6 +31,14 @@ import ProjectDocumentsaga from "./projectdocument/saga";
 import ProjectPaymentsaga from "./projectpayment/saga";
 import Pagessaga from "./pages/saga";
 import Permissionsaga from "./permission/saga";
+import ProjectStatussaga from './projectstatus/saga';
+import ProjectStakeholdersaga from './projectstakeholder/saga';
+import Rolessaga from './roles/saga';
+import SectorCategorysaga from './sectorcategory/saga';
+import SectorInformationsaga from './sectorinformation/saga';
+import StakeholderTypesaga from './stakeholdertype/saga';
+import Userssaga from './users/saga';
+import UserRolesaga from './userrole/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -65,5 +73,13 @@ export default function* rootSaga() {
     fork(ProjectPaymentsaga),
     fork(Pagessaga),
     fork(Permissionsaga),
+    fork(ProjectStatussaga),
+    fork(ProjectStakeholdersaga),
+    fork(Rolessaga),
+    fork(SectorCategorysaga),
+    fork(SectorInformationsaga),
+    fork(StakeholderTypesaga),
+    fork(UserRolesaga),
+    fork(Userssaga),
   ]);
 }

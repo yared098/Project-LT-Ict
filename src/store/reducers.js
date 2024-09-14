@@ -64,6 +64,14 @@ import ProjectDocumentR from "./projectdocument/reducer";
 import ProjectPaymentR from "./projectpayment/reducer";
 import PagesR from "./pages/reducer";
 import PermissionR from "./permission/reducer";
+import ProjectStatusR from './projectstatus/reducer'; 
+import ProjectStakeholderR from './projectstakeholder/reducer'; 
+import RolesR from './roles/reducer'; 
+import SectorCategoryR from './sectorcategory/reducer'; 
+import SectorInformationR from './sectorinformation/reducer'; 
+import StakeholderTypeR from './stakeholdertype/reducer'; 
+import UserRoleR from './userrole/reducer'; 
+import UsersR from './users/reducer';
 
 const rootReducer = combineReducers({
   // public
@@ -97,6 +105,14 @@ const rootReducer = combineReducers({
   ProjectPaymentR,
   PagesR,
   PermissionR,
+  ProjectStatusR,
+  ProjectStakeholderR,
+  RolesR,
+  SectorCategoryR,
+  SectorInformationR,
+  StakeholderTypeR,
+  UserRoleR,
+  UsersR
 });
 
 export default rootReducer;

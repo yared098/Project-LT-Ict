@@ -351,6 +351,102 @@ const SidebarContent = (props) => {
               </ul>
             </li>
 
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Sector Category")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/sector_category">{props.t("Category")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Status")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/project_status">{props.t("Status")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Users")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/users">{props.t("Users")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("User Role")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/user_role">{props.t("Role")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Roles")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/roles">{props.t("roles")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Stakeholder Type")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/stakeholder_type">{props.t("Type")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Project Stakeholder")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/project_stakeholder">{props.t("Stakeholder")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Sector Information")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/sector_information">{props.t("Information")}</Link>
+                </li>
+              </ul>
+            </li>
+
             {/* <li>
               <Link to="/#" className="has-arrow ">
                 <i className="bx bx-bitcoin"></i>
