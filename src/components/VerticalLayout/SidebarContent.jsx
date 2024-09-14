@@ -206,7 +206,7 @@ const SidebarContent = (props) => {
                   </Link>
                 </li> */}
                 <li>
-                  <Link to="/tree">{props.t("Tree")}</Link>
+                  <Link to="/address_structure">{props.t("Project Tree")}</Link>
                 </li>
                 {/* <li>
                   <Link to="/ecommerce-customers">{props.t("Customers")}</Link>
@@ -263,16 +263,19 @@ const SidebarContent = (props) => {
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-receipt"></i>
-                <span>{props.t("Budget Source")}</span>
+                <span>{props.t("Budget ")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
               
                 <li>
                   <Link to="/budget_source">{props.t("Budget Source")}</Link>
                 </li>
-              
+                <li>
+                  <Link to="/budget_year">{props.t("Budget Year")}</Link>
+                </li>
               </ul>
             </li>
+            
             {/* departement */}
             <li>
               <Link to="/#" className="has-arrow">
@@ -296,7 +299,50 @@ const SidebarContent = (props) => {
               <ul className="sub-menu" aria-expanded="false">
               
                 <li>
-                  <Link to="/department">{props.t("AccesslOG")}</Link>
+                  <Link to="/access_log">{props.t("AccesslOG")}</Link>
+                </li>
+              
+              </ul>
+            </li>
+           
+            {/* Contractor Type */}
+              <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Contractor Type")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+              
+                <li>
+                  <Link to="/contractor_type">{props.t("Contractor Type")}</Link>
+                </li>
+              
+              </ul>
+            </li>
+            {/* Contract Termination Reason */}
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Contract Termination Reason")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+              
+                <li>
+                  <Link to="/contract_termination_reason">{props.t("Contract Termination Reason")}</Link>
+                </li>
+              
+              </ul>
+            </li>
+            {/* Document Type */}
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-receipt"></i>
+                <span>{props.t("Document Type")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+              
+                <li>
+                  <Link to="/document_type">{props.t("Document Type")}</Link>
                 </li>
               
               </ul>

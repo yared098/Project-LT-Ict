@@ -58,6 +58,13 @@ import search from "./search/reducer";
 import TreeReducer from "./tree/reducer";
 import DepartmentR from './department/reducer'; 
 import BudgetSourceR from './budgetsource/reducer';
+import BudgetYearR from './budgetyear/reducer';
+import BudgetRequestR from './budgetrequest/reducer'; ;
+import AccessLogR from './accesslog/reducer'; 
+import ContractTerminationReasonR from './contractterminationreason/reducer'; 
+import ContractorTypeR from './contractortype/reducer';
+import DocumentTypeR from './documenttype/reducer'; 
+ 
 
 const rootReducer = combineReducers({
   // public
@@ -84,7 +91,13 @@ const rootReducer = combineReducers({
   search,
   TreeReducer,
   DepartmentR,
-  BudgetSourceR
+  BudgetSourceR,
+  BudgetRequestR,
+  AccessLogR,
+  BudgetYearR,
+  ContractTerminationReasonR,
+  ContractorTypeR,
+  DocumentTypeR
 });
 
 export default rootReducer;

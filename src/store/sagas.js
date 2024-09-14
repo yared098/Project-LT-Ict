@@ -21,7 +21,12 @@ import watchSearchSaga from "./search/sagas";
 import treeSaga from "./tree/saga";
 import Departmentsaga from './department/saga';
 import BudgetSourcesaga from './budgetsource/saga';
-
+import AccessLogsaga from './accesslog/saga';
+import BudgetYearsaga from './budgetyear/saga';
+import BudgetRequestsaga from './budgetrequest/saga';
+import ContractTerminationReasonsaga from './contractterminationreason/saga';
+import ContractorTypesaga from './contractortype/saga';
+import DocumentTypesaga from './documenttype/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -44,7 +49,13 @@ export default function* rootSaga() {
     fork(watchSearchSaga),
     fork(treeSaga),
     fork(Departmentsaga),
-    fork(BudgetSourcesaga)
+    fork(BudgetSourcesaga),
+    fork(AccessLogsaga),
+    fork(BudgetYearsaga),
+    fork(BudgetRequestsaga),
+    fork(ContractTerminationReasonsaga),
+    fork(ContractorTypesaga),
+    fork(DocumentTypesaga)
 
   ]);
 }
