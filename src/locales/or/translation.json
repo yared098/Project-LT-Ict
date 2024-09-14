@@ -593,5 +593,16 @@
   "cnt_update_time": "Yeroo Haaromfame",
   "cnt_delete_time": "Yeroo Haquu",
   "cnt_created_by": "Namni Uume",
-  "cnt_status": "Haala"
+  "cnt_status": "Haala",
+  "stakeholder_type": "Gosa Hirmaataa",
+  "sht_id": "Id",
+  "sht_type_name_or": "Maqaa Gosa Or",
+  "sht_type_name_am": "Maqaa Gosa Am",
+  "sht_type_name_en": "Maqaa Gosa En",
+  "sht_description": "Ibsa",
+  "sht_create_time": "Yeroo Uumame",
+  "sht_update_time": "Yeroo Haaromfame",
+  "sht_delete_time": "Yeroo Haquu",
+  "sht_created_by": "Namni Uume",
+  "sht_status": "Haala"
 }

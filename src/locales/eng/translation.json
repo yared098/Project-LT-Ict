@@ -571,7 +571,18 @@
   "cnt_update_time": "Update Time",
   "cnt_delete_time": "Delete Time",
   "cnt_created_by": "Created By",
-  "cnt_status": "Status"
+  "cnt_status": "Status",
+  "stakeholder_type": "Stakeholder Type",
+  "sht_id": "Id",
+  "sht_type_name_or": "Type Name Or",
+  "sht_type_name_am": "Type Name Am",
+  "sht_type_name_en": "Type Name En",
+  "sht_description": "Description",
+  "sht_create_time": "Create Time",
+  "sht_update_time": "Update Time",
+  "sht_delete_time": "Delete Time",
+  "sht_created_by": "Created By",
+  "sht_status": "Status"
 
 
 

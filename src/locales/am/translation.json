@@ -590,6 +590,17 @@
   "cnt_update_time": "የአዘምንት ጊዜ",
   "cnt_delete_time": "የማጥፋት ጊዜ",
   "cnt_created_by": "በተፈጠረ",
-  "cnt_status": "ሁኔታ"
+  "cnt_status": "ሁኔታ",
+  "stakeholder_type": "የስታክህልደር አይነት",
+  "sht_id": "መታወቂያ",
+  "sht_type_name_or": "የአይነት ስም Or",
+  "sht_type_name_am": "የአይነት ስም Am",
+  "sht_type_name_en": "የአይነት ስም En",
+  "sht_description": "መግለጫ",
+  "sht_create_time": "የመፍጠሪያ ጊዜ",
+  "sht_update_time": "የአዘምንት ጊዜ",
+  "sht_delete_time": "የማጥፋት ጊዜ",
+  "sht_created_by": "በተፈጠረ",
+  "sht_status": "ሁኔታ"
 
 }
