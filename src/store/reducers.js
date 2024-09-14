@@ -77,6 +77,10 @@ import DepartmentR from './department/reducer';
 import BudgetSourceR from './budgetsource/reducer';
 import BudgetYearR from './budgetyear/reducer'; 
 import AccessLogR from './accesslog/reducer'; 
+import BudgetRequestR from './budgetrequest/reducer';
+import ContractorTypeR from './contractortype/reducer'; 
+import ContractTerminationReasonR from './contractterminationreason/reducer'; 
+
 
 const rootReducer = combineReducers({
   // public
@@ -89,17 +93,13 @@ const rootReducer = combineReducers({
   calendar,
   // chat,
   mails,
-  // crypto,
+
   invoices,
-  // JobReducer,
-  // projects,
+ 
   tasks,
   contacts,
   Dashboard,
-  // DashboardSaas,
-  // DashboardCrypto,
-  // DashboardBlog,
-  // DashboardJob,
+ 
   search,
   TreeReducer,
 
@@ -122,7 +122,10 @@ const rootReducer = combineReducers({
   DepartmentR,
   BudgetSourceR,
   BudgetYearR,
-  AccessLogR
+  AccessLogR,
+  BudgetRequestR,
+  ContractorTypeR,
+  ContractTerminationReasonR
 });
 
 export default rootReducer;

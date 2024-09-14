@@ -44,6 +44,8 @@ import BudgetYearsaga from './budgetyear/saga';
 import ContractTerminationReasonsaga from './contractterminationreason/saga';
 import ContractorTypesaga from './contractortype/saga';
 import BudgetRequestsaga from './budgetrequest/saga';
+
+
 // import AccessLogsaga from './accesslog/saga';
 
 
@@ -91,6 +93,7 @@ export default function* rootSaga() {
     fork(BudgetRequestsaga),
     fork(ContractTerminationReasonsaga),
     fork(ContractorTypesaga),
-    fork(DocumentTypesaga)
+    fork(DocumentTypesaga),
+  
 ]);
 }
