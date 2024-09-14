@@ -188,17 +188,33 @@ const SidebarContent = (props) => {
                     {props.t("Projects Status")}
                   </Link>
                 </li>
-                {/* Project Category */}
+                {/* Poject Payment */}
                 <li>
-                  <Link to="/project_category">{props.t("Project Category")}
+                  <Link to="/project_payment">
+                    {props.t("Poject Payment")}
                   </Link>
                 </li>
+                {/* Project Document */}
+                <li>
+                  <Link to="/project_payment">
+                    {props.t("Project Document")}
+                  </Link>
+                </li>
+               
               
                 {/* Project Contractor*/}
                 <li>
                   <Link to="/project_contractor">{props.t("Project Contractor")}</Link>
                 </li>
-                {/*  */}
+                {/*Project Stakeholder  */} 
+                <li>
+                  <Link to="/project_stakeholder">{props.t("Project Stakeholder")}</Link>
+                </li>
+
+                 {/* Budget Request */}
+                 <li>
+                  <Link to="/budget_request">{props.t("Budget Request")}</Link>
+                </li>
                
               </ul>
             </li>
@@ -229,6 +245,13 @@ const SidebarContent = (props) => {
                 <li>
                   <Link to="/department">{props.t("Department")}</Link>
                 </li>
+
+                 {/* Project Category */}
+                 <li>
+                  <Link to="/project_category">{props.t("Project Category")}
+                  </Link>
+                </li>
+
                 <li>
                   <Link to="/budget_source">{props.t("Budget Source")}</Link>
                 </li>
@@ -236,10 +259,7 @@ const SidebarContent = (props) => {
                 <li>
                   <Link to="/document_type">{props.t("Document Type")}</Link>
                 </li>
-                {/* Budget Request */}
-                <li>
-                  <Link to="/budget_request">{props.t("Budget Request")}</Link>
-                </li>
+               
                 {/* Budget Year */}
                 <li>
                   <Link to="/budget_year">{props.t("Budget Year")}</Link>
@@ -270,7 +290,7 @@ const SidebarContent = (props) => {
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-receipt"></i>
-                <span>{props.t("User Admin ")}</span>
+                <span>{props.t("User Administration ")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
               
@@ -292,9 +312,7 @@ const SidebarContent = (props) => {
                 <li>
                   <Link to="/access_log">{props.t("Access Log")}</Link>
                 </li>
-                <li>
-                  <Link to="/permission">{props.t("Permission")}</Link>
-                </li>
+                
                
               </ul>
             </li>

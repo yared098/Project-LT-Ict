@@ -104,7 +104,7 @@ ctr_status: Yup.string().required(t('ctr_status')),
       if (isEdit) {
         const updateContractTerminationReason = {
           ctr_id: contractTerminationReason ? contractTerminationReason.ctr_id : 0,
-          ctr_id:contractTerminationReason.ctr_id, 
+          // ctr_id:contractTerminationReason.ctr_id, 
 ctr_reason_name_or:values.ctr_reason_name_or, 
 ctr_reason_name_am:values.ctr_reason_name_am, 
 ctr_reason_name_en:values.ctr_reason_name_en, 
