@@ -7,131 +7,24 @@ import { Navigate } from "react-router-dom";
 // // File Manager
 import ProjectsTreeView from "../pages/ProjectStatusTree/index";
 
-// // Profile
-// import UserProfile from "../pages/Authentication/user-profile";
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index";
 
-// // // //Tasks
-// import TasksList from "../pages/Tasks/tasks-list";
-// import TasksCreate from "../pages/Tasks/tasks-create";
-// import TasksKanban from "../pages/Tasks/tasks-kanban";
-
-// // //Projects
-// import ProjectsGrid from "../pages/Projects/projects-grid";
-// import ProjectsList from "../pages/Projects/projects-list";
-// import ProjectsOverview from "../pages/Projects/ProjectOverview/projects-overview";
-// import ProjectsCreate from "../pages/Projects/projects-create";
-
-// // //Ecommerce Pages
-// import EcommerceProducts from "../pages/Projects/EcommerceProducts";
-// import EcommerceProductDetail from "../pages/Projects/EcommerceProductDetail/index";
 import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
-// import ProjectTree from "../pages/ProjectTee/index";
-// import EcommerceCustomers from "../pages/Projects/EcommerceCustomers/index";
-// import EcommerceCart from "../pages/Projects/EcommerceCart";
-// import EcommerceCheckout from "../pages/Projects/EcommerceCheckout";
-// import EcommerceShops from "../pages/Projects/EcommerceShops/index";
-// import EcommerenceAddProduct from "../pages/Projects/EcommerceAddProduct";
 
-// //Email
-// import EmailInbox from "../pages/Email/email-inbox";
-// import EmailRead from "../pages/Email/email-read";
-// import EmailBasicTemplte from "../pages/Email/email-basic-templte";
-// import EmailAlertTemplte from "../pages/Email/email-template-alert";
-// import EmailTemplateBilling from "../pages/Email/email-template-billing";
 
-// //Invoices
-// import InvoicesList from "../pages/Invoices/invoices-list";
-// import InvoiceDetail from "../pages/Invoices/invoices-detail";
+// Authentication related pages
+import Login from "../pages/Authentication/Login";
+import Logout from "../pages/Authentication/Logout";
+import Register from "../pages/Authentication/Register";
+import ForgetPwd from "../pages/Authentication/ForgetPassword";
 
-// // Authentication related pages
-// import Login from "../pages/Authentication/Login";
-// import Logout from "../pages/Authentication/Logout";
-// import Register from "../pages/Authentication/Register";
-// import ForgetPwd from "../pages/Authentication/ForgetPassword";
 
-// //  // Inner Authentication
-// import Login1 from "../pages/AuthenticationInner/Login";
-// import Login2 from "../pages/AuthenticationInner/Login2";
-// import Register1 from "../pages/AuthenticationInner/Register";
-// import Register2 from "../pages/AuthenticationInner/Register2";
-// import Recoverpw from "../pages/AuthenticationInner/Recoverpw";
-// import Recoverpw2 from "../pages/AuthenticationInner/Recoverpw2";
-// import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
-// import ForgetPwd2 from "../pages/AuthenticationInner/ForgetPassword2";
-// import LockScreen from "../pages/AuthenticationInner/auth-lock-screen";
-// import LockScreen2 from "../pages/AuthenticationInner/auth-lock-screen-2";
-// import ConfirmMail from "../pages/AuthenticationInner/page-confirm-mail";
-// import ConfirmMail2 from "../pages/AuthenticationInner/page-confirm-mail-2";
-// import EmailVerification from "../pages/AuthenticationInner/auth-email-verification";
-// import EmailVerification2 from "../pages/AuthenticationInner/auth-email-verification-2";
-// import TwostepVerification from "../pages/AuthenticationInner/auth-two-step-verification";
-// import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2";
 
 // // Dashboard
 import Dashboard from "../pages/Dashboard/index";
-// import DashboardSaas from "../pages/Dashboard-saas/index";
-// import DashboardCrypto from "../pages/Dashboard-crypto/index";
-// import Blog from "../pages/Dashboard-Blog/index";
-// import DashboardJob from "../pages/DashboardJob/index";
 
-// //Crypto
-// import CryptoWallet from "../pages/Crypto/CryptoWallet/crypto-wallet";
-// import CryptoBuySell from "../pages/Crypto/crypto-buy-sell";
-// import CryptoExchange from "../pages/Crypto/crypto-exchange";
-// import CryptoLending from "../pages/Crypto/crypto-lending";
-// import CryptoOrders from "../pages/Crypto/CryptoOrders";
-// import CryptoKYCApplication from "../pages/Crypto/crypto-kyc-application";
-// import CryptoIcoLanding from "../pages/Crypto/CryptoIcoLanding/index";
-
-// // // Charts
-// import ChartApex from "../pages/Charts/Apexcharts";
-// import ChartjsChart from "../pages/Charts/ChartjsChart";
-// import EChart from "../pages/Charts/EChart";
-// import SparklineChart from "../pages/Charts/SparklineChart";
-// import ChartsKnob from "../pages/Charts/charts-knob";
-// import ReCharts from "../pages/Charts/ReCharts";
-
-// // // Maps
-// import MapsGoogle from "../pages/Maps/MapsGoogle";
-
-// // //Icons
-// import IconBoxicons from "../pages/Icons/IconBoxicons";
-// import IconDripicons from "../pages/Icons/IconDripicons";
-// import IconMaterialdesign from "../pages/Icons/IconMaterialdesign";
-// import IconFontawesome from "../pages/Icons/IconFontawesome";
-
-// // //Tables
-// import BasicTables from "../pages/Tables/BasicTables";
-// import DatatableTables from "../pages/Tables/DatatableTables";
-
-// // //Blog
-// import BlogList from "../pages/Blog/BlogList/index";
-// import BlogGrid from "../pages/Blog/BlogGrid/index";
-// import BlogDetails from "../pages/Blog/BlogDetails";
-
-// //Job
-// import JobGrid from "../pages/JobPages/JobGrid/index";
-// import JobDetails from "../pages/JobPages/JobDetails";
-// import JobCategories from "../pages/JobPages/JobCategories";
-// import JobList from "../pages/JobPages/JobList/index";
-// import ApplyJobs from "../pages/JobPages/ApplyJobs/index";
-// import CandidateList from "../pages/JobPages/CandidateList";
-// import CandidateOverview from "../pages/JobPages/CandidateOverview";
-
-// // // Forms
-// import FormElements from "../pages/Forms/FormElements";
-// import FormLayouts from "../pages/Forms/FormLayouts";
-// import FormAdvanced from "../pages/Forms/FormAdvanced/index";
-// import FormEditors from "../pages/Forms/FormEditors";
-// import FormValidations from "../pages/Forms/FormValidations";
-// import FormMask from "../pages/Forms/FormMask";
-// import FormRepeater from "../pages/Forms/FormRepeater";
-// import FormUpload from "../pages/Forms/FormUpload";
-// import FormWizard from "../pages/Forms/FormWizard";
-// import DualListbox from "../pages/Tables/DualListbox";
 
 // //Ui
 import UiAlert from "../pages/Ui/UiAlerts/index";
@@ -162,23 +55,17 @@ import UiUtilities from "../pages/Ui/UiUtilities";
 
 // //Pages
 import PagesStarter from "../pages/Utility/pages-starter";
-// import PagesMaintenance from "../pages/Utility/pages-maintenance";
-// import PagesComingsoon from "../pages/Utility/pages-comingsoon";
+
 import PagesTimeline from "../pages/Utility/pages-timeline";
 import PagesFaqs from "../pages/Utility/pages-faqs";
 import PagesPricing from "../pages/Utility/pages-pricing";
-// import Pages404 from "../pages/Utility/pages-404";
-// import Pages500 from "../pages/Utility/pages-500";
 
-// //Contacts
-// import ContactsGrid from "../pages/Contacts/contacts-grid";
-// import ContactsList from "../pages/Contacts/ContactList/contacts-list";
-// import ContactsProfile from "../pages/Contacts/ContactsProfile/index";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
 import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
-import Tree from "../pages/AddressStructure";
+import AddressStructure from "../pages/AddressStructure/index";
 import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
+<<<<<<< HEAD
 import DocumentType from "../pages/Documenttype/index";
 import Project from "../pages/Project/index";
 import ProjectCategory from "../pages/Projectcategory/index";
@@ -195,42 +82,42 @@ import Roles from '../pages/Roles/index';
 import SectorInformation from '../pages/Sectorinformation/index';
 import ProjectStakeholder from '../pages/Projectstakeholder/index';
 import StakeholderType from '../pages/Stakeholdertype/index';
+=======
+import Department from '../pages/Department/index';
+import BudgetRequest from '../pages/Budgetrequest/index';
+import BudgetSource from '../pages/Budgetsource/index';
+import BudgetYear from '../pages/Budgetyear/index';
+import ContractTerminationReason from '../pages/Contractterminationreason/index';
+import ContractorType from '../pages/Contractortype/index';
+import DocumentType from '../pages/Documenttype/index';
+import AccessLog from '../pages/Accesslog/index';
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
-  // { path: "/dashboard-saas", component: <DashboardSaas /> },
-  // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
-  // { path: "/blog", component: <Blog /> },
-  // { path: "/dashboard-job", component: <DashboardJob /> },
-
-  //   //Crypto
-  // { path: "/crypto-wallet", component: <CryptoWallet /> },
-  // { path: "/crypto-buy-sell", component: <CryptoBuySell /> },
-  // { path: "/crypto-exchange", component: <CryptoExchange /> },
-  // { path: "/crypto-lending", component: <CryptoLending /> },
-  // { path: "/crypto-orders", component: <CryptoOrders /> },
-  // { path: "/crypto-kyc-application", component: <CryptoKYCApplication /> },
-
-  //chat
-  // { path: "/chat", component: <Chat /> },
+  
+  
 
   //File Manager
   { path: "/Project-Tree", component: <ProjectsTreeView /> },
+  {path: '/address_structure', component: <AddressStructure/> },
+  {path: '/department', component: <Department/> },
+  {path: '/budget_request', component: <BudgetRequest/> },
+  {path: '/budget_source', component: <BudgetSource/> },
+  {path: '/budget_year', component: <BudgetYear/> },
+  {path: '/contract_termination_reason', component: <ContractTerminationReason/> },
+  {path: '/contractor_type', component: <ContractorType/> },
+  {path: '/document_type', component: <DocumentType/> },
+  {path: '/access_log', component: <AccessLog/> },
+  
 
   // //calendar
   { path: "/calendar", component: <Calendar /> },
 
-  //   // //profile
-  // { path: "/profile", component: <UserProfile /> },
-
-  //   //Ecommerce
-  // {
-  //   path: "/ecommerce-product-detail/:id",
-  //   component: <EcommerceProductDetail />,
-  // },
-  // { path: "/ecommerce-products", component: <EcommerceProducts /> },
+  
   { path: "/projects-status", component: <ProjectLists /> },
   { path: "/view-project", component: <ViewProjectPage /> },
+<<<<<<< HEAD
   {path: '/project_status', component: <ProjectStatus/> },
   {path: '/sector_category', component: <SectorCategory/> },
   {path: '/users', component: <Users/> },
@@ -248,6 +135,8 @@ const authProtectedRoutes = [
   { path: "/pages", component: <Pages /> },
   { path: "/permission", component: <Permission /> },
 
+=======
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
   // { path :  "/ProjectNodetree",components: <ProjectTree/> },
   // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
   // { path: "/ecommerce-cart", component: <EcommerceCart /> },
@@ -364,39 +253,15 @@ const authProtectedRoutes = [
   //   // this route should be at the end of all other routes
   //   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
-  { path: "/tree", component: <Tree /> },
+  // { path: "/tree", component: <Tree /> },
 ];
 
 const publicRoutes = [
-  // { path: "/logout", component: <Logout /> },
-  // { path: "/login", component: <Login /> },
-  // { path: "/forgot-password", component: <ForgetPwd /> },
-  // { path: "/register", component: <Register /> },
-  // { path: "/pages-maintenance", component: <PagesMaintenance /> },
-  // { path: "/pages-comingsoon", component: <PagesComingsoon /> },
-  // { path: "/pages-404", component: <Pages404 /> },
-  // { path: "/pages-500", component: <Pages500 /> },
-  // { path: "/crypto-ico-landing", component: <CryptoIcoLanding /> },
-  //   // Authentication Inner
-  // { path: "/pages-login", component: <Login1 /> },
-  // { path: "/pages-login-2", component: <Login2 /> },
-  // { path: "/pages-register", component: <Register1 /> },
-  // { path: "/pages-register-2", component: <Register2 /> },
-  // { path: "/page-recoverpw", component: <Recoverpw /> },
-  // { path: "/page-recoverpw-2", component: <Recoverpw2 /> },
-  // { path: "/pages-forgot-pwd", component: <ForgetPwd1 /> },
-  // { path: "/pages-forgot-pwd-2", component: <ForgetPwd2 /> },
-  // { path: "/auth-lock-screen", component: <LockScreen /> },
-  // { path: "/auth-lock-screen-2", component: <LockScreen2 /> },
-  // { path: "/page-confirm-mail", component: <ConfirmMail /> },
-  // { path: "/page-confirm-mail-2", component: <ConfirmMail2 /> },
-  // { path: "/auth-email-verification", component: <EmailVerification /> },
-  // { path: "/auth-email-verification-2", component: <EmailVerification2 /> },
-  // { path: "/auth-two-step-verification", component: <TwostepVerification /> },
-  // {
-  //   path: "/auth-two-step-verification-2",
-  //   component: <TwostepVerification2 />,
-  // },
+  { path: "/logout", component: <Logout /> },
+  { path: "/login", component: <Login /> },
+  { path: "/forgot-password", component: <ForgetPwd /> },
+  { path: "/register", component: <Register /> },
+ 
 ];
 
 // export { authProtectedRoutes, publicRoutes };

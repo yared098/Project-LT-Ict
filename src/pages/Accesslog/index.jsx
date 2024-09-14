@@ -15,16 +15,16 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
 
 import {
-  getDocumentType as onGetDocumentType,
-  addDocumentType as onAddDocumentType,
-  updateDocumentType as onUpdateDocumentType,
-  deleteDocumentType as onDeleteDocumentType
-} from "../../store/documenttype/actions";
+  getAccessLog as onGetAccessLog,
+  addAccessLog as onAddAccessLog,
+  updateAccessLog as onUpdateAccessLog,
+  deleteAccessLog as onDeleteAccessLog
+} from "../../store/accesslog/actions";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
-import DocumentTypeModal from "./DocumentTypeModal";
+import AccessLogModal from "./AccessLogModal";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -58,9 +58,9 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const DocumentTypeModel = () => {
+const AccessLogModel = () => {
   //meta title
-  document.title = " DocumentType";
+  document.title = " AccessLog";
 
   const { t } = useTranslation();
 
@@ -68,7 +68,7 @@ const DocumentTypeModel = () => {
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const [documentType, setDocumentType] = useState(null);
+  const [accessLog, setAccessLog] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
@@ -80,58 +80,74 @@ const DocumentTypeModel = () => {
     enableReinitialize: true,
 
     initialValues: {
-     pdt_doc_name_or:(documentType && documentType.pdt_doc_name_or) || "", 
-pdt_doc_name_am:(documentType && documentType.pdt_doc_name_am) || "", 
-pdt_doc_name_en:(documentType && documentType.pdt_doc_name_en) || "", 
-pdt_code:(documentType && documentType.pdt_code) || "", 
-pdt_description:(documentType && documentType.pdt_description) || "", 
-pdt_status:(documentType && documentType.pdt_status) || "", 
+     acl_ip:(accessLog && accessLog.acl_ip) || "", 
+acl_user_id:(accessLog && accessLog.acl_user_id) || "", 
+acl_role_id:(accessLog && accessLog.acl_role_id) || "", 
+acl_object_name:(accessLog && accessLog.acl_object_name) || "", 
+acl_object_id:(accessLog && accessLog.acl_object_id) || "", 
+acl_remark:(accessLog && accessLog.acl_remark) || "", 
+acl_detail:(accessLog && accessLog.acl_detail) || "", 
+acl_object_action:(accessLog && accessLog.acl_object_action) || "", 
+acl_description:(accessLog && accessLog.acl_description) || "", 
+acl_status:(accessLog && accessLog.acl_status) || "", 
 
-is_deletable: (documentType && documentType.is_deletable) || 1,
-is_editable: (documentType && documentType.is_editable) || 1
+is_deletable: (accessLog && accessLog.is_deletable) || 1,
+is_editable: (accessLog && accessLog.is_editable) || 1
     },
 
     validationSchema: Yup.object({
-      pdt_doc_name_or: Yup.string().required(t('pdt_doc_name_or')),
-pdt_doc_name_am: Yup.string().required(t('pdt_doc_name_am')),
-pdt_doc_name_en: Yup.string().required(t('pdt_doc_name_en')),
-pdt_code: Yup.string().required(t('pdt_code')),
-pdt_description: Yup.string().required(t('pdt_description')),
-pdt_status: Yup.string().required(t('pdt_status')),
+      acl_ip: Yup.string().required(t('acl_ip')),
+acl_user_id: Yup.string().required(t('acl_user_id')),
+acl_role_id: Yup.string().required(t('acl_role_id')),
+acl_object_name: Yup.string().required(t('acl_object_name')),
+acl_object_id: Yup.string().required(t('acl_object_id')),
+acl_remark: Yup.string().required(t('acl_remark')),
+acl_detail: Yup.string().required(t('acl_detail')),
+acl_object_action: Yup.string().required(t('acl_object_action')),
+acl_description: Yup.string().required(t('acl_description')),
+acl_status: Yup.string().required(t('acl_status')),
 
     }),
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: (values) => {
       if (isEdit) {
-        const updateDocumentType = {
-          pdt_id: documentType ? documentType.pdt_id : 0,
-          pdt_id:documentType.pdt_id, 
-pdt_doc_name_or:values.pdt_doc_name_or, 
-pdt_doc_name_am:values.pdt_doc_name_am, 
-pdt_doc_name_en:values.pdt_doc_name_en, 
-pdt_code:values.pdt_code, 
-pdt_description:values.pdt_description, 
-pdt_status:values.pdt_status, 
+        const updateAccessLog = {
+          acl_id: accessLog ? accessLog.acl_id : 0,
+          // acl_id:accessLog.acl_id, 
+acl_ip:values.acl_ip, 
+acl_user_id:values.acl_user_id, 
+acl_role_id:values.acl_role_id, 
+acl_object_name:values.acl_object_name, 
+acl_object_id:values.acl_object_id, 
+acl_remark:values.acl_remark, 
+acl_detail:values.acl_detail, 
+acl_object_action:values.acl_object_action, 
+acl_description:values.acl_description, 
+acl_status:values.acl_status, 
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
         };
-        // update DocumentType
-        dispatch(onUpdateDocumentType(updateDocumentType));
+        // update AccessLog
+        dispatch(onUpdateAccessLog(updateAccessLog));
         validation.resetForm();
       } else {
-        const newDocumentType = {
-          pdt_doc_name_or:values.pdt_doc_name_or, 
-pdt_doc_name_am:values.pdt_doc_name_am, 
-pdt_doc_name_en:values.pdt_doc_name_en, 
-pdt_code:values.pdt_code, 
-pdt_description:values.pdt_description, 
-pdt_status:values.pdt_status, 
+        const newAccessLog = {
+          acl_ip:values.acl_ip, 
+acl_user_id:values.acl_user_id, 
+acl_role_id:values.acl_role_id, 
+acl_object_name:values.acl_object_name, 
+acl_object_id:values.acl_object_id, 
+acl_remark:values.acl_remark, 
+acl_detail:values.acl_detail, 
+acl_object_action:values.acl_object_action, 
+acl_description:values.acl_description, 
+acl_status:values.acl_status, 
 
         };
-        // save new DocumentTypes
-        dispatch(onAddDocumentType(newDocumentType));
+        // save new AccessLogs
+        dispatch(onAddAccessLog(newAccessLog));
         validation.resetForm();
       }
     },
@@ -139,26 +155,26 @@ pdt_status:values.pdt_status,
   const [transaction, setTransaction] = useState({});
   const toggleViewModal = () => setModal1(!modal1);
   const dispatch = useDispatch();
-  // Fetch DocumentType on component mount
+  // Fetch AccessLog on component mount
   useEffect(() => {
-    dispatch(onGetDocumentType());
+    dispatch(onGetAccessLog());
   }, [dispatch]);
 
-  const documentTypeProperties = createSelector(
-    (state) => state.DocumentTypeR, // this is geting from  reducer
-    (DocumentTypeReducer) => ({
+  const accessLogProperties = createSelector(
+    (state) => state.AccessLogR, // this is geting from  reducer
+    (AccessLogReducer) => ({
       // this is from Project.reducer
-      documentType: DocumentTypeReducer.documentType,
-      loading: DocumentTypeReducer.loading,
-      update_loading: DocumentTypeReducer.update_loading,
+      accessLog: AccessLogReducer.accessLog,
+      loading: AccessLogReducer.loading,
+      update_loading: AccessLogReducer.update_loading,
     })
   );
 
   const {
-    documentType: { data, previledge },
+    accessLog: { data, previledge },
     loading,
     update_loading,
-  } = useSelector(documentTypeProperties);
+  } = useSelector(accessLogProperties);
 
   useEffect(() => {
     console.log("update_loading in useEffect", update_loading);
@@ -176,12 +192,12 @@ pdt_status:values.pdt_status,
 
   const [isLoading, setLoading] = useState(loading);
   useEffect(() => {
-    setDocumentType(data);
+    setAccessLog(data);
   }, [data]);
 
   useEffect(() => {
     if (!isEmpty(data) && !!isEdit) {
-      setDocumentType(data);
+      setAccessLog(data);
       setIsEdit(false);
     }
   }, [data]);
@@ -189,26 +205,30 @@ pdt_status:values.pdt_status,
   const toggle = () => {
     if (modal) {
       setModal(false);
-      setDocumentType(null);
+      setAccessLog(null);
     } else {
       setModal(true);
     }
   };
 
-   const handleDocumentTypeClick = (arg) => {
-    const documentType = arg;
-    // console.log("handleDocumentTypeClick", documentType);
-    setDocumentType({
-      pdt_id:documentType.pdt_id, 
-pdt_doc_name_or:documentType.pdt_doc_name_or, 
-pdt_doc_name_am:documentType.pdt_doc_name_am, 
-pdt_doc_name_en:documentType.pdt_doc_name_en, 
-pdt_code:documentType.pdt_code, 
-pdt_description:documentType.pdt_description, 
-pdt_status:documentType.pdt_status, 
+   const handleAccessLogClick = (arg) => {
+    const accessLog = arg;
+    // console.log("handleAccessLogClick", accessLog);
+    setAccessLog({
+      acl_id:accessLog.acl_id, 
+acl_ip:accessLog.acl_ip, 
+acl_user_id:accessLog.acl_user_id, 
+acl_role_id:accessLog.acl_role_id, 
+acl_object_name:accessLog.acl_object_name, 
+acl_object_id:accessLog.acl_object_id, 
+acl_remark:accessLog.acl_remark, 
+acl_detail:accessLog.acl_detail, 
+acl_object_action:accessLog.acl_object_action, 
+acl_description:accessLog.acl_description, 
+acl_status:accessLog.acl_status, 
 
-      is_deletable: documentType.is_deletable,
-      is_editable: documentType.is_editable,
+      is_deletable: accessLog.is_deletable,
+      is_editable: accessLog.is_editable,
     });
 
     setIsEdit(true);
@@ -219,20 +239,20 @@ pdt_status:documentType.pdt_status,
   //delete projects
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const onClickDelete = (documentType) => {
-    setDocumentType(documentType);
+  const onClickDelete = (accessLog) => {
+    setAccessLog(accessLog);
     setDeleteModal(true);
   };
 
-  const handleDeleteDocumentType = () => {
-    if (documentType && documentType.pdt_id) {
-      dispatch(onDeleteDocumentType(documentType.pdt_id));
+  const handleDeleteAccessLog = () => {
+    if (accessLog && accessLog.acl_id) {
+      dispatch(onDeleteAccessLog(accessLog.acl_id));
       setDeleteModal(false);
     }
   };
-  const handleDocumentTypeClicks = () => {
+  const handleAccessLogClicks = () => {
     setIsEdit(false);
-    setDocumentType("");
+    setAccessLog("");
     toggle();
   };
   const handleSearch = () => {
@@ -249,13 +269,13 @@ pdt_status:documentType.pdt_status,
     const baseColumns = [
       {
         header: '',
-        accessorKey: 'pdt_doc_name_or',
+        accessorKey: 'acl_ip',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_doc_name_or, 30) ||
+              {truncateText(cellProps.row.original.acl_ip, 30) ||
                 '-'}
             </span>
           );
@@ -263,13 +283,13 @@ pdt_status:documentType.pdt_status,
       }, 
 {
         header: '',
-        accessorKey: 'pdt_doc_name_am',
+        accessorKey: 'acl_user_id',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_doc_name_am, 30) ||
+              {truncateText(cellProps.row.original.acl_user_id, 30) ||
                 '-'}
             </span>
           );
@@ -277,13 +297,13 @@ pdt_status:documentType.pdt_status,
       }, 
 {
         header: '',
-        accessorKey: 'pdt_doc_name_en',
+        accessorKey: 'acl_role_id',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_doc_name_en, 30) ||
+              {truncateText(cellProps.row.original.acl_role_id, 30) ||
                 '-'}
             </span>
           );
@@ -291,13 +311,13 @@ pdt_status:documentType.pdt_status,
       }, 
 {
         header: '',
-        accessorKey: 'pdt_code',
+        accessorKey: 'acl_object_name',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_code, 30) ||
+              {truncateText(cellProps.row.original.acl_object_name, 30) ||
                 '-'}
             </span>
           );
@@ -305,13 +325,13 @@ pdt_status:documentType.pdt_status,
       }, 
 {
         header: '',
-        accessorKey: 'pdt_description',
+        accessorKey: 'acl_object_id',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_description, 30) ||
+              {truncateText(cellProps.row.original.acl_object_id, 30) ||
                 '-'}
             </span>
           );
@@ -319,13 +339,69 @@ pdt_status:documentType.pdt_status,
       }, 
 {
         header: '',
-        accessorKey: 'pdt_status',
+        accessorKey: 'acl_remark',
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pdt_status, 30) ||
+              {truncateText(cellProps.row.original.acl_remark, 30) ||
+                '-'}
+            </span>
+          );
+        },
+      }, 
+{
+        header: '',
+        accessorKey: 'acl_detail',
+        enableColumnFilter: false,
+        enableSorting: true,
+        cell: (cellProps) => {
+          return (
+            <span>
+              {truncateText(cellProps.row.original.acl_detail, 30) ||
+                '-'}
+            </span>
+          );
+        },
+      }, 
+{
+        header: '',
+        accessorKey: 'acl_object_action',
+        enableColumnFilter: false,
+        enableSorting: true,
+        cell: (cellProps) => {
+          return (
+            <span>
+              {truncateText(cellProps.row.original.acl_object_action, 30) ||
+                '-'}
+            </span>
+          );
+        },
+      }, 
+{
+        header: '',
+        accessorKey: 'acl_description',
+        enableColumnFilter: false,
+        enableSorting: true,
+        cell: (cellProps) => {
+          return (
+            <span>
+              {truncateText(cellProps.row.original.acl_description, 30) ||
+                '-'}
+            </span>
+          );
+        },
+      }, 
+{
+        header: '',
+        accessorKey: 'acl_status',
+        enableColumnFilter: false,
+        enableSorting: true,
+        cell: (cellProps) => {
+          return (
+            <span>
+              {truncateText(cellProps.row.original.acl_status, 30) ||
                 '-'}
             </span>
           );
@@ -369,7 +445,7 @@ pdt_status:documentType.pdt_status,
                   className="text-success"
                   onClick={() => {
                     const data = cellProps.row.original;                    
-                    handleDocumentTypeClick(data);
+                    handleAccessLogClick(data);
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
@@ -404,7 +480,7 @@ pdt_status:documentType.pdt_status,
     }
 
     return baseColumns;
-  }, [handleDocumentTypeClick, toggleViewModal, onClickDelete]);
+  }, [handleAccessLogClick, toggleViewModal, onClickDelete]);
 
   const project_status = [
     { label: "select Status name", value: "" },
@@ -416,21 +492,21 @@ pdt_status:documentType.pdt_status,
 
   return (
     <React.Fragment>
-      <DocumentTypeModal
+      <AccessLogModal
         isOpen={modal1}
         toggle={toggleViewModal}
         transaction={transaction}
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteDocumentType}
+       onDeleteClick={handleDeleteAccessLog}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
         <div className="container-fluid">
           <Breadcrumbs
-            title={t("document_type")}
-            breadcrumbItem={t("document_type")}
+            title={t("access_log")}
+            breadcrumbItem={t("access_log")}
           />
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
@@ -445,12 +521,12 @@ pdt_status:documentType.pdt_status,
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}
-                      handleUserClick={handleDocumentTypeClicks}
+                      handleUserClick={handleAccessLogClicks}
                       isPagination={true}
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("document_type")}
+                      buttonName={t("add") +" "+ t("access_log")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -463,7 +539,7 @@ pdt_status:documentType.pdt_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("document_type")) : (t("add") +" "+t("document_type"))}
+              {!!isEdit ? (t("edit") + " "+t("access_log")) : (t("add") +" "+t("access_log"))}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -472,155 +548,251 @@ pdt_status:documentType.pdt_status,
                   validation.handleSubmit();
                   const modalCallback = () => setModal(false);
                   if (isEdit) {
-                    onUpdateDocumentType(validation.values, modalCallback);
+                    onUpdateAccessLog(validation.values, modalCallback);
                   } else {
-                    onAddDocumentType(validation.values, modalCallback);
+                    onAddAccessLog(validation.values, modalCallback);
                   }
                   return false;
                 }}
               >
                 <Row>
                   <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_doc_name_or')}</Label>
+                      <Label>{t('acl_ip')}</Label>
                       <Input
-                        name='pdt_doc_name_or'
+                        name='acl_ip'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_doc_name_or || ''}
+                        value={validation.values.acl_ip || ''}
                         invalid={
-                          validation.touched.pdt_doc_name_or &&
-                          validation.errors.pdt_doc_name_or
+                          validation.touched.acl_ip &&
+                          validation.errors.acl_ip
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_doc_name_or &&
-                      validation.errors.pdt_doc_name_or ? (
+                      {validation.touched.acl_ip &&
+                      validation.errors.acl_ip ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_doc_name_or}
+                          {validation.errors.acl_ip}
                         </FormFeedback>
                       ) : null}
                     </Col> 
 <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_doc_name_am')}</Label>
+                      <Label>{t('acl_user_id')}</Label>
                       <Input
-                        name='pdt_doc_name_am'
+                        name='acl_user_id'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_doc_name_am || ''}
+                        value={validation.values.acl_user_id || ''}
                         invalid={
-                          validation.touched.pdt_doc_name_am &&
-                          validation.errors.pdt_doc_name_am
+                          validation.touched.acl_user_id &&
+                          validation.errors.acl_user_id
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_doc_name_am &&
-                      validation.errors.pdt_doc_name_am ? (
+                      {validation.touched.acl_user_id &&
+                      validation.errors.acl_user_id ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_doc_name_am}
+                          {validation.errors.acl_user_id}
                         </FormFeedback>
                       ) : null}
                     </Col> 
 <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_doc_name_en')}</Label>
+                      <Label>{t('acl_role_id')}</Label>
                       <Input
-                        name='pdt_doc_name_en'
+                        name='acl_role_id'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_doc_name_en || ''}
+                        value={validation.values.acl_role_id || ''}
                         invalid={
-                          validation.touched.pdt_doc_name_en &&
-                          validation.errors.pdt_doc_name_en
+                          validation.touched.acl_role_id &&
+                          validation.errors.acl_role_id
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_doc_name_en &&
-                      validation.errors.pdt_doc_name_en ? (
+                      {validation.touched.acl_role_id &&
+                      validation.errors.acl_role_id ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_doc_name_en}
+                          {validation.errors.acl_role_id}
                         </FormFeedback>
                       ) : null}
                     </Col> 
 <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_code')}</Label>
+                      <Label>{t('acl_object_name')}</Label>
                       <Input
-                        name='pdt_code'
+                        name='acl_object_name'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_code || ''}
+                        value={validation.values.acl_object_name || ''}
                         invalid={
-                          validation.touched.pdt_code &&
-                          validation.errors.pdt_code
+                          validation.touched.acl_object_name &&
+                          validation.errors.acl_object_name
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_code &&
-                      validation.errors.pdt_code ? (
+                      {validation.touched.acl_object_name &&
+                      validation.errors.acl_object_name ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_code}
+                          {validation.errors.acl_object_name}
                         </FormFeedback>
                       ) : null}
                     </Col> 
 <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_description')}</Label>
+                      <Label>{t('acl_object_id')}</Label>
                       <Input
-                        name='pdt_description'
+                        name='acl_object_id'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_description || ''}
+                        value={validation.values.acl_object_id || ''}
                         invalid={
-                          validation.touched.pdt_description &&
-                          validation.errors.pdt_description
+                          validation.touched.acl_object_id &&
+                          validation.errors.acl_object_id
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_description &&
-                      validation.errors.pdt_description ? (
+                      {validation.touched.acl_object_id &&
+                      validation.errors.acl_object_id ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_description}
+                          {validation.errors.acl_object_id}
                         </FormFeedback>
                       ) : null}
                     </Col> 
 <Col className='col-md-6 mb-3'>
-                      <Label>{t('pdt_status')}</Label>
+                      <Label>{t('acl_remark')}</Label>
                       <Input
-                        name='pdt_status'
+                        name='acl_remark'
                         type='text'
                         placeholder={t('insert_status_name_amharic')}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.pdt_status || ''}
+                        value={validation.values.acl_remark || ''}
                         invalid={
-                          validation.touched.pdt_status &&
-                          validation.errors.pdt_status
+                          validation.touched.acl_remark &&
+                          validation.errors.acl_remark
                             ? true
                             : false
                         }
                         maxLength={20}
                       />
-                      {validation.touched.pdt_status &&
-                      validation.errors.pdt_status ? (
+                      {validation.touched.acl_remark &&
+                      validation.errors.acl_remark ? (
                         <FormFeedback type='invalid'>
-                          {validation.errors.pdt_status}
+                          {validation.errors.acl_remark}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> 
+<Col className='col-md-6 mb-3'>
+                      <Label>{t('acl_detail')}</Label>
+                      <Input
+                        name='acl_detail'
+                        type='text'
+                        placeholder={t('insert_status_name_amharic')}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.acl_detail || ''}
+                        invalid={
+                          validation.touched.acl_detail &&
+                          validation.errors.acl_detail
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.acl_detail &&
+                      validation.errors.acl_detail ? (
+                        <FormFeedback type='invalid'>
+                          {validation.errors.acl_detail}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> 
+<Col className='col-md-6 mb-3'>
+                      <Label>{t('acl_object_action')}</Label>
+                      <Input
+                        name='acl_object_action'
+                        type='text'
+                        placeholder={t('insert_status_name_amharic')}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.acl_object_action || ''}
+                        invalid={
+                          validation.touched.acl_object_action &&
+                          validation.errors.acl_object_action
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.acl_object_action &&
+                      validation.errors.acl_object_action ? (
+                        <FormFeedback type='invalid'>
+                          {validation.errors.acl_object_action}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> 
+<Col className='col-md-6 mb-3'>
+                      <Label>{t('acl_description')}</Label>
+                      <Input
+                        name='acl_description'
+                        type='text'
+                        placeholder={t('insert_status_name_amharic')}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.acl_description || ''}
+                        invalid={
+                          validation.touched.acl_description &&
+                          validation.errors.acl_description
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.acl_description &&
+                      validation.errors.acl_description ? (
+                        <FormFeedback type='invalid'>
+                          {validation.errors.acl_description}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> 
+<Col className='col-md-6 mb-3'>
+                      <Label>{t('acl_status')}</Label>
+                      <Input
+                        name='acl_status'
+                        type='text'
+                        placeholder={t('insert_status_name_amharic')}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.acl_status || ''}
+                        invalid={
+                          validation.touched.acl_status &&
+                          validation.errors.acl_status
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.acl_status &&
+                      validation.errors.acl_status ? (
+                        <FormFeedback type='invalid'>
+                          {validation.errors.acl_status}
                         </FormFeedback>
                       ) : null}
                     </Col> 
@@ -661,8 +833,8 @@ pdt_status:documentType.pdt_status,
     </React.Fragment>
   );
 };
-DocumentTypeModel.propTypes = {
+AccessLogModel.propTypes = {
   preGlobalFilteredRows: PropTypes.any,
 };
 
-export default DocumentTypeModel;
+export default AccessLogModel;

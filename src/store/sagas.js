@@ -16,13 +16,10 @@ import invoiceSaga from "./invoices/saga";
 import tasksSaga from "./tasks/saga";
 import mailsSaga from "./mails/saga";
 import contactsSaga from "./contacts/saga";
-// import dashboardSaga from "./dashboard/saga";
-// import dashboardSaasSaga from "./dashboard-saas/saga";
 
-// import dashboardBlogSaga from "./dashboard-blog/saga";
-// import dashboardJobSaga from "./dashboard-jobs/saga";
 import watchSearchSaga from "./search/sagas";
 import treeSaga from "./tree/saga";
+<<<<<<< HEAD
 import DocumentTypesaga from "./documenttype/saga";
 import Projectsaga from "./project/saga";
 import ProjectCategorysaga from "./projectcategory/saga";
@@ -39,6 +36,11 @@ import SectorInformationsaga from './sectorinformation/saga';
 import StakeholderTypesaga from './stakeholdertype/saga';
 import Userssaga from './users/saga';
 import UserRolesaga from './userrole/saga';
+=======
+import Departmentsaga from './department/saga';
+import BudgetSourcesaga from './budgetsource/saga';
+
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
 
 export default function* rootSaga() {
   yield all([
@@ -50,21 +52,17 @@ export default function* rootSaga() {
     fork(LayoutSaga),
     fork(ProjectStatusSaga),
     fork(calendarSaga),
-    // fork(chatSaga),
+    
     fork(mailsSaga),
-    // fork(cryptoSaga),
+  
     fork(invoiceSaga),
-    // fork(jobsSaga),
-    // fork(projectsSaga),
+ 
     fork(tasksSaga),
     fork(contactsSaga),
-    // fork(dashboardSaga),
-    // fork(dashboardSaasSaga),
-    // fork(dashboardCryptoSaga),
-    // fork(dashboardBlogSaga),
-    // fork(dashboardJobSaga),
+   
     fork(watchSearchSaga),
     fork(treeSaga),
+<<<<<<< HEAD
     fork(DocumentTypesaga),
     fork(Projectsaga),
     fork(ProjectCategorysaga),
@@ -81,5 +79,10 @@ export default function* rootSaga() {
     fork(StakeholderTypesaga),
     fork(UserRolesaga),
     fork(Userssaga),
+=======
+    fork(Departmentsaga),
+    fork(BudgetSourcesaga)
+
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
   ]);
 }

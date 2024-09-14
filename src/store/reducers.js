@@ -56,6 +56,7 @@ import Dashboard from "./dashboard/reducer";
 
 import search from "./search/reducer";
 import TreeReducer from "./tree/reducer";
+<<<<<<< HEAD
 import DocumentTypeR from "./documenttype/reducer";
 import ProjectR from "./project/reducer";
 import ProjectCategoryR from "./projectcategory/reducer";
@@ -72,6 +73,10 @@ import SectorInformationR from './sectorinformation/reducer';
 import StakeholderTypeR from './stakeholdertype/reducer'; 
 import UserRoleR from './userrole/reducer'; 
 import UsersR from './users/reducer';
+=======
+import DepartmentR from './department/reducer'; 
+import BudgetSourceR from './budgetsource/reducer';
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
 
 const rootReducer = combineReducers({
   // public
@@ -97,6 +102,7 @@ const rootReducer = combineReducers({
   // DashboardJob,
   search,
   TreeReducer,
+<<<<<<< HEAD
   DocumentTypeR,
   ProjectR,
   ProjectCategoryR,
@@ -113,6 +119,10 @@ const rootReducer = combineReducers({
   StakeholderTypeR,
   UserRoleR,
   UsersR
+=======
+  DepartmentR,
+  BudgetSourceR
+>>>>>>> ea6423b3c429a49d7ff52513631d85c488725fff
 });
 
 export default rootReducer;
