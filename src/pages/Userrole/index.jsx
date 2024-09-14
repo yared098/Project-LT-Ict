@@ -18,7 +18,7 @@ import {
   getUserRole as onGetUserRole,
   addUserRole as onAddUserRole,
   updateUserRole as onUpdateUserRole,
-  deleteUserRole as onDeleteUserRole
+  deleteUserRole as onDeleteUserRole,
 } from "../../store/userrole/actions";
 
 //redux
@@ -72,33 +72,33 @@ const UserRoleModel = () => {
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
-const [rolesOptions, setRolesOptions] = useState([]);
-const [selectedRoles, setSelectedRoles] = useState('');
+  const [rolesOptions, setRolesOptions] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchRoles = async () => {
-      try {        
+      try {
         const response = await axios.post(
-        `${import.meta.env.VITE_BASE_API_URL}roles/listgrid`
+          `${import.meta.env.VITE_BASE_API_URL}roles/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.rol_name.toString(),
           value: item.rol_name.toString(),
         }));
         const optionsWithDefault = [
-          { label: 'select budget year', value: '' },
+          { label: "select budget year", value: "" },
           ...transformedData,
         ];
         setRolesOptions(optionsWithDefault);
       } catch (error) {
-        console.error('Error fetching budget years:', error);
+        console.error("Error fetching budget years:", error);
       }
     };
     fetchRoles();
   }, []);
-const handleRolesChange = (e) => {
+  const handleRolesChange = (e) => {
     setSelectedRoles(e.target.value);
-    validation.setFieldValue('url_role_id', e.target.value);
+    validation.setFieldValue("url_role_id", e.target.value);
   };
   // validation
   const validation = useFormik({
@@ -106,19 +106,18 @@ const handleRolesChange = (e) => {
     enableReinitialize: true,
 
     initialValues: {
-     url_user_id:(userRole && userRole.url_user_id) || "", 
-url_description:(userRole && userRole.url_description) || "", 
-url_status:(userRole && userRole.url_status) || "", 
+      url_user_id: (userRole && userRole.url_user_id) || "",
+      url_description: (userRole && userRole.url_description) || "",
+      url_status: (userRole && userRole.url_status) || "",
 
-is_deletable: (userRole && userRole.is_deletable) || 1,
-is_editable: (userRole && userRole.is_editable) || 1
+      is_deletable: (userRole && userRole.is_deletable) || 1,
+      is_editable: (userRole && userRole.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      url_user_id: Yup.string().required(t('url_user_id')),
-url_description: Yup.string().required(t('url_description')),
-url_status: Yup.string().required(t('url_status')),
-
+      url_user_id: Yup.string().required(t("url_user_id")),
+      url_description: Yup.string().required(t("url_description")),
+      url_status: Yup.string().required(t("url_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -126,10 +125,10 @@ url_status: Yup.string().required(t('url_status')),
       if (isEdit) {
         const updateUserRole = {
           url_id: userRole ? userRole.url_id : 0,
-          // url_id:userRole.url_id, 
-url_user_id:values.url_user_id, 
-url_description:values.url_description, 
-url_status:values.url_status, 
+          // url_id:userRole.url_id,
+          url_user_id: values.url_user_id,
+          url_description: values.url_description,
+          url_status: values.url_status,
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -139,10 +138,9 @@ url_status:values.url_status,
         validation.resetForm();
       } else {
         const newUserRole = {
-          url_user_id:values.url_user_id, 
-url_description:values.url_description, 
-url_status:values.url_status, 
-
+          url_user_id: values.url_user_id,
+          url_description: values.url_description,
+          url_status: values.url_status,
         };
         // save new UserRoles
         dispatch(onAddUserRole(newUserRole));
@@ -209,14 +207,14 @@ url_status:values.url_status,
     }
   };
 
-   const handleUserRoleClick = (arg) => {
+  const handleUserRoleClick = (arg) => {
     const userRole = arg;
     // console.log("handleUserRoleClick", userRole);
     setUserRole({
-      url_id:userRole.url_id, 
-url_user_id:userRole.url_user_id, 
-url_description:userRole.url_description, 
-url_status:userRole.url_status, 
+      url_id: userRole.url_id,
+      url_user_id: userRole.url_user_id,
+      url_description: userRole.url_description,
+      url_status: userRole.url_status,
 
       is_deletable: userRole.is_deletable,
       is_editable: userRole.is_editable,
@@ -259,47 +257,44 @@ url_status:userRole.url_status,
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        header: '',
-        accessorKey: 'url_user_id',
+        header: "",
+        accessorKey: "url_user_id",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.url_user_id, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.url_user_id, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'url_description',
+      },
+      {
+        header: "",
+        accessorKey: "url_description",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.url_description, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.url_description, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'url_status',
+      },
+      {
+        header: "",
+        accessorKey: "url_status",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.url_status, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.url_status, 30) || "-"}
             </span>
           );
         },
-      }, 
+      },
 
       {
         header: t("view_detail"),
@@ -337,7 +332,7 @@ url_status:userRole.url_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
+                    const data = cellProps.row.original;
                     handleUserRoleClick(data);
                   }}
                 >
@@ -392,15 +387,12 @@ url_status:userRole.url_status,
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteUserRole}
+        onDeleteClick={handleDeleteUserRole}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
-            title={t("user_role")}
-            breadcrumbItem={t("user_role")}
-          />
+          <Breadcrumbs title={t("user_role")} breadcrumbItem={t("user_role")} />
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
@@ -419,7 +411,7 @@ url_status:userRole.url_status,
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("user_role")}
+                      buttonName={t("add") + " " + t("user_role")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -432,7 +424,9 @@ url_status:userRole.url_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("user_role")) : (t("add") +" "+t("user_role"))}
+              {!!isEdit
+                ? t("edit") + " " + t("user_role")
+                : t("add") + " " + t("user_role")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -449,101 +443,101 @@ url_status:userRole.url_status,
                 }}
               >
                 <Row>
-                  <Col className='col-md-6 mb-3'>
-              <Label>{t('url_role_id')}</Label>
-              <Input
-                name='url_role_id'
-                type='select'
-                className='form-select'
-                onChange={handleRolesChange}
-                onBlur={validation.handleBlur}
-                value={selectedRoles}>
-                {rolesOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {t(`${option.label}`)}
-                  </option>
-                ))}
-              </Input>
-              {validation.touched.url_role_id &&
-              validation.errors.url_role_id ? (
-                <FormFeedback type='invalid'>
-                  {validation.errors.url_role_id}
-                </FormFeedback>
-              ) : null}
-            </Col>
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('url_user_id')}</Label>
-                      <Input
-                        name='url_user_id'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.url_user_id || ''}
-                        invalid={
-                          validation.touched.url_user_id &&
-                          validation.errors.url_user_id
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.url_user_id &&
-                      validation.errors.url_user_id ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.url_user_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('url_description')}</Label>
-                      <Input
-                        name='url_description'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.url_description || ''}
-                        invalid={
-                          validation.touched.url_description &&
-                          validation.errors.url_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.url_description &&
-                      validation.errors.url_description ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.url_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('url_status')}</Label>
-                      <Input
-                        name='url_status'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.url_status || ''}
-                        invalid={
-                          validation.touched.url_status &&
-                          validation.errors.url_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.url_status &&
-                      validation.errors.url_status ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.url_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-                
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("url_role_id")}</Label>
+                    <Input
+                      name="url_role_id"
+                      type="select"
+                      className="form-select"
+                      onChange={handleRolesChange}
+                      onBlur={validation.handleBlur}
+                      value={selectedRoles}
+                    >
+                      {rolesOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {t(`${option.label}`)}
+                        </option>
+                      ))}
+                    </Input>
+                    {validation.touched.url_role_id &&
+                    validation.errors.url_role_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.url_role_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("url_user_id")}</Label>
+                    <Input
+                      name="url_user_id"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.url_user_id || ""}
+                      invalid={
+                        validation.touched.url_user_id &&
+                        validation.errors.url_user_id
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.url_user_id &&
+                    validation.errors.url_user_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.url_user_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("url_description")}</Label>
+                    <Input
+                      name="url_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.url_description || ""}
+                      invalid={
+                        validation.touched.url_description &&
+                        validation.errors.url_description
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.url_description &&
+                    validation.errors.url_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.url_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("url_status")}</Label>
+                    <Input
+                      name="url_status"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.url_status || ""}
+                      invalid={
+                        validation.touched.url_status &&
+                        validation.errors.url_status
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.url_status &&
+                    validation.errors.url_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.url_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                 </Row>
                 <Row>
                   <Col>
