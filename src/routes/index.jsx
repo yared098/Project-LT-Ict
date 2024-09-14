@@ -66,17 +66,6 @@ import { components } from "react-select";
 import Tree from "../pages/AddressStructure";
 import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
 
-import BudgetSource from '../pages/Budgetsource/index';
-import Department from '../pages/Department/index';
-import AddressStructure from '../pages/AddressStructure/index';
-import BudgetRequest from '../pages/Budgetrequest/index';
-import BudgetYear from '../pages/Budgetyear/index';
-import ContractTerminationReason from '../pages/Contractterminationreason/index';
-import ContractorType from '../pages/Contractortype/index';
-import DocumentType from '../pages/Documenttype/index';
-import AccessLog from '../pages/Accesslog/index';
-
-
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
   
@@ -101,8 +90,87 @@ const authProtectedRoutes = [
   
   { path: "/projects-status", component: <ProjectLists /> },
   { path: "/view-project", component: <ViewProjectPage /> },
-  
+  // { path :  "/ProjectNodetree",components: <ProjectTree/> },
+  // { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
+  // { path: "/ecommerce-cart", component: <EcommerceCart /> },
+  // { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
+  // { path: "/ecommerce-shops", component: <EcommerceShops /> },
+  // { path: "/ecommerce-add-product", component: <EcommerenceAddProduct /> },
 
+  //   //Email
+  // { path: "/email-inbox", component: <EmailInbox /> },
+  // { path: "/email-read/:id?", component: <EmailRead /> },
+  // { path: "/email-template-basic", component: <EmailBasicTemplte /> },
+  // { path: "/email-template-alert", component: <EmailAlertTemplte /> },
+  // { path: "/email-template-billing", component: <EmailTemplateBilling /> },
+
+  //   //Invoices
+  // { path: "/invoices-list", component: <InvoicesList /> },
+  // { path: "/invoices-detail", component: <InvoiceDetail /> },
+  // { path: "/invoices-detail/:id?", component: <InvoiceDetail /> },
+
+  //   // Tasks
+  // { path: "/tasks-list", component: <TasksList /> },
+  // { path: "/tasks-create", component: <TasksCreate /> },
+  // { path: "/tasks-kanban", component: <TasksKanban /> },
+
+  //   //Projects
+  // { path: "/projects-grid", component: <ProjectsGrid /> },
+  // { path: "/projects-list", component: <ProjectsList /> },
+  // { path: "/projects-overview", component: <ProjectsOverview /> },
+  // { path: "/projects-overview/:id", component: <ProjectsOverview /> },
+  // { path: "/projects-create", component: <ProjectsCreate /> },
+
+  //   //Blog
+  // { path: "/blog-list", component: <BlogList /> },
+  // { path: "/blog-grid", component: <BlogGrid /> },
+  // { path: "/blog-details", component: <BlogDetails /> },
+
+  // { path: "/job-grid", component: <JobGrid /> },
+  // { path: "/job-details", component: <JobDetails /> },
+  // { path: "/job-categories", component: <JobCategories /> },
+  // { path: "/job-list", component: <JobList /> },
+  // { path: "/job-apply", component: <ApplyJobs /> },
+  // { path: "/candidate-list", component: <CandidateList /> },
+  // { path: "/candidate-overview", component: <CandidateOverview /> },
+
+  // Contacts
+  // { path: "/contacts-grid", component: <ContactsGrid /> },
+  // { path: "/contacts-list", component: <ContactsList /> },
+  // { path: "/contacts-profile", component: <ContactsProfile /> },
+
+  //   //Charts
+  // { path: "/apex-charts", component: <ChartApex /> },
+  // { path: "/chartjs-charts", component: <ChartjsChart /> },
+  // { path: "/e-charts", component: <EChart /> },
+  // { path: "/sparkline-charts", component: <SparklineChart /> },
+  // { path: "/charts-knob", component: <ChartsKnob /> },
+  // { path: "/re-charts", component: <ReCharts /> },
+
+  //   // Icons
+  // { path: "/icons-boxicons", component: <IconBoxicons /> },
+  // { path: "/icons-dripicons", component: <IconDripicons /> },
+  // { path: "/icons-materialdesign", component: <IconMaterialdesign /> },
+  // { path: "/icons-fontawesome", component: <IconFontawesome /> },
+
+  //   // Tables
+  // { path: "/tables-basic", component: <BasicTables /> },
+  // { path: "/tables-datatable", component: <DatatableTables /> },
+
+  //   // Maps
+  // { path: "/maps-google", component: <MapsGoogle /> },
+
+  //   // Forms
+  // { path: "/form-elements", component: <FormElements /> },
+  // { path: "/form-layouts", component: <FormLayouts /> },
+  // { path: "/form-advanced", component: <FormAdvanced /> },
+  // { path: "/form-editors", component: <FormEditors /> },
+  // { path: "/form-mask", component: <FormMask /> },
+  // { path: "/form-repeater", component: <FormRepeater /> },
+  // { path: "/form-uploads", component: <FormUpload /> },
+  // { path: "/form-wizard", component: <FormWizard /> },
+  // { path: "/form-validation", component: <FormValidations /> },
+  // { path: "/dual-listbox", component: <DualListbox /> },
 
   //   // Ui
   { path: "/ui-alerts", component: <UiAlert /> },
