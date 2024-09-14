@@ -582,7 +582,11 @@
   "sht_update_time": "Update Time",
   "sht_delete_time": "Delete Time",
   "sht_created_by": "Created By",
-  "sht_status": "Status"
+  "sht_status": "Status",
+  "address_structure": "Address Structure",
+  "user_administration": "User Administration",
+  "look_up": "Look Up"
+
 
 
 

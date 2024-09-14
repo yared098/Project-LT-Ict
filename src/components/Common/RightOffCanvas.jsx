@@ -30,8 +30,11 @@ import * as Yup from "yup";
 import Dropzone from "react-dropzone";
 import { Link } from "react-router-dom";
 import ProjectDocument from "../../pages/Documenttype/index";
+import ProjectPayment  from "../../pages/Projectpayment";
+import ProjectStakeholder from "../../pages/Projectstakeholder";
+
 const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
-  console.log(data);
+  // console.log(data);
   
   //meta title
   document.title = "Right OffCanvas | For Project";
@@ -165,7 +168,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                       <span className="d-block d-sm-none">
                         <i className="far fa-envelope"></i>
                       </span>
-                      <span className="d-none d-sm-block">Messages</span>
+                      <span className="d-none d-sm-block">Project Stakeholder</span>
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -392,7 +395,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                   </TabPane>
 
                   <TabPane tabId="6">
-                    <Row>
+                    {/* <Row>
                       <Col xl={12}>
                         <Card>
                           <CardBody>
@@ -433,11 +436,12 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                           </CardBody>
                         </Card>
                       </Col>
-                    </Row>
+                    </Row> */}
+                    <ProjectPayment/>
                   </TabPane>
 
                   <TabPane tabId="7">
-                    <Row>
+                    {/* <Row>
                       <Col sm="12">
                         <CardText className="mb-0">
                           Etsy mixtape wayfarers, ethical wes anderson tofu
@@ -454,7 +458,8 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                           chambray yr.
                         </CardText>
                       </Col>
-                    </Row>
+                    </Row> */}
+                    <ProjectStakeholder/>
                   </TabPane>
 
                   <TabPane tabId="8">
@@ -474,6 +479,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                         </CardText>
                       </Col>
                     </Row>
+
                   </TabPane>
                 </TabContent>
               </CardBody>

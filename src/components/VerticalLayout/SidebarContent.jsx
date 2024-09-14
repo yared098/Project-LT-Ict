@@ -197,23 +197,23 @@ const SidebarContent = (props) => {
                 {/* Project Document */}
                 <li>
                   <Link to="/project_document">
-                    {props.t("Project Document")}
+                    {props.t("project_document")}
                   </Link>
                 </li>
                
               
                 {/* Project Contractor*/}
                 <li>
-                  <Link to="/project_contractor">{props.t("Project Contractor")}</Link>
+                  <Link to="/project_contractor">{props.t("project_contractor")}</Link>
                 </li>
                 {/*Project Stakeholder  */} 
                 <li>
-                  <Link to="/project_stakeholder">{props.t("Project Stakeholder")}</Link>
+                  <Link to="/project_stakeholder">{props.t("project_stakeholder")}</Link>
                 </li>
 
                  {/* Budget Request */}
                  <li>
-                  <Link to="/budget_request">{props.t("Budget Request")}</Link>
+                  <Link to="/budget_request">{props.t("budget_request")}</Link>
                 </li>
                
               </ul>
@@ -222,12 +222,12 @@ const SidebarContent = (props) => {
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-receipt"></i>
-                <span>{props.t("Address Structure")}</span>
+                <span>{props.t("address_structure")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
               
                 <li>
-                  <Link to="/address_structure">{props.t("Project Tree")}</Link>
+                  <Link to="/address_structure">{props.t("address_structure")}</Link>
                 </li>
                 
               </ul>
@@ -238,51 +238,51 @@ const SidebarContent = (props) => {
              <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-receipt"></i>
-                <span>{props.t("LookUp ")}</span>
+                <span>{props.t("look_up")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
               
                 <li>
-                  <Link to="/department">{props.t("Department")}</Link>
+                  <Link to="/department">{props.t("department")}</Link>
                 </li>
 
                  {/* Project Category */}
                  <li>
-                  <Link to="/project_category">{props.t("Project Category")}
+                  <Link to="/project_category">{props.t("project_category")}
                   </Link>
                 </li>
 
                 <li>
-                  <Link to="/budget_source">{props.t("Budget Source")}</Link>
+                  <Link to="/budget_source">{props.t("budget_source")}</Link>
                 </li>
                 {/* Document Type */}
                 <li>
-                  <Link to="/document_type">{props.t("Document Type")}</Link>
+                  <Link to="/document_type">{props.t("document_type")}</Link>
                 </li>
                
                 {/* Budget Year */}
                 <li>
-                  <Link to="/budget_year">{props.t("Budget Year")}</Link>
+                  <Link to="/budget_year">{props.t("budget_year")}</Link>
                 </li>
                 {/* Contractor Type */}
                 <li>
-                  <Link to="/contractor_type">{props.t("Contractor Type")}</Link>
+                  <Link to="/contractor_type">{props.t("contractor_type")}</Link>
                 </li>
                 {/* Contract Termination Reason */}
                 <li>
-                  <Link to="/contract_termination_reason">{props.t("Contract Termination Reason")}</Link>
+                  <Link to="/contract_termination_reason">{props.t("contract_termination_reason")}</Link>
                 </li>
                 {/* Sector Information  */}
                 <li>
-                  <Link to="/Sector_information">{props.t("Sector Information ")}</Link>
+                  <Link to="/Sector_information">{props.t("Sector_information ")}</Link>
                 </li>
                 {/* Stakeholder Type */}
                 <li>
-                  <Link to="/stakeholder_type">{props.t("Stakeholder Type ")}</Link>
+                  <Link to="/stakeholder_type">{props.t("stakeholder_type ")}</Link>
                 </li>
                 {/* Sector Categor */}
                 <li>
-                  <Link to="/sector_category">{props.t("Sector Categor ")}</Link>
+                  <Link to="/sector_category">{props.t("sector_category ")}</Link>
                 </li>
               </ul>
             </li>
@@ -290,27 +290,27 @@ const SidebarContent = (props) => {
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-receipt"></i>
-                <span>{props.t("User Administration ")}</span>
+                <span>{props.t("user_administration")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
               
                 <li>
-                  <Link to="/users">{props.t("Users")}</Link>
+                  <Link to="/users">{props.t("users")}</Link>
                 </li>
                 <li>
-                  <Link to="/user_role">{props.t("User Role")}</Link>
+                  <Link to="/user_role">{props.t("user_role")}</Link>
                 </li>
                 <li>
                   <Link to="/Roles">{props.t("Roles")}</Link>
                 </li>
                 <li>
-                  <Link to="/pages">{props.t("Pages")}</Link>
+                  <Link to="/pages">{props.t("pages")}</Link>
                 </li>
                 <li>
-                  <Link to="/permission">{props.t("Permission")}</Link>
+                  <Link to="/permission">{props.t("permission")}</Link>
                 </li>
                 <li>
-                  <Link to="/access_log">{props.t("Access Log")}</Link>
+                  <Link to="/access_log">{props.t("access_log")}</Link>
                 </li>
                 
                

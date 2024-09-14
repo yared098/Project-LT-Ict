@@ -601,6 +601,10 @@
   "sht_update_time": "የአዘምንት ጊዜ",
   "sht_delete_time": "የማጥፋት ጊዜ",
   "sht_created_by": "በተፈጠረ",
-  "sht_status": "ሁኔታ"
+  "sht_status": "ሁኔታ",
+
+  "address_structure": "አድራሻ መዋቅር",
+  "user_administration": "ተጠቃሚ አስተዳደር",
+  "look_up": "መፈለግ"
 
 }
