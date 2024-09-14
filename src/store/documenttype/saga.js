@@ -27,15 +27,12 @@ import {
   addDocumentType,
   updateDocumentType,
   deleteDocumentType,
-<<<<<<< HEAD
 
   // getProductComents as getProductComentsApi,
   // onLikeComment as onLikeCommentApi,
   // onLikeReply as onLikeReplyApi,
   // onAddReply as onAddReplyApi,
   // onAddComment as onAddCommentApi,
-=======
->>>>>>> c9947a62b786a245e215ca52058c194dbf7a5963
 } from "../../helpers/documenttype_backend_helper";
 
 // toast
@@ -64,18 +61,9 @@ function* onUpdateDocumentType({ payload: documentType, modalCallback }) {
     if (showResult) {
       yield put(updateSearchResults(documentType));
     }
-<<<<<<< HEAD
     toast.success(`documentType ${documentType.pdt_id} Is Updated Successfully`, {
       autoClose: 2000,
     });
-=======
-    toast.success(
-      `documentType ${documentType.pdt_id} Is Updated Successfully`,
-      {
-        autoClose: 2000,
-      }
-    );
->>>>>>> c9947a62b786a245e215ca52058c194dbf7a5963
     if (modalCallback) modalCallback();
   } catch (error) {
     yield put(updateDocumentTypeFail(error));
@@ -99,18 +87,9 @@ function* onDeleteDocumentType({ payload: documentType }) {
     if (showResult) {
       yield put(deleteSearchResult(documentType));
     }
-<<<<<<< HEAD
     toast.success(`documentType ${response.deleted_id} Is Delete Successfully`, {
       autoClose: 2000,
     });
-=======
-    toast.success(
-      `documentType ${response.deleted_id} Is Delete Successfully`,
-      {
-        autoClose: 2000,
-      }
-    );
->>>>>>> c9947a62b786a245e215ca52058c194dbf7a5963
   } catch (error) {
     yield put(deleteDocumentTypeFail(error));
     toast.error(`documentType ${documentType.pdt_id} Is Delete Failed`, {
@@ -127,18 +106,9 @@ function* onAddDocumentType({ payload: documentType, modalCallback }) {
     const response = yield call(addDocumentType, documentType);
 
     yield put(addDocumentTypeSuccess(response.data));
-<<<<<<< HEAD
     toast.success(`documentType ${response.data.pdt_id} Is Added Successfully`, {
       autoClose: 2000,
     });
-=======
-    toast.success(
-      `documentType ${response.data.pdt_id} Is Added Successfully`,
-      {
-        autoClose: 2000,
-      }
-    );
->>>>>>> c9947a62b786a245e215ca52058c194dbf7a5963
     if (modalCallback) modalCallback();
   } catch (error) {
     yield put(addDocumentTypeFail(error));
@@ -157,3 +127,4 @@ function* DocumentTypeSaga() {
 }
 
 export default DocumentTypeSaga;
+
