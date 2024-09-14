@@ -196,7 +196,7 @@ const SidebarContent = (props) => {
                 </li>
                 {/* Project Document */}
                 <li>
-                  <Link to="/project_payment">
+                  <Link to="/project_document">
                     {props.t("Project Document")}
                   </Link>
                 </li>

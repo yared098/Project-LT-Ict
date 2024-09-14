@@ -27,6 +27,8 @@ import { createSelector } from "reselect";
 import ProjectModal from "./ProjectModal";
 import { useTranslation } from "react-i18next";
 
+import RightOffCanvas from "../../components/Common/RightOffCanvas"
+
 import {
   Button,
   Col,
@@ -78,6 +80,8 @@ const ProjectModel = () => {
   const [selectedProjectCategory, setSelectedProjectCategory] = useState("");
   const [budgetSourceOptions, setBudgetSourceOptions] = useState([]);
   const [selectedBudgetSource, setSelectedBudgetSource] = useState("");
+  const [projectMetaData,setProjectMetaData]=useState({});
+  const [showCanvas, setShowCanvas] = useState(false);
 
   useEffect(() => {
     const fetchProjectStatus = async () => {
@@ -104,6 +108,13 @@ const ProjectModel = () => {
     setSelectedProjectStatus(e.target.value);
     validation.setFieldValue("prj_project_status_id", e.target.value);
   };
+
+  const handleClick = (data) => {
+    setShowCanvas(!showCanvas); // Toggle canvas visibility
+    console.log(data,"project data")
+    setProjectMetaData(data)
+  };
+  
   useEffect(() => {
     const fetchProjectCategory = async () => {
       try {
@@ -963,6 +974,23 @@ const ProjectModel = () => {
                     Edit
                   </UncontrolledTooltip>
                 </Link>
+              )}
+              {cellProps.row.original.is_editable && (
+                   <Link to="#" className="text-secondary" 
+                   onClick={() => {
+                    const ProjectData = cellProps.row.original;
+                    // console.log("handleProjectClick before edit", ProjectData);
+                    handleClick(ProjectData);
+                    // console.log("update search result table dtata",)
+                  }}
+                  //  onClick={handleClick}
+                   >
+                   <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
+   
+                   <UncontrolledTooltip placement="top" target="viewtooltip">
+                     View
+                   </UncontrolledTooltip>
+                 </Link>
               )}
 
               {cellProps.row.original.is_deletable && (
@@ -1911,6 +1939,14 @@ const ProjectModel = () => {
         </div>
       </div>
       <ToastContainer />
+      {showCanvas && (
+        <RightOffCanvas
+          handleClick={handleClick}
+          showCanvas={showCanvas}
+          canvasWidth={60}
+          data={projectMetaData}
+        />
+      )}
     </React.Fragment>
   );
 };

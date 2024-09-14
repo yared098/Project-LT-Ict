@@ -109,7 +109,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
         toggle={handleClick}
         style={{ width: `${canvasWidth}vw` }}
       > 
-        <OffcanvasHeader toggle={handleClick}>Project Id : {data.prs_id}</OffcanvasHeader>
+        <OffcanvasHeader toggle={handleClick}>Project Id : {data.prj_name}</OffcanvasHeader>
         <OffcanvasBody>
           <Col lg={12}>
             <Card>
