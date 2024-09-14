@@ -81,11 +81,11 @@ const BudgetSourceModel = () => {
 
     initialValues: {
      pbs_name_or:(budgetSource && budgetSource.pbs_name_or) || "", 
-    pbs_name_am:(budgetSource && budgetSource.pbs_name_am) || "", 
-    pbs_name_en:(budgetSource && budgetSource.pbs_name_en) || "", 
-    pbs_code:(budgetSource && budgetSource.pbs_code) || "", 
-    pbs_description:(budgetSource && budgetSource.pbs_description) || "", 
-    pbs_status:(budgetSource && budgetSource.pbs_status) || "", 
+pbs_name_am:(budgetSource && budgetSource.pbs_name_am) || "", 
+pbs_name_en:(budgetSource && budgetSource.pbs_name_en) || "", 
+pbs_code:(budgetSource && budgetSource.pbs_code) || "", 
+pbs_description:(budgetSource && budgetSource.pbs_description) || "", 
+pbs_status:(budgetSource && budgetSource.pbs_status) || "", 
 
 is_deletable: (budgetSource && budgetSource.is_deletable) || 1,
 is_editable: (budgetSource && budgetSource.is_editable) || 1
@@ -107,12 +107,12 @@ pbs_status: Yup.string().required(t('pbs_status')),
         const updateBudgetSource = {
           pbs_id: budgetSource ? budgetSource.pbs_id : 0,
           // pbs_id:budgetSource.pbs_id, 
-          pbs_name_or:values.pbs_name_or, 
-          pbs_name_am:values.pbs_name_am, 
-          pbs_name_en:values.pbs_name_en, 
-          pbs_code:values.pbs_code, 
-          pbs_description:values.pbs_description, 
-          pbs_status:values.pbs_status, 
+pbs_name_or:values.pbs_name_or, 
+pbs_name_am:values.pbs_name_am, 
+pbs_name_en:values.pbs_name_en, 
+pbs_code:values.pbs_code, 
+pbs_description:values.pbs_description, 
+pbs_status:values.pbs_status, 
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -145,17 +145,17 @@ pbs_status:values.pbs_status,
   }, [dispatch]);
 
   const budgetSourceProperties = createSelector(
-    (state) => state.BudgetSources, // this is geting from  reducer
+    (state) => state.BudgetSourceR, // this is geting from  reducer
     (BudgetSourceReducer) => ({
       // this is from Project.reducer
-      BudgetSources: BudgetSourceReducer.BudgetSources,
+      budgetSource: BudgetSourceReducer.budgetSource,
       loading: BudgetSourceReducer.loading,
       update_loading: BudgetSourceReducer.update_loading,
     })
   );
 
   const {
-    BudgetSources: { data, previledge },
+    budgetSource: { data, previledge },
     loading,
     update_loading,
   } = useSelector(budgetSourceProperties);

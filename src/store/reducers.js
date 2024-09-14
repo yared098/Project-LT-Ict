@@ -56,6 +56,8 @@ import Dashboard from "./dashboard/reducer";
 
 import search from "./search/reducer";
 import TreeReducer from "./tree/reducer";
+import DepartmentR from './department/reducer'; 
+import BudgetSourceR from './budgetsource/reducer';
 
 const rootReducer = combineReducers({
   // public
@@ -81,6 +83,8 @@ const rootReducer = combineReducers({
   // DashboardJob,
   search,
   TreeReducer,
+  DepartmentR,
+  BudgetSourceR
 });
 
 export default rootReducer;

@@ -19,6 +19,8 @@ import contactsSaga from "./contacts/saga";
 
 import watchSearchSaga from "./search/sagas";
 import treeSaga from "./tree/saga";
+import Departmentsaga from './department/saga';
+import BudgetSourcesaga from './budgetsource/saga';
 
 
 export default function* rootSaga() {
@@ -41,6 +43,8 @@ export default function* rootSaga() {
    
     fork(watchSearchSaga),
     fork(treeSaga),
+    fork(Departmentsaga),
+    fork(BudgetSourcesaga)
 
   ]);
 }

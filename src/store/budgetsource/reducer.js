@@ -12,7 +12,7 @@ import {
 
 const INIT_STATE = {
   update_loading: false,
-  BudgetSources: {
+  budgetSource: {
     data: [],
     previledge: {},
   },
@@ -25,7 +25,7 @@ const BudgetSourceReducer = (state = INIT_STATE, action) => {
     case GET_BUDGET_SOURCE_SUCCESS:
       return {
         ...state,
-        BudgetSources: {
+        budgetSource: {
           data: action.payload.data,
           previledge: action.payload.previledge,
         },
@@ -42,9 +42,9 @@ const BudgetSourceReducer = (state = INIT_STATE, action) => {
     case ADD_BUDGET_SOURCE_SUCCESS:
       return {
         ...state,
-        BudgetSources: {
-          ...state.BudgetSources,
-          data: [action.payload, ...state.BudgetSources.data],
+        budgetSource: {
+          ...state.budgetSource,
+          data: [action.payload, ...state.budgetSource.data],
         },
       };
 
@@ -57,9 +57,9 @@ const BudgetSourceReducer = (state = INIT_STATE, action) => {
     case UPDATE_BUDGET_SOURCE_SUCCESS:
       return {
         ...state,
-        BudgetSources: {
-          ...state.BudgetSources,
-          data: state.BudgetSources.data.map((BUDGET_SOURCE) =>
+        budgetSource: {
+          ...state.budgetSource,
+          data: state.budgetSource.data.map((BUDGET_SOURCE) =>
             BUDGET_SOURCE.pbs_id.toString() === action.payload.pbs_id.toString()
               ? { ...BUDGET_SOURCE, ...action.payload } // Update the specific BUDGET_SOURCE
               : BUDGET_SOURCE
@@ -76,9 +76,9 @@ const BudgetSourceReducer = (state = INIT_STATE, action) => {
     case DELETE_BUDGET_SOURCE_SUCCESS:
       return {
         ...state,
-        BudgetSources: {
-          ...state.BudgetSources,
-          data: state.BudgetSources.data.filter(
+        budgetSource: {
+          ...state.budgetSource,
+          data: state.budgetSource.data.filter(
             (BUDGET_SOURCE) =>
               BUDGET_SOURCE.pbs_id.toString() !== action.payload.deleted_id.toString()
           ),
