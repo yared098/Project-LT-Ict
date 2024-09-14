@@ -56,15 +56,27 @@ import Dashboard from "./dashboard/reducer";
 
 import search from "./search/reducer";
 import TreeReducer from "./tree/reducer";
+
+import DocumentTypeR from "./documenttype/reducer";
+import ProjectR from "./project/reducer";
+import ProjectCategoryR from "./projectcategory/reducer";
+import ProjectContractorR from "./projectcontractor/reducer";
+import ProjectDocumentR from "./projectdocument/reducer";
+import ProjectPaymentR from "./projectpayment/reducer";
+import PagesR from "./pages/reducer";
+import PermissionR from "./permission/reducer";
+import ProjectStatusR from './projectstatus/reducer'; 
+import ProjectStakeholderR from './projectstakeholder/reducer'; 
+import RolesR from './roles/reducer'; 
+import SectorCategoryR from './sectorcategory/reducer'; 
+import SectorInformationR from './sectorinformation/reducer'; 
+import StakeholderTypeR from './stakeholdertype/reducer'; 
+import UserRoleR from './userrole/reducer'; 
+import UsersR from './users/reducer';
 import DepartmentR from './department/reducer'; 
 import BudgetSourceR from './budgetsource/reducer';
-import BudgetYearR from './budgetyear/reducer';
-import BudgetRequestR from './budgetrequest/reducer'; ;
+import BudgetYearR from './budgetyear/reducer'; 
 import AccessLogR from './accesslog/reducer'; 
-import ContractTerminationReasonR from './contractterminationreason/reducer'; 
-import ContractorTypeR from './contractortype/reducer';
-import DocumentTypeR from './documenttype/reducer'; 
- 
 
 const rootReducer = combineReducers({
   // public
@@ -90,14 +102,27 @@ const rootReducer = combineReducers({
   // DashboardJob,
   search,
   TreeReducer,
+
+  DocumentTypeR,
+  ProjectR,
+  ProjectCategoryR,
+  ProjectContractorR,
+  ProjectDocumentR,
+  ProjectPaymentR,
+  PagesR,
+  PermissionR,
+  ProjectStatusR,
+  ProjectStakeholderR,
+  RolesR,
+  SectorCategoryR,
+  SectorInformationR,
+  StakeholderTypeR,
+  UserRoleR,
+  UsersR,
   DepartmentR,
   BudgetSourceR,
-  BudgetRequestR,
-  AccessLogR,
   BudgetYearR,
-  ContractTerminationReasonR,
-  ContractorTypeR,
-  DocumentTypeR
+  AccessLogR
 });
 
 export default rootReducer;

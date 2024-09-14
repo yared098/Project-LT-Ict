@@ -3,7 +3,7 @@ import { del, get, post, put } from "./api_Lists";
 //import * as url from "./url_Lists";
 
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
-const GET_PAGES = "pages/listgrid";
+const GET_PAGES = "/pages/listgrid";
 const ADD_PAGES = "pages/insertgrid";
 const UPDATE_PAGES = "pages/updategrid";
 const DELETE_PAGES = "pages/deletegrid";
