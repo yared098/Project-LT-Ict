@@ -29,8 +29,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Dropzone from "react-dropzone";
 import { Link } from "react-router-dom";
-
-const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
+import ProjectDocument from "../../pages/Documenttype/index";
+const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
+  console.log(data);
+  
   //meta title
   document.title = "Right OffCanvas | For Project";
 
@@ -106,29 +108,33 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
         direction="end"
         toggle={handleClick}
         style={{ width: `${canvasWidth}vw` }}
-      >
-        <OffcanvasHeader toggle={handleClick}>Project One</OffcanvasHeader>
+      > 
+        <OffcanvasHeader toggle={handleClick}>Project Id : {data.prs_id}</OffcanvasHeader>
         <OffcanvasBody>
           <Col lg={12}>
             <Card>
               <CardBody>
                 <Nav pills className="navtab-bg nav-justified">
+
                   <NavItem>
                     <NavLink
                       style={{ cursor: "pointer" }}
                       className={classnames({
                         active: activeTab1 === "5",
+
                       })}
                       onClick={() => {
                         toggle1("5");
                       }}
-                    >
+                     >
+                      {/* <ProjectDocument/> */}
                       <span className="d-block d-sm-none">
                         <i className="fas fa-home"></i>
                       </span>
-                      <span className="d-none d-sm-block">Document</span>
+                      <span className="d-none d-sm-block">Documents</span>
                     </NavLink>
                   </NavItem>
+
                   <NavItem>
                     <NavLink
                       style={{ cursor: "pointer" }}
@@ -182,7 +188,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
 
                 <TabContent activeTab={activeTab1} className="p-3 text-muted">
                   <TabPane tabId="5">
-                    <Row>
+                    {/* <Row>
                       <Col xl={8} className="mx-auto">
                         <Card>
                           <CardBody>
@@ -381,8 +387,10 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
                           </CardBody>
                         </Card>
                       </Col>
-                    </Row>
+                    </Row> */}
+                     <ProjectDocument/>
                   </TabPane>
+
                   <TabPane tabId="6">
                     <Row>
                       <Col xl={12}>
@@ -427,6 +435,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth }) => {
                       </Col>
                     </Row>
                   </TabPane>
+
                   <TabPane tabId="7">
                     <Row>
                       <Col sm="12">
