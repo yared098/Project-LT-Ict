@@ -18,7 +18,7 @@ import {
   getRoles as onGetRoles,
   addRoles as onAddRoles,
   updateRoles as onUpdateRoles,
-  deleteRoles as onDeleteRoles
+  deleteRoles as onDeleteRoles,
 } from "../../store/roles/actions";
 
 //redux
@@ -73,26 +73,24 @@ const RolesModel = () => {
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
 
-  
   // validation
   const validation = useFormik({
     // enableReinitialize: use this flag when initial values need to be changed
     enableReinitialize: true,
 
     initialValues: {
-     rol_name:(roles && roles.rol_name) || "", 
-rol_description:(roles && roles.rol_description) || "", 
-rol_status:(roles && roles.rol_status) || "", 
+      rol_name: (roles && roles.rol_name) || "",
+      rol_description: (roles && roles.rol_description) || "",
+      rol_status: (roles && roles.rol_status) || "",
 
-is_deletable: (roles && roles.is_deletable) || 1,
-is_editable: (roles && roles.is_editable) || 1
+      is_deletable: (roles && roles.is_deletable) || 1,
+      is_editable: (roles && roles.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      rol_name: Yup.string().required(t('rol_name')),
-rol_description: Yup.string().required(t('rol_description')),
-rol_status: Yup.string().required(t('rol_status')),
-
+      rol_name: Yup.string().required(t("rol_name")),
+      rol_description: Yup.string().required(t("rol_description")),
+      rol_status: Yup.string().required(t("rol_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -100,10 +98,9 @@ rol_status: Yup.string().required(t('rol_status')),
       if (isEdit) {
         const updateRoles = {
           rol_id: roles ? roles.rol_id : 0,
-          rol_id:roles.rol_id, 
-rol_name:values.rol_name, 
-rol_description:values.rol_description, 
-rol_status:values.rol_status, 
+          rol_name: values.rol_name,
+          rol_description: values.rol_description,
+          rol_status: values.rol_status,
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -113,10 +110,9 @@ rol_status:values.rol_status,
         validation.resetForm();
       } else {
         const newRoles = {
-          rol_name:values.rol_name, 
-rol_description:values.rol_description, 
-rol_status:values.rol_status, 
-
+          rol_name: values.rol_name,
+          rol_description: values.rol_description,
+          rol_status: values.rol_status,
         };
         // save new Roless
         dispatch(onAddRoles(newRoles));
@@ -183,14 +179,14 @@ rol_status:values.rol_status,
     }
   };
 
-   const handleRolesClick = (arg) => {
+  const handleRolesClick = (arg) => {
     const roles = arg;
     // console.log("handleRolesClick", roles);
     setRoles({
-      rol_id:roles.rol_id, 
-rol_name:roles.rol_name, 
-rol_description:roles.rol_description, 
-rol_status:roles.rol_status, 
+      rol_id: roles.rol_id,
+      rol_name: roles.rol_name,
+      rol_description: roles.rol_description,
+      rol_status: roles.rol_status,
 
       is_deletable: roles.is_deletable,
       is_editable: roles.is_editable,
@@ -233,47 +229,44 @@ rol_status:roles.rol_status,
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        header: '',
-        accessorKey: 'rol_name',
+        header: "",
+        accessorKey: "rol_name",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.rol_name, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.rol_name, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'rol_description',
+      },
+      {
+        header: "",
+        accessorKey: "rol_description",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.rol_description, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.rol_description, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'rol_status',
+      },
+      {
+        header: "",
+        accessorKey: "rol_status",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.rol_status, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.rol_status, 30) || "-"}
             </span>
           );
         },
-      }, 
+      },
 
       {
         header: t("view_detail"),
@@ -311,7 +304,7 @@ rol_status:roles.rol_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
+                    const data = cellProps.row.original;
                     handleRolesClick(data);
                   }}
                 >
@@ -366,15 +359,12 @@ rol_status:roles.rol_status,
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteRoles}
+        onDeleteClick={handleDeleteRoles}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
-            title={t("roles")}
-            breadcrumbItem={t("roles")}
-          />
+          <Breadcrumbs title={t("roles")} breadcrumbItem={t("roles")} />
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
@@ -393,7 +383,7 @@ rol_status:roles.rol_status,
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("roles")}
+                      buttonName={t("add") + " " + t("roles")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -406,7 +396,9 @@ rol_status:roles.rol_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("roles")) : (t("add") +" "+t("roles"))}
+              {!!isEdit
+                ? t("edit") + " " + t("roles")
+                : t("add") + " " + t("roles")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -423,79 +415,78 @@ rol_status:roles.rol_status,
                 }}
               >
                 <Row>
-                  <Col className='col-md-6 mb-3'>
-                      <Label>{t('rol_name')}</Label>
-                      <Input
-                        name='rol_name'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.rol_name || ''}
-                        invalid={
-                          validation.touched.rol_name &&
-                          validation.errors.rol_name
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.rol_name &&
-                      validation.errors.rol_name ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.rol_name}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('rol_description')}</Label>
-                      <Input
-                        name='rol_description'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.rol_description || ''}
-                        invalid={
-                          validation.touched.rol_description &&
-                          validation.errors.rol_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.rol_description &&
-                      validation.errors.rol_description ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.rol_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('rol_status')}</Label>
-                      <Input
-                        name='rol_status'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.rol_status || ''}
-                        invalid={
-                          validation.touched.rol_status &&
-                          validation.errors.rol_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.rol_status &&
-                      validation.errors.rol_status ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.rol_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-                
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("rol_name")}</Label>
+                    <Input
+                      name="rol_name"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.rol_name || ""}
+                      invalid={
+                        validation.touched.rol_name &&
+                        validation.errors.rol_name
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.rol_name &&
+                    validation.errors.rol_name ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.rol_name}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("rol_description")}</Label>
+                    <Input
+                      name="rol_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.rol_description || ""}
+                      invalid={
+                        validation.touched.rol_description &&
+                        validation.errors.rol_description
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.rol_description &&
+                    validation.errors.rol_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.rol_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("rol_status")}</Label>
+                    <Input
+                      name="rol_status"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.rol_status || ""}
+                      invalid={
+                        validation.touched.rol_status &&
+                        validation.errors.rol_status
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.rol_status &&
+                    validation.errors.rol_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.rol_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                 </Row>
                 <Row>
                   <Col>

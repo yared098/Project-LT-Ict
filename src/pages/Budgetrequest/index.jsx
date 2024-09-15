@@ -18,7 +18,7 @@ import {
   getBudgetRequest as onGetBudgetRequest,
   addBudgetRequest as onAddBudgetRequest,
   updateBudgetRequest as onUpdateBudgetRequest,
-  deleteBudgetRequest as onDeleteBudgetRequest
+  deleteBudgetRequest as onDeleteBudgetRequest,
 } from "../../store/budgetrequest/actions";
 
 //redux
@@ -73,40 +73,45 @@ const BudgetRequestModel = () => {
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
 
-  
   // validation
   const validation = useFormik({
     // enableReinitialize: use this flag when initial values need to be changed
     enableReinitialize: true,
 
     initialValues: {
-     bdr_budget_year_id:(budgetRequest && budgetRequest.bdr_budget_year_id) || "", 
-bdr_requested_amount:(budgetRequest && budgetRequest.bdr_requested_amount) || "", 
-bdr_released_amount:(budgetRequest && budgetRequest.bdr_released_amount) || "", 
-bdr_project_id:(budgetRequest && budgetRequest.bdr_project_id) || "", 
-bdr_requested_date_ec:(budgetRequest && budgetRequest.bdr_requested_date_ec) || "", 
-bdr_requested_date_gc:(budgetRequest && budgetRequest.bdr_requested_date_gc) || "", 
-bdr_released_date_ec:(budgetRequest && budgetRequest.bdr_released_date_ec) || "", 
-bdr_released_date_gc:(budgetRequest && budgetRequest.bdr_released_date_gc) || "", 
-bdr_description:(budgetRequest && budgetRequest.bdr_description) || "", 
-bdr_status:(budgetRequest && budgetRequest.bdr_status) || "", 
+      bdr_budget_year_id:
+        (budgetRequest && budgetRequest.bdr_budget_year_id) || "",
+      bdr_requested_amount:
+        (budgetRequest && budgetRequest.bdr_requested_amount) || "",
+      bdr_released_amount:
+        (budgetRequest && budgetRequest.bdr_released_amount) || "",
+      bdr_project_id: (budgetRequest && budgetRequest.bdr_project_id) || "",
+      bdr_requested_date_ec:
+        (budgetRequest && budgetRequest.bdr_requested_date_ec) || "",
+      bdr_requested_date_gc:
+        (budgetRequest && budgetRequest.bdr_requested_date_gc) || "",
+      bdr_released_date_ec:
+        (budgetRequest && budgetRequest.bdr_released_date_ec) || "",
+      bdr_released_date_gc:
+        (budgetRequest && budgetRequest.bdr_released_date_gc) || "",
+      bdr_description: (budgetRequest && budgetRequest.bdr_description) || "",
+      bdr_status: (budgetRequest && budgetRequest.bdr_status) || "",
 
-is_deletable: (budgetRequest && budgetRequest.is_deletable) || 1,
-is_editable: (budgetRequest && budgetRequest.is_editable) || 1
+      is_deletable: (budgetRequest && budgetRequest.is_deletable) || 1,
+      is_editable: (budgetRequest && budgetRequest.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      bdr_budget_year_id: Yup.string().required(t('bdr_budget_year_id')),
-bdr_requested_amount: Yup.string().required(t('bdr_requested_amount')),
-bdr_released_amount: Yup.string().required(t('bdr_released_amount')),
-bdr_project_id: Yup.string().required(t('bdr_project_id')),
-bdr_requested_date_ec: Yup.string().required(t('bdr_requested_date_ec')),
-bdr_requested_date_gc: Yup.string().required(t('bdr_requested_date_gc')),
-bdr_released_date_ec: Yup.string().required(t('bdr_released_date_ec')),
-bdr_released_date_gc: Yup.string().required(t('bdr_released_date_gc')),
-bdr_description: Yup.string().required(t('bdr_description')),
-bdr_status: Yup.string().required(t('bdr_status')),
-
+      bdr_budget_year_id: Yup.string().required(t("bdr_budget_year_id")),
+      bdr_requested_amount: Yup.string().required(t("bdr_requested_amount")),
+      bdr_released_amount: Yup.string().required(t("bdr_released_amount")),
+      bdr_project_id: Yup.string().required(t("bdr_project_id")),
+      bdr_requested_date_ec: Yup.string().required(t("bdr_requested_date_ec")),
+      bdr_requested_date_gc: Yup.string().required(t("bdr_requested_date_gc")),
+      bdr_released_date_ec: Yup.string().required(t("bdr_released_date_ec")),
+      bdr_released_date_gc: Yup.string().required(t("bdr_released_date_gc")),
+      bdr_description: Yup.string().required(t("bdr_description")),
+      bdr_status: Yup.string().required(t("bdr_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -114,17 +119,16 @@ bdr_status: Yup.string().required(t('bdr_status')),
       if (isEdit) {
         const updateBudgetRequest = {
           bdr_id: budgetRequest ? budgetRequest.bdr_id : 0,
-          bdr_id:budgetRequest.bdr_id, 
-bdr_budget_year_id:values.bdr_budget_year_id, 
-bdr_requested_amount:values.bdr_requested_amount, 
-bdr_released_amount:values.bdr_released_amount, 
-bdr_project_id:values.bdr_project_id, 
-bdr_requested_date_ec:values.bdr_requested_date_ec, 
-bdr_requested_date_gc:values.bdr_requested_date_gc, 
-bdr_released_date_ec:values.bdr_released_date_ec, 
-bdr_released_date_gc:values.bdr_released_date_gc, 
-bdr_description:values.bdr_description, 
-bdr_status:values.bdr_status, 
+          bdr_budget_year_id: values.bdr_budget_year_id,
+          bdr_requested_amount: values.bdr_requested_amount,
+          bdr_released_amount: values.bdr_released_amount,
+          bdr_project_id: values.bdr_project_id,
+          bdr_requested_date_ec: values.bdr_requested_date_ec,
+          bdr_requested_date_gc: values.bdr_requested_date_gc,
+          bdr_released_date_ec: values.bdr_released_date_ec,
+          bdr_released_date_gc: values.bdr_released_date_gc,
+          bdr_description: values.bdr_description,
+          bdr_status: values.bdr_status,
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -134,17 +138,16 @@ bdr_status:values.bdr_status,
         validation.resetForm();
       } else {
         const newBudgetRequest = {
-          bdr_budget_year_id:values.bdr_budget_year_id, 
-bdr_requested_amount:values.bdr_requested_amount, 
-bdr_released_amount:values.bdr_released_amount, 
-bdr_project_id:values.bdr_project_id, 
-bdr_requested_date_ec:values.bdr_requested_date_ec, 
-bdr_requested_date_gc:values.bdr_requested_date_gc, 
-bdr_released_date_ec:values.bdr_released_date_ec, 
-bdr_released_date_gc:values.bdr_released_date_gc, 
-bdr_description:values.bdr_description, 
-bdr_status:values.bdr_status, 
-
+          bdr_budget_year_id: values.bdr_budget_year_id,
+          bdr_requested_amount: values.bdr_requested_amount,
+          bdr_released_amount: values.bdr_released_amount,
+          bdr_project_id: values.bdr_project_id,
+          bdr_requested_date_ec: values.bdr_requested_date_ec,
+          bdr_requested_date_gc: values.bdr_requested_date_gc,
+          bdr_released_date_ec: values.bdr_released_date_ec,
+          bdr_released_date_gc: values.bdr_released_date_gc,
+          bdr_description: values.bdr_description,
+          bdr_status: values.bdr_status,
         };
         // save new BudgetRequests
         dispatch(onAddBudgetRequest(newBudgetRequest));
@@ -211,21 +214,21 @@ bdr_status:values.bdr_status,
     }
   };
 
-   const handleBudgetRequestClick = (arg) => {
+  const handleBudgetRequestClick = (arg) => {
     const budgetRequest = arg;
     // console.log("handleBudgetRequestClick", budgetRequest);
     setBudgetRequest({
-      bdr_id:budgetRequest.bdr_id, 
-bdr_budget_year_id:budgetRequest.bdr_budget_year_id, 
-bdr_requested_amount:budgetRequest.bdr_requested_amount, 
-bdr_released_amount:budgetRequest.bdr_released_amount, 
-bdr_project_id:budgetRequest.bdr_project_id, 
-bdr_requested_date_ec:budgetRequest.bdr_requested_date_ec, 
-bdr_requested_date_gc:budgetRequest.bdr_requested_date_gc, 
-bdr_released_date_ec:budgetRequest.bdr_released_date_ec, 
-bdr_released_date_gc:budgetRequest.bdr_released_date_gc, 
-bdr_description:budgetRequest.bdr_description, 
-bdr_status:budgetRequest.bdr_status, 
+      bdr_id: budgetRequest.bdr_id,
+      bdr_budget_year_id: budgetRequest.bdr_budget_year_id,
+      bdr_requested_amount: budgetRequest.bdr_requested_amount,
+      bdr_released_amount: budgetRequest.bdr_released_amount,
+      bdr_project_id: budgetRequest.bdr_project_id,
+      bdr_requested_date_ec: budgetRequest.bdr_requested_date_ec,
+      bdr_requested_date_gc: budgetRequest.bdr_requested_date_gc,
+      bdr_released_date_ec: budgetRequest.bdr_released_date_ec,
+      bdr_released_date_gc: budgetRequest.bdr_released_date_gc,
+      bdr_description: budgetRequest.bdr_description,
+      bdr_status: budgetRequest.bdr_status,
 
       is_deletable: budgetRequest.is_deletable,
       is_editable: budgetRequest.is_editable,
@@ -268,145 +271,142 @@ bdr_status:budgetRequest.bdr_status,
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        header: '',
-        accessorKey: 'bdr_budget_year_id',
+        header: "",
+        accessorKey: "bdr_budget_year_id",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_budget_year_id, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_requested_amount',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_requested_amount",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_requested_amount, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_released_amount',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_released_amount",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_released_amount, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_project_id',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_project_id",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.bdr_project_id, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.bdr_project_id, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_requested_date_ec',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_requested_date_ec",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_requested_date_ec, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_requested_date_gc',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_requested_date_gc",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_requested_date_gc, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_released_date_ec',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_released_date_ec",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_released_date_ec, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_released_date_gc',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_released_date_gc",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
               {truncateText(cellProps.row.original.bdr_released_date_gc, 30) ||
-                '-'}
+                "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_description',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_description",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.bdr_description, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.bdr_description, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'bdr_status',
+      },
+      {
+        header: "",
+        accessorKey: "bdr_status",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.bdr_status, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.bdr_status, 30) || "-"}
             </span>
           );
         },
-      }, 
+      },
 
       {
         header: t("view_detail"),
@@ -444,7 +444,7 @@ bdr_status:budgetRequest.bdr_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
+                    const data = cellProps.row.original;
                     handleBudgetRequestClick(data);
                   }}
                 >
@@ -499,7 +499,7 @@ bdr_status:budgetRequest.bdr_status,
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteBudgetRequest}
+        onDeleteClick={handleDeleteBudgetRequest}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
@@ -526,7 +526,7 @@ bdr_status:budgetRequest.bdr_status,
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("budget_request")}
+                      buttonName={t("add") + " " + t("budget_request")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -539,7 +539,9 @@ bdr_status:budgetRequest.bdr_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("budget_request")) : (t("add") +" "+t("budget_request"))}
+              {!!isEdit
+                ? t("edit") + " " + t("budget_request")
+                : t("add") + " " + t("budget_request")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -556,247 +558,246 @@ bdr_status:budgetRequest.bdr_status,
                 }}
               >
                 <Row>
-                  <Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_budget_year_id')}</Label>
-                      <Input
-                        name='bdr_budget_year_id'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_budget_year_id || ''}
-                        invalid={
-                          validation.touched.bdr_budget_year_id &&
-                          validation.errors.bdr_budget_year_id
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_budget_year_id &&
-                      validation.errors.bdr_budget_year_id ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_budget_year_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_requested_amount')}</Label>
-                      <Input
-                        name='bdr_requested_amount'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_requested_amount || ''}
-                        invalid={
-                          validation.touched.bdr_requested_amount &&
-                          validation.errors.bdr_requested_amount
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_requested_amount &&
-                      validation.errors.bdr_requested_amount ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_requested_amount}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_released_amount')}</Label>
-                      <Input
-                        name='bdr_released_amount'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_released_amount || ''}
-                        invalid={
-                          validation.touched.bdr_released_amount &&
-                          validation.errors.bdr_released_amount
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_released_amount &&
-                      validation.errors.bdr_released_amount ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_released_amount}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_project_id')}</Label>
-                      <Input
-                        name='bdr_project_id'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_project_id || ''}
-                        invalid={
-                          validation.touched.bdr_project_id &&
-                          validation.errors.bdr_project_id
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_project_id &&
-                      validation.errors.bdr_project_id ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_project_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_requested_date_ec')}</Label>
-                      <Input
-                        name='bdr_requested_date_ec'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_requested_date_ec || ''}
-                        invalid={
-                          validation.touched.bdr_requested_date_ec &&
-                          validation.errors.bdr_requested_date_ec
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_requested_date_ec &&
-                      validation.errors.bdr_requested_date_ec ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_requested_date_ec}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_requested_date_gc')}</Label>
-                      <Input
-                        name='bdr_requested_date_gc'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_requested_date_gc || ''}
-                        invalid={
-                          validation.touched.bdr_requested_date_gc &&
-                          validation.errors.bdr_requested_date_gc
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_requested_date_gc &&
-                      validation.errors.bdr_requested_date_gc ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_requested_date_gc}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_released_date_ec')}</Label>
-                      <Input
-                        name='bdr_released_date_ec'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_released_date_ec || ''}
-                        invalid={
-                          validation.touched.bdr_released_date_ec &&
-                          validation.errors.bdr_released_date_ec
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_released_date_ec &&
-                      validation.errors.bdr_released_date_ec ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_released_date_ec}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_released_date_gc')}</Label>
-                      <Input
-                        name='bdr_released_date_gc'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_released_date_gc || ''}
-                        invalid={
-                          validation.touched.bdr_released_date_gc &&
-                          validation.errors.bdr_released_date_gc
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_released_date_gc &&
-                      validation.errors.bdr_released_date_gc ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_released_date_gc}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_description')}</Label>
-                      <Input
-                        name='bdr_description'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_description || ''}
-                        invalid={
-                          validation.touched.bdr_description &&
-                          validation.errors.bdr_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_description &&
-                      validation.errors.bdr_description ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('bdr_status')}</Label>
-                      <Input
-                        name='bdr_status'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.bdr_status || ''}
-                        invalid={
-                          validation.touched.bdr_status &&
-                          validation.errors.bdr_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.bdr_status &&
-                      validation.errors.bdr_status ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.bdr_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-                
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_budget_year_id")}</Label>
+                    <Input
+                      name="bdr_budget_year_id"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_budget_year_id || ""}
+                      invalid={
+                        validation.touched.bdr_budget_year_id &&
+                        validation.errors.bdr_budget_year_id
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_budget_year_id &&
+                    validation.errors.bdr_budget_year_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_budget_year_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_requested_amount")}</Label>
+                    <Input
+                      name="bdr_requested_amount"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_requested_amount || ""}
+                      invalid={
+                        validation.touched.bdr_requested_amount &&
+                        validation.errors.bdr_requested_amount
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_requested_amount &&
+                    validation.errors.bdr_requested_amount ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_requested_amount}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_released_amount")}</Label>
+                    <Input
+                      name="bdr_released_amount"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_released_amount || ""}
+                      invalid={
+                        validation.touched.bdr_released_amount &&
+                        validation.errors.bdr_released_amount
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_released_amount &&
+                    validation.errors.bdr_released_amount ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_released_amount}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_project_id")}</Label>
+                    <Input
+                      name="bdr_project_id"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_project_id || ""}
+                      invalid={
+                        validation.touched.bdr_project_id &&
+                        validation.errors.bdr_project_id
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_project_id &&
+                    validation.errors.bdr_project_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_project_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_requested_date_ec")}</Label>
+                    <Input
+                      name="bdr_requested_date_ec"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_requested_date_ec || ""}
+                      invalid={
+                        validation.touched.bdr_requested_date_ec &&
+                        validation.errors.bdr_requested_date_ec
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_requested_date_ec &&
+                    validation.errors.bdr_requested_date_ec ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_requested_date_ec}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_requested_date_gc")}</Label>
+                    <Input
+                      name="bdr_requested_date_gc"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_requested_date_gc || ""}
+                      invalid={
+                        validation.touched.bdr_requested_date_gc &&
+                        validation.errors.bdr_requested_date_gc
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_requested_date_gc &&
+                    validation.errors.bdr_requested_date_gc ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_requested_date_gc}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_released_date_ec")}</Label>
+                    <Input
+                      name="bdr_released_date_ec"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_released_date_ec || ""}
+                      invalid={
+                        validation.touched.bdr_released_date_ec &&
+                        validation.errors.bdr_released_date_ec
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_released_date_ec &&
+                    validation.errors.bdr_released_date_ec ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_released_date_ec}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_released_date_gc")}</Label>
+                    <Input
+                      name="bdr_released_date_gc"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_released_date_gc || ""}
+                      invalid={
+                        validation.touched.bdr_released_date_gc &&
+                        validation.errors.bdr_released_date_gc
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_released_date_gc &&
+                    validation.errors.bdr_released_date_gc ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_released_date_gc}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_description")}</Label>
+                    <Input
+                      name="bdr_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_description || ""}
+                      invalid={
+                        validation.touched.bdr_description &&
+                        validation.errors.bdr_description
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_description &&
+                    validation.errors.bdr_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("bdr_status")}</Label>
+                    <Input
+                      name="bdr_status"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.bdr_status || ""}
+                      invalid={
+                        validation.touched.bdr_status &&
+                        validation.errors.bdr_status
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.bdr_status &&
+                    validation.errors.bdr_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.bdr_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                 </Row>
                 <Row>
                   <Col>

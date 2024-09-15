@@ -18,7 +18,7 @@ import {
   getProjectStakeholder as onGetProjectStakeholder,
   addProjectStakeholder as onAddProjectStakeholder,
   updateProjectStakeholder as onUpdateProjectStakeholder,
-  deleteProjectStakeholder as onDeleteProjectStakeholder
+  deleteProjectStakeholder as onDeleteProjectStakeholder,
 } from "../../store/projectstakeholder/actions";
 
 //redux
@@ -72,33 +72,33 @@ const ProjectStakeholderModel = () => {
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
-const [stakeholderTypeOptions, setStakeholderTypeOptions] = useState([]);
-const [selectedStakeholderType, setSelectedStakeholderType] = useState('');
+  const [stakeholderTypeOptions, setStakeholderTypeOptions] = useState([]);
+  const [selectedStakeholderType, setSelectedStakeholderType] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchStakeholderType = async () => {
-      try {        
+      try {
         const response = await axios.post(
-        `${import.meta.env.VITE_BASE_API_URL}stakeholder_type/listgrid`
+          `${import.meta.env.VITE_BASE_API_URL}stakeholder_type/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.sht_type_name_or.toString(),
           value: item.sht_type_name_or.toString(),
         }));
         const optionsWithDefault = [
-          { label: 'select budget year', value: '' },
+          { label: "select budget year", value: "" },
           ...transformedData,
         ];
         setStakeholderTypeOptions(optionsWithDefault);
       } catch (error) {
-        console.error('Error fetching budget years:', error);
+        console.error("Error fetching budget years:", error);
       }
     };
     fetchStakeholderType();
   }, []);
-const handleStakeholderTypeChange = (e) => {
+  const handleStakeholderTypeChange = (e) => {
     setSelectedStakeholderType(e.target.value);
-    validation.setFieldValue('psh_stakeholder_type', e.target.value);
+    validation.setFieldValue("psh_stakeholder_type", e.target.value);
   };
   // validation
   const validation = useFormik({
@@ -106,27 +106,37 @@ const handleStakeholderTypeChange = (e) => {
     enableReinitialize: true,
 
     initialValues: {
-     psh_project_id:(projectStakeholder && projectStakeholder.psh_project_id) || "", 
-psh_name:(projectStakeholder && projectStakeholder.psh_name) || "", 
-psh_representative_name:(projectStakeholder && projectStakeholder.psh_representative_name) || "", 
-psh_representative_phone:(projectStakeholder && projectStakeholder.psh_representative_phone) || "", 
-psh_role:(projectStakeholder && projectStakeholder.psh_role) || "", 
-psh_description:(projectStakeholder && projectStakeholder.psh_description) || "", 
-psh_status:(projectStakeholder && projectStakeholder.psh_status) || "", 
+      psh_project_id:
+        (projectStakeholder && projectStakeholder.psh_project_id) || "",
+      psh_name: (projectStakeholder && projectStakeholder.psh_name) || "",
+      psh_representative_name:
+        (projectStakeholder && projectStakeholder.psh_representative_name) ||
+        "",
+      psh_representative_phone:
+        (projectStakeholder && projectStakeholder.psh_representative_phone) ||
+        "",
+      psh_role: (projectStakeholder && projectStakeholder.psh_role) || "",
+      psh_description:
+        (projectStakeholder && projectStakeholder.psh_description) || "",
+      psh_status: (projectStakeholder && projectStakeholder.psh_status) || "",
 
-is_deletable: (projectStakeholder && projectStakeholder.is_deletable) || 1,
-is_editable: (projectStakeholder && projectStakeholder.is_editable) || 1
+      is_deletable:
+        (projectStakeholder && projectStakeholder.is_deletable) || 1,
+      is_editable: (projectStakeholder && projectStakeholder.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      psh_project_id: Yup.string().required(t('psh_project_id')),
-psh_name: Yup.string().required(t('psh_name')),
-psh_representative_name: Yup.string().required(t('psh_representative_name')),
-psh_representative_phone: Yup.string().required(t('psh_representative_phone')),
-psh_role: Yup.string().required(t('psh_role')),
-psh_description: Yup.string().required(t('psh_description')),
-psh_status: Yup.string().required(t('psh_status')),
-
+      psh_project_id: Yup.string().required(t("psh_project_id")),
+      psh_name: Yup.string().required(t("psh_name")),
+      psh_representative_name: Yup.string().required(
+        t("psh_representative_name")
+      ),
+      psh_representative_phone: Yup.string().required(
+        t("psh_representative_phone")
+      ),
+      psh_role: Yup.string().required(t("psh_role")),
+      psh_description: Yup.string().required(t("psh_description")),
+      psh_status: Yup.string().required(t("psh_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -134,14 +144,13 @@ psh_status: Yup.string().required(t('psh_status')),
       if (isEdit) {
         const updateProjectStakeholder = {
           psh_id: projectStakeholder ? projectStakeholder.psh_id : 0,
-          psh_id:projectStakeholder.psh_id, 
-psh_project_id:values.psh_project_id, 
-psh_name:values.psh_name, 
-psh_representative_name:values.psh_representative_name, 
-psh_representative_phone:values.psh_representative_phone, 
-psh_role:values.psh_role, 
-psh_description:values.psh_description, 
-psh_status:values.psh_status, 
+          psh_project_id: values.psh_project_id,
+          psh_name: values.psh_name,
+          psh_representative_name: values.psh_representative_name,
+          psh_representative_phone: values.psh_representative_phone,
+          psh_role: values.psh_role,
+          psh_description: values.psh_description,
+          psh_status: values.psh_status,
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -151,14 +160,13 @@ psh_status:values.psh_status,
         validation.resetForm();
       } else {
         const newProjectStakeholder = {
-          psh_project_id:values.psh_project_id, 
-psh_name:values.psh_name, 
-psh_representative_name:values.psh_representative_name, 
-psh_representative_phone:values.psh_representative_phone, 
-psh_role:values.psh_role, 
-psh_description:values.psh_description, 
-psh_status:values.psh_status, 
-
+          psh_project_id: values.psh_project_id,
+          psh_name: values.psh_name,
+          psh_representative_name: values.psh_representative_name,
+          psh_representative_phone: values.psh_representative_phone,
+          psh_role: values.psh_role,
+          psh_description: values.psh_description,
+          psh_status: values.psh_status,
         };
         // save new ProjectStakeholders
         dispatch(onAddProjectStakeholder(newProjectStakeholder));
@@ -225,18 +233,18 @@ psh_status:values.psh_status,
     }
   };
 
-   const handleProjectStakeholderClick = (arg) => {
+  const handleProjectStakeholderClick = (arg) => {
     const projectStakeholder = arg;
     // console.log("handleProjectStakeholderClick", projectStakeholder);
     setProjectStakeholder({
-      psh_id:projectStakeholder.psh_id, 
-psh_project_id:projectStakeholder.psh_project_id, 
-psh_name:projectStakeholder.psh_name, 
-psh_representative_name:projectStakeholder.psh_representative_name, 
-psh_representative_phone:projectStakeholder.psh_representative_phone, 
-psh_role:projectStakeholder.psh_role, 
-psh_description:projectStakeholder.psh_description, 
-psh_status:projectStakeholder.psh_status, 
+      psh_id: projectStakeholder.psh_id,
+      psh_project_id: projectStakeholder.psh_project_id,
+      psh_name: projectStakeholder.psh_name,
+      psh_representative_name: projectStakeholder.psh_representative_name,
+      psh_representative_phone: projectStakeholder.psh_representative_phone,
+      psh_role: projectStakeholder.psh_role,
+      psh_description: projectStakeholder.psh_description,
+      psh_status: projectStakeholder.psh_status,
 
       is_deletable: projectStakeholder.is_deletable,
       is_editable: projectStakeholder.is_editable,
@@ -279,103 +287,102 @@ psh_status:projectStakeholder.psh_status,
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        header: '',
-        accessorKey: 'psh_project_id',
+        header: "",
+        accessorKey: "psh_project_id",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_project_id, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.psh_project_id, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_name',
+      },
+      {
+        header: "",
+        accessorKey: "psh_name",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_name, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.psh_name, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_representative_name',
+      },
+      {
+        header: "",
+        accessorKey: "psh_representative_name",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_representative_name, 30) ||
-                '-'}
+              {truncateText(
+                cellProps.row.original.psh_representative_name,
+                30
+              ) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_representative_phone',
+      },
+      {
+        header: "",
+        accessorKey: "psh_representative_phone",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_representative_phone, 30) ||
-                '-'}
+              {truncateText(
+                cellProps.row.original.psh_representative_phone,
+                30
+              ) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_role',
+      },
+      {
+        header: "",
+        accessorKey: "psh_role",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_role, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.psh_role, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_description',
+      },
+      {
+        header: "",
+        accessorKey: "psh_description",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_description, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.psh_description, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'psh_status',
+      },
+      {
+        header: "",
+        accessorKey: "psh_status",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.psh_status, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.psh_status, 30) || "-"}
             </span>
           );
         },
-      }, 
+      },
 
       {
         header: t("view_detail"),
@@ -413,7 +420,7 @@ psh_status:projectStakeholder.psh_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
+                    const data = cellProps.row.original;
                     handleProjectStakeholderClick(data);
                   }}
                 >
@@ -468,7 +475,7 @@ psh_status:projectStakeholder.psh_status,
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteProjectStakeholder}
+        onDeleteClick={handleDeleteProjectStakeholder}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
@@ -495,7 +502,7 @@ psh_status:projectStakeholder.psh_status,
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("project_stakeholder")}
+                      buttonName={t("add") + " " + t("project_stakeholder")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -508,7 +515,9 @@ psh_status:projectStakeholder.psh_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("project_stakeholder")) : (t("add") +" "+t("project_stakeholder"))}
+              {!!isEdit
+                ? t("edit") + " " + t("project_stakeholder")
+                : t("add") + " " + t("project_stakeholder")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -517,7 +526,10 @@ psh_status:projectStakeholder.psh_status,
                   validation.handleSubmit();
                   const modalCallback = () => setModal(false);
                   if (isEdit) {
-                    onUpdateProjectStakeholder(validation.values, modalCallback);
+                    onUpdateProjectStakeholder(
+                      validation.values,
+                      modalCallback
+                    );
                   } else {
                     onAddProjectStakeholder(validation.values, modalCallback);
                   }
@@ -525,197 +537,197 @@ psh_status:projectStakeholder.psh_status,
                 }}
               >
                 <Row>
-                  <Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_project_id')}</Label>
-                      <Input
-                        name='psh_project_id'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_project_id || ''}
-                        invalid={
-                          validation.touched.psh_project_id &&
-                          validation.errors.psh_project_id
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_project_id &&
-                      validation.errors.psh_project_id ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_project_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_name')}</Label>
-                      <Input
-                        name='psh_name'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_name || ''}
-                        invalid={
-                          validation.touched.psh_name &&
-                          validation.errors.psh_name
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_name &&
-                      validation.errors.psh_name ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_name}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-              <Label>{t('psh_stakeholder_type')}</Label>
-              <Input
-                name='psh_stakeholder_type'
-                type='select'
-                className='form-select'
-                onChange={handleStakeholderTypeChange}
-                onBlur={validation.handleBlur}
-                value={selectedStakeholderType}>
-                {stakeholderTypeOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {t(`${option.label}`)}
-                  </option>
-                ))}
-              </Input>
-              {validation.touched.psh_stakeholder_type &&
-              validation.errors.psh_stakeholder_type ? (
-                <FormFeedback type='invalid'>
-                  {validation.errors.psh_stakeholder_type}
-                </FormFeedback>
-              ) : null}
-            </Col>
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_representative_name')}</Label>
-                      <Input
-                        name='psh_representative_name'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_representative_name || ''}
-                        invalid={
-                          validation.touched.psh_representative_name &&
-                          validation.errors.psh_representative_name
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_representative_name &&
-                      validation.errors.psh_representative_name ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_representative_name}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_representative_phone')}</Label>
-                      <Input
-                        name='psh_representative_phone'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_representative_phone || ''}
-                        invalid={
-                          validation.touched.psh_representative_phone &&
-                          validation.errors.psh_representative_phone
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_representative_phone &&
-                      validation.errors.psh_representative_phone ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_representative_phone}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_role')}</Label>
-                      <Input
-                        name='psh_role'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_role || ''}
-                        invalid={
-                          validation.touched.psh_role &&
-                          validation.errors.psh_role
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_role &&
-                      validation.errors.psh_role ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_role}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_description')}</Label>
-                      <Input
-                        name='psh_description'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_description || ''}
-                        invalid={
-                          validation.touched.psh_description &&
-                          validation.errors.psh_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_description &&
-                      validation.errors.psh_description ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('psh_status')}</Label>
-                      <Input
-                        name='psh_status'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.psh_status || ''}
-                        invalid={
-                          validation.touched.psh_status &&
-                          validation.errors.psh_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.psh_status &&
-                      validation.errors.psh_status ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.psh_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-                
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_project_id")}</Label>
+                    <Input
+                      name="psh_project_id"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_project_id || ""}
+                      invalid={
+                        validation.touched.psh_project_id &&
+                        validation.errors.psh_project_id
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_project_id &&
+                    validation.errors.psh_project_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_project_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_name")}</Label>
+                    <Input
+                      name="psh_name"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_name || ""}
+                      invalid={
+                        validation.touched.psh_name &&
+                        validation.errors.psh_name
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_name &&
+                    validation.errors.psh_name ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_name}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_stakeholder_type")}</Label>
+                    <Input
+                      name="psh_stakeholder_type"
+                      type="select"
+                      className="form-select"
+                      onChange={handleStakeholderTypeChange}
+                      onBlur={validation.handleBlur}
+                      value={selectedStakeholderType}
+                    >
+                      {stakeholderTypeOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {t(`${option.label}`)}
+                        </option>
+                      ))}
+                    </Input>
+                    {validation.touched.psh_stakeholder_type &&
+                    validation.errors.psh_stakeholder_type ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_stakeholder_type}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_representative_name")}</Label>
+                    <Input
+                      name="psh_representative_name"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_representative_name || ""}
+                      invalid={
+                        validation.touched.psh_representative_name &&
+                        validation.errors.psh_representative_name
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_representative_name &&
+                    validation.errors.psh_representative_name ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_representative_name}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_representative_phone")}</Label>
+                    <Input
+                      name="psh_representative_phone"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_representative_phone || ""}
+                      invalid={
+                        validation.touched.psh_representative_phone &&
+                        validation.errors.psh_representative_phone
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_representative_phone &&
+                    validation.errors.psh_representative_phone ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_representative_phone}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_role")}</Label>
+                    <Input
+                      name="psh_role"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_role || ""}
+                      invalid={
+                        validation.touched.psh_role &&
+                        validation.errors.psh_role
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_role &&
+                    validation.errors.psh_role ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_role}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_description")}</Label>
+                    <Input
+                      name="psh_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_description || ""}
+                      invalid={
+                        validation.touched.psh_description &&
+                        validation.errors.psh_description
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_description &&
+                    validation.errors.psh_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("psh_status")}</Label>
+                    <Input
+                      name="psh_status"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.psh_status || ""}
+                      invalid={
+                        validation.touched.psh_status &&
+                        validation.errors.psh_status
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.psh_status &&
+                    validation.errors.psh_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.psh_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                 </Row>
                 <Row>
                   <Col>

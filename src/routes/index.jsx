@@ -63,7 +63,7 @@ import PagesPricing from "../pages/Utility/pages-pricing";
 import UiProgressbar from "../pages/Ui/UiProgressbar";
 import { components } from "react-select";
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
-import AddressStructure from "../pages/AddressStructure/index";
+import AddressStructure from "../pages/AddressTreeStructure/index";
 import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
 import DocumentType from "../pages/Documenttype/index";
 import Project from "../pages/Project/index";
