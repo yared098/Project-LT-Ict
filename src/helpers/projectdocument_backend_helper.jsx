@@ -23,9 +23,12 @@ export const addProjectDocument = async (objectName) => {
       `${apiUrl}`+ADD_PROJECT_DOCUMENT,
       objectName,
       {
+        // headers: {
+        //     'Content-Type': 'multipart/form-data'
+        //   }
         headers: {
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       }
     );
     return response.data;

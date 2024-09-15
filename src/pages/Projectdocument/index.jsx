@@ -63,6 +63,9 @@ const ProjectDocumentModel = () => {
   document.title = " ProjectDocument";
 
   const { t } = useTranslation();
+  // add new file 
+  const [file, setFile] = useState(null);
+  
 
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
@@ -75,6 +78,29 @@ const ProjectDocumentModel = () => {
   const [documentTypeOptions, setDocumentTypeOptions] = useState([]);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
 
+  // Handle file input change
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+   
+      const file = e.target.files[0];
+      if (file) {
+        setFile(file);
+        // Get the file size in bytes
+        const fileSizeInBytes = file.size;
+       
+        
+        // Convert the size to KB or MB (here, it’s converted to KB)
+        const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
+
+        // Update form values with the file path, extension, and size
+        // validation.setFieldValue('prd_file_path', file.name);
+        // validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
+        // validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
+      }
+    
+  };
+  
+
   useEffect(() => {
     const fetchDocumentType = async () => {
       try {
@@ -83,10 +109,10 @@ const ProjectDocumentModel = () => {
         );
         const transformedData = response.data.data.map((item) => ({
           label: item.pdt_doc_name_or.toString(),
-          value: item.pdt_doc_name_or.toString(),
+          value: item.pdt_id.toString(),
         }));
         const optionsWithDefault = [
-          { label: "select budget year", value: "" },
+          { label: "Select Document type id", value: "" },
           ...transformedData,
         ];
         setDocumentTypeOptions(optionsWithDefault);
@@ -107,6 +133,7 @@ const ProjectDocumentModel = () => {
 
     initialValues: {
       prd_project_id: (projectDocument && projectDocument.prd_project_id) || "",
+      prd_file:file,
       prd_name: (projectDocument && projectDocument.prd_name) || "",
       prd_file_path: (projectDocument && projectDocument.prd_file_path) || "",
       prd_size: (projectDocument && projectDocument.prd_size) || "",
@@ -120,15 +147,15 @@ const ProjectDocumentModel = () => {
 
       is_deletable: (projectDocument && projectDocument.is_deletable) || 1,
       is_editable: (projectDocument && projectDocument.is_editable) || 1,
+
     },
 
     validationSchema: Yup.object({
+      // prd_file:Yup.string().required(t('prd_file')),
       prd_project_id: Yup.string().required(t("prd_project_id")),
       prd_name: Yup.string().required(t("prd_name")),
       prd_file_path: Yup.string().required(t("prd_file_path")),
-      prd_size: Yup.string().required(t("prd_size")),
-      prd_file_extension: Yup.string().required(t("prd_file_extension")),
-      prd_uploaded_date: Yup.string().required(t("prd_uploaded_date")),
+  
       prd_description: Yup.string().required(t("prd_description")),
       prd_status: Yup.string().required(t("prd_status")),
     }),
@@ -139,6 +166,7 @@ const ProjectDocumentModel = () => {
         const updateProjectDocument = {
           prd_id: projectDocument ? projectDocument.prd_id : 0,
           prd_project_id: values.prd_project_id,
+           prd_file:values.prd_file,
           prd_name: values.prd_name,
           prd_file_path: values.prd_file_path,
           prd_size: values.prd_size,
@@ -157,6 +185,7 @@ const ProjectDocumentModel = () => {
         const newProjectDocument = {
           prd_project_id: values.prd_project_id,
           prd_name: values.prd_name,
+          prd_file:values.prd_file,
           prd_file_path: values.prd_file_path,
           prd_size: values.prd_size,
           prd_file_extension: values.prd_file_extension,
@@ -166,7 +195,10 @@ const ProjectDocumentModel = () => {
         };
         // save new ProjectDocuments
         dispatch(onAddProjectDocument(newProjectDocument));
+        
         validation.resetForm();
+        // Reset the form
+         setFile(null);
       }
     },
   });
@@ -234,6 +266,7 @@ const ProjectDocumentModel = () => {
     // console.log("handleProjectDocumentClick", projectDocument);
     setProjectDocument({
       prd_id: projectDocument.prd_id,
+      prd_file:projectDocument.prd_file,
       prd_project_id: projectDocument.prd_project_id,
       prd_name: projectDocument.prd_name,
       prd_file_path: projectDocument.prd_file_path,
@@ -519,272 +552,196 @@ const ProjectDocumentModel = () => {
               </Col>
             </Row>
           )}
+        
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-            <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit
-                ? t("edit") + " " + t("project_document")
-                : t("add") + " " + t("project_document")}
-            </ModalHeader>
-            <ModalBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  const modalCallback = () => setModal(false);
-                  if (isEdit) {
-                    onUpdateProjectDocument(validation.values, modalCallback);
-                  } else {
-                    onAddProjectDocument(validation.values, modalCallback);
-                  }
-                  return false;
-                }}
-              >
-                <Row>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_project_id")}</Label>
-                    <Input
-                      name="prd_project_id"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_project_id || ""}
-                      invalid={
-                        validation.touched.prd_project_id &&
-                        validation.errors.prd_project_id
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_project_id &&
-                    validation.errors.prd_project_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_project_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_document_type_id")}</Label>
-                    <Input
-                      name="prd_document_type_id"
-                      type="select"
-                      className="form-select"
-                      onChange={handleDocumentTypeChange}
-                      onBlur={validation.handleBlur}
-                      value={selectedDocumentType}
-                    >
-                      {documentTypeOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {t(`${option.label}`)}
-                        </option>
-                      ))}
-                    </Input>
-                    {validation.touched.prd_document_type_id &&
-                    validation.errors.prd_document_type_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_document_type_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_name")}</Label>
-                    <Input
-                      name="prd_name"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_name || ""}
-                      invalid={
-                        validation.touched.prd_name &&
-                        validation.errors.prd_name
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_name &&
-                    validation.errors.prd_name ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_name}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_file_path")}</Label>
-                    <Input
-                      name="prd_file_path"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_file_path || ""}
-                      invalid={
-                        validation.touched.prd_file_path &&
-                        validation.errors.prd_file_path
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_file_path &&
-                    validation.errors.prd_file_path ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_file_path}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_size")}</Label>
-                    <Input
-                      name="prd_size"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_size || ""}
-                      invalid={
-                        validation.touched.prd_size &&
-                        validation.errors.prd_size
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_size &&
-                    validation.errors.prd_size ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_size}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_file_extension")}</Label>
-                    <Input
-                      name="prd_file_extension"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_file_extension || ""}
-                      invalid={
-                        validation.touched.prd_file_extension &&
-                        validation.errors.prd_file_extension
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_file_extension &&
-                    validation.errors.prd_file_extension ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_file_extension}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_uploaded_date")}</Label>
-                    <Input
-                      name="prd_uploaded_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_uploaded_date || ""}
-                      invalid={
-                        validation.touched.prd_uploaded_date &&
-                        validation.errors.prd_uploaded_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_uploaded_date &&
-                    validation.errors.prd_uploaded_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_uploaded_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_description")}</Label>
-                    <Input
-                      name="prd_description"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_description || ""}
-                      invalid={
-                        validation.touched.prd_description &&
-                        validation.errors.prd_description
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_description &&
-                    validation.errors.prd_description ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_description}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("prd_status")}</Label>
-                    <Input
-                      name="prd_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.prd_status || ""}
-                      invalid={
-                        validation.touched.prd_status &&
-                        validation.errors.prd_status
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.prd_status &&
-                    validation.errors.prd_status ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.prd_status}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="text-end">
-                      {update_loading ? (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          <Spinner size={"sm"} color="#fff" />
-                          {t("Save")}
-                        </Button>
-                      ) : (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          {t("Save")}
-                        </Button>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-              </Form>
-            </ModalBody>
-          </Modal>
+              <ModalHeader toggle={toggle} tag="h4">
+                {!!isEdit
+                  ? t("edit") + " " + t("project_document")
+                  : t("add") + " " + t("project_document")}
+              </ModalHeader>
+              <ModalBody>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    validation.handleSubmit();
+                    const modalCallback = () => setModal(false);
+                    if (isEdit) {
+                      onUpdateProjectDocument(validation.values, modalCallback);
+                    } else {
+                      onAddProjectDocument(validation.values, modalCallback);
+                    }
+                    return false;
+                  }}
+                >
+                  <Row>
+                    {/* Document Type (Unchanged) */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("prd_document_type_id")}</Label>
+                      <Input
+                        name="prd_document_type_id"
+                        type="select"
+                        className="form-select"
+                        onChange={handleDocumentTypeChange}
+                        onBlur={validation.handleBlur}
+                        value={selectedDocumentType}
+                      >
+                        {documentTypeOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {t(`${option.label}`)}
+                          </option>
+                        ))}
+                      </Input>
+                      {validation.touched.prd_document_type_id &&
+                      validation.errors.prd_document_type_id ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prd_document_type_id}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    
+                    
+
+                    {/* PDF File Picker */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("Upload PDF")}</Label>
+                      <Input
+                        name="prd_file"
+                        type="file"
+                        accept=".pdf" // Only allow PDF files
+                        onChange={handleFileChange}
+                       
+                    
+                      />
+                    </Col>
+                    {/* Project ID */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("prd_project_id")}</Label>
+                      <Input
+                        name="prd_project_id"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prd_project_id || ""}
+                        invalid={
+                          validation.touched.prd_project_id && validation.errors.prd_project_id
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.prd_project_id && validation.errors.prd_project_id ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prd_project_id}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    {/* Name */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("prd_name")}</Label>
+                      <Input
+                        name="prd_name"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prd_name || ""}
+                        invalid={
+                          validation.touched.prd_name && validation.errors.prd_name
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.prd_name && validation.errors.prd_name ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prd_name}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+                    {/* document status */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("prd_status")}</Label>
+                      <Input
+                        name="prd_status"
+                        type="select" // Change to select for dropdown
+                        className="form-select"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prd_status || ""}
+                        invalid={
+                          validation.touched.prd_status && validation.errors.prd_status
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("Select Status")}</option> {/* Default option */}
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                      </Input>
+                      {validation.touched.prd_status && validation.errors.prd_status ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prd_status}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("prd_description")}</Label>
+                      <Input
+                        name="prd_description"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prd_description || ""}
+                        invalid={
+                          validation.touched.prd_description && validation.errors.prd_description
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.prd_description && validation.errors.prd_description ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.prd_description}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    <Row>
+                      <Col>
+                        <div className="text-end">
+                          {update_loading ? (
+                            <Button
+                              color="success"
+                              type="submit"
+                              className="save-user"
+                              disabled={update_loading || !validation.dirty}
+                            >
+                              <Spinner size={"sm"} color="#fff" />
+                              {t("Save")}
+                            </Button>
+                          ) : (
+                            <Button
+                              color="success"
+                              type="submit"
+                              className="save-user"
+                              disabled={update_loading || !validation.dirty}
+                            >
+                              {t("Save")}
+                            </Button>
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
+                  </Row>
+                </Form>
+              </ModalBody>
+            </Modal>
+
         </div>
       </div>
       <ToastContainer />
