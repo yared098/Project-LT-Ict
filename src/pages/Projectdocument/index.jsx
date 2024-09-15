@@ -598,10 +598,6 @@ const ProjectDocumentModel = () => {
                         </FormFeedback>
                       ) : null}
                     </Col>
-
-                    
-                    
-
                     {/* PDF File Picker */}
                     <Col className="col-md-6 mb-3">
                       <Label>{t("Upload PDF")}</Label>
