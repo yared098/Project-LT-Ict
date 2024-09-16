@@ -92,10 +92,10 @@ const ProjectDocumentModel = () => {
         // Convert the size to KB or MB (here, it’s converted to KB)
         const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
 
-        // Update form values with the file path, extension, and size
-        // validation.setFieldValue('prd_file_path', file.name);
-        // validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
-        // validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
+        //Update form values with the file path, extension, and size
+        validation.setFieldValue('prd_file_path', file.name);
+        validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
+        validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
       }
     
   };
@@ -136,6 +136,11 @@ const ProjectDocumentModel = () => {
       prd_file:file,
       prd_name: (projectDocument && projectDocument.prd_name) || "",
       prd_file_path: (projectDocument && projectDocument.prd_file_path) || "",
+      
+      prd_size:(projectDocument && projectDocument.prd_size) || "", 
+      prd_file_extension:(projectDocument && projectDocument.prd_file_extension) || "", 
+
+
       prd_size: (projectDocument && projectDocument.prd_size) || "",
       prd_file_extension:
         (projectDocument && projectDocument.prd_file_extension) || "",
@@ -154,8 +159,11 @@ const ProjectDocumentModel = () => {
       // prd_file:Yup.string().required(t('prd_file')),
       prd_project_id: Yup.string().required(t("prd_project_id")),
       prd_name: Yup.string().required(t("prd_name")),
-      prd_file_path: Yup.string().required(t("prd_file_path")),
-  
+      // prd_file_path: Yup.string().required(t("prd_file_path")),
+      prd_file_path:Yup.string().required(t("prd_file_path")),
+      prd_size: Yup.string().required(t("prd_file_path")),
+      prd_file_extension:Yup.string().required(t("prd_file_path")),
+
       prd_description: Yup.string().required(t("prd_description")),
       prd_status: Yup.string().required(t("prd_status")),
     }),

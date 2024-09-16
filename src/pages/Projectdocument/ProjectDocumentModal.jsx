@@ -138,7 +138,7 @@ const ProjectDocumentModal = (props) => {
         try {
           
           const response = await axios.get(`https://pmsor.awashsol.com/public/uploads/projectfiles/${transaction.filePath}`, {
-            params: { filePath: transaction.prd_file_path }
+            
           });
           
           setPdfUrl(response.data.pdfUrl || '');
@@ -240,7 +240,7 @@ const ProjectDocumentModal = (props) => {
               {pdfUrl ? (
                 <div style={pdfViewerStyle}>
                   <iframe
-                    src={pdfUrl}
+                    src={`${import.meta.env.VITE_BASE_API_URL1}/public/uploads/projectfiles/${transaction.filePath}`}
                     title="PDF Viewer"
                     style={{ width: '100%', height: '100%' }}
                     frameBorder="0"
