@@ -138,10 +138,6 @@ const ProjectDocumentModel = () => {
       prd_file_path: (projectDocument && projectDocument.prd_file_path) || "",
       
       prd_size:(projectDocument && projectDocument.prd_size) || "", 
-      prd_file_extension:(projectDocument && projectDocument.prd_file_extension) || "", 
-
-
-      prd_size: (projectDocument && projectDocument.prd_size) || "",
       prd_file_extension:
         (projectDocument && projectDocument.prd_file_extension) || "",
       prd_uploaded_date:
@@ -161,8 +157,8 @@ const ProjectDocumentModel = () => {
       prd_name: Yup.string().required(t("prd_name")),
       // prd_file_path: Yup.string().required(t("prd_file_path")),
       prd_file_path:Yup.string().required(t("prd_file_path")),
-      prd_size: Yup.string().required(t("prd_file_path")),
-      prd_file_extension:Yup.string().required(t("prd_file_path")),
+      prd_size: Yup.string().required(t("prd_size")),
+      prd_file_extension:Yup.string().required(t("prd_file_extension")),
 
       prd_description: Yup.string().required(t("prd_description")),
       prd_status: Yup.string().required(t("prd_status")),
@@ -174,7 +170,7 @@ const ProjectDocumentModel = () => {
         const updateProjectDocument = {
           prd_id: projectDocument ? projectDocument.prd_id : 0,
           prd_project_id: values.prd_project_id,
-           prd_file:values.prd_file,
+          prd_file:values.prd_file,
           prd_name: values.prd_name,
           prd_file_path: values.prd_file_path,
           prd_size: values.prd_size,

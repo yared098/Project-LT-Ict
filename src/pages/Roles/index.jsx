@@ -58,7 +58,7 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const RolesModel = () => {
+const RolesModel = ({onSelectItem}) => {
   //meta title
   document.title = " Roles";
 
@@ -182,6 +182,7 @@ const RolesModel = () => {
   const handleRolesClick = (arg) => {
     const roles = arg;
     // console.log("handleRolesClick", roles);
+    onSelectItem(data)
     setRoles({
       rol_id: roles.rol_id,
       rol_name: roles.rol_name,
@@ -306,6 +307,7 @@ const RolesModel = () => {
                   onClick={() => {
                     const data = cellProps.row.original;
                     handleRolesClick(data);
+                    
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />

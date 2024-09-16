@@ -13,6 +13,8 @@ import SearchComponent from "../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
+//  import role page index
+import Role from "../Roles/index";
 
 import {
   getPermission as onGetPermission,
@@ -64,6 +66,11 @@ const PermissionModel = () => {
 
   const { t } = useTranslation();
 
+
+  //  add new 
+  const [selectedItem, setSelectedItem] = useState(null);
+  // console.log("selected item",selectedItem.rol_id)
+
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -77,10 +84,13 @@ const PermissionModel = () => {
   const validation = useFormik({
     // enableReinitialize: use this flag when initial values need to be changed
     enableReinitialize: true,
+    //  selectedItem={selectedItem}
 
     initialValues: {
       pem_page_id: (permission && permission.pem_page_id) || "",
-      pem_role_id: (permission && permission.pem_role_id) || "",
+      // pem_role_id: (permission && permission.pem_role_id) || "",
+      pem_id:(permission && permission.pem_id) || "",
+      pem_role_id: selectedItem?.rol_id,
       pem_enabled: (permission && permission.pem_enabled) || "",
       pem_edit: (permission && permission.pem_edit) || "",
       pem_insert: (permission && permission.pem_insert) || "",
@@ -96,24 +106,25 @@ const PermissionModel = () => {
     },
 
     validationSchema: Yup.object({
-      pem_page_id: Yup.string().required(t("pem_page_id")),
-      pem_role_id: Yup.string().required(t("pem_role_id")),
-      pem_enabled: Yup.string().required(t("pem_enabled")),
-      pem_edit: Yup.string().required(t("pem_edit")),
-      pem_insert: Yup.string().required(t("pem_insert")),
-      pem_view: Yup.string().required(t("pem_view")),
-      pem_delete: Yup.string().required(t("pem_delete")),
-      pem_show: Yup.string().required(t("pem_show")),
-      pem_search: Yup.string().required(t("pem_search")),
+      pem_page_id: Yup.number().required(t("pem_page_id")),
+      pem_id: Yup.number().required(t("pem_role_id")),
+      pem_enabled: Yup.number().required(t("pem_enabled")),
+      pem_edit: Yup.number().required(t("pem_edit")),
+      pem_insert: Yup.number().required(t("pem_insert")),
+      pem_view: Yup.number().required(t("pem_view")),
+      pem_delete: Yup.number().required(t("pem_delete")),
+      pem_show: Yup.number().required(t("pem_show")),
+      pem_search: Yup.number().required(t("pem_search")),
       pem_description: Yup.string().required(t("pem_description")),
-      pem_status: Yup.string().required(t("pem_status")),
+      pem_status: Yup.number().required(t("pem_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: (values) => {
       if (isEdit) {
         const updatePermission = {
-          pem_id: permission ? permission.pem_id : 0,
+          // pem_id: permission ? permission.pem_id : 0,
+          pem_id: values.pem_id,
           pem_page_id: values.pem_page_id,
           pem_role_id: values.pem_role_id,
           pem_enabled: values.pem_enabled,
@@ -134,6 +145,7 @@ const PermissionModel = () => {
         validation.resetForm();
       } else {
         const newPermission = {
+          pem_id:values.pem_id,
           pem_page_id: values.pem_page_id,
           pem_role_id: values.pem_role_id,
           pem_enabled: values.pem_enabled,
@@ -477,6 +489,7 @@ const PermissionModel = () => {
                   </UncontrolledTooltip>
                 </Link>
               )}
+              
             </div>
           );
         },
@@ -500,15 +513,19 @@ const PermissionModel = () => {
         isOpen={modal1}
         toggle={toggleViewModal}
         transaction={transaction}
+        
       />
       <DeleteModal
         show={deleteModal}
         onDeleteClick={handleDeletePermission}
         onCloseClick={() => setDeleteModal(false)}
       />
+      <div className="" style={{display:'flex' ,flexDirection:'row'}}>
+
+        <Role onSelectItem={setSelectedItem} />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          <Breadcrumbs 
             title={t("permission")}
             breadcrumbItem={t("permission")}
           />
@@ -544,8 +561,8 @@ const PermissionModel = () => {
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
               {!!isEdit
-                ? t("edit") + " " + t("permission")
-                : t("add") + " " + t("permission")}
+                ? `${selectedItem?.rol_name}`+" "+ t("edit") + " " + t("permission")
+                :`${selectedItem?.rol_name}`+ " " + t("add") + " " + t("permission")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -555,6 +572,7 @@ const PermissionModel = () => {
                   const modalCallback = () => setModal(false);
                   if (isEdit) {
                     onUpdatePermission(validation.values, modalCallback);
+                    console.log("validation",validation.values)
                   } else {
                     onAddPermission(validation.values, modalCallback);
                   }
@@ -562,6 +580,31 @@ const PermissionModel = () => {
                 }}
               >
                 <Row>
+                <Col className="col-md-6 mb-3">
+                    <Label>{t("pem_id")}</Label>
+                    <Input
+                      name="pem_id"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.pem_id || ""}
+                      
+                      invalid={
+                        validation.touched.pem_id &&
+                        validation.errors.pem_id
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.pem_id &&
+                    validation.errors.pem_id ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.pem_id}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_page_id")}</Label>
                     <Input
@@ -571,6 +614,7 @@ const PermissionModel = () => {
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_page_id || ""}
+                      
                       invalid={
                         validation.touched.pem_page_id &&
                         validation.errors.pem_page_id
@@ -610,36 +654,38 @@ const PermissionModel = () => {
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_enabled")}</Label>
-                    <Input
-                      name="pem_enabled"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_enabled || ""}
-                      invalid={
-                        validation.touched.pem_enabled &&
-                        validation.errors.pem_enabled
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_enabled &&
-                    validation.errors.pem_enabled ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_enabled}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
+                {/*  enable*/}
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("pem_enabled")}</Label>
+                  <Input
+                    type="select"
+                    name="pem_enabled"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.pem_enabled || ""}
+                    invalid={
+                      validation.touched.pem_enabled &&
+                      validation.errors.pem_enabled
+                        ? true
+                        : false
+                    }
+                  >
+                    <option value="">{t("select_enabled_option")}</option> {/* Default option */}
+                    <option value={1}>{t("Yes")}</option>
+                    <option value={2}>{t("No")}</option>
+                  </Input>
+                  {validation.touched.pem_enabled && validation.errors.pem_enabled ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.pem_enabled}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                  {/* edit */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_edit")}</Label>
                     <Input
+                      type="select"
                       name="pem_edit"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_edit || ""}
@@ -649,21 +695,24 @@ const PermissionModel = () => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_edit &&
-                    validation.errors.pem_edit ? (
+                    >
+                      <option value="">{t("select_edit_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Yes")}</option>
+                      <option value={2}>{t("No")}</option>
+                    </Input>
+                    {validation.touched.pem_edit && validation.errors.pem_edit ? (
                       <FormFeedback type="invalid">
                         {validation.errors.pem_edit}
                       </FormFeedback>
                     ) : null}
                   </Col>
+
+                  {/* insert  */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_insert")}</Label>
                     <Input
+                      type="select"
                       name="pem_insert"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_insert || ""}
@@ -673,21 +722,24 @@ const PermissionModel = () => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_insert &&
-                    validation.errors.pem_insert ? (
+                    >
+                      <option value="">{t("select_insert_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Yes")}</option>
+                      <option value={2}>{t("No")}</option>
+                    </Input>
+                    {validation.touched.pem_insert && validation.errors.pem_insert ? (
                       <FormFeedback type="invalid">
                         {validation.errors.pem_insert}
                       </FormFeedback>
                     ) : null}
                   </Col>
+
+                  {/* view */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_view")}</Label>
                     <Input
+                      type="select"
                       name="pem_view"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_view || ""}
@@ -697,45 +749,51 @@ const PermissionModel = () => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_view &&
-                    validation.errors.pem_view ? (
+                    >
+                      <option value="">{t("select_view_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Yes")}</option>
+                      <option value={2}>{t("No")}</option>
+                    </Input>
+                    {validation.touched.pem_view && validation.errors.pem_view ? (
                       <FormFeedback type="invalid">
                         {validation.errors.pem_view}
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_delete")}</Label>
-                    <Input
-                      name="pem_delete"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_delete || ""}
-                      invalid={
-                        validation.touched.pem_delete &&
-                        validation.errors.pem_delete
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_delete &&
-                    validation.errors.pem_delete ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_delete}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
+
+                 {/* delete */}
+                 <Col className="col-md-6 mb-3">
+                  <Label>{t("pem_delete")}</Label>
+                  <Input
+                    type="select"
+                    name="pem_delete"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.pem_delete || ""}
+                    invalid={
+                      validation.touched.pem_delete &&
+                      validation.errors.pem_delete
+                        ? true
+                        : false
+                    }
+                  >
+                    <option value="">{t("select_delete_option")}</option> {/* Default option */}
+                    <option value={1}>{t("Yes")}</option>
+                    <option value={2}>{t("No")}</option>
+                  </Input>
+                  {validation.touched.pem_delete && validation.errors.pem_delete ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.pem_delete}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+
+                  {/* show */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_show")}</Label>
                     <Input
+                      type="select"
                       name="pem_show"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_show || ""}
@@ -745,21 +803,26 @@ const PermissionModel = () => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_show &&
-                    validation.errors.pem_show ? (
+                    >
+                      <option value="">{t("select_show_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Show")}</option>
+                      <option value={2}>{t("Hide")}</option>
+                      <option value={3}>{t("Custom")}</option>
+                    </Input>
+                    {validation.touched.pem_show && validation.errors.pem_show ? (
                       <FormFeedback type="invalid">
                         {validation.errors.pem_show}
                       </FormFeedback>
                     ) : null}
                   </Col>
+
+                  
+                  {/* search value */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_search")}</Label>
                     <Input
+                      type="select"
                       name="pem_search"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.pem_search || ""}
@@ -769,15 +832,19 @@ const PermissionModel = () => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_search &&
-                    validation.errors.pem_search ? (
+                    >
+                      <option value="">{t("select_search_option")}</option> {/* Default option */}
+                      <option value={1}>{t("All")}</option>
+                      <option value={2}>{t("Owner")}</option>
+                      <option value={3}>{t("None")}</option>
+                    </Input>
+                    {validation.touched.pem_search && validation.errors.pem_search ? (
                       <FormFeedback type="invalid">
                         {validation.errors.pem_search}
                       </FormFeedback>
                     ) : null}
                   </Col>
+
                   <Col className="col-md-6 mb-3">
                     <Label>{t("pem_description")}</Label>
                     <Input
@@ -802,7 +869,7 @@ const PermissionModel = () => {
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("pem_status")}</Label>
                     <Input
                       name="pem_status"
@@ -825,7 +892,34 @@ const PermissionModel = () => {
                         {validation.errors.pem_status}
                       </FormFeedback>
                     ) : null}
+                  </Col> */}
+                  {/* status */}
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("pem_status")}</Label>
+                    <Input
+                      type="select"
+                      name="pem_status"
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.pem_status || ""}
+                      invalid={
+                        validation.touched.pem_status &&
+                        validation.errors.pem_status
+                          ? true
+                          : false
+                      }
+                    >
+                      <option value="">{t("select_status")}</option> {/* Default option */}
+                      <option value={1}>{t("Active")}</option>
+                      <option value={0}>{t("Inactive")}</option>
+                    </Input>
+                    {validation.touched.pem_status && validation.errors.pem_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.pem_status}
+                      </FormFeedback>
+                    ) : null}
                   </Col>
+
                 </Row>
                 <Row>
                   <Col>
@@ -858,6 +952,8 @@ const PermissionModel = () => {
           </Modal>
         </div>
       </div>
+      </div>
+      
       <ToastContainer />
     </React.Fragment>
   );
