@@ -159,9 +159,9 @@ const ProjectDocumentModel = (props) => {
       prd_project_id: Yup.string().required(t("prd_project_id")),
       prd_name: Yup.string().required(t("prd_name")),
       // prd_file_path: Yup.string().required(t("prd_file_path")),
-      prd_file_path:Yup.string().required(t("prd_file_path")),
-      prd_size: Yup.string().required(t("prd_size")),
-      prd_file_extension:Yup.string().required(t("prd_file_extension")),
+      // prd_file_path:Yup.string().required(t("prd_file_path")),
+      // prd_size: Yup.string().required(t("prd_size")),
+      // prd_file_extension:Yup.string().required(t("prd_file_extension")),
 
       prd_description: Yup.string().required(t("prd_description")),
       prd_status: Yup.string().required(t("prd_status")),
@@ -526,10 +526,14 @@ const ProjectDocumentModel = (props) => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          {documentData?null : <Breadcrumbs
             title={t("project_document")}
             breadcrumbItem={t("project_document")}
-          />
+          />}
+          {/* <Breadcrumbs
+            title={t("project_document")}
+            breadcrumbItem={t("project_document")}
+          /> */}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
@@ -626,7 +630,8 @@ const ProjectDocumentModel = (props) => {
                         placeholder={t("insert_status_name_amharic")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.prd_project_id || ""}
+                        // readOnly={!!documentData}  // Conditionally set readOnly based on documentData
+                        value={documentData || validation.values.prd_project_id }
                         invalid={
                           validation.touched.prd_project_id && validation.errors.prd_project_id
                             ? true
