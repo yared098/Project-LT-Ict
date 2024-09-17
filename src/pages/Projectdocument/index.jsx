@@ -323,19 +323,19 @@ const ProjectDocumentModel = (props) => {
 
   const columns = useMemo(() => {
     const baseColumns = [
-      {
-        header: "",
-        accessorKey: "prd_project_id",
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.prd_project_id, 30) || "-"}
-            </span>
-          );
-        },
-      },
+      // {
+      //   header: "",
+      //   accessorKey: "prd_project_id",
+      //   enableColumnFilter: false,
+      //   enableSorting: true,
+      //   cell: (cellProps) => {
+      //     return (
+      //       <span>
+      //         {truncateText(cellProps.row.original.prd_project_id, 30) || "-"}
+      //       </span>
+      //     );
+      //   },
+      // },
       {
         header: "",
         accessorKey: "prd_name",
@@ -526,7 +526,7 @@ const ProjectDocumentModel = (props) => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          
+
           {documentData?null : <Breadcrumbs
             title={t("project_document")}
             breadcrumbItem={t("project_document")}

@@ -262,19 +262,19 @@ const ProjectPaymentModel = (props) => {
 
   const columns = useMemo(() => {
     const baseColumns = [
-      {
-        header: "",
-        accessorKey: "prp_project_id",
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.prp_project_id, 30) || "-"}
-            </span>
-          );
-        },
-      },
+      // {
+      //   header: "",
+      //   accessorKey: "prp_project_id",
+      //   enableColumnFilter: false,
+      //   enableSorting: true,
+      //   cell: (cellProps) => {
+      //     return (
+      //       <span>
+      //         {truncateText(cellProps.row.original.prp_project_id, 30) || "-"}
+      //       </span>
+      //     );
+      //   },
+      // },
       {
         header: "",
         accessorKey: "prp_type",
@@ -478,7 +478,7 @@ const ProjectPaymentModel = (props) => {
               title={t("project_document")}
               breadcrumbItem={t("project_document")}
             />}
-            
+
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (

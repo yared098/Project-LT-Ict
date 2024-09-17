@@ -288,19 +288,19 @@ const ProjectStakeholderModel = (props) => {
 
   const columns = useMemo(() => {
     const baseColumns = [
-      {
-        header: "",
-        accessorKey: "psh_project_id",
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.psh_project_id, 30) || "-"}
-            </span>
-          );
-        },
-      },
+      // {
+      //   header: "",
+      //   accessorKey: "psh_project_id",
+      //   enableColumnFilter: false,
+      //   enableSorting: true,
+      //   cell: (cellProps) => {
+      //     return (
+      //       <span>
+      //         {truncateText(cellProps.row.original.psh_project_id, 30) || "-"}
+      //       </span>
+      //     );
+      //   },
+      // },
       {
         header: "",
         accessorKey: "psh_name",
