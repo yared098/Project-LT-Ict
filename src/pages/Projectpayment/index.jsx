@@ -649,7 +649,8 @@ const ProjectPaymentModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
+                  {/* percentage */}
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("prp_payment_percentage")}</Label>
                     <Input
                       name="prp_payment_percentage"
@@ -668,6 +669,35 @@ const ProjectPaymentModel = (props) => {
                     />
                     {validation.touched.prp_payment_percentage &&
                     validation.errors.prp_payment_percentage ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_payment_percentage}
+                      </FormFeedback>
+                    ) : null}
+                  </Col> */}
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_payment_percentage")}</Label>
+                    <div className="d-flex align-items-center">
+                      <Input
+                        name="prp_payment_percentage"
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="1"
+                        onChange={e => validation.handleChange({
+                          target: { name: e.target.name, value: e.target.value }
+                        })}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prp_payment_percentage || ""}
+                        invalid={
+                          validation.touched.prp_payment_percentage && validation.errors.prp_payment_percentage
+                            ? true
+                            : false
+                        }
+                        style={{ flex: 1 }}
+                      />
+                      <span className="ml-2">{validation.values.prp_payment_percentage || "0"}%</span>
+                    </div>
+                    {validation.touched.prp_payment_percentage && validation.errors.prp_payment_percentage ? (
                       <FormFeedback type="invalid">
                         {validation.errors.prp_payment_percentage}
                       </FormFeedback>
@@ -697,25 +727,25 @@ const ProjectPaymentModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
+                  {/* status */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("prp_status")}</Label>
                     <Input
                       name="prp_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
+                      type="select"
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.prp_status || ""}
                       invalid={
-                        validation.touched.prp_status &&
-                        validation.errors.prp_status
+                        validation.touched.prp_status && validation.errors.prp_status
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
-                    {validation.touched.prp_status &&
-                    validation.errors.prp_status ? (
+                    >
+                      <option value="0">{t("inactive")}</option>
+                      <option value="1">{t("active")}</option>
+                    </Input>
+                    {validation.touched.prp_status && validation.errors.prp_status ? (
                       <FormFeedback type="invalid">
                         {validation.errors.prp_status}
                       </FormFeedback>

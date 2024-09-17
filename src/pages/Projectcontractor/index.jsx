@@ -1386,12 +1386,12 @@ const ProjectContractorModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
+                  {/* status */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("cni_status")}</Label>
                     <Input
                       name="cni_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
+                      type="select"
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
                       value={validation.values.cni_status || ""}
@@ -1401,8 +1401,11 @@ const ProjectContractorModel = (props) => {
                           ? true
                           : false
                       }
-                      maxLength={20}
-                    />
+                    >
+                      <option value="" disabled>{t("select_status")}</option>
+                      <option value="1">{t("active")}</option>
+                      <option value="0">{t("inactive")}</option>
+                    </Input>
                     {validation.touched.cni_status &&
                     validation.errors.cni_status ? (
                       <FormFeedback type="invalid">
@@ -1410,6 +1413,7 @@ const ProjectContractorModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
+
                 </Row>
                 <Row>
                   <Col>
