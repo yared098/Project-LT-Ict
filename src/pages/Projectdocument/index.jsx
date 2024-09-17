@@ -751,27 +751,40 @@ const ProjectDocumentModel = (props) => {
         </CardSubtitle>
         <Form>
           <Dropzone
-            accept={{ 'application/pdf': [] }} // Strictly accept PDF MIME type
+            accept={{ 'application/pdf': [] }} // Only allow PDF files
             onDrop={(acceptedFiles, rejectedFiles) => {
-              // Handle rejected files
-              if (rejectedFiles.length > 0) {
-                const invalidFiles = rejectedFiles.map((file) => file.file.name).join(', ');
-                alert(`These files are not PDFs and were rejected: ${invalidFiles}`);
-                return; // Stop further execution if there are rejected files
+              const maxSize = 5 * 1024 * 1024; // 5 MB limit
+
+              // Filter out files larger than the max size
+              const validFiles = acceptedFiles.filter(file => file.size <= maxSize);
+              const oversizedFiles = acceptedFiles.filter(file => file.size > maxSize);
+
+              // Handle oversized files
+              if (oversizedFiles.length > 0) {
+                const oversizedFileNames = oversizedFiles.map(file => file.name).join(', ');
+                alert(`The following files exceed the 5 MB size limit and were rejected: ${oversizedFileNames}`);
               }
 
-              // Proceed with handling accepted files if all are valid PDFs
-              handleAcceptedFiles(acceptedFiles);
+              // Handle rejected files (non-PDFs)
+              if (rejectedFiles.length > 0) {
+                const invalidFiles = rejectedFiles.map(file => file.file.name).join(', ');
+                alert(`These files are not PDFs and were rejected: ${invalidFiles}`);
+              }
 
-              // Create a synthetic event for handleFileChange
-              const syntheticEvent = {
-                target: {
-                  files: acceptedFiles,
-                  name: "prd_file", // Pass the name of the file input
-                },
-              };
+              // Proceed only with valid files that are PDFs and within size limit
+              if (validFiles.length > 0) {
+                handleAcceptedFiles(validFiles);
 
-              handleFileChange(syntheticEvent); // Call handleFileChange with the synthetic event
+                // Create a synthetic event for handleFileChange
+                const syntheticEvent = {
+                  target: {
+                    files: validFiles,
+                    name: "prd_file", // Pass the name of the file input
+                  },
+                };
+
+                handleFileChange(syntheticEvent); // Call handleFileChange with the synthetic event
+              }
             }}
           >
             {({ getRootProps, getInputProps }) => (
@@ -781,7 +794,7 @@ const ProjectDocumentModel = (props) => {
                   <div className="mb-3">
                     <i className="display-4 text-muted bx bxs-cloud-upload" />
                   </div>
-                  <h4>Drop PDF files here or click to upload.</h4>
+                  <h4>Drop PDF files here or click to upload (Max size: 5 MB).</h4>
                 </div>
               </div>
             )}
@@ -815,6 +828,7 @@ const ProjectDocumentModel = (props) => {
     </Card>
   </Col>
 </Row>
+
 
                     <Row>
                       <Col>
