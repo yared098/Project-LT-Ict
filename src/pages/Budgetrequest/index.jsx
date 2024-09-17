@@ -58,7 +58,9 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const BudgetRequestModel = () => {
+const BudgetRequestModel = (props) => {
+  //  get passed data from tab
+  const {projectid}=props;
   //meta title
   document.title = " BudgetRequest";
 
@@ -160,7 +162,7 @@ const BudgetRequestModel = () => {
   const dispatch = useDispatch();
   // Fetch BudgetRequest on component mount
   useEffect(() => {
-    dispatch(onGetBudgetRequest());
+    dispatch(onGetBudgetRequest(projectid));
   }, [dispatch]);
 
   const budgetRequestProperties = createSelector(
@@ -504,10 +506,14 @@ const BudgetRequestModel = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          {/* <Breadcrumbs
             title={t("budget_request")}
             breadcrumbItem={t("budget_request")}
-          />
+          /> */}
+           {projectid?null : <Breadcrumbs
+             title={t("budget_request")}
+             breadcrumbItem={t("budget_request")}
+          />}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (

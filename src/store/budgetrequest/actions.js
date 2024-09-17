@@ -14,8 +14,9 @@ import {
   TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getBudgetRequest = () => ({
+export const getBudgetRequest = (projectid) => ({
   type: GET_BUDGET_REQUEST,
+  payload:projectid
 });
 export const addBudgetRequest = (BudgetRequest) => ({
   type: ADD_BUDGET_REQUEST,

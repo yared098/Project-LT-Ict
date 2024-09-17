@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.BudgetRequestR.show_result;
 
-function* fetchBudgetRequest() {
+function* fetchBudgetRequest({payload:projectid}) {
   try {
-    const response = yield call(getBudgetRequest);
+    const response = yield call(getBudgetRequest,projectid);
     yield put(getBudgetRequestSuccess(response));
     // toast.success(`budgetRequests Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

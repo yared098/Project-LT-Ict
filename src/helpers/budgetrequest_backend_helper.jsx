@@ -8,9 +8,17 @@ const ADD_BUDGET_REQUEST = "budget_request/insertgrid";
 const UPDATE_BUDGET_REQUEST = "budget_request/updategrid";
 const DELETE_BUDGET_REQUEST = "budget_request/deletegrid";
 // get Projects
-export const getBudgetRequest = async () => {
+export const getBudgetRequest = async (project_ID) => {
   try {
-    const response = await post(apiUrl+GET_BUDGET_REQUEST);
+    // const response = await post(apiUrl+GET_BUDGET_REQUEST);
+    // return response;
+    let response;
+    if (project_ID != null) {
+      // response = await post(`${apiUrl}${GET_PROJECT_PAYMENT}?project_payment=2`);
+      response = await post(`${apiUrl}${GET_BUDGET_REQUEST}?project_id=${project_ID}`);
+    } else {
+      response = await post(`${apiUrl}${GET_BUDGET_REQUEST}`);
+    }
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

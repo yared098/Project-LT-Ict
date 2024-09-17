@@ -475,8 +475,8 @@ const ProjectPaymentModel = (props) => {
           /> */}
 
            {projectid?null : <Breadcrumbs
-              title={t("project_document")}
-              breadcrumbItem={t("project_document")}
+               title={t("project_payment")}
+               breadcrumbItem={t("project_payment")}
             />}
 
           {isLoading || searchLoading ? (

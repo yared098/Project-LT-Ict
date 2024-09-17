@@ -18,7 +18,6 @@ export const getProjectPayment = async (project_id_payment) => {
     } else {
       response = await post(`${apiUrl}${GET_PROJECT_PAYMENT}`);
     }
-    // const response = await post(apiUrl+GET_PROJECT_PAYMENT+`%{}`);
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

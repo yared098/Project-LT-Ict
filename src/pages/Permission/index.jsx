@@ -90,6 +90,7 @@ const PermissionModel = () => {
     initialValues: {
       pem_page_id: (permission && permission.pem_page_id) || "",
       pag_id: (permission && permission.pag_id) || "",
+      pag_name: (permission && permission.pag_name) || "",
       pem_id:(permission && permission.pem_id) || "",
       pem_role_id: selectedItem?.rol_id,
       pem_enabled: (permission && permission.pem_enabled) || "",
@@ -126,6 +127,8 @@ const PermissionModel = () => {
       if (isEdit) {
         const updatePermission = {
           // pem_id: permission ? permission.pem_id : 0,
+          pag_id: values.pag_id,
+          pag_name: values.pag_name,
           pem_id: values.pem_id,
           pem_page_id: values.pem_page_id,
           pem_role_id: values.pem_role_id,
@@ -230,8 +233,10 @@ const PermissionModel = () => {
     const permission = arg;
     // console.log("handlePermissionClick", permission);
     setPermission({
+      pag_id: permission.pag_id,
+      pag_name: permission.pag_name,
       pem_id: permission.pem_id,
-      pem_page_id: permission.pem_page_id,
+      pem_page_id: permission.pag_id,
       pem_role_id: permission.pem_role_id,
       pem_enabled: permission.pem_enabled,
       pem_edit: permission.pem_edit,

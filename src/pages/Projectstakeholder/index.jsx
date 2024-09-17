@@ -487,8 +487,8 @@ const ProjectStakeholderModel = (props) => {
             breadcrumbItem={t("project_stakeholder")}
           /> */}
            {projectid?null : <Breadcrumbs
-            title={t("project_document")}
-            breadcrumbItem={t("project_document")}
+           title={t("project_stakeholder")}
+           breadcrumbItem={t("project_stakeholder")}
           />}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />

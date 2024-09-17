@@ -804,8 +804,8 @@ const ProjectContractorModel = (props) => {
             breadcrumbItem={t("project_contractor")}
           /> */}
            {projectid?null : <Breadcrumbs
-            title={t("project_document")}
-            breadcrumbItem={t("project_document")}
+            title={t("project_contractor")}
+            breadcrumbItem={t("project_contractor")}
           />}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />

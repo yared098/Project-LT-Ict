@@ -33,6 +33,7 @@ import ProjectDocument from "../../pages/Projectdocument/index";
 import ProjectPayment  from "../../pages/Projectpayment";
 import ProjectStakeholder from "../../pages/Projectstakeholder";
 import Projectcontractor from "../../pages/Projectcontractor";
+import Budgetrequest from "../../pages/Budgetrequest";
 
 const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
 
@@ -172,6 +173,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                       <span className="d-none d-sm-block">Project Stakeholder</span>
                     </NavLink>
                   </NavItem>
+
                   <NavItem>
                     <NavLink
                       style={{ cursor: "pointer" }}
@@ -186,6 +188,23 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                         <i className="fas fa-cog"></i>
                       </span>
                       <span className="d-none d-sm-block">Projectcontractor</span>
+                    </NavLink>
+                  </NavItem>
+                  {/* budget request */}
+                  <NavItem>
+                    <NavLink
+                      style={{ cursor: "pointer" }}
+                      className={classnames({
+                        active: activeTab1 === "10",
+                      })}
+                      onClick={() => {
+                        toggle1("10");
+                      }}
+                    >
+                      <span className="d-block d-sm-none">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                      <span className="d-none d-sm-block">Budgetrequest</span>
                     </NavLink>
                   </NavItem>
                 </Nav>
@@ -212,6 +231,12 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                   <TabPane tabId="8">
                    {/* <Projectcontractor/> */}
                    <Projectcontractor projectid={data.prj_id} />
+
+                  </TabPane>
+                  {/* budget request */}
+                  <TabPane tabId="10">
+                   {/* <Projectcontractor/> */}
+                   <Budgetrequest projectid={data.prj_id} />
 
                   </TabPane>
                 </TabContent>
