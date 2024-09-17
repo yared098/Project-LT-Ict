@@ -8,14 +8,22 @@ const ADD_PROJECT_DOCUMENT = "project_document/insertgrid";
 const UPDATE_PROJECT_DOCUMENT = "project_document/updategrid";
 const DELETE_PROJECT_DOCUMENT = "project_document/deletegrid";
 // get Projects
-export const getProjectDocument = async () => {
+export const getProjectDocument = async (projectid) => {
   try {
-    const response = await post(apiUrl+GET_PROJECT_DOCUMENT);
+    let response;
+    if (projectid != null) {
+      response = await post(`${apiUrl}${GET_PROJECT_DOCUMENT}?project_id=${projectid}`);
+    } else {
+      response = await post(`${apiUrl}${GET_PROJECT_DOCUMENT}`);
+    }
+    
+    // console.log("Backend response:", response);
     return response;
   } catch (error) {
-    console.log(error); // Handle any errors
+    console.log("Error:", error); // Handle any errors
   }
 };
+
 // add Projects
 export const addProjectDocument = async (objectName) => {
   try {

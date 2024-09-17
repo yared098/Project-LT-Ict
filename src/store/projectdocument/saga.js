@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.ProjectDocumentR.show_result;
 
-function* fetchProjectDocument() {
+function* fetchProjectDocument({payload:projectid}) {
   try {
-    const response = yield call(getProjectDocument);
+    const response = yield call(getProjectDocument,projectid);
     yield put(getProjectDocumentSuccess(response));
     // toast.success(`projectDocuments Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

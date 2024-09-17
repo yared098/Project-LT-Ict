@@ -29,12 +29,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Dropzone from "react-dropzone";
 import { Link } from "react-router-dom";
-import ProjectDocument from "../../pages/Documenttype/index";
+import ProjectDocument from "../../pages/Projectdocument/index";
 import ProjectPayment  from "../../pages/Projectpayment";
 import ProjectStakeholder from "../../pages/Projectstakeholder";
 
 const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
-  // console.log(data);
+
   
   //meta title
   document.title = "Right OffCanvas | For Project";
@@ -192,7 +192,9 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                 <TabContent activeTab={activeTab1} className="p-3 text-muted">
                   <TabPane tabId="5">
                     
-                     <ProjectDocument/>
+                     {/* <ProjectDocument /> */}
+                     <ProjectDocument documentData={data.prj_id} />
+
                   </TabPane>
 
                   <TabPane tabId="6">

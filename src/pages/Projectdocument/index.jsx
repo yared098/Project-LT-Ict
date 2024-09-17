@@ -58,7 +58,10 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const ProjectDocumentModel = () => {
+const ProjectDocumentModel = (props) => {
+  // get passed data from the right of canva 
+  const {documentData}=props;
+  
   //meta title
   document.title = " ProjectDocument";
 
@@ -211,7 +214,7 @@ const ProjectDocumentModel = () => {
   const dispatch = useDispatch();
   // Fetch ProjectDocument on component mount
   useEffect(() => {
-    dispatch(onGetProjectDocument());
+    dispatch(onGetProjectDocument(documentData));
   }, [dispatch]);
 
   const projectDocumentProperties = createSelector(

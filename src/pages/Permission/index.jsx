@@ -285,7 +285,7 @@ const PermissionModel = () => {
     const baseColumns = [
       {
         header: "",
-        accessorKey: "pem_page_id",
+        accessorKey: "page_name",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
