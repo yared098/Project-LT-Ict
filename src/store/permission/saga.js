@@ -52,9 +52,11 @@ function* fetchPermission() {
 }
 
 function* onUpdatePermission({ payload: permission, modalCallback }) {
+  console.log("saga permission",permission)
   try {
     yield put(toggleUpdateLoading(true));
     const response = yield call(updatePermission, permission);
+    console.log("saga response",response);
     yield put(updatePermissionSuccess(response.data));
     const showResult = yield select(selectShowResult);
 
@@ -67,7 +69,8 @@ function* onUpdatePermission({ payload: permission, modalCallback }) {
     if (modalCallback) modalCallback();
   } catch (error) {
     yield put(updatePermissionFail(error));
-    toast.error(`permission ${permission.pem_id} Is Update Failed`, {
+    console.log("saga permition error ",error);
+    toast.error(`permission ${error} Is Update Failed`, {
       autoClose: 2000,
     });
 

@@ -70,6 +70,7 @@ const PermissionModel = () => {
   //  add new 
   const [selectedItem, setSelectedItem] = useState(null);
   // console.log("selected item",selectedItem.rol_id)
+  const [pageId,setPageId]=useState(null)
 
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
@@ -88,7 +89,7 @@ const PermissionModel = () => {
 
     initialValues: {
       pem_page_id: (permission && permission.pem_page_id) || "",
-      // pem_role_id: (permission && permission.pem_role_id) || "",
+      pag_id: (permission && permission.pag_id) || "",
       pem_id:(permission && permission.pem_id) || "",
       pem_role_id: selectedItem?.rol_id,
       pem_enabled: (permission && permission.pem_enabled) || "",
@@ -104,10 +105,11 @@ const PermissionModel = () => {
       is_deletable: (permission && permission.is_deletable) || 1,
       is_editable: (permission && permission.is_editable) || 1,
     },
+    
 
     validationSchema: Yup.object({
-      pem_page_id: Yup.number().required(t("pem_page_id")),
-      pem_id: Yup.number().required(t("pem_role_id")),
+      // pem_page_id: Yup.number().required(t("pem_page_id")),
+      // pem_id: Yup.number().required(t("pem_role_id")),
       pem_enabled: Yup.number().required(t("pem_enabled")),
       pem_edit: Yup.number().required(t("pem_edit")),
       pem_insert: Yup.number().required(t("pem_insert")),
@@ -116,7 +118,7 @@ const PermissionModel = () => {
       pem_show: Yup.number().required(t("pem_show")),
       pem_search: Yup.number().required(t("pem_search")),
       pem_description: Yup.string().required(t("pem_description")),
-      pem_status: Yup.number().required(t("pem_status")),
+      // pem_status: Yup.number().required(t("pem_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -142,6 +144,7 @@ const PermissionModel = () => {
         };
         // update Permission
         dispatch(onUpdatePermission(updatePermission));
+        console.log("update permission ",updatePermission);
         validation.resetForm();
       } else {
         const newPermission = {
@@ -288,7 +291,7 @@ const PermissionModel = () => {
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.pem_page_id, 30) || "-"}
+              {truncateText(cellProps.row.original.pag_name, 30) || "-"}
             </span>
           );
         },
@@ -410,19 +413,19 @@ const PermissionModel = () => {
           );
         },
       },
-      {
-        header: "",
-        accessorKey: "pem_status",
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pem_status, 30) || "-"}
-            </span>
-          );
-        },
-      },
+      // {
+      //   header: "",
+      //   accessorKey: "pem_status",
+      //   enableColumnFilter: false,
+      //   enableSorting: true,
+      //   cell: (cellProps) => {
+      //     return (
+      //       <span>
+      //         {truncateText(cellProps.row.original.pem_status, 30) || "-"}
+      //       </span>
+      //     );
+      //   },
+      // },
 
       {
         header: t("view_detail"),
@@ -461,7 +464,10 @@ const PermissionModel = () => {
                   className="text-success"
                   onClick={() => {
                     const data = cellProps.row.original;
+                     setPageId(data.pag_id);
                     handlePermissionClick(data);
+                   
+                   
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
@@ -523,435 +529,416 @@ const PermissionModel = () => {
       <div className="" style={{display:'flex' ,flexDirection:'row'}}>
 
         <Role onSelectItem={setSelectedItem} />
-      <div className="page-content">
-        <div className="container-fluid">
-          <Breadcrumbs 
-            title={t("permission")}
-            breadcrumbItem={t("permission")}
-          />
-          {isLoading || searchLoading ? (
-            <Spinners setLoading={setLoading} />
-          ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handlePermissionClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") + " " + t("permission")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          )}
-          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-            <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit
-                ? `${selectedItem?.rol_name}`+" "+ t("edit") + " " + t("permission")
-                :`${selectedItem?.rol_name}`+ " " + t("add") + " " + t("permission")}
-            </ModalHeader>
-            <ModalBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  const modalCallback = () => setModal(false);
-                  if (isEdit) {
-                    onUpdatePermission(validation.values, modalCallback);
-                    console.log("validation",validation.values)
-                  } else {
-                    onAddPermission(validation.values, modalCallback);
-                  }
-                  return false;
-                }}
-              >
-                <Row>
-                <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_id")}</Label>
-                    <Input
-                      name="pem_id"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_id || ""}
-                      
-                      invalid={
-                        validation.touched.pem_id &&
-                        validation.errors.pem_id
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_id &&
-                    validation.errors.pem_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_page_id")}</Label>
-                    <Input
-                      name="pem_page_id"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_page_id || ""}
-                      
-                      invalid={
-                        validation.touched.pem_page_id &&
-                        validation.errors.pem_page_id
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_page_id &&
-                    validation.errors.pem_page_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_page_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_role_id")}</Label>
-                    <Input
-                      name="pem_role_id"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_role_id || ""}
-                      invalid={
-                        validation.touched.pem_role_id &&
-                        validation.errors.pem_role_id
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_role_id &&
-                    validation.errors.pem_role_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_role_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                {/*  enable*/}
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("pem_enabled")}</Label>
-                  <Input
-                    type="select"
-                    name="pem_enabled"
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.pem_enabled || ""}
-                    invalid={
-                      validation.touched.pem_enabled &&
-                      validation.errors.pem_enabled
-                        ? true
-                        : false
-                    }
-                  >
-                    <option value="">{t("select_enabled_option")}</option> {/* Default option */}
-                    <option value={1}>{t("Yes")}</option>
-                    <option value={2}>{t("No")}</option>
-                  </Input>
-                  {validation.touched.pem_enabled && validation.errors.pem_enabled ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.pem_enabled}
-                    </FormFeedback>
-                  ) : null}
+        
+        <div className="page-content">
+          <div className="container-fluid">
+            <Breadcrumbs 
+              title={t("permission")}
+              breadcrumbItem={t("permission")}
+            />
+            {isLoading || searchLoading ? (
+              <Spinners setLoading={setLoading} />
+            ) : (
+              <Row>
+                <Col xs="12">
+                  <Card>
+                    <p>Selected Role :{selectedItem?.rol_name}</p>
+                    <CardBody>
+                      <TableContainer
+                        columns={columns}
+                        data={showSearchResults ? results : data}
+                        isGlobalFilter={true}
+                        isAddButton={true}
+                        isCustomPageSize={true}
+                        handleUserClick={handlePermissionClicks}
+                        isPagination={true}
+                        // SearchPlaceholder="26 records..."
+                        SearchPlaceholder={26 + " " + t("Results") + "..."}
+                        buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                        buttonName={t("add") + " " + t("permission")}
+                        tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                        theadClass="table-light"
+                        pagination="pagination"
+                        paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                      />
+                    </CardBody>
+                  </Card>
                 </Col>
-                  {/* edit */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_edit")}</Label>
-                    <Input
-                      type="select"
-                      name="pem_edit"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_edit || ""}
-                      invalid={
-                        validation.touched.pem_edit &&
-                        validation.errors.pem_edit
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="">{t("select_edit_option")}</option> {/* Default option */}
-                      <option value={1}>{t("Yes")}</option>
-                      <option value={2}>{t("No")}</option>
-                    </Input>
-                    {validation.touched.pem_edit && validation.errors.pem_edit ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_edit}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                  {/* insert  */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_insert")}</Label>
-                    <Input
-                      type="select"
-                      name="pem_insert"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_insert || ""}
-                      invalid={
-                        validation.touched.pem_insert &&
-                        validation.errors.pem_insert
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="">{t("select_insert_option")}</option> {/* Default option */}
-                      <option value={1}>{t("Yes")}</option>
-                      <option value={2}>{t("No")}</option>
-                    </Input>
-                    {validation.touched.pem_insert && validation.errors.pem_insert ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_insert}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                  {/* view */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_view")}</Label>
-                    <Input
-                      type="select"
-                      name="pem_view"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_view || ""}
-                      invalid={
-                        validation.touched.pem_view &&
-                        validation.errors.pem_view
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="">{t("select_view_option")}</option> {/* Default option */}
-                      <option value={1}>{t("Yes")}</option>
-                      <option value={2}>{t("No")}</option>
-                    </Input>
-                    {validation.touched.pem_view && validation.errors.pem_view ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_view}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                 {/* delete */}
-                 <Col className="col-md-6 mb-3">
-                  <Label>{t("pem_delete")}</Label>
-                  <Input
-                    type="select"
-                    name="pem_delete"
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.pem_delete || ""}
-                    invalid={
-                      validation.touched.pem_delete &&
-                      validation.errors.pem_delete
-                        ? true
-                        : false
+              </Row>
+            )}
+            <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+              <ModalHeader toggle={toggle} tag="h4">
+                {!!isEdit
+                  ? `${selectedItem?.rol_name}`+" "+ t("edit") + " " + t("permission")
+                  :`${selectedItem?.rol_name}`+ " " + t("add") + " " + t("permission")}
+              </ModalHeader>
+              <ModalBody>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    validation.handleSubmit();
+                    const modalCallback = () => setModal(false);
+                    if (isEdit) {
+                      onUpdatePermission(validation.values, modalCallback);
+                      console.log("validation",validation.values)
+                    } else {
+                      onAddPermission(validation.values, modalCallback);
                     }
-                  >
-                    <option value="">{t("select_delete_option")}</option> {/* Default option */}
-                    <option value={1}>{t("Yes")}</option>
-                    <option value={2}>{t("No")}</option>
-                  </Input>
-                  {validation.touched.pem_delete && validation.errors.pem_delete ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.pem_delete}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-
-                  {/* show */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_show")}</Label>
-                    <Input
-                      type="select"
-                      name="pem_show"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_show || ""}
-                      invalid={
-                        validation.touched.pem_show &&
-                        validation.errors.pem_show
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="">{t("select_show_option")}</option> {/* Default option */}
-                      <option value={1}>{t("Show")}</option>
-                      <option value={2}>{t("Hide")}</option>
-                      <option value={3}>{t("Custom")}</option>
-                    </Input>
-                    {validation.touched.pem_show && validation.errors.pem_show ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_show}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                  
-                  {/* search value */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_search")}</Label>
-                    <Input
-                      type="select"
-                      name="pem_search"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_search || ""}
-                      invalid={
-                        validation.touched.pem_search &&
-                        validation.errors.pem_search
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="">{t("select_search_option")}</option> {/* Default option */}
-                      <option value={1}>{t("All")}</option>
-                      <option value={2}>{t("Owner")}</option>
-                      <option value={3}>{t("None")}</option>
-                    </Input>
-                    {validation.touched.pem_search && validation.errors.pem_search ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_search}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_description")}</Label>
-                    <Input
-                      name="pem_description"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_description || ""}
-                      invalid={
-                        validation.touched.pem_description &&
-                        validation.errors.pem_description
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_description &&
-                    validation.errors.pem_description ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_description}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
+                    return false;
+                  }}
+                >
+                  <Row>
                   {/* <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_status")}</Label>
-                    <Input
-                      name="pem_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.pem_status || ""}
-                      invalid={
-                        validation.touched.pem_status &&
-                        validation.errors.pem_status
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.pem_status &&
-                    validation.errors.pem_status ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.pem_status}
-                      </FormFeedback>
-                    ) : null}
-                  </Col> */}
-                  {/* status */}
+                      <Label>{t("pem_id")}</Label>
+                      <Input
+                        name="pem_id"
+                        type="text"
+                        placeholder={t("insert_pem_id_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value="auto increament"
+                        
+                        invalid={
+                          validation.touched.pem_id &&
+                          validation.errors.pem_id
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.pem_id &&
+                      validation.errors.pem_id ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_id}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> */}
+
+                    {/* page id */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_page_id")}</Label>
+                      <Input
+                        name="pem_page_id"
+                        type="text"
+                        placeholder={t("insert_pem_page_id_amharic")}
+                        value={pageId}
+                        readOnly  // Makes the field non-editable
+                        invalid={
+                          validation.touched.pem_page_id &&
+                          validation.errors.pem_page_id
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.pem_page_id &&
+                      validation.errors.pem_page_id ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_page_id}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    {/* role id  */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_role_id")}</Label>
+                      <Input
+                        name="pem_role_id"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_role_id || ""}
+                        readOnly
+                        invalid={
+                          validation.touched.pem_role_id &&
+                          validation.errors.pem_role_id
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.pem_role_id &&
+                      validation.errors.pem_role_id ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_role_id}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+                  {/*  enable*/}
                   <Col className="col-md-6 mb-3">
-                    <Label>{t("pem_status")}</Label>
+                    <Label>{t("pem_enabled")}</Label>
                     <Input
                       type="select"
-                      name="pem_status"
+                      name="pem_enabled"
                       onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
-                      value={validation.values.pem_status || ""}
+                      value={validation.values.pem_enabled || ""}
                       invalid={
-                        validation.touched.pem_status &&
-                        validation.errors.pem_status
+                        validation.touched.pem_enabled &&
+                        validation.errors.pem_enabled
                           ? true
                           : false
                       }
                     >
-                      <option value="">{t("select_status")}</option> {/* Default option */}
-                      <option value={1}>{t("Active")}</option>
-                      <option value={0}>{t("Inactive")}</option>
+                      <option value="">{t("select_enabled_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Yes")}</option>
+                      <option value={2}>{t("No")}</option>
                     </Input>
-                    {validation.touched.pem_status && validation.errors.pem_status ? (
+                    {validation.touched.pem_enabled && validation.errors.pem_enabled ? (
                       <FormFeedback type="invalid">
-                        {validation.errors.pem_status}
+                        {validation.errors.pem_enabled}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                    {/* edit */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_edit")}</Label>
+                      <Input
+                        type="select"
+                        name="pem_edit"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_edit || ""}
+                        invalid={
+                          validation.touched.pem_edit &&
+                          validation.errors.pem_edit
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("select_edit_option")}</option> {/* Default option */}
+                        <option value={1}>{t("Yes")}</option>
+                        <option value={2}>{t("No")}</option>
+                      </Input>
+                      {validation.touched.pem_edit && validation.errors.pem_edit ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_edit}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    {/* insert  */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_insert")}</Label>
+                      <Input
+                        type="select"
+                        name="pem_insert"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_insert || ""}
+                        invalid={
+                          validation.touched.pem_insert &&
+                          validation.errors.pem_insert
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("select_insert_option")}</option> {/* Default option */}
+                        <option value={1}>{t("Yes")}</option>
+                        <option value={2}>{t("No")}</option>
+                      </Input>
+                      {validation.touched.pem_insert && validation.errors.pem_insert ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_insert}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    {/* view */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_view")}</Label>
+                      <Input
+                        type="select"
+                        name="pem_view"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_view || ""}
+                        invalid={
+                          validation.touched.pem_view &&
+                          validation.errors.pem_view
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("select_view_option")}</option> {/* Default option */}
+                        <option value={1}>{t("Yes")}</option>
+                        <option value={2}>{t("No")}</option>
+                      </Input>
+                      {validation.touched.pem_view && validation.errors.pem_view ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_view}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                  {/* delete */}
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("pem_delete")}</Label>
+                    <Input
+                      type="select"
+                      name="pem_delete"
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.pem_delete || ""}
+                      invalid={
+                        validation.touched.pem_delete &&
+                        validation.errors.pem_delete
+                          ? true
+                          : false
+                      }
+                    >
+                      <option value="">{t("select_delete_option")}</option> {/* Default option */}
+                      <option value={1}>{t("Yes")}</option>
+                      <option value={2}>{t("No")}</option>
+                    </Input>
+                    {validation.touched.pem_delete && validation.errors.pem_delete ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.pem_delete}
                       </FormFeedback>
                     ) : null}
                   </Col>
 
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="text-end">
-                      {update_loading ? (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          <Spinner size={"sm"} color="#fff" />
-                          {t("Save")}
-                        </Button>
-                      ) : (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          {t("Save")}
-                        </Button>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-              </Form>
-            </ModalBody>
-          </Modal>
-        </div>
-      </div>
+                    {/* show */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_show")}</Label>
+                      <Input
+                        type="select"
+                        name="pem_show"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_show || ""}
+                        invalid={
+                          validation.touched.pem_show &&
+                          validation.errors.pem_show
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("select_show_option")}</option> {/* Default option */}
+                        <option value={1}>{t("Show")}</option>
+                        <option value={2}>{t("Hide")}</option>
+                        <option value={3}>{t("Custom")}</option>
+                      </Input>
+                      {validation.touched.pem_show && validation.errors.pem_show ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_show}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    
+                    {/* search value */}
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_search")}</Label>
+                      <Input
+                        type="select"
+                        name="pem_search"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_search || ""}
+                        invalid={
+                          validation.touched.pem_search &&
+                          validation.errors.pem_search
+                            ? true
+                            : false
+                        }
+                      >
+                        <option value="">{t("select_search_option")}</option> {/* Default option */}
+                        <option value={1}>{t("All")}</option>
+                        <option value={2}>{t("Owner")}</option>
+                        <option value={3}>{t("None")}</option>
+                      </Input>
+                      {validation.touched.pem_search && validation.errors.pem_search ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_search}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+
+                    <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_description")}</Label>
+                      <Input
+                        name="pem_description"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_description || ""}
+                        invalid={
+                          validation.touched.pem_description &&
+                          validation.errors.pem_description
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.pem_description &&
+                      validation.errors.pem_description ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_description}
+                        </FormFeedback>
+                      ) : null}
+                    </Col>
+                    {/* <Col className="col-md-6 mb-3">
+                      <Label>{t("pem_status")}</Label>
+                      <Input
+                        name="pem_status"
+                        type="text"
+                        placeholder={t("insert_status_name_amharic")}
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.pem_status || ""}
+                        invalid={
+                          validation.touched.pem_status &&
+                          validation.errors.pem_status
+                            ? true
+                            : false
+                        }
+                        maxLength={20}
+                      />
+                      {validation.touched.pem_status &&
+                      validation.errors.pem_status ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.pem_status}
+                        </FormFeedback>
+                      ) : null}
+                    </Col> */}
+                    
+                    
+
+                  </Row>
+                  <Row>
+                    <Col>
+                      <div className="text-end">
+                        {update_loading ? (
+                          <Button
+                            color="success"
+                            type="submit"
+                            className="save-user"
+                            disabled={update_loading || !validation.dirty}
+                          >
+                            <Spinner size={"sm"} color="#fff" />
+                            {t("Save")}
+                          </Button>
+                        ) : (
+                          <Button
+                            color="success"
+                            type="submit"
+                            className="save-user"
+                            disabled={update_loading || !validation.dirty}
+                          >
+                            {t("Save")}
+                          </Button>
+                        )}
+                      </div>
+                    </Col>
+                  </Row>
+                </Form>
+              </ModalBody>
+            </Modal>
+          </div>
+        </div>:null
       </div>
       
       <ToastContainer />

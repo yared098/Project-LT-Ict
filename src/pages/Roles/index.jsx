@@ -68,6 +68,8 @@ const RolesModel = ({onSelectItem}) => {
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
+  
+
   const [roles, setRoles] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
@@ -182,7 +184,7 @@ const RolesModel = ({onSelectItem}) => {
   const handleRolesClick = (arg) => {
     const roles = arg;
     // console.log("handleRolesClick", roles);
-    onSelectItem(data)
+   
     setRoles({
       rol_id: roles.rol_id,
       rol_name: roles.rol_name,
@@ -280,9 +282,11 @@ const RolesModel = ({onSelectItem}) => {
               color="primary"
               className="btn-sm"
               onClick={() => {
+                
                 const data = cellProps.row.original;
-                toggleViewModal(data);
-                setTransaction(cellProps.row.original);
+                onSelectItem(data)
+                // toggleViewModal(data);
+                // setTransaction(cellProps.row.original);
               }}
             >
               {t("view_detail")}
