@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.ProjectContractorR.show_result;
 
-function* fetchProjectContractor() {
+function* fetchProjectContractor({payload:projectid}) {
   try {
-    const response = yield call(getProjectContractor);
+    const response = yield call(getProjectContractor,projectid);
     yield put(getProjectContractorSuccess(response));
     // toast.success(`projectContractors Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

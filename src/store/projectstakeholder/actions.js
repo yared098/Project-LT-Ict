@@ -14,8 +14,9 @@ import {
   TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getProjectStakeholder = () => ({
+export const getProjectStakeholder = (projectid) => ({
   type: GET_PROJECT_STAKEHOLDER,
+  payload:projectid
 });
 export const addProjectStakeholder = (ProjectStakeholder) => ({
   type: ADD_PROJECT_STAKEHOLDER,

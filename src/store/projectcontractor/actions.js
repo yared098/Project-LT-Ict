@@ -14,8 +14,9 @@ import {
   TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getProjectContractor = () => ({
+export const getProjectContractor = (projectid) => ({
   type: GET_PROJECT_CONTRACTOR,
+  payload:projectid
 });
 export const addProjectContractor = (ProjectContractor) => ({
   type: ADD_PROJECT_CONTRACTOR,

@@ -58,7 +58,9 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const ProjectContractorModel = () => {
+const ProjectContractorModel = (props) => {
+  //  get passed data from tab
+  const {projectid}=props
   //meta title
   document.title = " ProjectContractor";
 
@@ -263,7 +265,7 @@ const ProjectContractorModel = () => {
   const dispatch = useDispatch();
   // Fetch ProjectContractor on component mount
   useEffect(() => {
-    dispatch(onGetProjectContractor());
+    dispatch(onGetProjectContractor(projectid));
   }, [dispatch]);
 
   const projectContractorProperties = createSelector(
@@ -797,10 +799,14 @@ const ProjectContractorModel = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          {/* <Breadcrumbs
             title={t("project_contractor")}
             breadcrumbItem={t("project_contractor")}
-          />
+          /> */}
+           {projectid?null : <Breadcrumbs
+            title={t("project_document")}
+            breadcrumbItem={t("project_document")}
+          />}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (

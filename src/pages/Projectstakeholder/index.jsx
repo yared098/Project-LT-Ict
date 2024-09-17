@@ -58,7 +58,9 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const ProjectStakeholderModel = () => {
+const ProjectStakeholderModel = (props) => {
+  //  get passed data from tab
+  const {projectid}=props
   //meta title
   document.title = " ProjectStakeholder";
 
@@ -179,7 +181,7 @@ const ProjectStakeholderModel = () => {
   const dispatch = useDispatch();
   // Fetch ProjectStakeholder on component mount
   useEffect(() => {
-    dispatch(onGetProjectStakeholder());
+    dispatch(onGetProjectStakeholder(projectid));
   }, [dispatch]);
 
   const projectStakeholderProperties = createSelector(
@@ -480,10 +482,14 @@ const ProjectStakeholderModel = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          {/* <Breadcrumbs
             title={t("project_stakeholder")}
             breadcrumbItem={t("project_stakeholder")}
-          />
+          /> */}
+           {projectid?null : <Breadcrumbs
+            title={t("project_document")}
+            breadcrumbItem={t("project_document")}
+          />}
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (

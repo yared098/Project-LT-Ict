@@ -58,7 +58,10 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const ProjectPaymentModel = () => {
+const ProjectPaymentModel = (props) => {
+  //  get passed data from tab
+  const {projectid}=props
+  console.log("project payment id ",projectid)
   //meta title
   document.title = " ProjectPayment";
 
@@ -151,7 +154,7 @@ const ProjectPaymentModel = () => {
   const dispatch = useDispatch();
   // Fetch ProjectPayment on component mount
   useEffect(() => {
-    dispatch(onGetProjectPayment());
+    dispatch(onGetProjectPayment(projectid));
   }, [dispatch]);
 
   const projectPaymentProperties = createSelector(
@@ -466,10 +469,16 @@ const ProjectPaymentModel = () => {
       />
       <div className="page-content">
         <div className="container-fluid">
-          <Breadcrumbs
+          {/* <Breadcrumbs
             title={t("project_payment")}
             breadcrumbItem={t("project_payment")}
-          />
+          /> */}
+
+           {projectid?null : <Breadcrumbs
+              title={t("project_document")}
+              breadcrumbItem={t("project_document")}
+            />}
+            
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (

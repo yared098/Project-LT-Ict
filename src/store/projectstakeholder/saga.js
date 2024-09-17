@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.ProjectStakeholderR.show_result;
 
-function* fetchProjectStakeholder() {
+function* fetchProjectStakeholder({payload:projectid}) {
   try {
-    const response = yield call(getProjectStakeholder);
+    const response = yield call(getProjectStakeholder,projectid);
     yield put(getProjectStakeholderSuccess(response));
     // toast.success(`projectStakeholders Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

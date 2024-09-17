@@ -8,9 +8,17 @@ const ADD_PROJECT_STAKEHOLDER = "project_stakeholder/insertgrid";
 const UPDATE_PROJECT_STAKEHOLDER = "project_stakeholder/updategrid";
 const DELETE_PROJECT_STAKEHOLDER = "project_stakeholder/deletegrid";
 // get Projects
-export const getProjectStakeholder = async () => {
+export const getProjectStakeholder = async (projectstakeholderid) => {
   try {
-    const response = await post(apiUrl+GET_PROJECT_STAKEHOLDER);
+    // const response = await post(apiUrl+GET_PROJECT_STAKEHOLDER);
+    // return response;
+    let response;
+    if (projectstakeholderid != null) {
+  
+      response = await post(`${apiUrl}${GET_PROJECT_STAKEHOLDER}?project_id=${projectstakeholderid}`);
+    } else {
+      response = await post(`${apiUrl}${GET_PROJECT_STAKEHOLDER}`);
+    }
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.ProjectPaymentR.show_result;
 
-function* fetchProjectPayment() {
+function* fetchProjectPayment({payload:projetpaymentid}) {
   try {
-    const response = yield call(getProjectPayment);
+    const response = yield call(getProjectPayment,projetpaymentid);
     yield put(getProjectPaymentSuccess(response));
     // toast.success(`projectPayments Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

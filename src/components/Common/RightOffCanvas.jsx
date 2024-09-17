@@ -32,6 +32,7 @@ import { Link } from "react-router-dom";
 import ProjectDocument from "../../pages/Projectdocument/index";
 import ProjectPayment  from "../../pages/Projectpayment";
 import ProjectStakeholder from "../../pages/Projectstakeholder";
+import Projectcontractor from "../../pages/Projectcontractor";
 
 const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
 
@@ -184,7 +185,7 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
                       <span className="d-block d-sm-none">
                         <i className="fas fa-cog"></i>
                       </span>
-                      <span className="d-none d-sm-block">Settings</span>
+                      <span className="d-none d-sm-block">Projectcontractor</span>
                     </NavLink>
                   </NavItem>
                 </Nav>
@@ -199,31 +200,18 @@ const RightOffCanvas = ({ handleClick, showCanvas, canvasWidth ,data}) => {
 
                   <TabPane tabId="6">
                    
-                    <ProjectPayment/>
+                    <ProjectPayment projectid={data.prj_id} />
+
                   </TabPane>
 
                   <TabPane tabId="7">
                    
-                    <ProjectStakeholder/>
+                    <ProjectStakeholder projectid={data.prj_id} />
                   </TabPane>
 
                   <TabPane tabId="8">
-                    <Row>
-                      <Col sm="12">
-                        <CardText className="mb-0">
-                          Trust fund seitan letterpress, keytar raw denim
-                          keffiyeh etsy art party before they sold out master
-                          cleanse gluten-free squid scenester freegan cosby
-                          sweater. Fanny pack portland seitan DIY, art party
-                          locavore wolf cliche high life echo park Austin. Cred
-                          vinyl keffiyeh DIY salvia PBR, banh mi before they
-                          sold out farm-to-table VHS viral locavore cosby
-                          sweater. Lomo wolf viral, mustache readymade
-                          thundercats keffiyeh craft beer marfa ethical. Wolf
-                          salvia freegan, sartorial keffiyeh echo park vegan.
-                        </CardText>
-                      </Col>
-                    </Row>
+                   {/* <Projectcontractor/> */}
+                   <Projectcontractor projectid={data.prj_id} />
 
                   </TabPane>
                 </TabContent>

@@ -8,9 +8,16 @@ const ADD_PROJECT_CONTRACTOR = "project_contractor/insertgrid";
 const UPDATE_PROJECT_CONTRACTOR = "project_contractor/updategrid";
 const DELETE_PROJECT_CONTRACTOR = "project_contractor/deletegrid";
 // get Projects
-export const getProjectContractor = async () => {
+export const getProjectContractor = async (projectidContractor) => {
   try {
-    const response = await post(apiUrl+GET_PROJECT_CONTRACTOR);
+    // const response = await post(apiUrl+GET_PROJECT_CONTRACTOR);
+    // return response;
+    let response;
+    if (projectidContractor != null) {
+      response = await post(`${apiUrl}${GET_PROJECT_CONTRACTOR}?project_id=${projectidContractor}`);
+    } else {
+      response = await post(`${apiUrl}${GET_PROJECT_CONTRACTOR}`);
+    }
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

@@ -8,9 +8,17 @@ const ADD_PROJECT_PAYMENT = "project_payment/insertgrid";
 const UPDATE_PROJECT_PAYMENT = "project_payment/updategrid";
 const DELETE_PROJECT_PAYMENT = "project_payment/deletegrid";
 // get Projects
-export const getProjectPayment = async () => {
+export const getProjectPayment = async (project_id_payment) => {
   try {
-    const response = await post(apiUrl+GET_PROJECT_PAYMENT);
+    
+    let response;
+    if (project_id_payment != null) {
+      // response = await post(`${apiUrl}${GET_PROJECT_PAYMENT}?project_payment=2`);
+      response = await post(`${apiUrl}${GET_PROJECT_PAYMENT}?project_id=${project_id_payment}`);
+    } else {
+      response = await post(`${apiUrl}${GET_PROJECT_PAYMENT}`);
+    }
+    // const response = await post(apiUrl+GET_PROJECT_PAYMENT+`%{}`);
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

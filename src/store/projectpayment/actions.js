@@ -14,8 +14,9 @@ import {
   TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getProjectPayment = () => ({
+export const getProjectPayment = (projectpayment) => ({
   type: GET_PROJECT_PAYMENT,
+  payload:projectpayment
 });
 export const addProjectPayment = (ProjectPayment) => ({
   type: ADD_PROJECT_PAYMENT,
