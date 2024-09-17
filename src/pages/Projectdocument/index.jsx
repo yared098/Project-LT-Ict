@@ -135,7 +135,7 @@ const ProjectDocumentModel = (props) => {
     enableReinitialize: true,
 
     initialValues: {
-      prd_project_id: (projectDocument && projectDocument.prd_project_id) || "",
+      prd_project_id: documentData,
       prd_file:file,
       prd_name: (projectDocument && projectDocument.prd_name) || "",
       prd_file_path: (projectDocument && projectDocument.prd_file_path) || "",
@@ -156,7 +156,7 @@ const ProjectDocumentModel = (props) => {
 
     validationSchema: Yup.object({
       // prd_file:Yup.string().required(t('prd_file')),
-      prd_project_id: Yup.string().required(t("prd_project_id")),
+      // prd_project_id: Yup.string().required(t("prd_project_id")),
       prd_name: Yup.string().required(t("prd_name")),
       // prd_file_path: Yup.string().required(t("prd_file_path")),
       // prd_file_path:Yup.string().required(t("prd_file_path")),
@@ -623,7 +623,7 @@ const ProjectDocumentModel = (props) => {
                       />
                     </Col>
                     {/* Project ID */}
-                    <Col className="col-md-6 mb-3">
+                    {/* <Col className="col-md-6 mb-3">
                       <Label>{t("prd_project_id")}</Label>
                       <Input
                         name="prd_project_id"
@@ -645,7 +645,7 @@ const ProjectDocumentModel = (props) => {
                           {validation.errors.prd_project_id}
                         </FormFeedback>
                       ) : null}
-                    </Col>
+                    </Col> */}
 
                     {/* Name */}
                     <Col className="col-md-6 mb-3">

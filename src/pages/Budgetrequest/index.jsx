@@ -107,7 +107,7 @@ const BudgetRequestModel = (props) => {
       bdr_budget_year_id: Yup.string().required(t("bdr_budget_year_id")),
       bdr_requested_amount: Yup.string().required(t("bdr_requested_amount")),
       bdr_released_amount: Yup.string().required(t("bdr_released_amount")),
-      bdr_project_id: Yup.string().required(t("bdr_project_id")),
+      // bdr_project_id: Yup.string().required(t("bdr_project_id")),
       bdr_requested_date_ec: Yup.string().required(t("bdr_requested_date_ec")),
       bdr_requested_date_gc: Yup.string().required(t("bdr_requested_date_gc")),
       bdr_released_date_ec: Yup.string().required(t("bdr_released_date_ec")),
@@ -314,19 +314,19 @@ const BudgetRequestModel = (props) => {
           );
         },
       },
-      {
-        header: "",
-        accessorKey: "bdr_project_id",
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.bdr_project_id, 30) || "-"}
-            </span>
-          );
-        },
-      },
+      // {
+      //   header: "",
+      //   accessorKey: "bdr_project_id",
+      //   enableColumnFilter: false,
+      //   enableSorting: true,
+      //   cell: (cellProps) => {
+      //     return (
+      //       <span>
+      //         {truncateText(cellProps.row.original.bdr_project_id, 30) || "-"}
+      //       </span>
+      //     );
+      //   },
+      // },
       {
         header: "",
         accessorKey: "bdr_requested_date_ec",
@@ -636,7 +636,7 @@ const BudgetRequestModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("bdr_project_id")}</Label>
                     <Input
                       name="bdr_project_id"
@@ -659,7 +659,7 @@ const BudgetRequestModel = (props) => {
                         {validation.errors.bdr_project_id}
                       </FormFeedback>
                     ) : null}
-                  </Col>
+                  </Col> */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("bdr_requested_date_ec")}</Label>
                     <Input

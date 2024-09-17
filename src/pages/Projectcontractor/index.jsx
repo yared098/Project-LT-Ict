@@ -130,8 +130,7 @@ const ProjectContractorModel = (props) => {
       cni_address: (projectContractor && projectContractor.cni_address) || "",
       cni_email: (projectContractor && projectContractor.cni_email) || "",
       cni_website: (projectContractor && projectContractor.cni_website) || "",
-      cni_project_id:
-        (projectContractor && projectContractor.cni_project_id) || "",
+      cni_project_id:projectid,
       cni_procrument_method:
         (projectContractor && projectContractor.cni_procrument_method) || "",
       cni_bid_invitation_date:
@@ -178,7 +177,7 @@ const ProjectContractorModel = (props) => {
       cni_address: Yup.string().required(t("cni_address")),
       cni_email: Yup.string().required(t("cni_email")),
       cni_website: Yup.string().required(t("cni_website")),
-      cni_project_id: Yup.string().required(t("cni_project_id")),
+      // cni_project_id: Yup.string().required(t("cni_project_id")),
       cni_procrument_method: Yup.string().required(t("cni_procrument_method")),
       cni_bid_invitation_date: Yup.string().required(
         t("cni_bid_invitation_date")
@@ -1192,7 +1191,7 @@ const ProjectContractorModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col>
-                  <Col className="col-md-6 mb-3">
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("cni_project_id")}</Label>
                     <Input
                       name="cni_project_id"
@@ -1215,7 +1214,7 @@ const ProjectContractorModel = (props) => {
                         {validation.errors.cni_project_id}
                       </FormFeedback>
                     ) : null}
-                  </Col>
+                  </Col> */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("cni_procrument_method")}</Label>
                     <Input

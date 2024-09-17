@@ -82,7 +82,7 @@ const ProjectPaymentModel = (props) => {
     enableReinitialize: true,
 
     initialValues: {
-      prp_project_id: (projectPayment && projectPayment.prp_project_id) || "",
+      prp_project_id: projectid,
       prp_type: (projectPayment && projectPayment.prp_type) || "",
       prp_payment_date_et:
         (projectPayment && projectPayment.prp_payment_date_et) || "",
@@ -100,7 +100,7 @@ const ProjectPaymentModel = (props) => {
     },
 
     validationSchema: Yup.object({
-      prp_project_id: Yup.string().required(t("prp_project_id")),
+      // prp_project_id: Yup.string().required(t("prp_project_id")),
       prp_type: Yup.string().required(t("prp_type")),
       prp_payment_date_et: Yup.string().required(t("prp_payment_date_et")),
       prp_payment_date_gc: Yup.string().required(t("prp_payment_date_gc")),
@@ -529,7 +529,7 @@ const ProjectPaymentModel = (props) => {
                 }}
               >
                 <Row>
-                  <Col className="col-md-6 mb-3">
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("prp_project_id")}</Label>
                     <Input
                       name="prp_project_id"
@@ -552,7 +552,7 @@ const ProjectPaymentModel = (props) => {
                         {validation.errors.prp_project_id}
                       </FormFeedback>
                     ) : null}
-                  </Col>
+                  </Col> */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("prp_type")}</Label>
                     <Input

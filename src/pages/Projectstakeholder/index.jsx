@@ -109,7 +109,7 @@ const ProjectStakeholderModel = (props) => {
 
     initialValues: {
       psh_project_id:
-        (projectStakeholder && projectStakeholder.psh_project_id) || "",
+      projectid,
       psh_name: (projectStakeholder && projectStakeholder.psh_name) || "",
       psh_representative_name:
         (projectStakeholder && projectStakeholder.psh_representative_name) ||
@@ -128,7 +128,7 @@ const ProjectStakeholderModel = (props) => {
     },
 
     validationSchema: Yup.object({
-      psh_project_id: Yup.string().required(t("psh_project_id")),
+      // psh_project_id: Yup.string().required(t("psh_project_id")),
       psh_name: Yup.string().required(t("psh_name")),
       psh_representative_name: Yup.string().required(
         t("psh_representative_name")
@@ -543,7 +543,7 @@ const ProjectStakeholderModel = (props) => {
                 }}
               >
                 <Row>
-                  <Col className="col-md-6 mb-3">
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("psh_project_id")}</Label>
                     <Input
                       name="psh_project_id"
@@ -566,7 +566,7 @@ const ProjectStakeholderModel = (props) => {
                         {validation.errors.psh_project_id}
                       </FormFeedback>
                     ) : null}
-                  </Col>
+                  </Col> */}
                   <Col className="col-md-6 mb-3">
                     <Label>{t("psh_name")}</Label>
                     <Input
