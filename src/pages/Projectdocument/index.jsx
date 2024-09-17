@@ -13,6 +13,7 @@ import SearchComponent from "../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
+import Dropzone from "react-dropzone";
 
 import {
   getProjectDocument as onGetProjectDocument,
@@ -43,6 +44,7 @@ import {
   CardBody,
   FormGroup,
   Badge,
+  CardSubtitle
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
@@ -81,27 +83,56 @@ const ProjectDocumentModel = (props) => {
   const [documentTypeOptions, setDocumentTypeOptions] = useState([]);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
 
-  // Handle file input change
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-   
-      const file = e.target.files[0];
-      if (file) {
-        setFile(file);
-        // Get the file size in bytes
-        const fileSizeInBytes = file.size;
-       
-        
-        // Convert the size to KB or MB (here, it’s converted to KB)
-        const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
 
-        //Update form values with the file path, extension, and size
-        validation.setFieldValue('prd_file_path', file.name);
-        validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
-        validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
-      }
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  /**
+   * Handles accepted files from the Dropzone
+   */
+  function handleAcceptedFiles(files) {
+    const updatedFiles = files.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+        formattedSize: formatBytes(file.size),
+      })
+    );
+    setSelectedFiles(updatedFiles);
+  }
+
+  /**
+   * Formats file sizes into readable format
+   */
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+    // Handle file input change
+    const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
     
-  };
+        const file = e.target.files[0];
+        if (file) {
+          setFile(file);
+          // Get the file size in bytes
+          const fileSizeInBytes = file.size;
+        
+          
+          // Convert the size to KB or MB (here, it’s converted to KB)
+          const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
+
+          //Update form values with the file path, extension, and size
+          validation.setFieldValue('prd_file_path', file.name);
+          validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
+          validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
+        }
+      
+    };
   
 
   useEffect(() => {
@@ -610,18 +641,6 @@ const ProjectDocumentModel = (props) => {
                         </FormFeedback>
                       ) : null}
                     </Col>
-                    {/* PDF File Picker */}
-                    <Col className="col-md-6 mb-3">
-                      <Label>{t("Upload PDF")}</Label>
-                      <Input
-                        name="prd_file"
-                        type="file"
-                        accept=".pdf" // Only allow PDF files
-                        onChange={handleFileChange}
-                       
-                    
-                      />
-                    </Col>
                     {/* Project ID */}
                     {/* <Col className="col-md-6 mb-3">
                       <Label>{t("prd_project_id")}</Label>
@@ -719,6 +738,83 @@ const ProjectDocumentModel = (props) => {
                         </FormFeedback>
                       ) : null}
                     </Col>
+
+                      {/* PDF File Picker */}
+                  
+
+                      <Row>
+  <Col className="col-12">
+    <Card>
+      <CardBody>
+        <CardSubtitle className="mb-3">
+          Attach or upload your PDF file here!
+        </CardSubtitle>
+        <Form>
+          <Dropzone
+            accept={{ 'application/pdf': [] }} // Strictly accept PDF MIME type
+            onDrop={(acceptedFiles, rejectedFiles) => {
+              // Handle rejected files
+              if (rejectedFiles.length > 0) {
+                const invalidFiles = rejectedFiles.map((file) => file.file.name).join(', ');
+                alert(`These files are not PDFs and were rejected: ${invalidFiles}`);
+                return; // Stop further execution if there are rejected files
+              }
+
+              // Proceed with handling accepted files if all are valid PDFs
+              handleAcceptedFiles(acceptedFiles);
+
+              // Create a synthetic event for handleFileChange
+              const syntheticEvent = {
+                target: {
+                  files: acceptedFiles,
+                  name: "prd_file", // Pass the name of the file input
+                },
+              };
+
+              handleFileChange(syntheticEvent); // Call handleFileChange with the synthetic event
+            }}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <div className="dropzone">
+                <div className="dz-message needsclick mt-2" {...getRootProps()}>
+                  <input {...getInputProps({ name: "prd_file" })} />
+                  <div className="mb-3">
+                    <i className="display-4 text-muted bx bxs-cloud-upload" />
+                  </div>
+                  <h4>Drop PDF files here or click to upload.</h4>
+                </div>
+              </div>
+            )}
+          </Dropzone>
+          <div className="dropzone-previews mt-3" id="file-previews">
+            {selectedFiles.map((f, i) => (
+              <Card
+                className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                key={i + "-file"}
+              >
+                <div className="p-2">
+                  <Row className="align-items-center">
+                    <Col className="col-auto">
+                      <i className="bx bxs-file-pdf text-danger" style={{ fontSize: '80px' }} />
+                    </Col>
+                    <Col>
+                      <Link to="#" className="text-muted font-weight-bold">
+                        {f.name}
+                      </Link>
+                      <p className="mb-0">
+                        <strong>{f.formattedSize}</strong>
+                      </p>
+                    </Col>
+                  </Row>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </Form>
+      </CardBody>
+    </Card>
+  </Col>
+</Row>
 
                     <Row>
                       <Col>
