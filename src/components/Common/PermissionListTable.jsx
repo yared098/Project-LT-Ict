@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import {
   Col,
-  Row,
-  Button,
   Card,
   CardBody,
-  CardTitle,
-  CardText,
-  Table,
   Nav,
   NavItem,
   NavLink,
@@ -16,24 +11,11 @@ import {
   Offcanvas,
   OffcanvasHeader,
   OffcanvasBody,
-  Label,
-  Form,
-  Input,
-  FormFeedback,
-  CardSubtitle,
 } from "reactstrap";
 //Import Breadcrumb
-import Breadcrumbs from "./Breadcrumb";
 import classnames from "classnames";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Dropzone from "react-dropzone";
-import { Link } from "react-router-dom";
-import ProjectDocument from "../../pages/Projectdocument/index";
-import ProjectPayment  from "../../pages/Projectpayment";
-import ProjectStakeholder from "../../pages/Projectstakeholder";
-import Projectcontractor from "../../pages/Projectcontractor";
-import Budgetrequest from "../../pages/Budgetrequest";
 import Permission from "../../pages/Permission";
 
 const PermissionListTable = ({ handleClick, showCanvas, canvasWidth ,data}) => {
@@ -156,3 +138,39 @@ const PermissionListTable = ({ handleClick, showCanvas, canvasWidth ,data}) => {
 };
 
 export default PermissionListTable;
+
+// import React from "react";
+// import { Col, Card, CardBody, Offcanvas, OffcanvasHeader, OffcanvasBody } from "reactstrap";
+// import Permission from "../../pages/Permission";
+
+// const PermissionListTable = ({ handleClick, showCanvas, canvasWidth, data }) => {
+
+//   //meta title PermissionListTable
+//   document.title = "Right OffCanvas | For Project";
+
+//   return (
+//     <React.Fragment>
+//       {/* Right offcanvas */}
+//       <Offcanvas
+//         isOpen={showCanvas}
+//         direction="end"
+//         toggle={handleClick}
+//         style={{ width: `${canvasWidth}vw` }}
+//       > 
+//         <OffcanvasHeader toggle={handleClick}>{data.rol_name}</OffcanvasHeader>
+//         <OffcanvasBody>
+//           <Col lg={15}>
+//             <Card>
+//               <CardBody>
+//                 {/* Display the Permission component directly */}
+//                 <Permission rol_id={data.rol_id} />
+//               </CardBody>
+//             </Card>
+//           </Col>
+//         </OffcanvasBody>
+//       </Offcanvas>
+//     </React.Fragment>
+//   );
+// };
+
+// export default PermissionListTable;

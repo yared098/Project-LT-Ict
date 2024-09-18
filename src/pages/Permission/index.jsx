@@ -522,11 +522,7 @@ const PermissionModel = (props) => {
         onDeleteClick={handleDeletePermission}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="" style={{display:'flex' ,flexDirection:'row'}}>
-
-        {/* <Role onSelectItem={setSelectedItem} /> */}
-        
-        <div className="page-content">
+     <div className="page-content">
           <div className="container-fluid">
             
             {/* {pem_role_id?null : 
@@ -890,7 +886,6 @@ const PermissionModel = (props) => {
             </Modal>
           </div>
         </div>
-      </div>
       
       <ToastContainer />
     </React.Fragment>
