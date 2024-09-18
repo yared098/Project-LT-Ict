@@ -8,9 +8,10 @@ const ADD_PERMISSION = "permission/insertgrid";
 const UPDATE_PERMISSION = "permission/updategrid";
 const DELETE_PERMISSION = "permission/deletegrid";
 // get Projects
-export const getPermission = async () => {
+export const getPermission = async (permissionroleid) => {
   try {
-    const response = await post(apiUrl+GET_PERMISSION);
+    const response = await post(`${apiUrl}${GET_PERMISSION}?pem_role_id=${permissionroleid}`);
+  
     return response;
   } catch (error) {
     console.log(error); // Handle any errors

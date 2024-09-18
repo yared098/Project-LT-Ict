@@ -14,8 +14,9 @@ import {
   TOGGLE_UPDATE_LOADING
 } from "./actionTypes";
 
-export const getPermission = () => ({
+export const getPermission = (permissionroleid) => ({
   type: GET_PERMISSION,
+  payload:permissionroleid,
 });
 export const addPermission = (Permission) => ({
   type: ADD_PERMISSION,

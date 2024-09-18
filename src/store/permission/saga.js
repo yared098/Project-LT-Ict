@@ -41,9 +41,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const selectShowResult = (state) => state.PermissionR.show_result;
 
-function* fetchPermission() {
+function* fetchPermission({payload:permissionroleid}) {
   try {
-    const response = yield call(getPermission);
+    const response = yield call(getPermission,permissionroleid);
     yield put(getPermissionSuccess(response));
     // toast.success(`permissions Loading  Successfully`, { autoClose: 2000 });
   } catch (error) {

@@ -50,6 +50,7 @@ import moment from "moment";
 //Import Flatepicker
 import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
+import PermissionListTable from "../../components/Common/PermissionListTable"
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
@@ -67,6 +68,8 @@ const RolesModel = ({onSelectItem}) => {
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [RoleMetaData,setRoleMetaData]=useState({});
+  const [showCanvas, setShowCanvas] = useState(false);
 
   
 
@@ -203,6 +206,12 @@ const RolesModel = ({onSelectItem}) => {
   //delete projects
   const [deleteModal, setDeleteModal] = useState(false);
 
+  const handleClick = (data) => {
+    setShowCanvas(!showCanvas); // Toggle canvas visibility
+    console.log(data,"project data")
+    setRoleMetaData(data)
+  };
+
   const onClickDelete = (roles) => {
     setRoles(roles);
     setDeleteModal(true);
@@ -338,6 +347,24 @@ const RolesModel = ({onSelectItem}) => {
                     Delete
                   </UncontrolledTooltip>
                 </Link>
+              )},
+              {/* side slider */}
+              {cellProps.row.original.is_editable && (
+                   <Link to="#" className="text-secondary" 
+                   onClick={() => {
+                    const roledata = cellProps.row.original;
+                    // console.log("handleProjectClick before edit", ProjectData);
+                    handleClick(roledata);
+                    // console.log("update search result table dtata",)
+                  }}
+                  //  onClick={handleClick}
+                   >
+                   <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
+   
+                   <UncontrolledTooltip placement="top" target="viewtooltip">
+                     View
+                   </UncontrolledTooltip>
+                 </Link>
               )}
             </div>
           );
@@ -526,6 +553,14 @@ const RolesModel = ({onSelectItem}) => {
         </div>
       </div>
       <ToastContainer />
+      {showCanvas && (
+        <PermissionListTable
+          handleClick={handleClick}
+          showCanvas={showCanvas}
+          canvasWidth={60}
+          data={RoleMetaData}
+        />
+      )}
     </React.Fragment>
   );
 };

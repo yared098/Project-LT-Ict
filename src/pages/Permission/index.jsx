@@ -60,7 +60,10 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const PermissionModel = () => {
+const PermissionModel = (props) => {
+  // get data from tab page
+  const {rol_id}=props;
+  console.log("role_id",rol_id)
   //meta title
   document.title = " Permission";
 
@@ -92,7 +95,7 @@ const PermissionModel = () => {
       pag_id: (permission && permission.pag_id) || "",
       pag_name: (permission && permission.pag_name) || "",
       pem_id:(permission && permission.pem_id) || "",
-      pem_role_id: selectedItem?.rol_id,
+      pem_role_id: rol_id,
       pem_enabled: (permission && permission.pem_enabled) || "",
       pem_edit: (permission && permission.pem_edit) || "",
       pem_insert: (permission && permission.pem_insert) || "",
@@ -175,7 +178,7 @@ const PermissionModel = () => {
   const dispatch = useDispatch();
   // Fetch Permission on component mount
   useEffect(() => {
-    dispatch(onGetPermission());
+    dispatch(onGetPermission(rol_id));
   }, [dispatch]);
 
   const permissionProperties = createSelector(
@@ -418,19 +421,7 @@ const PermissionModel = () => {
           );
         },
       },
-      // {
-      //   header: "",
-      //   accessorKey: "pem_status",
-      //   enableColumnFilter: false,
-      //   enableSorting: true,
-      //   cell: (cellProps) => {
-      //     return (
-      //       <span>
-      //         {truncateText(cellProps.row.original.pem_status, 30) || "-"}
-      //       </span>
-      //     );
-      //   },
-      // },
+     
 
       {
         header: t("view_detail"),
@@ -533,21 +524,27 @@ const PermissionModel = () => {
       />
       <div className="" style={{display:'flex' ,flexDirection:'row'}}>
 
-        <Role onSelectItem={setSelectedItem} />
+        {/* <Role onSelectItem={setSelectedItem} /> */}
         
         <div className="page-content">
           <div className="container-fluid">
-            <Breadcrumbs 
+            
+            {/* {pem_role_id?null : 
+              <Breadcrumbs
+                title={t("permission")}
+                breadcrumbItem={t("permission")}
+                />
+             } */}
+            {/* <Breadcrumbs 
               title={t("permission")}
               breadcrumbItem={t("permission")}
-            />
+            /> */}
             {isLoading || searchLoading ? (
               <Spinners setLoading={setLoading} />
             ) : (
               <Row>
                 <Col xs="12">
                   <Card>
-                    <p>Selected Role :{selectedItem?.rol_name}</p>
                     <CardBody>
                       <TableContainer
                         columns={columns}
@@ -593,32 +590,7 @@ const PermissionModel = () => {
                   }}
                 >
                   <Row>
-                  {/* <Col className="col-md-6 mb-3">
-                      <Label>{t("pem_id")}</Label>
-                      <Input
-                        name="pem_id"
-                        type="text"
-                        placeholder={t("insert_pem_id_amharic")}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value="auto increament"
-                        
-                        invalid={
-                          validation.touched.pem_id &&
-                          validation.errors.pem_id
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.pem_id &&
-                      validation.errors.pem_id ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.pem_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> */}
-
+                 
                     {/* page id */}
                     <Col className="col-md-6 mb-3">
                       <Label>{t("pem_page_id")}</Label>
@@ -885,32 +857,6 @@ const PermissionModel = () => {
                         </FormFeedback>
                       ) : null}
                     </Col>
-                    {/* <Col className="col-md-6 mb-3">
-                      <Label>{t("pem_status")}</Label>
-                      <Input
-                        name="pem_status"
-                        type="text"
-                        placeholder={t("insert_status_name_amharic")}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.pem_status || ""}
-                        invalid={
-                          validation.touched.pem_status &&
-                          validation.errors.pem_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.pem_status &&
-                      validation.errors.pem_status ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.pem_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> */}
-                    
-                    
 
                   </Row>
                   <Row>
@@ -943,7 +889,7 @@ const PermissionModel = () => {
               </ModalBody>
             </Modal>
           </div>
-        </div>:null
+        </div>
       </div>
       
       <ToastContainer />
