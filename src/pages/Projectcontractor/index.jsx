@@ -60,7 +60,7 @@ const truncateText = (text, maxLength) => {
 
 const ProjectContractorModel = (props) => {
   //  get passed data from tab
-  const {projectid}=props
+  const { projectid } = props;
   //meta title
   document.title = " ProjectContractor";
 
@@ -130,7 +130,7 @@ const ProjectContractorModel = (props) => {
       cni_address: (projectContractor && projectContractor.cni_address) || "",
       cni_email: (projectContractor && projectContractor.cni_email) || "",
       cni_website: (projectContractor && projectContractor.cni_website) || "",
-      cni_project_id:projectid,
+      cni_project_id: projectid,
       cni_procrument_method:
         (projectContractor && projectContractor.cni_procrument_method) || "",
       cni_bid_invitation_date:
@@ -796,402 +796,402 @@ const ProjectContractorModel = (props) => {
         onDeleteClick={handleDeleteProjectContractor}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="page-content">
-        <div className="container-fluid">
-          {/* <Breadcrumbs
+      {/* <div className="page-content"> */}
+      <div className="container-fluid">
+        {/* <Breadcrumbs
             title={t("project_contractor")}
             breadcrumbItem={t("project_contractor")}
           /> */}
-           {projectid?null : <Breadcrumbs
+        {projectid ? null : (
+          <Breadcrumbs
             title={t("project_contractor")}
             breadcrumbItem={t("project_contractor")}
-          />}
-          {isLoading || searchLoading ? (
-            <Spinners setLoading={setLoading} />
-          ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handleProjectContractorClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") + " " + t("project_contractor")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          )}
-          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-            <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit
-                ? t("edit") + " " + t("project_contractor")
-                : t("add") + " " + t("project_contractor")}
-            </ModalHeader>
-            <ModalBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  const modalCallback = () => setModal(false);
-                  if (isEdit) {
-                    onUpdateProjectContractor(validation.values, modalCallback);
-                  } else {
-                    onAddProjectContractor(validation.values, modalCallback);
-                  }
-                  return false;
-                }}
-              >
-                <Row>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_name")}</Label>
-                    <Input
-                      name="cni_name"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_name || ""}
-                      invalid={
-                        validation.touched.cni_name &&
-                        validation.errors.cni_name
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_name &&
-                    validation.errors.cni_name ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_name}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_tin_num")}</Label>
-                    <Input
-                      name="cni_tin_num"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_tin_num || ""}
-                      invalid={
-                        validation.touched.cni_tin_num &&
-                        validation.errors.cni_tin_num
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_tin_num &&
-                    validation.errors.cni_tin_num ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_tin_num}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contractor_type_id")}</Label>
-                    <Input
-                      name="cni_contractor_type_id"
-                      type="select"
-                      className="form-select"
-                      onChange={handleContractorTypeChange}
-                      onBlur={validation.handleBlur}
-                      value={selectedContractorType}
-                    >
-                      {contractorTypeOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {t(`${option.label}`)}
-                        </option>
-                      ))}
-                    </Input>
-                    {validation.touched.cni_contractor_type_id &&
-                    validation.errors.cni_contractor_type_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contractor_type_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_vat_num")}</Label>
-                    <Input
-                      name="cni_vat_num"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_vat_num || ""}
-                      invalid={
-                        validation.touched.cni_vat_num &&
-                        validation.errors.cni_vat_num
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_vat_num &&
-                    validation.errors.cni_vat_num ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_vat_num}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_total_contract_price")}</Label>
-                    <Input
-                      name="cni_total_contract_price"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_total_contract_price || ""}
-                      invalid={
-                        validation.touched.cni_total_contract_price &&
-                        validation.errors.cni_total_contract_price
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_total_contract_price &&
-                    validation.errors.cni_total_contract_price ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_total_contract_price}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contract_start_date_et")}</Label>
-                    <Input
-                      name="cni_contract_start_date_et"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_contract_start_date_et || ""}
-                      invalid={
-                        validation.touched.cni_contract_start_date_et &&
-                        validation.errors.cni_contract_start_date_et
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_contract_start_date_et &&
-                    validation.errors.cni_contract_start_date_et ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contract_start_date_et}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contract_start_date_gc")}</Label>
-                    <Input
-                      name="cni_contract_start_date_gc"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_contract_start_date_gc || ""}
-                      invalid={
-                        validation.touched.cni_contract_start_date_gc &&
-                        validation.errors.cni_contract_start_date_gc
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_contract_start_date_gc &&
-                    validation.errors.cni_contract_start_date_gc ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contract_start_date_gc}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contract_end_date_et")}</Label>
-                    <Input
-                      name="cni_contract_end_date_et"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_contract_end_date_et || ""}
-                      invalid={
-                        validation.touched.cni_contract_end_date_et &&
-                        validation.errors.cni_contract_end_date_et
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_contract_end_date_et &&
-                    validation.errors.cni_contract_end_date_et ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contract_end_date_et}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contract_end_date_gc")}</Label>
-                    <Input
-                      name="cni_contract_end_date_gc"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_contract_end_date_gc || ""}
-                      invalid={
-                        validation.touched.cni_contract_end_date_gc &&
-                        validation.errors.cni_contract_end_date_gc
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_contract_end_date_gc &&
-                    validation.errors.cni_contract_end_date_gc ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contract_end_date_gc}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_contact_person")}</Label>
-                    <Input
-                      name="cni_contact_person"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_contact_person || ""}
-                      invalid={
-                        validation.touched.cni_contact_person &&
-                        validation.errors.cni_contact_person
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_contact_person &&
-                    validation.errors.cni_contact_person ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_contact_person}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_phone_number")}</Label>
-                    <Input
-                      name="cni_phone_number"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_phone_number || ""}
-                      invalid={
-                        validation.touched.cni_phone_number &&
-                        validation.errors.cni_phone_number
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_phone_number &&
-                    validation.errors.cni_phone_number ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_phone_number}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_address")}</Label>
-                    <Input
-                      name="cni_address"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_address || ""}
-                      invalid={
-                        validation.touched.cni_address &&
-                        validation.errors.cni_address
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_address &&
-                    validation.errors.cni_address ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_address}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_email")}</Label>
-                    <Input
-                      name="cni_email"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_email || ""}
-                      invalid={
-                        validation.touched.cni_email &&
-                        validation.errors.cni_email
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_email &&
-                    validation.errors.cni_email ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_email}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_website")}</Label>
-                    <Input
-                      name="cni_website"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_website || ""}
-                      invalid={
-                        validation.touched.cni_website &&
-                        validation.errors.cni_website
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_website &&
-                    validation.errors.cni_website ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_website}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  {/* <Col className="col-md-6 mb-3">
+          />
+        )}
+        {isLoading || searchLoading ? (
+          <Spinners setLoading={setLoading} />
+        ) : (
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardBody>
+                  <TableContainer
+                    columns={columns}
+                    data={showSearchResults ? results : data}
+                    isGlobalFilter={true}
+                    isAddButton={true}
+                    isCustomPageSize={true}
+                    handleUserClick={handleProjectContractorClicks}
+                    isPagination={true}
+                    // SearchPlaceholder="26 records..."
+                    SearchPlaceholder={26 + " " + t("Results") + "..."}
+                    buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                    buttonName={t("add") + " " + t("project_contractor")}
+                    tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                    theadClass="table-light"
+                    pagination="pagination"
+                    paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        )}
+        <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+          <ModalHeader toggle={toggle} tag="h4">
+            {!!isEdit
+              ? t("edit") + " " + t("project_contractor")
+              : t("add") + " " + t("project_contractor")}
+          </ModalHeader>
+          <ModalBody>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                validation.handleSubmit();
+                const modalCallback = () => setModal(false);
+                if (isEdit) {
+                  onUpdateProjectContractor(validation.values, modalCallback);
+                } else {
+                  onAddProjectContractor(validation.values, modalCallback);
+                }
+                return false;
+              }}
+            >
+              <Row>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_name")}</Label>
+                  <Input
+                    name="cni_name"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_name || ""}
+                    invalid={
+                      validation.touched.cni_name && validation.errors.cni_name
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_name && validation.errors.cni_name ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_name}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_tin_num")}</Label>
+                  <Input
+                    name="cni_tin_num"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_tin_num || ""}
+                    invalid={
+                      validation.touched.cni_tin_num &&
+                      validation.errors.cni_tin_num
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_tin_num &&
+                  validation.errors.cni_tin_num ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_tin_num}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contractor_type_id")}</Label>
+                  <Input
+                    name="cni_contractor_type_id"
+                    type="select"
+                    className="form-select"
+                    onChange={handleContractorTypeChange}
+                    onBlur={validation.handleBlur}
+                    value={selectedContractorType}
+                  >
+                    {contractorTypeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {t(`${option.label}`)}
+                      </option>
+                    ))}
+                  </Input>
+                  {validation.touched.cni_contractor_type_id &&
+                  validation.errors.cni_contractor_type_id ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contractor_type_id}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_vat_num")}</Label>
+                  <Input
+                    name="cni_vat_num"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_vat_num || ""}
+                    invalid={
+                      validation.touched.cni_vat_num &&
+                      validation.errors.cni_vat_num
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_vat_num &&
+                  validation.errors.cni_vat_num ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_vat_num}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_total_contract_price")}</Label>
+                  <Input
+                    name="cni_total_contract_price"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_total_contract_price || ""}
+                    invalid={
+                      validation.touched.cni_total_contract_price &&
+                      validation.errors.cni_total_contract_price
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_total_contract_price &&
+                  validation.errors.cni_total_contract_price ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_total_contract_price}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contract_start_date_et")}</Label>
+                  <Input
+                    name="cni_contract_start_date_et"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_contract_start_date_et || ""}
+                    invalid={
+                      validation.touched.cni_contract_start_date_et &&
+                      validation.errors.cni_contract_start_date_et
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_contract_start_date_et &&
+                  validation.errors.cni_contract_start_date_et ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contract_start_date_et}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contract_start_date_gc")}</Label>
+                  <Input
+                    name="cni_contract_start_date_gc"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_contract_start_date_gc || ""}
+                    invalid={
+                      validation.touched.cni_contract_start_date_gc &&
+                      validation.errors.cni_contract_start_date_gc
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_contract_start_date_gc &&
+                  validation.errors.cni_contract_start_date_gc ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contract_start_date_gc}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contract_end_date_et")}</Label>
+                  <Input
+                    name="cni_contract_end_date_et"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_contract_end_date_et || ""}
+                    invalid={
+                      validation.touched.cni_contract_end_date_et &&
+                      validation.errors.cni_contract_end_date_et
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_contract_end_date_et &&
+                  validation.errors.cni_contract_end_date_et ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contract_end_date_et}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contract_end_date_gc")}</Label>
+                  <Input
+                    name="cni_contract_end_date_gc"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_contract_end_date_gc || ""}
+                    invalid={
+                      validation.touched.cni_contract_end_date_gc &&
+                      validation.errors.cni_contract_end_date_gc
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_contract_end_date_gc &&
+                  validation.errors.cni_contract_end_date_gc ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contract_end_date_gc}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_contact_person")}</Label>
+                  <Input
+                    name="cni_contact_person"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_contact_person || ""}
+                    invalid={
+                      validation.touched.cni_contact_person &&
+                      validation.errors.cni_contact_person
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_contact_person &&
+                  validation.errors.cni_contact_person ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_contact_person}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_phone_number")}</Label>
+                  <Input
+                    name="cni_phone_number"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_phone_number || ""}
+                    invalid={
+                      validation.touched.cni_phone_number &&
+                      validation.errors.cni_phone_number
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_phone_number &&
+                  validation.errors.cni_phone_number ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_phone_number}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_address")}</Label>
+                  <Input
+                    name="cni_address"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_address || ""}
+                    invalid={
+                      validation.touched.cni_address &&
+                      validation.errors.cni_address
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_address &&
+                  validation.errors.cni_address ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_address}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_email")}</Label>
+                  <Input
+                    name="cni_email"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_email || ""}
+                    invalid={
+                      validation.touched.cni_email &&
+                      validation.errors.cni_email
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_email &&
+                  validation.errors.cni_email ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_email}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_website")}</Label>
+                  <Input
+                    name="cni_website"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_website || ""}
+                    invalid={
+                      validation.touched.cni_website &&
+                      validation.errors.cni_website
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_website &&
+                  validation.errors.cni_website ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_website}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                {/* <Col className="col-md-6 mb-3">
                     <Label>{t("cni_project_id")}</Label>
                     <Input
                       name="cni_project_id"
@@ -1215,236 +1215,237 @@ const ProjectContractorModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col> */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_procrument_method")}</Label>
-                    <Input
-                      name="cni_procrument_method"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_procrument_method || ""}
-                      invalid={
-                        validation.touched.cni_procrument_method &&
-                        validation.errors.cni_procrument_method
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_procrument_method &&
-                    validation.errors.cni_procrument_method ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_procrument_method}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_bid_invitation_date")}</Label>
-                    <Input
-                      name="cni_bid_invitation_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_bid_invitation_date || ""}
-                      invalid={
-                        validation.touched.cni_bid_invitation_date &&
-                        validation.errors.cni_bid_invitation_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_bid_invitation_date &&
-                    validation.errors.cni_bid_invitation_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_bid_invitation_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_bid_opening_date")}</Label>
-                    <Input
-                      name="cni_bid_opening_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_bid_opening_date || ""}
-                      invalid={
-                        validation.touched.cni_bid_opening_date &&
-                        validation.errors.cni_bid_opening_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_bid_opening_date &&
-                    validation.errors.cni_bid_opening_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_bid_opening_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_bid_evaluation_date")}</Label>
-                    <Input
-                      name="cni_bid_evaluation_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_bid_evaluation_date || ""}
-                      invalid={
-                        validation.touched.cni_bid_evaluation_date &&
-                        validation.errors.cni_bid_evaluation_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_bid_evaluation_date &&
-                    validation.errors.cni_bid_evaluation_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_bid_evaluation_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_bid_award_date")}</Label>
-                    <Input
-                      name="cni_bid_award_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_bid_award_date || ""}
-                      invalid={
-                        validation.touched.cni_bid_award_date &&
-                        validation.errors.cni_bid_award_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_bid_award_date &&
-                    validation.errors.cni_bid_award_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_bid_award_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_bid_contract_signing_date")}</Label>
-                    <Input
-                      name="cni_bid_contract_signing_date"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={
-                        validation.values.cni_bid_contract_signing_date || ""
-                      }
-                      invalid={
-                        validation.touched.cni_bid_contract_signing_date &&
-                        validation.errors.cni_bid_contract_signing_date
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_bid_contract_signing_date &&
-                    validation.errors.cni_bid_contract_signing_date ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_bid_contract_signing_date}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_description")}</Label>
-                    <Input
-                      name="cni_description"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_description || ""}
-                      invalid={
-                        validation.touched.cni_description &&
-                        validation.errors.cni_description
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.cni_description &&
-                    validation.errors.cni_description ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_description}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  {/* status */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("cni_status")}</Label>
-                    <Input
-                      name="cni_status"
-                      type="select"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.cni_status || ""}
-                      invalid={
-                        validation.touched.cni_status &&
-                        validation.errors.cni_status
-                          ? true
-                          : false
-                      }
-                    >
-                      <option value="" disabled>{t("select_status")}</option>
-                      <option value="1">{t("active")}</option>
-                      <option value="0">{t("inactive")}</option>
-                    </Input>
-                    {validation.touched.cni_status &&
-                    validation.errors.cni_status ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.cni_status}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="text-end">
-                      {update_loading ? (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          <Spinner size={"sm"} color="#fff" />
-                          {t("Save")}
-                        </Button>
-                      ) : (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          {t("Save")}
-                        </Button>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-              </Form>
-            </ModalBody>
-          </Modal>
-        </div>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_procrument_method")}</Label>
+                  <Input
+                    name="cni_procrument_method"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_procrument_method || ""}
+                    invalid={
+                      validation.touched.cni_procrument_method &&
+                      validation.errors.cni_procrument_method
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_procrument_method &&
+                  validation.errors.cni_procrument_method ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_procrument_method}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_bid_invitation_date")}</Label>
+                  <Input
+                    name="cni_bid_invitation_date"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_bid_invitation_date || ""}
+                    invalid={
+                      validation.touched.cni_bid_invitation_date &&
+                      validation.errors.cni_bid_invitation_date
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_bid_invitation_date &&
+                  validation.errors.cni_bid_invitation_date ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_bid_invitation_date}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_bid_opening_date")}</Label>
+                  <Input
+                    name="cni_bid_opening_date"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_bid_opening_date || ""}
+                    invalid={
+                      validation.touched.cni_bid_opening_date &&
+                      validation.errors.cni_bid_opening_date
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_bid_opening_date &&
+                  validation.errors.cni_bid_opening_date ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_bid_opening_date}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_bid_evaluation_date")}</Label>
+                  <Input
+                    name="cni_bid_evaluation_date"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_bid_evaluation_date || ""}
+                    invalid={
+                      validation.touched.cni_bid_evaluation_date &&
+                      validation.errors.cni_bid_evaluation_date
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_bid_evaluation_date &&
+                  validation.errors.cni_bid_evaluation_date ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_bid_evaluation_date}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_bid_award_date")}</Label>
+                  <Input
+                    name="cni_bid_award_date"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_bid_award_date || ""}
+                    invalid={
+                      validation.touched.cni_bid_award_date &&
+                      validation.errors.cni_bid_award_date
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_bid_award_date &&
+                  validation.errors.cni_bid_award_date ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_bid_award_date}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_bid_contract_signing_date")}</Label>
+                  <Input
+                    name="cni_bid_contract_signing_date"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={
+                      validation.values.cni_bid_contract_signing_date || ""
+                    }
+                    invalid={
+                      validation.touched.cni_bid_contract_signing_date &&
+                      validation.errors.cni_bid_contract_signing_date
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_bid_contract_signing_date &&
+                  validation.errors.cni_bid_contract_signing_date ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_bid_contract_signing_date}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_description")}</Label>
+                  <Input
+                    name="cni_description"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_description || ""}
+                    invalid={
+                      validation.touched.cni_description &&
+                      validation.errors.cni_description
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.cni_description &&
+                  validation.errors.cni_description ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_description}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                {/* status */}
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("cni_status")}</Label>
+                  <Input
+                    name="cni_status"
+                    type="select"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.cni_status || ""}
+                    invalid={
+                      validation.touched.cni_status &&
+                      validation.errors.cni_status
+                        ? true
+                        : false
+                    }
+                  >
+                    <option value="" disabled>
+                      {t("select_status")}
+                    </option>
+                    <option value="1">{t("active")}</option>
+                    <option value="0">{t("inactive")}</option>
+                  </Input>
+                  {validation.touched.cni_status &&
+                  validation.errors.cni_status ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.cni_status}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="text-end">
+                    {update_loading ? (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        <Spinner size={"sm"} color="#fff" />
+                        {t("Save")}
+                      </Button>
+                    ) : (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        {t("Save")}
+                      </Button>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+          </ModalBody>
+        </Modal>
       </div>
+      {/* </div> */}
       <ToastContainer />
     </React.Fragment>
   );
