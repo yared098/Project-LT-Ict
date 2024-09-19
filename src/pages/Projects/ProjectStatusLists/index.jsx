@@ -80,7 +80,7 @@ const ProjectModel = () => {
 
   const handleClick = (data) => {
     setShowCanvas(!showCanvas); // Toggle canvas visibility
-    setProjectMetaData(data)
+    setProjectMetaData(data);
   };
 
   useEffect(() => {
@@ -190,7 +190,7 @@ const ProjectModel = () => {
     },
   });
   const [transaction, setTransaction] = useState({});
-  const [projectMetaData,setProjectMetaData]=useState({});
+  const [projectMetaData, setProjectMetaData] = useState({});
 
   const toggleViewModal = () => setModal1(!modal1);
 
@@ -420,37 +420,37 @@ const ProjectModel = () => {
         cell: (cellProps) => {
           return (
             <div className="d-flex gap-3">
-            
-              {cellProps.row.original.is_editable && (
-                   <Link to="#" className="text-secondary" 
-                   onClick={() => {
+              {/* {cellProps.row.original.is_editable && (
+                <Link
+                  to="#"
+                  className="text-secondary"
+                  onClick={() => {
                     const ProjectData = cellProps.row.original;
                     // console.log("handleProjectClick before edit", ProjectData);
                     handleClick(ProjectData);
                     // console.log("update search result table dtata",)
                   }}
                   //  onClick={handleClick}
-                   >
-                   <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
-   
-                   <UncontrolledTooltip placement="top" target="viewtooltip">
-                     View
-                   </UncontrolledTooltip>
-                 </Link>
-              )}
+                >
+                  <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
 
+                  <UncontrolledTooltip placement="top" target="viewtooltip">
+                    View
+                  </UncontrolledTooltip>
+                </Link>
+              )} */}
 
               {cellProps.row.original.is_editable && (
-                  <Link
-                    to="#"
-                    className="text-success"
-                    onClick={() => {
-                      const ProjectData = cellProps.row.original;
-                      // console.log("handleProjectClick before edit", ProjectData);
-                      handleProjectClick(ProjectData);
-                      // console.log("update search result table dtata",)
-                    }}
-                  >
+                <Link
+                  to="#"
+                  className="text-success"
+                  onClick={() => {
+                    const ProjectData = cellProps.row.original;
+                    // console.log("handleProjectClick before edit", ProjectData);
+                    handleProjectClick(ProjectData);
+                    // console.log("update search result table dtata",)
+                  }}
+                >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
                   <UncontrolledTooltip placement="top" target="edittooltip">
                     Edit
@@ -465,8 +465,8 @@ const ProjectModel = () => {
                   onClick={() => {
                     const ProjectData = cellProps.row.original;
                     onClickDelete(ProjectData);
-                     }}
-                   >
+                  }}
+                >
                   <i
                     className="mdi mdi-delete font-size-18"
                     id="deletetooltip"
@@ -803,14 +803,14 @@ const ProjectModel = () => {
           </Modal>
         </div>
       </div>
-      {showCanvas && (
+      {/* {showCanvas && (
         <RightOffCanvas
           handleClick={handleClick}
           showCanvas={showCanvas}
-          canvasWidth={60}
+          canvasWidth={84}
           data={projectMetaData}
         />
-      )}
+      )} */}
       <ToastContainer />
     </React.Fragment>
   );
