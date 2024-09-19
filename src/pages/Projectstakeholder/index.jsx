@@ -60,7 +60,7 @@ const truncateText = (text, maxLength) => {
 
 const ProjectStakeholderModel = (props) => {
   //  get passed data from tab
-  const {projectid}=props
+  const { projectid } = props;
   //meta title
   document.title = " ProjectStakeholder";
 
@@ -108,8 +108,7 @@ const ProjectStakeholderModel = (props) => {
     enableReinitialize: true,
 
     initialValues: {
-      psh_project_id:
-      projectid,
+      psh_project_id: projectid,
       psh_name: (projectStakeholder && projectStakeholder.psh_name) || "",
       psh_representative_name:
         (projectStakeholder && projectStakeholder.psh_representative_name) ||
@@ -480,70 +479,69 @@ const ProjectStakeholderModel = (props) => {
         onDeleteClick={handleDeleteProjectStakeholder}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="page-content">
-        <div className="container-fluid">
-          {/* <Breadcrumbs
+      {/* <div className="page-content"> */}
+      <div className="container-fluid">
+        {/* <Breadcrumbs
             title={t("project_stakeholder")}
             breadcrumbItem={t("project_stakeholder")}
           /> */}
-           {projectid?null : <Breadcrumbs
-           title={t("project_stakeholder")}
-           breadcrumbItem={t("project_stakeholder")}
-          />}
-          {isLoading || searchLoading ? (
-            <Spinners setLoading={setLoading} />
-          ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handleProjectStakeholderClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") + " " + t("project_stakeholder")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          )}
-          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-            <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit
-                ? t("edit") + " " + t("project_stakeholder")
-                : t("add") + " " + t("project_stakeholder")}
-            </ModalHeader>
-            <ModalBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  const modalCallback = () => setModal(false);
-                  if (isEdit) {
-                    onUpdateProjectStakeholder(
-                      validation.values,
-                      modalCallback
-                    );
-                  } else {
-                    onAddProjectStakeholder(validation.values, modalCallback);
-                  }
-                  return false;
-                }}
-              >
-                <Row>
-                  {/* <Col className="col-md-6 mb-3">
+        {projectid ? null : (
+          <Breadcrumbs
+            title={t("project_stakeholder")}
+            breadcrumbItem={t("project_stakeholder")}
+          />
+        )}
+        {isLoading || searchLoading ? (
+          <Spinners setLoading={setLoading} />
+        ) : (
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardBody>
+                  <TableContainer
+                    columns={columns}
+                    data={showSearchResults ? results : data}
+                    isGlobalFilter={true}
+                    isAddButton={true}
+                    isCustomPageSize={true}
+                    handleUserClick={handleProjectStakeholderClicks}
+                    isPagination={true}
+                    // SearchPlaceholder="26 records..."
+                    SearchPlaceholder={26 + " " + t("Results") + "..."}
+                    buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                    buttonName={t("add") + " " + t("project_stakeholder")}
+                    tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                    theadClass="table-light"
+                    pagination="pagination"
+                    paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        )}
+        <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+          <ModalHeader toggle={toggle} tag="h4">
+            {!!isEdit
+              ? t("edit") + " " + t("project_stakeholder")
+              : t("add") + " " + t("project_stakeholder")}
+          </ModalHeader>
+          <ModalBody>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                validation.handleSubmit();
+                const modalCallback = () => setModal(false);
+                if (isEdit) {
+                  onUpdateProjectStakeholder(validation.values, modalCallback);
+                } else {
+                  onAddProjectStakeholder(validation.values, modalCallback);
+                }
+                return false;
+              }}
+            >
+              <Row>
+                {/* <Col className="col-md-6 mb-3">
                     <Label>{t("psh_project_id")}</Label>
                     <Input
                       name="psh_project_id"
@@ -567,205 +565,201 @@ const ProjectStakeholderModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col> */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_name")}</Label>
-                    <Input
-                      name="psh_name"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_name || ""}
-                      invalid={
-                        validation.touched.psh_name &&
-                        validation.errors.psh_name
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_name &&
-                    validation.errors.psh_name ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_name}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_stakeholder_type")}</Label>
-                    <Input
-                      name="psh_stakeholder_type"
-                      type="select"
-                      className="form-select"
-                      onChange={handleStakeholderTypeChange}
-                      onBlur={validation.handleBlur}
-                      value={selectedStakeholderType}
-                    >
-                      {stakeholderTypeOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {t(`${option.label}`)}
-                        </option>
-                      ))}
-                    </Input>
-                    {validation.touched.psh_stakeholder_type &&
-                    validation.errors.psh_stakeholder_type ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_stakeholder_type}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_representative_name")}</Label>
-                    <Input
-                      name="psh_representative_name"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_representative_name || ""}
-                      invalid={
-                        validation.touched.psh_representative_name &&
-                        validation.errors.psh_representative_name
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_representative_name &&
-                    validation.errors.psh_representative_name ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_representative_name}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_representative_phone")}</Label>
-                    <Input
-                      name="psh_representative_phone"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_representative_phone || ""}
-                      invalid={
-                        validation.touched.psh_representative_phone &&
-                        validation.errors.psh_representative_phone
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_representative_phone &&
-                    validation.errors.psh_representative_phone ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_representative_phone}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_role")}</Label>
-                    <Input
-                      name="psh_role"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_role || ""}
-                      invalid={
-                        validation.touched.psh_role &&
-                        validation.errors.psh_role
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_role &&
-                    validation.errors.psh_role ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_role}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_description")}</Label>
-                    <Input
-                      name="psh_description"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_description || ""}
-                      invalid={
-                        validation.touched.psh_description &&
-                        validation.errors.psh_description
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_description &&
-                    validation.errors.psh_description ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_description}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("psh_status")}</Label>
-                    <Input
-                      name="psh_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.psh_status || ""}
-                      invalid={
-                        validation.touched.psh_status &&
-                        validation.errors.psh_status
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.psh_status &&
-                    validation.errors.psh_status ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.psh_status}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="text-end">
-                      {update_loading ? (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          <Spinner size={"sm"} color="#fff" />
-                          {t("Save")}
-                        </Button>
-                      ) : (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          {t("Save")}
-                        </Button>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-              </Form>
-            </ModalBody>
-          </Modal>
-        </div>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_name")}</Label>
+                  <Input
+                    name="psh_name"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_name || ""}
+                    invalid={
+                      validation.touched.psh_name && validation.errors.psh_name
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_name && validation.errors.psh_name ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_name}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_stakeholder_type")}</Label>
+                  <Input
+                    name="psh_stakeholder_type"
+                    type="select"
+                    className="form-select"
+                    onChange={handleStakeholderTypeChange}
+                    onBlur={validation.handleBlur}
+                    value={selectedStakeholderType}
+                  >
+                    {stakeholderTypeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {t(`${option.label}`)}
+                      </option>
+                    ))}
+                  </Input>
+                  {validation.touched.psh_stakeholder_type &&
+                  validation.errors.psh_stakeholder_type ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_stakeholder_type}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_representative_name")}</Label>
+                  <Input
+                    name="psh_representative_name"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_representative_name || ""}
+                    invalid={
+                      validation.touched.psh_representative_name &&
+                      validation.errors.psh_representative_name
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_representative_name &&
+                  validation.errors.psh_representative_name ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_representative_name}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_representative_phone")}</Label>
+                  <Input
+                    name="psh_representative_phone"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_representative_phone || ""}
+                    invalid={
+                      validation.touched.psh_representative_phone &&
+                      validation.errors.psh_representative_phone
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_representative_phone &&
+                  validation.errors.psh_representative_phone ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_representative_phone}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_role")}</Label>
+                  <Input
+                    name="psh_role"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_role || ""}
+                    invalid={
+                      validation.touched.psh_role && validation.errors.psh_role
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_role && validation.errors.psh_role ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_role}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_description")}</Label>
+                  <Input
+                    name="psh_description"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_description || ""}
+                    invalid={
+                      validation.touched.psh_description &&
+                      validation.errors.psh_description
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_description &&
+                  validation.errors.psh_description ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_description}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("psh_status")}</Label>
+                  <Input
+                    name="psh_status"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.psh_status || ""}
+                    invalid={
+                      validation.touched.psh_status &&
+                      validation.errors.psh_status
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.psh_status &&
+                  validation.errors.psh_status ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.psh_status}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="text-end">
+                    {update_loading ? (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        <Spinner size={"sm"} color="#fff" />
+                        {t("Save")}
+                      </Button>
+                    ) : (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        {t("Save")}
+                      </Button>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+          </ModalBody>
+        </Modal>
       </div>
+      {/* </div> */}
       <ToastContainer />
     </React.Fragment>
   );

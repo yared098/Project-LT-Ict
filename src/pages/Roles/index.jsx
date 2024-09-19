@@ -50,7 +50,7 @@ import moment from "moment";
 //Import Flatepicker
 import "flatpickr/dist/themes/material_blue.css";
 import Flatpickr from "react-flatpickr";
-import PermissionListTable from "../../components/Common/PermissionListTable"
+import PermissionListTable from "../../components/Common/PermissionListTable";
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
@@ -59,7 +59,7 @@ const truncateText = (text, maxLength) => {
   return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;
 };
 
-const RolesModel = ({onSelectItem}) => {
+const RolesModel = ({ onSelectItem }) => {
   //meta title
   document.title = " Roles";
 
@@ -68,10 +68,8 @@ const RolesModel = ({onSelectItem}) => {
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [RoleMetaData,setRoleMetaData]=useState({});
+  const [RoleMetaData, setRoleMetaData] = useState({});
   const [showCanvas, setShowCanvas] = useState(false);
-
-  
 
   const [roles, setRoles] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
@@ -187,7 +185,7 @@ const RolesModel = ({onSelectItem}) => {
   const handleRolesClick = (arg) => {
     const roles = arg;
     // console.log("handleRolesClick", roles);
-   
+
     setRoles({
       rol_id: roles.rol_id,
       rol_name: roles.rol_name,
@@ -208,8 +206,8 @@ const RolesModel = ({onSelectItem}) => {
 
   const handleClick = (data) => {
     setShowCanvas(!showCanvas); // Toggle canvas visibility
-    console.log(data,"project data")
-    setRoleMetaData(data)
+    console.log(data, "project data");
+    setRoleMetaData(data);
   };
 
   const onClickDelete = (roles) => {
@@ -291,9 +289,8 @@ const RolesModel = ({onSelectItem}) => {
               color="primary"
               className="btn-sm"
               onClick={() => {
-                
                 const data = cellProps.row.original;
-                onSelectItem(data)
+                onSelectItem(data);
                 // toggleViewModal(data);
                 // setTransaction(cellProps.row.original);
               }}
@@ -320,7 +317,6 @@ const RolesModel = ({onSelectItem}) => {
                   onClick={() => {
                     const data = cellProps.row.original;
                     handleRolesClick(data);
-                    
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
@@ -347,24 +343,26 @@ const RolesModel = ({onSelectItem}) => {
                     Delete
                   </UncontrolledTooltip>
                 </Link>
-              )},
+              )}
               {/* side slider */}
               {cellProps.row.original.is_editable && (
-                   <Link to="#" className="text-secondary" 
-                   onClick={() => {
+                <Link
+                  to="#"
+                  className="text-secondary"
+                  onClick={() => {
                     const roledata = cellProps.row.original;
                     // console.log("handleProjectClick before edit", ProjectData);
                     handleClick(roledata);
                     // console.log("update search result table dtata",)
                   }}
                   //  onClick={handleClick}
-                   >
-                   <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
-   
-                   <UncontrolledTooltip placement="top" target="viewtooltip">
-                     View
-                   </UncontrolledTooltip>
-                 </Link>
+                >
+                  <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
+
+                  <UncontrolledTooltip placement="top" target="viewtooltip">
+                    View
+                  </UncontrolledTooltip>
+                </Link>
               )}
             </div>
           );
@@ -557,7 +555,7 @@ const RolesModel = ({onSelectItem}) => {
         <PermissionListTable
           handleClick={handleClick}
           showCanvas={showCanvas}
-          canvasWidth={60}
+          canvasWidth={75}
           data={RoleMetaData}
         />
       )}

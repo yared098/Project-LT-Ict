@@ -44,7 +44,7 @@ import {
   CardBody,
   FormGroup,
   Badge,
-  CardSubtitle
+  CardSubtitle,
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
@@ -61,16 +61,15 @@ const truncateText = (text, maxLength) => {
 };
 
 const ProjectDocumentModel = (props) => {
-  // get passed data from the right of canva 
-  const {documentData}=props;
-  
+  // get passed data from the right of canva
+  const { documentData } = props;
+
   //meta title
   document.title = " ProjectDocument";
 
   const { t } = useTranslation();
-  // add new file 
+  // add new file
   const [file, setFile] = useState(null);
-  
 
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
@@ -82,8 +81,6 @@ const ProjectDocumentModel = (props) => {
   //START FOREIGN CALLS
   const [documentTypeOptions, setDocumentTypeOptions] = useState([]);
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
-
-
 
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -112,28 +109,28 @@ const ProjectDocumentModel = (props) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   }
 
-    // Handle file input change
-    const handleFileChange = (e) => {
-      setFile(e.target.files[0]);
-    
-        const file = e.target.files[0];
-        if (file) {
-          setFile(file);
-          // Get the file size in bytes
-          const fileSizeInBytes = file.size;
-        
-          
-          // Convert the size to KB or MB (here, it’s converted to KB)
-          const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
+  // Handle file input change
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
 
-          //Update form values with the file path, extension, and size
-          validation.setFieldValue('prd_file_path', file.name);
-          validation.setFieldValue('prd_file_extension', file.name.split('.').pop());
-          validation.setFieldValue('prd_size', `${fileSizeInKB} KB`); // Set the size in KB
-        }
-      
-    };
-  
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+      // Get the file size in bytes
+      const fileSizeInBytes = file.size;
+
+      // Convert the size to KB or MB (here, it’s converted to KB)
+      const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // Convert to KB
+
+      //Update form values with the file path, extension, and size
+      validation.setFieldValue("prd_file_path", file.name);
+      validation.setFieldValue(
+        "prd_file_extension",
+        file.name.split(".").pop()
+      );
+      validation.setFieldValue("prd_size", `${fileSizeInKB} KB`); // Set the size in KB
+    }
+  };
 
   useEffect(() => {
     const fetchDocumentType = async () => {
@@ -167,11 +164,11 @@ const ProjectDocumentModel = (props) => {
 
     initialValues: {
       prd_project_id: documentData,
-      prd_file:file,
+      prd_file: file,
       prd_name: (projectDocument && projectDocument.prd_name) || "",
       prd_file_path: (projectDocument && projectDocument.prd_file_path) || "",
-      
-      prd_size:(projectDocument && projectDocument.prd_size) || "", 
+
+      prd_size: (projectDocument && projectDocument.prd_size) || "",
       prd_file_extension:
         (projectDocument && projectDocument.prd_file_extension) || "",
       prd_uploaded_date:
@@ -182,7 +179,6 @@ const ProjectDocumentModel = (props) => {
 
       is_deletable: (projectDocument && projectDocument.is_deletable) || 1,
       is_editable: (projectDocument && projectDocument.is_editable) || 1,
-
     },
 
     validationSchema: Yup.object({
@@ -204,7 +200,7 @@ const ProjectDocumentModel = (props) => {
         const updateProjectDocument = {
           prd_id: projectDocument ? projectDocument.prd_id : 0,
           prd_project_id: values.prd_project_id,
-          prd_file:values.prd_file,
+          prd_file: values.prd_file,
           prd_name: values.prd_name,
           prd_file_path: values.prd_file_path,
           prd_size: values.prd_size,
@@ -223,7 +219,7 @@ const ProjectDocumentModel = (props) => {
         const newProjectDocument = {
           prd_project_id: values.prd_project_id,
           prd_name: values.prd_name,
-          prd_file:values.prd_file,
+          prd_file: values.prd_file,
           prd_file_path: values.prd_file_path,
           prd_size: values.prd_size,
           prd_file_extension: values.prd_file_extension,
@@ -233,10 +229,10 @@ const ProjectDocumentModel = (props) => {
         };
         // save new ProjectDocuments
         dispatch(onAddProjectDocument(newProjectDocument));
-        
+
         validation.resetForm();
         // Reset the form
-         setFile(null);
+        setFile(null);
       }
     },
   });
@@ -304,7 +300,7 @@ const ProjectDocumentModel = (props) => {
     // console.log("handleProjectDocumentClick", projectDocument);
     setProjectDocument({
       prd_id: projectDocument.prd_id,
-      prd_file:projectDocument.prd_file,
+      prd_file: projectDocument.prd_file,
       prd_project_id: projectDocument.prd_project_id,
       prd_name: projectDocument.prd_name,
       prd_file_path: projectDocument.prd_file_path,
@@ -555,94 +551,95 @@ const ProjectDocumentModel = (props) => {
         onDeleteClick={handleDeleteProjectDocument}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="page-content">
-        <div className="container-fluid">
 
-          {documentData?null : <Breadcrumbs
+      <div className="container-fluid">
+        {documentData ? null : (
+          <Breadcrumbs
             title={t("project_document")}
             breadcrumbItem={t("project_document")}
-          />}
-          {/* <Breadcrumbs
+          />
+        )}
+        {/* <Breadcrumbs
             title={t("project_document")}
             breadcrumbItem={t("project_document")}
           /> */}
-          {isLoading || searchLoading ? (
-            <Spinners setLoading={setLoading} />
-          ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handleProjectDocumentClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") + " " + t("project_document")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          )}
-        
-          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-              <ModalHeader toggle={toggle} tag="h4">
-                {!!isEdit
-                  ? t("edit") + " " + t("project_document")
-                  : t("add") + " " + t("project_document")}
-              </ModalHeader>
-              <ModalBody>
-                <Form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    validation.handleSubmit();
-                    const modalCallback = () => setModal(false);
-                    if (isEdit) {
-                      onUpdateProjectDocument(validation.values, modalCallback);
-                    } else {
-                      onAddProjectDocument(validation.values, modalCallback);
-                    }
-                    return false;
-                  }}
-                >
-                  <Row>
-                    {/* Document Type (Unchanged) */}
-                    <Col className="col-md-6 mb-3">
-                      <Label>{t("prd_document_type_id")}</Label>
-                      <Input
-                        name="prd_document_type_id"
-                        type="select"
-                        className="form-select"
-                        onChange={handleDocumentTypeChange}
-                        onBlur={validation.handleBlur}
-                        value={selectedDocumentType}
-                      >
-                        {documentTypeOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {t(`${option.label}`)}
-                          </option>
-                        ))}
-                      </Input>
-                      {validation.touched.prd_document_type_id &&
-                      validation.errors.prd_document_type_id ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prd_document_type_id}
-                        </FormFeedback>
-                      ) : null}
-                    </Col>
-                    {/* Project ID */}
-                    {/* <Col className="col-md-6 mb-3">
+        {isLoading || searchLoading ? (
+          <Spinners setLoading={setLoading} />
+        ) : (
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardBody>
+                  <TableContainer
+                    columns={columns}
+                    data={showSearchResults ? results : data}
+                    isGlobalFilter={true}
+                    isAddButton={true}
+                    isCustomPageSize={true}
+                    handleUserClick={handleProjectDocumentClicks}
+                    isPagination={true}
+                    // SearchPlaceholder="26 records..."
+                    SearchPlaceholder={26 + " " + t("Results") + "..."}
+                    buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                    buttonName={t("add") + " " + t("project_document")}
+                    tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                    theadClass="table-light"
+                    pagination="pagination"
+                    paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        )}
+
+        <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+          <ModalHeader toggle={toggle} tag="h4">
+            {!!isEdit
+              ? t("edit") + " " + t("project_document")
+              : t("add") + " " + t("project_document")}
+          </ModalHeader>
+          <ModalBody>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                validation.handleSubmit();
+                const modalCallback = () => setModal(false);
+                if (isEdit) {
+                  onUpdateProjectDocument(validation.values, modalCallback);
+                } else {
+                  onAddProjectDocument(validation.values, modalCallback);
+                }
+                return false;
+              }}
+            >
+              <Row>
+                {/* Document Type (Unchanged) */}
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("prd_document_type_id")}</Label>
+                  <Input
+                    name="prd_document_type_id"
+                    type="select"
+                    className="form-select"
+                    onChange={handleDocumentTypeChange}
+                    onBlur={validation.handleBlur}
+                    value={selectedDocumentType}
+                  >
+                    {documentTypeOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {t(`${option.label}`)}
+                      </option>
+                    ))}
+                  </Input>
+                  {validation.touched.prd_document_type_id &&
+                  validation.errors.prd_document_type_id ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.prd_document_type_id}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                {/* Project ID */}
+                {/* <Col className="col-md-6 mb-3">
                       <Label>{t("prd_project_id")}</Label>
                       <Input
                         name="prd_project_id"
@@ -666,203 +663,234 @@ const ProjectDocumentModel = (props) => {
                       ) : null}
                     </Col> */}
 
-                    {/* Name */}
-                    <Col className="col-md-6 mb-3">
-                      <Label>{t("prd_name")}</Label>
-                      <Input
-                        name="prd_name"
-                        type="text"
-                        placeholder={t("insert_status_name_amharic")}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.prd_name || ""}
-                        invalid={
-                          validation.touched.prd_name && validation.errors.prd_name
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.prd_name && validation.errors.prd_name ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prd_name}
-                        </FormFeedback>
-                      ) : null}
-                    </Col>
-                    {/* document status */}
-                    <Col className="col-md-6 mb-3">
-                      <Label>{t("prd_status")}</Label>
-                      <Input
-                        name="prd_status"
-                        type="select" // Change to select for dropdown
-                        className="form-select"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.prd_status || ""}
-                        invalid={
-                          validation.touched.prd_status && validation.errors.prd_status
-                            ? true
-                            : false
-                        }
-                      >
-                        <option value="">{t("Select Status")}</option> {/* Default option */}
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                      </Input>
-                      {validation.touched.prd_status && validation.errors.prd_status ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prd_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col>
+                {/* Name */}
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("prd_name")}</Label>
+                  <Input
+                    name="prd_name"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.prd_name || ""}
+                    invalid={
+                      validation.touched.prd_name && validation.errors.prd_name
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.prd_name && validation.errors.prd_name ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.prd_name}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                {/* document status */}
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("prd_status")}</Label>
+                  <Input
+                    name="prd_status"
+                    type="select" // Change to select for dropdown
+                    className="form-select"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.prd_status || ""}
+                    invalid={
+                      validation.touched.prd_status &&
+                      validation.errors.prd_status
+                        ? true
+                        : false
+                    }
+                  >
+                    <option value="">{t("Select Status")}</option>{" "}
+                    {/* Default option */}
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                  </Input>
+                  {validation.touched.prd_status &&
+                  validation.errors.prd_status ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.prd_status}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
 
-                    <Col className="col-md-6 mb-3">
-                      <Label>{t("prd_description")}</Label>
-                      <Input
-                        name="prd_description"
-                        type="text"
-                        placeholder={t("insert_status_name_amharic")}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.prd_description || ""}
-                        invalid={
-                          validation.touched.prd_description && validation.errors.prd_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.prd_description && validation.errors.prd_description ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.prd_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("prd_description")}</Label>
+                  <Input
+                    name="prd_description"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.prd_description || ""}
+                    invalid={
+                      validation.touched.prd_description &&
+                      validation.errors.prd_description
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.prd_description &&
+                  validation.errors.prd_description ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.prd_description}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
 
-                      {/* PDF File Picker */}
-                  
+                {/* PDF File Picker */}
 
-                      <Row>
-  <Col className="col-12">
-    <Card>
-      <CardBody>
-        <CardSubtitle className="mb-3">
-          Attach or upload your PDF file here!
-        </CardSubtitle>
-        <Form>
-          <Dropzone
-            accept={{ 'application/pdf': [] }} // Only allow PDF files
-            onDrop={(acceptedFiles, rejectedFiles) => {
-              const maxSize = 5 * 1024 * 1024; // 5 MB limit
+                <Row>
+                  <Col className="col-12">
+                    <Card>
+                      <CardBody>
+                        <CardSubtitle className="mb-3">
+                          Attach or upload your PDF file here!
+                        </CardSubtitle>
+                        <Form>
+                          <Dropzone
+                            accept={{ "application/pdf": [] }} // Only allow PDF files
+                            onDrop={(acceptedFiles, rejectedFiles) => {
+                              const maxSize = 5 * 1024 * 1024; // 5 MB limit
 
-              // Filter out files larger than the max size
-              const validFiles = acceptedFiles.filter(file => file.size <= maxSize);
-              const oversizedFiles = acceptedFiles.filter(file => file.size > maxSize);
+                              // Filter out files larger than the max size
+                              const validFiles = acceptedFiles.filter(
+                                (file) => file.size <= maxSize
+                              );
+                              const oversizedFiles = acceptedFiles.filter(
+                                (file) => file.size > maxSize
+                              );
 
-              // Handle oversized files
-              if (oversizedFiles.length > 0) {
-                const oversizedFileNames = oversizedFiles.map(file => file.name).join(', ');
-                alert(`The following files exceed the 5 MB size limit and were rejected: ${oversizedFileNames}`);
-              }
+                              // Handle oversized files
+                              if (oversizedFiles.length > 0) {
+                                const oversizedFileNames = oversizedFiles
+                                  .map((file) => file.name)
+                                  .join(", ");
+                                alert(
+                                  `The following files exceed the 5 MB size limit and were rejected: ${oversizedFileNames}`
+                                );
+                              }
 
-              // Handle rejected files (non-PDFs)
-              if (rejectedFiles.length > 0) {
-                const invalidFiles = rejectedFiles.map(file => file.file.name).join(', ');
-                alert(`These files are not PDFs and were rejected: ${invalidFiles}`);
-              }
+                              // Handle rejected files (non-PDFs)
+                              if (rejectedFiles.length > 0) {
+                                const invalidFiles = rejectedFiles
+                                  .map((file) => file.file.name)
+                                  .join(", ");
+                                alert(
+                                  `These files are not PDFs and were rejected: ${invalidFiles}`
+                                );
+                              }
 
-              // Proceed only with valid files that are PDFs and within size limit
-              if (validFiles.length > 0) {
-                handleAcceptedFiles(validFiles);
+                              // Proceed only with valid files that are PDFs and within size limit
+                              if (validFiles.length > 0) {
+                                handleAcceptedFiles(validFiles);
 
-                // Create a synthetic event for handleFileChange
-                const syntheticEvent = {
-                  target: {
-                    files: validFiles,
-                    name: "prd_file", // Pass the name of the file input
-                  },
-                };
+                                // Create a synthetic event for handleFileChange
+                                const syntheticEvent = {
+                                  target: {
+                                    files: validFiles,
+                                    name: "prd_file", // Pass the name of the file input
+                                  },
+                                };
 
-                handleFileChange(syntheticEvent); // Call handleFileChange with the synthetic event
-              }
-            }}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <div className="dropzone">
-                <div className="dz-message needsclick mt-2" {...getRootProps()}>
-                  <input {...getInputProps({ name: "prd_file" })} />
-                  <div className="mb-3">
-                    <i className="display-4 text-muted bx bxs-cloud-upload" />
-                  </div>
-                  <h4>Drop PDF files here or click to upload (Max size: 5 MB).</h4>
-                </div>
-              </div>
-            )}
-          </Dropzone>
-          <div className="dropzone-previews mt-3" id="file-previews">
-            {selectedFiles.map((f, i) => (
-              <Card
-                className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                key={i + "-file"}
-              >
-                <div className="p-2">
-                  <Row className="align-items-center">
-                    <Col className="col-auto">
-                      <i className="bx bxs-file-pdf text-danger" style={{ fontSize: '80px' }} />
-                    </Col>
-                    <Col>
-                      <Link to="#" className="text-muted font-weight-bold">
-                        {f.name}
-                      </Link>
-                      <p className="mb-0">
-                        <strong>{f.formattedSize}</strong>
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </Form>
-      </CardBody>
-    </Card>
-  </Col>
-</Row>
+                                handleFileChange(syntheticEvent); // Call handleFileChange with the synthetic event
+                              }
+                            }}
+                          >
+                            {({ getRootProps, getInputProps }) => (
+                              <div className="dropzone">
+                                <div
+                                  className="dz-message needsclick mt-2"
+                                  {...getRootProps()}
+                                >
+                                  <input
+                                    {...getInputProps({ name: "prd_file" })}
+                                  />
+                                  <div className="mb-3">
+                                    <i className="display-4 text-muted bx bxs-cloud-upload" />
+                                  </div>
+                                  <h4>
+                                    Drop PDF files here or click to upload (Max
+                                    size: 5 MB).
+                                  </h4>
+                                </div>
+                              </div>
+                            )}
+                          </Dropzone>
+                          <div
+                            className="dropzone-previews mt-3"
+                            id="file-previews"
+                          >
+                            {selectedFiles.map((f, i) => (
+                              <Card
+                                className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                                key={i + "-file"}
+                              >
+                                <div className="p-2">
+                                  <Row className="align-items-center">
+                                    <Col className="col-auto">
+                                      <i
+                                        className="bx bxs-file-pdf text-danger"
+                                        style={{ fontSize: "80px" }}
+                                      />
+                                    </Col>
+                                    <Col>
+                                      <Link
+                                        to="#"
+                                        className="text-muted font-weight-bold"
+                                      >
+                                        {f.name}
+                                      </Link>
+                                      <p className="mb-0">
+                                        <strong>{f.formattedSize}</strong>
+                                      </p>
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </Card>
+                            ))}
+                          </div>
+                        </Form>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
 
-
-                    <Row>
-                      <Col>
-                        <div className="text-end">
-                          {update_loading ? (
-                            <Button
-                              color="success"
-                              type="submit"
-                              className="save-user"
-                              disabled={update_loading || !validation.dirty}
-                            >
-                              <Spinner size={"sm"} color="#fff" />
-                              {t("Save")}
-                            </Button>
-                          ) : (
-                            <Button
-                              color="success"
-                              type="submit"
-                              className="save-user"
-                              disabled={update_loading || !validation.dirty}
-                            >
-                              {t("Save")}
-                            </Button>
-                          )}
-                        </div>
-                      </Col>
-                    </Row>
-                  </Row>
-                </Form>
-              </ModalBody>
-            </Modal>
-
-        </div>
+                <Row>
+                  <Col>
+                    <div className="text-end">
+                      {update_loading ? (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          <Spinner size={"sm"} color="#fff" />
+                          {t("Save")}
+                        </Button>
+                      ) : (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          {t("Save")}
+                        </Button>
+                      )}
+                    </div>
+                  </Col>
+                </Row>
+              </Row>
+            </Form>
+          </ModalBody>
+        </Modal>
       </div>
+
       <ToastContainer />
     </React.Fragment>
   );

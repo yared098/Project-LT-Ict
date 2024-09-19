@@ -60,7 +60,7 @@ const truncateText = (text, maxLength) => {
 
 const BudgetRequestModel = (props) => {
   //  get passed data from tab
-  const {projectid}=props;
+  const { projectid } = props;
   //meta title
   document.title = " BudgetRequest";
 
@@ -504,139 +504,141 @@ const BudgetRequestModel = (props) => {
         onDeleteClick={handleDeleteBudgetRequest}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="page-content">
-        <div className="container-fluid">
-          {/* <Breadcrumbs
+      {/* <div className="page-content"> */}
+      <div className="container-fluid">
+        {/* <Breadcrumbs
             title={t("budget_request")}
             breadcrumbItem={t("budget_request")}
           /> */}
-           {projectid?null : <Breadcrumbs
-             title={t("budget_request")}
-             breadcrumbItem={t("budget_request")}
-          />}
-          {isLoading || searchLoading ? (
-            <Spinners setLoading={setLoading} />
-          ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handleBudgetRequestClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") + " " + t("budget_request")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                    />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          )}
-          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-            <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit
-                ? t("edit") + " " + t("budget_request")
-                : t("add") + " " + t("budget_request")}
-            </ModalHeader>
-            <ModalBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  const modalCallback = () => setModal(false);
-                  if (isEdit) {
-                    onUpdateBudgetRequest(validation.values, modalCallback);
-                  } else {
-                    onAddBudgetRequest(validation.values, modalCallback);
-                  }
-                  return false;
-                }}
-              >
-                <Row>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_budget_year_id")}</Label>
-                    <Input
-                      name="bdr_budget_year_id"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_budget_year_id || ""}
-                      invalid={
-                        validation.touched.bdr_budget_year_id &&
-                        validation.errors.bdr_budget_year_id
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_budget_year_id &&
-                    validation.errors.bdr_budget_year_id ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_budget_year_id}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_requested_amount")}</Label>
-                    <Input
-                      name="bdr_requested_amount"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_requested_amount || ""}
-                      invalid={
-                        validation.touched.bdr_requested_amount &&
-                        validation.errors.bdr_requested_amount
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_requested_amount &&
-                    validation.errors.bdr_requested_amount ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_requested_amount}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_released_amount")}</Label>
-                    <Input
-                      name="bdr_released_amount"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_released_amount || ""}
-                      invalid={
-                        validation.touched.bdr_released_amount &&
-                        validation.errors.bdr_released_amount
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_released_amount &&
-                    validation.errors.bdr_released_amount ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_released_amount}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  {/* <Col className="col-md-6 mb-3">
+        {projectid ? null : (
+          <Breadcrumbs
+            title={t("budget_request")}
+            breadcrumbItem={t("budget_request")}
+          />
+        )}
+        {isLoading || searchLoading ? (
+          <Spinners setLoading={setLoading} />
+        ) : (
+          <Row>
+            <Col xs="12">
+              <Card>
+                <CardBody>
+                  <TableContainer
+                    columns={columns}
+                    data={showSearchResults ? results : data}
+                    isGlobalFilter={true}
+                    isAddButton={true}
+                    isCustomPageSize={true}
+                    handleUserClick={handleBudgetRequestClicks}
+                    isPagination={true}
+                    // SearchPlaceholder="26 records..."
+                    SearchPlaceholder={26 + " " + t("Results") + "..."}
+                    buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                    buttonName={t("add") + " " + t("budget_request")}
+                    tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                    theadClass="table-light"
+                    pagination="pagination"
+                    paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        )}
+        <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+          <ModalHeader toggle={toggle} tag="h4">
+            {!!isEdit
+              ? t("edit") + " " + t("budget_request")
+              : t("add") + " " + t("budget_request")}
+          </ModalHeader>
+          <ModalBody>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                validation.handleSubmit();
+                const modalCallback = () => setModal(false);
+                if (isEdit) {
+                  onUpdateBudgetRequest(validation.values, modalCallback);
+                } else {
+                  onAddBudgetRequest(validation.values, modalCallback);
+                }
+                return false;
+              }}
+            >
+              <Row>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_budget_year_id")}</Label>
+                  <Input
+                    name="bdr_budget_year_id"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_budget_year_id || ""}
+                    invalid={
+                      validation.touched.bdr_budget_year_id &&
+                      validation.errors.bdr_budget_year_id
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_budget_year_id &&
+                  validation.errors.bdr_budget_year_id ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_budget_year_id}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_requested_amount")}</Label>
+                  <Input
+                    name="bdr_requested_amount"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_requested_amount || ""}
+                    invalid={
+                      validation.touched.bdr_requested_amount &&
+                      validation.errors.bdr_requested_amount
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_requested_amount &&
+                  validation.errors.bdr_requested_amount ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_requested_amount}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_released_amount")}</Label>
+                  <Input
+                    name="bdr_released_amount"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_released_amount || ""}
+                    invalid={
+                      validation.touched.bdr_released_amount &&
+                      validation.errors.bdr_released_amount
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_released_amount &&
+                  validation.errors.bdr_released_amount ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_released_amount}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                {/* <Col className="col-md-6 mb-3">
                     <Label>{t("bdr_project_id")}</Label>
                     <Input
                       name="bdr_project_id"
@@ -660,182 +662,182 @@ const BudgetRequestModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col> */}
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_requested_date_ec")}</Label>
-                    <Input
-                      name="bdr_requested_date_ec"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_requested_date_ec || ""}
-                      invalid={
-                        validation.touched.bdr_requested_date_ec &&
-                        validation.errors.bdr_requested_date_ec
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_requested_date_ec &&
-                    validation.errors.bdr_requested_date_ec ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_requested_date_ec}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_requested_date_gc")}</Label>
-                    <Input
-                      name="bdr_requested_date_gc"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_requested_date_gc || ""}
-                      invalid={
-                        validation.touched.bdr_requested_date_gc &&
-                        validation.errors.bdr_requested_date_gc
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_requested_date_gc &&
-                    validation.errors.bdr_requested_date_gc ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_requested_date_gc}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_released_date_ec")}</Label>
-                    <Input
-                      name="bdr_released_date_ec"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_released_date_ec || ""}
-                      invalid={
-                        validation.touched.bdr_released_date_ec &&
-                        validation.errors.bdr_released_date_ec
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_released_date_ec &&
-                    validation.errors.bdr_released_date_ec ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_released_date_ec}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_released_date_gc")}</Label>
-                    <Input
-                      name="bdr_released_date_gc"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_released_date_gc || ""}
-                      invalid={
-                        validation.touched.bdr_released_date_gc &&
-                        validation.errors.bdr_released_date_gc
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_released_date_gc &&
-                    validation.errors.bdr_released_date_gc ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_released_date_gc}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_description")}</Label>
-                    <Input
-                      name="bdr_description"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_description || ""}
-                      invalid={
-                        validation.touched.bdr_description &&
-                        validation.errors.bdr_description
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_description &&
-                    validation.errors.bdr_description ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_description}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                  <Col className="col-md-6 mb-3">
-                    <Label>{t("bdr_status")}</Label>
-                    <Input
-                      name="bdr_status"
-                      type="text"
-                      placeholder={t("insert_status_name_amharic")}
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.bdr_status || ""}
-                      invalid={
-                        validation.touched.bdr_status &&
-                        validation.errors.bdr_status
-                          ? true
-                          : false
-                      }
-                      maxLength={20}
-                    />
-                    {validation.touched.bdr_status &&
-                    validation.errors.bdr_status ? (
-                      <FormFeedback type="invalid">
-                        {validation.errors.bdr_status}
-                      </FormFeedback>
-                    ) : null}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="text-end">
-                      {update_loading ? (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          <Spinner size={"sm"} color="#fff" />
-                          {t("Save")}
-                        </Button>
-                      ) : (
-                        <Button
-                          color="success"
-                          type="submit"
-                          className="save-user"
-                          disabled={update_loading || !validation.dirty}
-                        >
-                          {t("Save")}
-                        </Button>
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-              </Form>
-            </ModalBody>
-          </Modal>
-        </div>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_requested_date_ec")}</Label>
+                  <Input
+                    name="bdr_requested_date_ec"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_requested_date_ec || ""}
+                    invalid={
+                      validation.touched.bdr_requested_date_ec &&
+                      validation.errors.bdr_requested_date_ec
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_requested_date_ec &&
+                  validation.errors.bdr_requested_date_ec ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_requested_date_ec}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_requested_date_gc")}</Label>
+                  <Input
+                    name="bdr_requested_date_gc"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_requested_date_gc || ""}
+                    invalid={
+                      validation.touched.bdr_requested_date_gc &&
+                      validation.errors.bdr_requested_date_gc
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_requested_date_gc &&
+                  validation.errors.bdr_requested_date_gc ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_requested_date_gc}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_released_date_ec")}</Label>
+                  <Input
+                    name="bdr_released_date_ec"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_released_date_ec || ""}
+                    invalid={
+                      validation.touched.bdr_released_date_ec &&
+                      validation.errors.bdr_released_date_ec
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_released_date_ec &&
+                  validation.errors.bdr_released_date_ec ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_released_date_ec}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_released_date_gc")}</Label>
+                  <Input
+                    name="bdr_released_date_gc"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_released_date_gc || ""}
+                    invalid={
+                      validation.touched.bdr_released_date_gc &&
+                      validation.errors.bdr_released_date_gc
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_released_date_gc &&
+                  validation.errors.bdr_released_date_gc ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_released_date_gc}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_description")}</Label>
+                  <Input
+                    name="bdr_description"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_description || ""}
+                    invalid={
+                      validation.touched.bdr_description &&
+                      validation.errors.bdr_description
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_description &&
+                  validation.errors.bdr_description ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_description}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+                <Col className="col-md-6 mb-3">
+                  <Label>{t("bdr_status")}</Label>
+                  <Input
+                    name="bdr_status"
+                    type="text"
+                    placeholder={t("insert_status_name_amharic")}
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.bdr_status || ""}
+                    invalid={
+                      validation.touched.bdr_status &&
+                      validation.errors.bdr_status
+                        ? true
+                        : false
+                    }
+                    maxLength={20}
+                  />
+                  {validation.touched.bdr_status &&
+                  validation.errors.bdr_status ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.bdr_status}
+                    </FormFeedback>
+                  ) : null}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="text-end">
+                    {update_loading ? (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        <Spinner size={"sm"} color="#fff" />
+                        {t("Save")}
+                      </Button>
+                    ) : (
+                      <Button
+                        color="success"
+                        type="submit"
+                        className="save-user"
+                        disabled={update_loading || !validation.dirty}
+                      >
+                        {t("Save")}
+                      </Button>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </Form>
+          </ModalBody>
+        </Modal>
       </div>
+      {/* </div> */}
       <ToastContainer />
     </React.Fragment>
   );

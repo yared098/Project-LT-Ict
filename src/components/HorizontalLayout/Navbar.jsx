@@ -11,6 +11,7 @@ import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 
 const Navbar = (props) => {
+  const [users, setusers] = useState(false);
   const [dashboard, setdashboard] = useState(false);
   const [ui, setui] = useState(false);
   const [app, setapp] = useState(false);
@@ -106,6 +107,26 @@ const Navbar = (props) => {
               id="topnav-menu-content"
             >
               <ul className="navbar-nav">
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link  arrow-none"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setusers(!users);
+                    }}
+                    to="/users"
+                  >
+                    <i className="bx bx-home-circle me-2"></i>
+                    {props.t("Users")} {props.menuOpen}
+                    <div className="arrow-down"></div>
+                  </Link>
+                  <div className={classname("dropdown-menu", { show: users })}>
+                    <Link to="/users" className="dropdown-item">
+                      {props.t("users")}
+                    </Link>
+                  </div>
+                </li>
+
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link  arrow-none"
@@ -487,7 +508,9 @@ const Navbar = (props) => {
                         <Link to="/tasks-list" className="dropdown-item">
                           {props.t("Task List")}
                         </Link>
-                        <Link to="/tasks-kanban" className="dropdown-item">{props.t("Tasks Kanban")}</Link>
+                        <Link to="/tasks-kanban" className="dropdown-item">
+                          {props.t("Tasks Kanban")}
+                        </Link>
                         <Link to="/tasks-create" className="dropdown-item">
                           {props.t("Create Task")}
                         </Link>
@@ -783,7 +806,6 @@ const Navbar = (props) => {
                         <Link to="/maps-google" className="dropdown-item">
                           {props.t("Google Maps")}{" "}
                         </Link>
-
                       </div>
                     </div>
                   </div>

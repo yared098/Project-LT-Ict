@@ -27,7 +27,7 @@ import { createSelector } from "reselect";
 import ProjectModal from "./ProjectModal";
 import { useTranslation } from "react-i18next";
 
-import RightOffCanvas from "../../components/Common/RightOffCanvas"
+import RightOffCanvas from "../../components/Common/RightOffCanvas";
 
 import {
   Button,
@@ -80,7 +80,7 @@ const ProjectModel = () => {
   const [selectedProjectCategory, setSelectedProjectCategory] = useState("");
   const [budgetSourceOptions, setBudgetSourceOptions] = useState([]);
   const [selectedBudgetSource, setSelectedBudgetSource] = useState("");
-  const [projectMetaData,setProjectMetaData]=useState({});
+  const [projectMetaData, setProjectMetaData] = useState({});
   const [showCanvas, setShowCanvas] = useState(false);
 
   useEffect(() => {
@@ -111,10 +111,10 @@ const ProjectModel = () => {
 
   const handleClick = (data) => {
     setShowCanvas(!showCanvas); // Toggle canvas visibility
-    console.log(data,"project data")
-    setProjectMetaData(data)
+    console.log(data, "project data");
+    setProjectMetaData(data);
   };
-  
+
   useEffect(() => {
     const fetchProjectCategory = async () => {
       try {
@@ -976,21 +976,23 @@ const ProjectModel = () => {
                 </Link>
               )}
               {cellProps.row.original.is_editable && (
-                   <Link to="#" className="text-secondary" 
-                   onClick={() => {
+                <Link
+                  to="#"
+                  className="text-secondary"
+                  onClick={() => {
                     const ProjectData = cellProps.row.original;
                     // console.log("handleProjectClick before edit", ProjectData);
                     handleClick(ProjectData);
                     // console.log("update search result table dtata",)
                   }}
                   //  onClick={handleClick}
-                   >
-                   <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
-   
-                   <UncontrolledTooltip placement="top" target="viewtooltip">
-                     View
-                   </UncontrolledTooltip>
-                 </Link>
+                >
+                  <i className="mdi mdi-eye font-size-18" id="viewtooltip" />
+
+                  <UncontrolledTooltip placement="top" target="viewtooltip">
+                    View
+                  </UncontrolledTooltip>
+                </Link>
               )}
 
               {cellProps.row.original.is_deletable && (
@@ -1943,7 +1945,7 @@ const ProjectModel = () => {
         <RightOffCanvas
           handleClick={handleClick}
           showCanvas={showCanvas}
-          canvasWidth={60}
+          canvasWidth={84}
           data={projectMetaData}
         />
       )}
