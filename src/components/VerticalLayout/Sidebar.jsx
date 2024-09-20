@@ -86,37 +86,38 @@ const Sidebar = (props) => {
   useEffect(() => {
     const fetchSidedata = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}menus`, { // Replace with your API endpoint
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json', // Adjust headers if needed
-          },
-          body: JSON.stringify({
-           
-          }),
-        });
-        
+        const response = await fetch(
+          `${import.meta.env.VITE_BASE_API_URL}menus`,
+          {
+            // Replace with your API endpoint
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Adjust headers if needed
+            },
+            body: JSON.stringify({}),
+          }
+        );
+
         const data = await response.json();
-        console.log("fetch menu  response",data.data);
-        
+
         // Group data by `parent_menu`
-          const groupedData = data.data.reduce((acc, curr) => {
-            const { parent_menu, link_name, link_url, link_icon } = curr;
-            if (!acc[parent_menu]) {
-              acc[parent_menu] = {
-                title: parent_menu.charAt(0).toUpperCase() + parent_menu.slice(1),
-                icon: link_icon, 
-                submenu: [],
-              };
-            }
-            acc[parent_menu].submenu.push({
+        const groupedData = data.data.reduce((acc, curr) => {
+          const { parent_menu, link_name, link_url, link_icon } = curr;
+          if (!acc[parent_menu]) {
+            acc[parent_menu] = {
+              title: parent_menu.charAt(0).toUpperCase() + parent_menu.slice(1),
+              icon: link_icon,
+              submenu: [],
+            };
+          }
+          acc[parent_menu].submenu.push({
             //   name: link_name.replace(/-/g, " ").replace(/\b\w/g, char => char.toUpperCase()),
-              name: link_name.replace(/-/g, " "),
-              path: `/${link_url}`,
-            });
-            return acc;
-          }, {});
-          setSidedata(Object.values(groupedData)); // Set fetched data to state
+            name: link_name.replace(/-/g, " "),
+            path: `/${link_url}`,
+          });
+          return acc;
+        }, {});
+        setSidedata(Object.values(groupedData)); // Set fetched data to state
       } catch (error) {
         console.error("Error fetching sidedata:", error);
       }
@@ -171,4 +172,7 @@ const mapStatetoProps = (state) => {
   };
 };
 
-export default connect(mapStatetoProps, {})(withRouter(withTranslation()(Sidebar)));
+export default connect(
+  mapStatetoProps,
+  {}
+)(withRouter(withTranslation()(Sidebar)));

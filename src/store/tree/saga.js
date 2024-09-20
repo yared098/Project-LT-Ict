@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://pms.awashsol.com/api/address_structure";
+const BASE_URL = `${import.meta.env.VITE_BASE_API_URL}address_structure`;
 
 // Centralized API call handler
 const apiCall = async (url, method = "post", data = null, params = {}) => {
@@ -76,7 +76,7 @@ function* addFolderSaga(action) {
       action.payload.rootId,
       action.payload.name
     );
-    console.log("after saga", response.data)
+    console.log("after saga", response.data);
     yield put(addFolderSuccess(response.data));
   } catch (error) {
     yield put(addFolderFailure(error.message));

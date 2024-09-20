@@ -7,12 +7,10 @@ import { Navigate } from "react-router-dom";
 // // File Manager
 import ProjectsTreeView from "../pages/ProjectStatusTree/index";
 
-
 // Pages Calendar
 import Calendar from "../pages/Calendar/index";
 
 import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
-
 
 // Authentication related pages
 import Login from "../pages/Authentication/Login";
@@ -20,11 +18,8 @@ import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 import ForgetPwd from "../pages/Authentication/ForgetPassword";
 
-
-
 // // Dashboard
 import Dashboard from "../pages/Dashboard/index";
-
 
 // //Ui
 import UiAlert from "../pages/Ui/UiAlerts/index";
@@ -73,55 +68,55 @@ import ProjectDocument from "../pages/Projectdocument/index";
 import ProjectPayment from "../pages/Projectpayment/index";
 import Pages from "../pages/Pages/index";
 import Permission from "../pages/Permission/index";
-import ProjectStatus from '../pages/Projectstatus/index';
-import SectorCategory from '../pages/Sectorcategory/index';
-import Users from '../pages/Users/index';
-import UserRole from '../pages/Userrole/index';
-import Roles from '../pages/Roles/index';
-import SectorInformation from '../pages/Sectorinformation/index';
-import ProjectStakeholder from '../pages/Projectstakeholder/index';
-import StakeholderType from '../pages/Stakeholdertype/index';
-import Department from '../pages/Department/index';
-import BudgetRequest from '../pages/Budgetrequest/index';
-import BudgetSource from '../pages/Budgetsource/index';
-import BudgetYear from '../pages/Budgetyear/index';
-import ContractTerminationReason from '../pages/Contractterminationreason/index';
-import ContractorType from '../pages/Contractortype/index';
-import AccessLog from '../pages/Accesslog/index';
+import ProjectStatus from "../pages/Projectstatus/index";
+import SectorCategory from "../pages/Sectorcategory/index";
+import Users from "../pages/Users/index";
+import UserRole from "../pages/Userrole/index";
+import Roles from "../pages/Roles/index";
+import SectorInformation from "../pages/Sectorinformation/index";
+import ProjectStakeholder from "../pages/Projectstakeholder/index";
+import StakeholderType from "../pages/Stakeholdertype/index";
+import Department from "../pages/Department/index";
+import BudgetRequest from "../pages/Budgetrequest/index";
+import BudgetSource from "../pages/Budgetsource/index";
+import BudgetYear from "../pages/Budgetyear/index";
+import ContractTerminationReason from "../pages/Contractterminationreason/index";
+import ContractorType from "../pages/Contractortype/index";
+import AccessLog from "../pages/Accesslog/index";
+import CascadingDropdowns from "../components/Common/CascadingDropdowns";
 
 const authProtectedRoutes = [
-
   { path: "/dashboard", component: <Dashboard /> },
-  
 
   //File Manager
   { path: "/Project-Tree", component: <ProjectsTreeView /> },
-  {path: '/address_structure', component: <AddressStructure/> },
-  {path: '/department', component: <Department/> },
-  {path: '/budget_request', component: <BudgetRequest/> },
-  {path: '/budget_source', component: <BudgetSource/> },
-  {path: '/budget_year', component: <BudgetYear/> },
-  {path: '/contract_termination_reason', component: <ContractTerminationReason/> },
-  {path: '/contractor_type', component: <ContractorType/> },
-  {path: '/document_type', component: <DocumentType/> },
-  {path: '/access_log', component: <AccessLog/> },
-  
+  { path: "/address_structure", component: <AddressStructure /> },
+  { path: "/department", component: <Department /> },
+  { path: "/budget_request", component: <BudgetRequest /> },
+  { path: "/budget_source", component: <BudgetSource /> },
+  { path: "/budget_year", component: <BudgetYear /> },
+  {
+    path: "/contract_termination_reason",
+    component: <ContractTerminationReason />,
+  },
+  { path: "/contractor_type", component: <ContractorType /> },
+  { path: "/document_type", component: <DocumentType /> },
+  { path: "/access_log", component: <AccessLog /> },
 
   // //calendar
   { path: "/calendar", component: <Calendar /> },
 
-  
   { path: "/projects-status", component: <ProjectLists /> },
   { path: "/view-project", component: <ViewProjectPage /> },
 
-  {path: '/project_status', component: <ProjectStatus/> },
-  {path: '/sector_category', component: <SectorCategory/> },
-  {path: '/users', component: <Users/> },
-  {path: '/user_role', component: <UserRole/> },
-  {path: '/roles', component: <Roles/> },
-  {path: '/sector_information', component: <SectorInformation/> },
-  {path: '/project_stakeholder', component: <ProjectStakeholder/> },
-  {path: '/stakeholder_type', component: <StakeholderType/> },
+  { path: "/project_status", component: <ProjectStatus /> },
+  { path: "/sector_category", component: <SectorCategory /> },
+  { path: "/users", component: <Users /> },
+  { path: "/user_role", component: <UserRole /> },
+  { path: "/roles", component: <Roles /> },
+  { path: "/sector_information", component: <SectorInformation /> },
+  { path: "/project_stakeholder", component: <ProjectStakeholder /> },
+  { path: "/stakeholder_type", component: <StakeholderType /> },
   { path: "/document_type", component: <DocumentType /> },
   { path: "/project", component: <Project /> },
   { path: "/project_category", component: <ProjectCategory /> },
@@ -130,7 +125,6 @@ const authProtectedRoutes = [
   { path: "/project_payment", component: <ProjectPayment /> },
   { path: "/pages", component: <Pages /> },
   { path: "/permission", component: <Permission /> },
-
 
   //   // Ui
   { path: "/ui-alerts", component: <UiAlert /> },
@@ -156,7 +150,7 @@ const authProtectedRoutes = [
   { path: "/ui-placeholders", component: <UiPlaceholders /> },
   { path: "/ui-toasts", component: <UiToasts /> },
   { path: "/ui-utilities", component: <UiUtilities /> },
-
+  { path: "/dropdowns", component: <CascadingDropdowns /> },
   //   //Utility
   { path: "/pages-starter", component: <PagesStarter /> },
   { path: "/pages-timeline", component: <PagesTimeline /> },
@@ -174,7 +168,6 @@ const publicRoutes = [
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
   { path: "/register", component: <Register /> },
- 
 ];
 
 // export { authProtectedRoutes, publicRoutes };
