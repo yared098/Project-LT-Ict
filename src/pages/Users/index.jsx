@@ -72,10 +72,10 @@ const UsersModel = () => {
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
-const [addressStructureOptions, setAddressStructureOptions] = useState([]);
-const [selectedAddressStructure, setSelectedAddressStructure] = useState('');
-const [departmentOptions, setDepartmentOptions] = useState([]);
-const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [addressStructureOptions, setAddressStructureOptions] = useState([]);
+  const [selectedAddressStructure, setSelectedAddressStructure] = useState('');
+  const [departmentOptions, setDepartmentOptions] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState('');
 
    useEffect(() => {
     const fetchAddressStructure = async () => {
@@ -84,8 +84,8 @@ const [selectedDepartment, setSelectedDepartment] = useState('');
         `${import.meta.env.VITE_BASE_API_URL}address_structure/listgrid`
         );
         const transformedData = response.data.data.map((item) => ({
-          label: item.add_name_or.toString(),
-          value: item.add_name_or.toString(),
+          label: item.name,
+          value: item.name,
         }));
         const optionsWithDefault = [
           { label: 'select budget year', value: '' },
@@ -126,6 +126,8 @@ const handleDepartmentChange = (e) => {
     setSelectedDepartment(e.target.value);
     validation.setFieldValue('usr_department_id', e.target.value);
   };
+
+
   // validation
   const validation = useFormik({
     // enableReinitialize: use this flag when initial values need to be changed
@@ -255,6 +257,7 @@ usr_status:values.usr_status,
     loading,
     update_loading,
   } = useSelector(usersProperties);
+  console.log("users page ",users)
 
   useEffect(() => {
     console.log("update_loading in useEffect", update_loading);
@@ -604,8 +607,8 @@ usr_status:users.usr_status,
               color="primary"
               className="btn-sm"
               onClick={() => {
-                const data = cellProps.row.original;
-                toggleViewModal(data);
+                const userdata = cellProps.row.original;
+                toggleViewModal(userdata);
                 setTransaction(cellProps.row.original);
               }}
             >
@@ -629,8 +632,8 @@ usr_status:users.usr_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
-                    handleUsersClick(data);
+                    const userdata = cellProps.row.original;                    
+                    handleUsersClick(userdata);
                   }}
                 >
                   <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
@@ -645,8 +648,8 @@ usr_status:users.usr_status,
                   to="#"
                   className="text-danger"
                   onClick={() => {
-                    const data = cellProps.row.original;
-                    onClickDelete(data);
+                    const userdata = cellProps.row.original;
+                    onClickDelete(userdata);
                   }}
                 >
                   <i
@@ -675,6 +678,9 @@ usr_status:users.usr_status,
 
   const dropdawntotal = [project_status];
 
+  console.log("data ",data);
+  console.log("results",results);
+
   return (
     <React.Fragment>
       <UsersModal
@@ -702,7 +708,7 @@ usr_status:users.usr_status,
                   <CardBody>
                     <TableContainer
                       columns={columns}
-                      data={!showSearchResults ? results : data}
+                      data={data}
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}
@@ -885,7 +891,7 @@ usr_status:users.usr_status,
                         </FormFeedback>
                       ) : null}
                     </Col> 
-<Col className='col-md-6 mb-3'>
+           <Col className='col-md-6 mb-3'>
               <Label>{t('usr_zone_id')}</Label>
               <Input
                 name='usr_zone_id'
@@ -894,18 +900,23 @@ usr_status:users.usr_status,
                 onChange={handleAddressStructureChange}
                 onBlur={validation.handleBlur}
                 value={selectedAddressStructure}>
-                {addressStructureOptions.map(option => (
+                {/* {addressStructureOptions.map(option => (
                   <option key={option.value} value={option.value}>
+                    {t(`${option.label}`)}
+                  </option>
+                ))} */}
+                {addressStructureOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
                     {t(`${option.label}`)}
                   </option>
                 ))}
               </Input>
-              {validation.touched.usr_zone_id &&
+              {/* {validation.touched.usr_zone_id &&
               validation.errors.usr_zone_id ? (
                 <FormFeedback type='invalid'>
                   {validation.errors.usr_zone_id}
                 </FormFeedback>
-              ) : null}
+              ) : null} */}
             </Col>
 <Col className='col-md-6 mb-3'>
                       <Label>{t('usr_woreda_id')}</Label>
