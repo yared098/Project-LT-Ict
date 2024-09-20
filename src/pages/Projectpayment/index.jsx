@@ -467,71 +467,72 @@ const ProjectPaymentModel = (props) => {
         onDeleteClick={handleDeleteProjectPayment}
         onCloseClick={() => setDeleteModal(false)}
       />
-      {/* <div className="page-content"> */}
-      <div className="container-fluid">
-        {/* <Breadcrumbs
+
+      <div className={projectid ? "" : "page-content"}>
+        <div className="container-fluid">
+          {/* <Breadcrumbs
             title={t("project_payment")}
             breadcrumbItem={t("project_payment")}
           /> */}
 
-        {projectid ? null : (
-          <Breadcrumbs
-            title={t("project_payment")}
-            breadcrumbItem={t("project_payment")}
-          />
-        )}
+          {projectid ? null : (
+            <Breadcrumbs
+              title={t("project_payment")}
+              breadcrumbItem={t("project_payment")}
+            />
+          )}
 
-        {isLoading || searchLoading ? (
-          <Spinners setLoading={setLoading} />
-        ) : (
-          <Row>
-            <Col xs="12">
-              <Card>
-                <CardBody>
-                  <TableContainer
-                    columns={columns}
-                    data={showSearchResults ? results : data}
-                    isGlobalFilter={true}
-                    isAddButton={true}
-                    isCustomPageSize={true}
-                    handleUserClick={handleProjectPaymentClicks}
-                    isPagination={true}
-                    // SearchPlaceholder="26 records..."
-                    SearchPlaceholder={26 + " " + t("Results") + "..."}
-                    buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                    buttonName={t("add") + " " + t("project_payment")}
-                    tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                    theadClass="table-light"
-                    pagination="pagination"
-                    paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
-                  />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        )}
-        <Modal isOpen={modal} toggle={toggle} className="modal-xl">
-          <ModalHeader toggle={toggle} tag="h4">
-            {!!isEdit
-              ? t("edit") + " " + t("project_payment")
-              : t("add") + " " + t("project_payment")}
-          </ModalHeader>
-          <ModalBody>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                validation.handleSubmit();
-                const modalCallback = () => setModal(false);
-                if (isEdit) {
-                  onUpdateProjectPayment(validation.values, modalCallback);
-                } else {
-                  onAddProjectPayment(validation.values, modalCallback);
-                }
-                return false;
-              }}
-            >
-              <Row>
-                {/* <Col className="col-md-6 mb-3">
+          {isLoading || searchLoading ? (
+            <Spinners setLoading={setLoading} />
+          ) : (
+            <Row>
+              <Col xs="12">
+                <Card>
+                  <CardBody>
+                    <TableContainer
+                      columns={columns}
+                      data={showSearchResults ? results : data}
+                      isGlobalFilter={true}
+                      isAddButton={true}
+                      isCustomPageSize={true}
+                      handleUserClick={handleProjectPaymentClicks}
+                      isPagination={true}
+                      // SearchPlaceholder="26 records..."
+                      SearchPlaceholder={26 + " " + t("Results") + "..."}
+                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
+                      buttonName={t("add") + " " + t("project_payment")}
+                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
+                      theadClass="table-light"
+                      pagination="pagination"
+                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+                    />
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          )}
+          <Modal isOpen={modal} toggle={toggle} className="modal-xl">
+            <ModalHeader toggle={toggle} tag="h4">
+              {!!isEdit
+                ? t("edit") + " " + t("project_payment")
+                : t("add") + " " + t("project_payment")}
+            </ModalHeader>
+            <ModalBody>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  validation.handleSubmit();
+                  const modalCallback = () => setModal(false);
+                  if (isEdit) {
+                    onUpdateProjectPayment(validation.values, modalCallback);
+                  } else {
+                    onAddProjectPayment(validation.values, modalCallback);
+                  }
+                  return false;
+                }}
+              >
+                <Row>
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("prp_project_id")}</Label>
                     <Input
                       name="prp_project_id"
@@ -555,102 +556,104 @@ const ProjectPaymentModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col> */}
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_type")}</Label>
-                  <Input
-                    name="prp_type"
-                    type="text"
-                    placeholder={t("insert_status_name_amharic")}
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_type || ""}
-                    invalid={
-                      validation.touched.prp_type && validation.errors.prp_type
-                        ? true
-                        : false
-                    }
-                    maxLength={20}
-                  />
-                  {validation.touched.prp_type && validation.errors.prp_type ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_type}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_payment_date_et")}</Label>
-                  <Input
-                    name="prp_payment_date_et"
-                    type="text"
-                    placeholder={t("insert_status_name_amharic")}
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_payment_date_et || ""}
-                    invalid={
-                      validation.touched.prp_payment_date_et &&
-                      validation.errors.prp_payment_date_et
-                        ? true
-                        : false
-                    }
-                    maxLength={20}
-                  />
-                  {validation.touched.prp_payment_date_et &&
-                  validation.errors.prp_payment_date_et ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_payment_date_et}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_payment_date_gc")}</Label>
-                  <Input
-                    name="prp_payment_date_gc"
-                    type="text"
-                    placeholder={t("insert_status_name_amharic")}
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_payment_date_gc || ""}
-                    invalid={
-                      validation.touched.prp_payment_date_gc &&
-                      validation.errors.prp_payment_date_gc
-                        ? true
-                        : false
-                    }
-                    maxLength={20}
-                  />
-                  {validation.touched.prp_payment_date_gc &&
-                  validation.errors.prp_payment_date_gc ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_payment_date_gc}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_payment_amount")}</Label>
-                  <Input
-                    name="prp_payment_amount"
-                    type="text"
-                    placeholder={t("insert_status_name_amharic")}
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_payment_amount || ""}
-                    invalid={
-                      validation.touched.prp_payment_amount &&
-                      validation.errors.prp_payment_amount
-                        ? true
-                        : false
-                    }
-                    maxLength={20}
-                  />
-                  {validation.touched.prp_payment_amount &&
-                  validation.errors.prp_payment_amount ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_payment_amount}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                {/* percentage */}
-                {/* <Col className="col-md-6 mb-3">
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_type")}</Label>
+                    <Input
+                      name="prp_type"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.prp_type || ""}
+                      invalid={
+                        validation.touched.prp_type &&
+                        validation.errors.prp_type
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.prp_type &&
+                    validation.errors.prp_type ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_type}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_payment_date_et")}</Label>
+                    <Input
+                      name="prp_payment_date_et"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.prp_payment_date_et || ""}
+                      invalid={
+                        validation.touched.prp_payment_date_et &&
+                        validation.errors.prp_payment_date_et
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.prp_payment_date_et &&
+                    validation.errors.prp_payment_date_et ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_payment_date_et}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_payment_date_gc")}</Label>
+                    <Input
+                      name="prp_payment_date_gc"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.prp_payment_date_gc || ""}
+                      invalid={
+                        validation.touched.prp_payment_date_gc &&
+                        validation.errors.prp_payment_date_gc
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.prp_payment_date_gc &&
+                    validation.errors.prp_payment_date_gc ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_payment_date_gc}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_payment_amount")}</Label>
+                    <Input
+                      name="prp_payment_amount"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.prp_payment_amount || ""}
+                      invalid={
+                        validation.touched.prp_payment_amount &&
+                        validation.errors.prp_payment_amount
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.prp_payment_amount &&
+                    validation.errors.prp_payment_amount ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_payment_amount}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  {/* percentage */}
+                  {/* <Col className="col-md-6 mb-3">
                     <Label>{t("prp_payment_percentage")}</Label>
                     <Input
                       name="prp_payment_percentage"
@@ -674,126 +677,126 @@ const ProjectPaymentModel = (props) => {
                       </FormFeedback>
                     ) : null}
                   </Col> */}
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_payment_percentage")}</Label>
-                  <div className="d-flex align-items-center">
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_payment_percentage")}</Label>
+                    <div className="d-flex align-items-center">
+                      <Input
+                        name="prp_payment_percentage"
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="1"
+                        onChange={(e) =>
+                          validation.handleChange({
+                            target: {
+                              name: e.target.name,
+                              value: e.target.value,
+                            },
+                          })
+                        }
+                        onBlur={validation.handleBlur}
+                        value={validation.values.prp_payment_percentage || ""}
+                        invalid={
+                          validation.touched.prp_payment_percentage &&
+                          validation.errors.prp_payment_percentage
+                            ? true
+                            : false
+                        }
+                        style={{ flex: 1 }}
+                      />
+                      <span className="ml-2">
+                        {validation.values.prp_payment_percentage || "0"}%
+                      </span>
+                    </div>
+                    {validation.touched.prp_payment_percentage &&
+                    validation.errors.prp_payment_percentage ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_payment_percentage}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_description")}</Label>
                     <Input
-                      name="prp_payment_percentage"
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="1"
-                      onChange={(e) =>
-                        validation.handleChange({
-                          target: {
-                            name: e.target.name,
-                            value: e.target.value,
-                          },
-                        })
-                      }
+                      name="prp_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
                       onBlur={validation.handleBlur}
-                      value={validation.values.prp_payment_percentage || ""}
+                      value={validation.values.prp_description || ""}
                       invalid={
-                        validation.touched.prp_payment_percentage &&
-                        validation.errors.prp_payment_percentage
+                        validation.touched.prp_description &&
+                        validation.errors.prp_description
                           ? true
                           : false
                       }
-                      style={{ flex: 1 }}
+                      maxLength={20}
                     />
-                    <span className="ml-2">
-                      {validation.values.prp_payment_percentage || "0"}%
-                    </span>
-                  </div>
-                  {validation.touched.prp_payment_percentage &&
-                  validation.errors.prp_payment_percentage ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_payment_percentage}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_description")}</Label>
-                  <Input
-                    name="prp_description"
-                    type="text"
-                    placeholder={t("insert_status_name_amharic")}
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_description || ""}
-                    invalid={
-                      validation.touched.prp_description &&
-                      validation.errors.prp_description
-                        ? true
-                        : false
-                    }
-                    maxLength={20}
-                  />
-                  {validation.touched.prp_description &&
-                  validation.errors.prp_description ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_description}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-                {/* status */}
-                <Col className="col-md-6 mb-3">
-                  <Label>{t("prp_status")}</Label>
-                  <Input
-                    name="prp_status"
-                    type="select"
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.prp_status || ""}
-                    invalid={
-                      validation.touched.prp_status &&
-                      validation.errors.prp_status
-                        ? true
-                        : false
-                    }
-                  >
-                    <option value="0">{t("inactive")}</option>
-                    <option value="1">{t("active")}</option>
-                  </Input>
-                  {validation.touched.prp_status &&
-                  validation.errors.prp_status ? (
-                    <FormFeedback type="invalid">
-                      {validation.errors.prp_status}
-                    </FormFeedback>
-                  ) : null}
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className="text-end">
-                    {update_loading ? (
-                      <Button
-                        color="success"
-                        type="submit"
-                        className="save-user"
-                        disabled={update_loading || !validation.dirty}
-                      >
-                        <Spinner size={"sm"} color="#fff" />
-                        {t("Save")}
-                      </Button>
-                    ) : (
-                      <Button
-                        color="success"
-                        type="submit"
-                        className="save-user"
-                        disabled={update_loading || !validation.dirty}
-                      >
-                        {t("Save")}
-                      </Button>
-                    )}
-                  </div>
-                </Col>
-              </Row>
-            </Form>
-          </ModalBody>
-        </Modal>
+                    {validation.touched.prp_description &&
+                    validation.errors.prp_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  {/* status */}
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("prp_status")}</Label>
+                    <Input
+                      name="prp_status"
+                      type="select"
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.prp_status || ""}
+                      invalid={
+                        validation.touched.prp_status &&
+                        validation.errors.prp_status
+                          ? true
+                          : false
+                      }
+                    >
+                      <option value="0">{t("inactive")}</option>
+                      <option value="1">{t("active")}</option>
+                    </Input>
+                    {validation.touched.prp_status &&
+                    validation.errors.prp_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.prp_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className="text-end">
+                      {update_loading ? (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          <Spinner size={"sm"} color="#fff" />
+                          {t("Save")}
+                        </Button>
+                      ) : (
+                        <Button
+                          color="success"
+                          type="submit"
+                          className="save-user"
+                          disabled={update_loading || !validation.dirty}
+                        >
+                          {t("Save")}
+                        </Button>
+                      )}
+                    </div>
+                  </Col>
+                </Row>
+              </Form>
+            </ModalBody>
+          </Modal>
+        </div>
       </div>
-      {/* </div> */}
       <ToastContainer />
     </React.Fragment>
   );
