@@ -257,7 +257,7 @@ usr_status:values.usr_status,
     loading,
     update_loading,
   } = useSelector(usersProperties);
-  console.log("users page ",users)
+  
 
   useEffect(() => {
     console.log("update_loading in useEffect", update_loading);
@@ -678,8 +678,8 @@ usr_status:users.usr_status,
 
   const dropdawntotal = [project_status];
 
-  console.log("data ",data);
-  console.log("results",results);
+  console.log("data user ",data);
+  console.log("results user",results);
 
   return (
     <React.Fragment>
@@ -708,7 +708,8 @@ usr_status:users.usr_status,
                   <CardBody>
                     <TableContainer
                       columns={columns}
-                      data={data}
+                      // data={showSearchResults ? results : data}
+                      data={showSearchResults && Array.isArray(results) ? results : Array.isArray(data) ? data : []}  // Ensure data is an array
                       isGlobalFilter={true}
                       isAddButton={true}
                       isCustomPageSize={true}
