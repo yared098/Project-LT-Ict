@@ -66,6 +66,7 @@ const Dashboard = () => {
             <div
               key={index}
               className="col-md-4 mb-4" // 3 columns, 4 units each (12 / 3 = 4)
+              style={{width:`${component.width}`}}
             >
               <DashboardComponent
                 dashboardType={component.dashboard_type}
