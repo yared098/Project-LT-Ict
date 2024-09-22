@@ -84,8 +84,13 @@ import ContractTerminationReason from "../pages/Contractterminationreason/index"
 import ContractorType from "../pages/Contractortype/index";
 import AccessLog from "../pages/Accesslog/index";
 import CascadingDropdowns from "../components/Common/CascadingDropdowns";
+// added new file
+import Dashboardcard from "../Dashboards/Pie";
 
 const authProtectedRoutes = [
+  {path :"/dash",components:<Dashboardcard/>},
+
+
   { path: "/dashboard", component: <Dashboard /> },
 
   //File Manager
