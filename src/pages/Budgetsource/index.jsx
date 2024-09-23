@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo,useRef, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -13,6 +13,12 @@ import SearchComponent from "../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
+
+import { AgGridReact } from "ag-grid-react";
+// import { Button, Input, Row, Col } from 'reactstrap';  // Importing reactstrap components
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 import {
   getBudgetSource as onGetBudgetSource,
@@ -43,6 +49,7 @@ import {
   CardBody,
   FormGroup,
   Badge,
+  
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
@@ -67,6 +74,10 @@ const BudgetSourceModel = () => {
   const [modal, setModal] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+
+  const [quickFilterText, setQuickFilterText] = useState('');
+  const [selectedRows, setSelectedRows] = useState([]);
+  const gridRef = useRef(null);
 
   const [budgetSource, setBudgetSource] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
@@ -245,166 +256,119 @@ pbs_status:budgetSource.pbs_status,
     setShowSearchResults(false);
   };
 
-  const columns = useMemo(() => {
-    const baseColumns = [
-      {
-        header: '',
-        accessorKey: 'pbs_name_or',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_name_or, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
-{
-        header: '',
-        accessorKey: 'pbs_name_am',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_name_am, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
-{
-        header: '',
-        accessorKey: 'pbs_name_en',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_name_en, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
-{
-        header: '',
-        accessorKey: 'pbs_code',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_code, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
-{
-        header: '',
-        accessorKey: 'pbs_description',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_description, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
-{
-        header: '',
-        accessorKey: 'pbs_status',
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <span>
-              {truncateText(cellProps.row.original.pbs_status, 30) ||
-                '-'}
-            </span>
-          );
-        },
-      }, 
+const columnDefs = useMemo(() => {
+  const baseColumns = [
+    {
+      headerCheckboxSelection: true,  // Header checkbox for selecting all
+      checkboxSelection: true,        // Checkbox per row
+      width: 50,                      // Set width for the checkbox column
+    },
+    
+    {
+      headerName: t('pbs_name_or'),
+      
+      field: 'pbs_name_or',
+      sortable: true,
+      
+      filter: true,
+      cellRenderer: (params) => truncateText(params.data.pbs_name_or, 30) || '-',
+    },
+    {
+      headerName: t('pbs_name_am'),
+      field: 'pbs_name_am',
+      sortable: true,
+      filter: true,
+      cellRenderer: (params) => truncateText(params.data.pbs_name_am, 30) || '-',
+    },
+    {
+      headerName: t('pbs_name_en'),
+      field: 'pbs_name_en',
+      sortable: true,
+      filter: true,
+      cellRenderer: (params) => truncateText(params.data.pbs_name_en, 30) || '-',
+    },
+    {
+      headerName: t('pbs_code'),
+      field: 'pbs_code',
+      sortable: true,
+      filter: true,
+      cellRenderer: (params) => truncateText(params.data.pbs_code, 30) || '-',
+    },
+    {
+      headerName: t('pbs_description'),
+      field: 'pbs_description',
+      sortable: true,
+      filter: true,
+      cellRenderer: (params) => truncateText(params.data.pbs_description, 30) || '-',
+    },
+    {
+      headerName: t('pbs_status'),
+      field: 'pbs_status',
+      sortable: true,
+      filter: false,
+      cellRenderer: (params) => truncateText(params.data.pbs_status, 30) || '-',
+    },
+    {
+      headerName: t("view_detail"),
+      sortable: true,
+      filter: false,
+      cellRenderer: (params) => (
+        <Button
+          type="button"
+          color="primary"
+          className="btn-sm"
+          onClick={() => {
+            const data = params.data;
+            toggleViewModal(data);
+            setTransaction(data);
+          }}
+        >
+          {t("view_detail")}
+        </Button>
+      ),
+    },
+  ];
 
-      {
-        header: t("view_detail"),
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <Button
-              type="button"
-              color="primary"
-              className="btn-sm"
-              onClick={() => {
-                const data = cellProps.row.original;
-                toggleViewModal(data);
-                setTransaction(cellProps.row.original);
-              }}
+  if (previledge?.is_role_editable && previledge?.is_role_deletable) {
+    baseColumns.push({
+      headerName: t("Action"),
+      sortable: true,
+      filter: false,
+      cellRenderer: (params) => (
+        <div className="d-flex gap-3">
+          {params.data.is_editable && (
+            <Link
+              to="#"
+              className="text-success"
+              onClick={() => handleBudgetSourceClick(params.data)}
             >
-              {t("view_detail")}
-            </Button>
-          );
-        },
-      },
-    ];
-    if (previledge?.is_role_editable && previledge?.is_role_deletable) {
-      baseColumns.push({
-        header: t("Action"),
-        accessorKey: t("Action"),
-        enableColumnFilter: false,
-        enableSorting: true,
-        cell: (cellProps) => {
-          return (
-            <div className="d-flex gap-3">
-              {cellProps.row.original.is_editable && (
-                <Link
-                  to="#"
-                  className="text-success"
-                  onClick={() => {
-                    const data = cellProps.row.original;                    
-                    handleBudgetSourceClick(data);
-                  }}
-                >
-                  <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
-                  <UncontrolledTooltip placement="top" target="edittooltip">
-                    Edit
-                  </UncontrolledTooltip>
-                </Link>
-              )}
+              <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
+              <UncontrolledTooltip placement="top" target="edittooltip">
+                Edit
+              </UncontrolledTooltip>
+            </Link>
+          )}
 
-              {cellProps.row.original.is_deletable && (
-                <Link
-                  to="#"
-                  className="text-danger"
-                  onClick={() => {
-                    const data = cellProps.row.original;
-                    onClickDelete(data);
-                  }}
-                >
-                  <i
-                    className="mdi mdi-delete font-size-18"
-                    id="deletetooltip"
-                  />
-                  <UncontrolledTooltip placement="top" target="deletetooltip">
-                    Delete
-                  </UncontrolledTooltip>
-                </Link>
-              )}
-            </div>
-          );
-        },
-      });
-    }
+          {params.data.is_deletable && (
+            <Link
+              to="#"
+              className="text-danger"
+              onClick={() => onClickDelete(params.data)}
+            >
+              <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
+              <UncontrolledTooltip placement="top" target="deletetooltip">
+                Delete
+              </UncontrolledTooltip>
+            </Link>
+          )}
+        </div>
+      ),
+    });
+  }
 
-    return baseColumns;
-  }, [handleBudgetSourceClick, toggleViewModal, onClickDelete]);
+  return baseColumns;
+}, [handleBudgetSourceClick, toggleViewModal, onClickDelete]);
+
 
   const project_status = [
     { label: "select Status name", value: "" },
@@ -413,6 +377,24 @@ pbs_status:budgetSource.pbs_status,
   ];
 
   const dropdawntotal = [project_status];
+
+   // When selection changes, update selectedRows
+   const onSelectionChanged = () => {
+    const selectedNodes = gridRef.current.api.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => node.data);
+    setSelectedRows(selectedData);
+  };
+    // Filter by marked rows
+    const filterMarked = () => {
+      if (gridRef.current) {
+        gridRef.current.api.setRowData(selectedRows);
+      }
+    };
+   // Clear the filter and show all rows again
+   const clearFilter = () => {
+    gridRef.current.api.setRowData(showSearchResults ? results : data);
+  };
+
 
   return (
     <React.Fragment>
@@ -435,31 +417,40 @@ pbs_status:budgetSource.pbs_status,
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
-            <Row>
-              <Col xs="12">
-                <Card>
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={showSearchResults ? results : data}
-                      isGlobalFilter={true}
-                      isAddButton={true}
-                      isCustomPageSize={true}
-                      handleUserClick={handleBudgetSourceClicks}
-                      isPagination={true}
-                      // SearchPlaceholder="26 records..."
-                      SearchPlaceholder={26 + " " + t("Results") + "..."}
-                      buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("budget_source")}
-                      tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
-                      theadClass="table-light"
-                      pagination="pagination"
-                      paginationWrapper="dataTables_paginate paging_simple_numbers pagination-rounded"
+            <div className="ag-theme-alpine" style={{ height: '100%', width: '100%' }}>
+                {/* Row for search input and buttons */}
+                <Row className="mb-3">
+                  <Col sm="12" md="6">
+                    {/* Search Input for  Filter */}
+                    <Input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={(e) => setQuickFilterText(e.target.value)}
+                      className="mb-2"
                     />
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
+                  </Col>
+                  <Col sm="12" md="6" className="text-md-end">
+                    
+                    <Button color="primary" className="me-2" onClick={filterMarked}>Filter Marked</Button>
+                    <Button color="secondary" className="me-2" onClick={clearFilter}>Clear Filter</Button>
+                    <Button color="success" onClick={handleBudgetSourceClicks}>Add New</Button>
+                  </Col>
+                </Row>
+
+                {/* AG Grid */}
+                <div style={{ height: '400px' }}>
+                  <AgGridReact
+                    ref={gridRef}
+                    rowData={showSearchResults ? results : data}
+                    columnDefs={columnDefs}
+                    pagination={true}
+                    paginationPageSize={10}
+                    rowSelection="multiple" 
+                    quickFilterText={quickFilterText} 
+                    onSelectionChanged={onSelectionChanged}
+                  />
+                </div>
+              </div>
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
@@ -504,7 +495,7 @@ pbs_status:budgetSource.pbs_status,
                         </FormFeedback>
                       ) : null}
                     </Col> 
-<Col className='col-md-6 mb-3'>
+                     <Col className='col-md-6 mb-3'>
                       <Label>{t('pbs_name_am')}</Label>
                       <Input
                         name='pbs_name_am'
@@ -528,7 +519,7 @@ pbs_status:budgetSource.pbs_status,
                         </FormFeedback>
                       ) : null}
                     </Col> 
-<Col className='col-md-6 mb-3'>
+                    <Col className='col-md-6 mb-3'>
                       <Label>{t('pbs_name_en')}</Label>
                       <Input
                         name='pbs_name_en'
