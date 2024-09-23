@@ -65,22 +65,22 @@ import ProjectDocumentR from "./projectdocument/reducer";
 import ProjectPaymentR from "./projectpayment/reducer";
 import PagesR from "./pages/reducer";
 import PermissionR from "./permission/reducer";
-import ProjectStatusR from './projectstatus/reducer'; 
-import ProjectStakeholderR from './projectstakeholder/reducer'; 
-import RolesR from './roles/reducer'; 
-import SectorCategoryR from './sectorcategory/reducer'; 
-import SectorInformationR from './sectorinformation/reducer'; 
-import StakeholderTypeR from './stakeholdertype/reducer'; 
-import UserRoleR from './userrole/reducer'; 
-import UsersR from './users/reducer';
-import DepartmentR from './department/reducer'; 
-import BudgetSourceR from './budgetsource/reducer';
-import BudgetYearR from './budgetyear/reducer'; 
-import AccessLogR from './accesslog/reducer'; 
-import BudgetRequestR from './budgetrequest/reducer';
-import ContractorTypeR from './contractortype/reducer'; 
-import ContractTerminationReasonR from './contractterminationreason/reducer'; 
-
+import ProjectStatusR from "./projectstatus/reducer";
+import ProjectStakeholderR from "./projectstakeholder/reducer";
+import RolesR from "./roles/reducer";
+import SectorCategoryR from "./sectorcategory/reducer";
+import SectorInformationR from "./sectorinformation/reducer";
+import StakeholderTypeR from "./stakeholdertype/reducer";
+import UserRoleR from "./userrole/reducer";
+import UsersR from "./users/reducer";
+import DepartmentR from "./department/reducer";
+import BudgetSourceR from "./budgetsource/reducer";
+import BudgetYearR from "./budgetyear/reducer";
+import AccessLogR from "./accesslog/reducer";
+import BudgetRequestR from "./budgetrequest/reducer";
+import ContractorTypeR from "./contractortype/reducer";
+import ContractTerminationReasonR from "./contractterminationreason/reducer";
+import notificationReducer from "./notification/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -95,11 +95,11 @@ const rootReducer = combineReducers({
   mails,
 
   invoices,
- 
+
   tasks,
   contacts,
   Dashboard,
- 
+
   search,
   TreeReducer,
 
@@ -125,7 +125,8 @@ const rootReducer = combineReducers({
   AccessLogR,
   BudgetRequestR,
   ContractorTypeR,
-  ContractTerminationReasonR
+  ContractTerminationReasonR,
+  notificationReducer,
 });
 
 export default rootReducer;

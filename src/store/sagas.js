@@ -28,26 +28,25 @@ import ProjectDocumentsaga from "./projectdocument/saga";
 import ProjectPaymentsaga from "./projectpayment/saga";
 import Pagessaga from "./pages/saga";
 import Permissionsaga from "./permission/saga";
-import ProjectStatussaga from './projectstatus/saga';
-import ProjectStakeholdersaga from './projectstakeholder/saga';
-import Rolessaga from './roles/saga';
-import SectorCategorysaga from './sectorcategory/saga';
-import SectorInformationsaga from './sectorinformation/saga';
-import StakeholderTypesaga from './stakeholdertype/saga';
-import Userssaga from './users/saga';
-import UserRolesaga from './userrole/saga';
+import ProjectStatussaga from "./projectstatus/saga";
+import ProjectStakeholdersaga from "./projectstakeholder/saga";
+import Rolessaga from "./roles/saga";
+import SectorCategorysaga from "./sectorcategory/saga";
+import SectorInformationsaga from "./sectorinformation/saga";
+import StakeholderTypesaga from "./stakeholdertype/saga";
+import Userssaga from "./users/saga";
+import UserRolesaga from "./userrole/saga";
 
-import Departmentsaga from './department/saga';
-import BudgetSourcesaga from './budgetsource/saga';
-import AccessLogsaga from './accesslog/saga';
-import BudgetYearsaga from './budgetyear/saga';
-import ContractTerminationReasonsaga from './contractterminationreason/saga';
-import ContractorTypesaga from './contractortype/saga';
-import BudgetRequestsaga from './budgetrequest/saga';
-
+import Departmentsaga from "./department/saga";
+import BudgetSourcesaga from "./budgetsource/saga";
+import AccessLogsaga from "./accesslog/saga";
+import BudgetYearsaga from "./budgetyear/saga";
+import ContractTerminationReasonsaga from "./contractterminationreason/saga";
+import ContractorTypesaga from "./contractortype/saga";
+import BudgetRequestsaga from "./budgetrequest/saga";
+import notificationSaga from "./notification/saga";
 
 // import AccessLogsaga from './accesslog/saga';
-
 
 export default function* rootSaga() {
   yield all([
@@ -59,14 +58,14 @@ export default function* rootSaga() {
     fork(LayoutSaga),
     fork(ProjectStatusSaga),
     fork(calendarSaga),
-    
+
     fork(mailsSaga),
-  
+
     fork(invoiceSaga),
- 
+
     fork(tasksSaga),
     fork(contactsSaga),
-   
+
     fork(watchSearchSaga),
     fork(treeSaga),
     fork(DocumentTypesaga),
@@ -94,6 +93,6 @@ export default function* rootSaga() {
     fork(ContractTerminationReasonsaga),
     fork(ContractorTypesaga),
     fork(DocumentTypesaga),
-  
-]);
+    fork(notificationSaga),
+  ]);
 }
