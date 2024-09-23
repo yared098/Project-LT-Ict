@@ -72,6 +72,8 @@ const BudgetSourceModel = () => {
   const [modal1, setModal1] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
+  const [quickFilterText, setQuickFilterText] = useState('');
+
   const [budgetSource, setBudgetSource] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
@@ -393,11 +395,19 @@ const columnDefs = useMemo(() => {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '400px' }}>
             <div className="ag-theme-alpine" style={{ flex: 1 }}>
+                {/* Search Input for Global Filter */}
+              <input
+                type="text"
+                placeholder="Search..."
+                onChange={(e) => setQuickFilterText(e.target.value)}
+                style={{ marginBottom: '10px', width: '100%' }}
+              />
               <AgGridReact
                 rowData={showSearchResults ? results : data}
                 columnDefs={columnDefs}
                 pagination={true}
                 paginationPageSize={10}
+                quickFilterText={quickFilterText} 
               />
             </div>
           </div>
@@ -445,7 +455,7 @@ const columnDefs = useMemo(() => {
                         </FormFeedback>
                       ) : null}
                     </Col> 
-<Col className='col-md-6 mb-3'>
+                     <Col className='col-md-6 mb-3'>
                       <Label>{t('pbs_name_am')}</Label>
                       <Input
                         name='pbs_name_am'
