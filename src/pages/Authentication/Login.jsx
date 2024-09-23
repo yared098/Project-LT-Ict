@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import withRouter from "../../components/Common/withRouter";
@@ -31,11 +31,23 @@ import { loginUser, socialLogin } from "../../store/actions";
 import profile from "../../assets/images/profile-img.png";
 import logo from "../../assets/images/logo.svg";
 import lightlogo from "../../assets/images/logo-light.svg";
+import { SessionTimeoutContext } from "./Context/SessionTimeoutContext";
 
 const Login = (props) => {
   //meta title
   document.title = "Login | Skote - Vite React Admin & Dashboard Template";
   const dispatch = useDispatch();
+
+  const { resetSession } = useContext(SessionTimeoutContext);
+
+  // Simulate login process
+  const handleLogin = () => {
+    // Your login logic goes here...
+    console.log("User logged in");
+
+    // After successful login, reset the session timer
+    resetSession();
+  };
 
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -57,20 +69,18 @@ const Login = (props) => {
   const LoginProperties = createSelector(
     (state) => state.Login,
     (login) => ({
-      error: login.error
+      error: login.error,
     })
   );
 
-  const {
-    error
-  } = useSelector(LoginProperties);
+  const { error } = useSelector(LoginProperties);
 
-  const signIn = type => {
+  const signIn = (type) => {
     dispatch(socialLogin(type, props.router.navigate));
   };
 
   //for facebook and google authentication
-  const socialResponse = type => {
+  const socialResponse = (type) => {
     signIn(type);
   };
 
@@ -172,13 +182,13 @@ const Login = (props) => {
                           onBlur={validation.handleBlur}
                           invalid={
                             validation.touched.password &&
-                              validation.errors.password
+                            validation.errors.password
                               ? true
                               : false
                           }
                         />
                         {validation.touched.password &&
-                          validation.errors.password ? (
+                        validation.errors.password ? (
                           <FormFeedback type="invalid">
                             {validation.errors.password}
                           </FormFeedback>
@@ -203,6 +213,7 @@ const Login = (props) => {
                         <button
                           className="btn btn-primary btn-block"
                           type="submit"
+                          onClick={handleLogin}
                         >
                           Log In
                         </button>
@@ -216,7 +227,7 @@ const Login = (props) => {
                             <Link
                               to="#"
                               className="social-list-item bg-primary text-white border-primary"
-                              onClick={e => {
+                              onClick={(e) => {
                                 e.preventDefault();
                                 socialResponse("facebook");
                               }}
@@ -224,32 +235,11 @@ const Login = (props) => {
                               <i className="mdi mdi-facebook" />
                             </Link>
                           </li>
-                          {/*<li className="list-inline-item">*/}
-                          {/*  <TwitterLogin*/}
-                          {/*    loginUrl={*/}
-                          {/*      "http://localhost:4000/api/v1/auth/twitter"*/}
-                          {/*    }*/}
-                          {/*    onSuccess={this.twitterResponse}*/}
-                          {/*    onFailure={this.onFailure}*/}
-                          {/*    requestTokenUrl={*/}
-                          {/*      "http://localhost:4000/api/v1/auth/twitter/revers"*/}
-                          {/*    }*/}
-                          {/*    showIcon={false}*/}
-                          {/*    tag={"div"}*/}
-                          {/*  >*/}
-                          {/*    <a*/}
-                          {/*      href=""*/}
-                          {/*      className="social-list-item bg-info text-white border-info"*/}
-                          {/*    >*/}
-                          {/*      <i className="mdi mdi-twitter"/>*/}
-                          {/*    </a>*/}
-                          {/*  </TwitterLogin>*/}
-                          {/*</li>*/}
                           <li className="list-inline-item">
                             <Link
                               to="#"
                               className="social-list-item bg-danger text-white border-danger"
-                              onClick={e => {
+                              onClick={(e) => {
                                 e.preventDefault();
                                 socialResponse("google");
                               }}
@@ -270,19 +260,6 @@ const Login = (props) => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center">
-                <p>
-                  Don&#39;t have an account ?{" "}
-                  <Link to="/register" className="fw-medium text-primary">
-                    {" "}
-                    Signup now{" "}
-                  </Link>{" "}
-                </p>
-                <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
-                </p>
-              </div>
             </Col>
           </Row>
         </Container>
