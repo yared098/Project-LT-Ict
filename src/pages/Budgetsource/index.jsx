@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo,useRef, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -15,8 +15,10 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
 
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+// import { Button, Input, Row, Col } from 'reactstrap';  // Importing reactstrap components
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 import {
   getBudgetSource as onGetBudgetSource,
@@ -47,6 +49,7 @@ import {
   CardBody,
   FormGroup,
   Badge,
+  
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
@@ -73,6 +76,8 @@ const BudgetSourceModel = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const [quickFilterText, setQuickFilterText] = useState('');
+  const [selectedRows, setSelectedRows] = useState([]);
+  const gridRef = useRef(null);
 
   const [budgetSource, setBudgetSource] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false); // Search-specific loading state
@@ -254,10 +259,11 @@ pbs_status:budgetSource.pbs_status,
 const columnDefs = useMemo(() => {
   const baseColumns = [
     {
-      headerName: '', // No header for the checkbox column
-      checkboxSelection: true, // Enable checkbox selection
-      width: 50, // Set a width for the checkbox column
+      headerCheckboxSelection: true,  // Header checkbox for selecting all
+      checkboxSelection: true,        // Checkbox per row
+      width: 50,                      // Set width for the checkbox column
     },
+    
     {
       headerName: t('pbs_name_or'),
       
@@ -372,6 +378,24 @@ const columnDefs = useMemo(() => {
 
   const dropdawntotal = [project_status];
 
+   // When selection changes, update selectedRows
+   const onSelectionChanged = () => {
+    const selectedNodes = gridRef.current.api.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => node.data);
+    setSelectedRows(selectedData);
+  };
+    // Filter by marked rows
+    const filterMarked = () => {
+      if (gridRef.current) {
+        gridRef.current.api.setRowData(selectedRows);
+      }
+    };
+   // Clear the filter and show all rows again
+   const clearFilter = () => {
+    gridRef.current.api.setRowData(showSearchResults ? results : data);
+  };
+
+
   return (
     <React.Fragment>
       <BudgetSourceModal
@@ -393,24 +417,40 @@ const columnDefs = useMemo(() => {
           {isLoading || searchLoading ? (
             <Spinners setLoading={setLoading} />
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '400px' }}>
-            <div className="ag-theme-alpine" style={{ flex: 1 }}>
-                {/* Search Input for Global Filter */}
-              <input
-                type="text"
-                placeholder="Search..."
-                onChange={(e) => setQuickFilterText(e.target.value)}
-                style={{ marginBottom: '10px', width: '100%' }}
-              />
-              <AgGridReact
-                rowData={showSearchResults ? results : data}
-                columnDefs={columnDefs}
-                pagination={true}
-                paginationPageSize={10}
-                quickFilterText={quickFilterText} 
-              />
-            </div>
-          </div>
+            <div className="ag-theme-alpine" style={{ height: '100%', width: '100%' }}>
+                {/* Row for search input and buttons */}
+                <Row className="mb-3">
+                  <Col sm="12" md="6">
+                    {/* Search Input for  Filter */}
+                    <Input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={(e) => setQuickFilterText(e.target.value)}
+                      className="mb-2"
+                    />
+                  </Col>
+                  <Col sm="12" md="6" className="text-md-end">
+                    
+                    <Button color="primary" className="me-2" onClick={filterMarked}>Filter Marked</Button>
+                    <Button color="secondary" className="me-2" onClick={clearFilter}>Clear Filter</Button>
+                    <Button color="success" onClick={handleBudgetSourceClicks}>Add New</Button>
+                  </Col>
+                </Row>
+
+                {/* AG Grid */}
+                <div style={{ height: '400px' }}>
+                  <AgGridReact
+                    ref={gridRef}
+                    rowData={showSearchResults ? results : data}
+                    columnDefs={columnDefs}
+                    pagination={true}
+                    paginationPageSize={10}
+                    rowSelection="multiple" 
+                    quickFilterText={quickFilterText} 
+                    onSelectionChanged={onSelectionChanged}
+                  />
+                </div>
+              </div>
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
@@ -479,7 +519,7 @@ const columnDefs = useMemo(() => {
                         </FormFeedback>
                       ) : null}
                     </Col> 
-<Col className='col-md-6 mb-3'>
+                    <Col className='col-md-6 mb-3'>
                       <Label>{t('pbs_name_en')}</Label>
                       <Input
                         name='pbs_name_en'
