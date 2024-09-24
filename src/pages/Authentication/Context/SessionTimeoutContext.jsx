@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { publicRoutes } from "../../../routes/index";
 
 // Create the context
 export const SessionTimeoutContext = createContext();
@@ -9,6 +11,7 @@ export const SessionTimeoutProvider = ({ children }) => {
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   let inactivityTimeout;
 
@@ -16,6 +19,8 @@ export const SessionTimeoutProvider = ({ children }) => {
   const handleSessionExpiration = () => {
     setIsSessionExpired(true);
     setModal(true); // Show the modal
+    // Clear the authentication token from localStorage to fully log out the user
+    localStorage.removeItem("authUser");
   };
 
   // Start the inactivity timer (2 minutes)
@@ -37,17 +42,27 @@ export const SessionTimeoutProvider = ({ children }) => {
     resetTimer(); // Restart inactivity timer
   };
 
+  // Extract paths from publicRoutes array
+  const publicRoutePaths = publicRoutes.map((route) => route.path);
+
+  // Helper function to check if the current path is public
+  const isPublicRoute = () => {
+    return publicRoutePaths.includes(location.pathname);
+  };
+
   // Event listeners for user activity
   useEffect(() => {
-    window.addEventListener("mousemove", resetTimer);
-    window.addEventListener("keydown", resetTimer);
-    window.addEventListener("click", resetTimer);
-    window.addEventListener("scroll", resetTimer);
-    window.addEventListener("touchstart", resetTimer); // Detect touch events
+    // Start the timer only if the user is not on a public route
+    if (!isPublicRoute()) {
+      window.addEventListener("mousemove", resetTimer);
+      window.addEventListener("keydown", resetTimer);
+      window.addEventListener("click", resetTimer);
+      window.addEventListener("scroll", resetTimer);
+      window.addEventListener("touchstart", resetTimer); // Detect touch events
 
-    // Start the timer when the app loads
-    startInactivityTimer();
-
+      // Start the timer when the app loads
+      startInactivityTimer();
+    }
     return () => {
       window.removeEventListener("mousemove", resetTimer);
       window.removeEventListener("keydown", resetTimer);
@@ -56,7 +71,7 @@ export const SessionTimeoutProvider = ({ children }) => {
       window.removeEventListener("touchstart", resetTimer);
       clearTimeout(inactivityTimeout); // Clear timeout on unmount
     };
-  }, [isSessionExpired]);
+  }, [isSessionExpired, location.pathname]);
 
   // Redirect to login page when session expires
   const redirectToLogin = () => {
