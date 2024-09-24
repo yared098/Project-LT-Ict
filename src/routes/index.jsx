@@ -86,10 +86,10 @@ import AccessLog from "../pages/Accesslog/index";
 import CascadingDropdowns from "../components/Common/CascadingDropdowns";
 // added new file
 import Dashboardcard from "../Dashboards/Pie";
+import Notifications from "../pages/notifications";
 
 const authProtectedRoutes = [
-  {path :"/dash",components:<Dashboardcard/>},
-
+  { path: "/dash", components: <Dashboardcard /> },
 
   { path: "/dashboard", component: <Dashboard /> },
 
@@ -156,6 +156,7 @@ const authProtectedRoutes = [
   { path: "/ui-toasts", component: <UiToasts /> },
   { path: "/ui-utilities", component: <UiUtilities /> },
   { path: "/dropdowns", component: <CascadingDropdowns /> },
+  { path: "/notifications", component: <Notifications /> },
   //   //Utility
   { path: "/pages-starter", component: <PagesStarter /> },
   { path: "/pages-timeline", component: <PagesTimeline /> },
