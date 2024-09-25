@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Collapse } from "reactstrap";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
-import { AiOutlineFolder } from "react-icons/ai";
 import { HiOutlineFolder } from "react-icons/hi";
 
 const TreeNode = ({ node, onNodeClick, level = 0 }) => {

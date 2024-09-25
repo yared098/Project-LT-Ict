@@ -88,7 +88,11 @@ const NotificationDropdown = (props) => {
                 <h6 className="m-0"> {props.t("Notifications")} </h6>
               </Col>
               <div className="col-auto">
-                <Link to={"/notifications"} className="small">
+                <Link
+                  to={"/notifications"}
+                  className="small"
+                  onClick={toggleMenu}
+                >
                   {" "}
                   View All
                 </Link>
@@ -141,6 +145,7 @@ const NotificationDropdown = (props) => {
             <Link
               className="btn btn-sm btn-link font-size-14 btn-block text-center"
               to="/notifications"
+              onClick={toggleMenu}
             >
               <i className="mdi mdi-arrow-right-circle me-1"></i>{" "}
               {props.t("View all")}{" "}
