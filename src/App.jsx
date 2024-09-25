@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 import { connect } from "react-redux";
 
 import { useSelector } from "react-redux";
@@ -23,28 +28,8 @@ import "./assets/scss/theme.scss";
 import { toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper"
-
-import fakeBackend from "/src/helpers/AuthType/projectBackend";
-
-// Activating fake backend
-fakeBackend();
-
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_APP_APIKEY,
-//   authDomain: import.meta.env.VITE_APP_AUTHDOMAIN,
-//   databaseURL: import.meta.env.VITE_APP_DATABASEURL,
-//   projectId: import.meta.env.VITE_APP_PROJECTID,
-//   storageBucket: import.meta.env.VITE_APP_STORAGEBUCKET,
-//   messagingSenderId: import.meta.env.VITE_APP_MESSAGINGSENDERID,
-//   appId: import.meta.env.VITE_APP_APPID,
-//   measurementId: import.meta.env.VITE_APP_MEASUREMENTID,
-// };
-
-// init firebase backend
-// initFirebaseBackend(firebaseConfig)
+import ErrorElement from "./components/Common/ErrorElement";
+import { SessionTimeoutProvider } from "./pages/Authentication/Context/SessionTimeoutContext";
 
 const App = (props) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -92,15 +77,22 @@ const App = (props) => {
 
   const Layout = getLayout(layoutType);
 
-  return (
-    <React.Fragment>
-      <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
         {publicRoutes.map((route, idx) => (
           <Route
             path={route.path}
-            element={<NonAuthLayout>{route.component}</NonAuthLayout>}
+            element={
+              <NonAuthLayout>
+                <SessionTimeoutProvider>
+                  {route.component}
+                </SessionTimeoutProvider>
+              </NonAuthLayout>
+            }
             key={idx}
             exact={true}
+            errorElement={<ErrorElement />}
           />
         ))}
 
@@ -109,16 +101,21 @@ const App = (props) => {
             path={route.path}
             element={
               <Authmiddleware>
-                <Layout>{route.component}</Layout>
+                <SessionTimeoutProvider>
+                  <Layout>{route.component}</Layout>
+                </SessionTimeoutProvider>
               </Authmiddleware>
             }
             key={idx}
             exact={true}
+            errorElement={<ErrorElement />}
           />
         ))}
-      </Routes>
-    </React.Fragment>
+      </>
+    )
   );
+
+  return <RouterProvider router={router} />;
 };
 
 App.propTypes = {
