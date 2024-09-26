@@ -87,6 +87,8 @@ import AccessLog from "../pages/Accesslog/index";
 import CascadingDropdowns from "../components/Common/CascadingDropdowns";
 import Dashboardcard from "../Dashboards/Pie";
 import Notifications from "../pages/notifications";
+import Pages500 from "../pages/Utility/pages-500";
+import Pages404 from "../pages/Utility/pages-404";
 
 const authProtectedRoutes = [
   { path: "/dash", components: <Dashboardcard /> },
@@ -161,8 +163,8 @@ const authProtectedRoutes = [
   //   //Utility
   { path: "/pages-starter", component: <PagesStarter /> },
   { path: "/pages-timeline", component: <PagesTimeline /> },
-  { path: "/pages-faqs", component: <PagesFaqs /> },
-  { path: "/pages-pricing", component: <PagesPricing /> },
+  { path: "/pages-404", component: <Pages404 /> },
+  { path: "/pages-500", component: <Pages500 /> },
 
   //   // this route should be at the end of all other routes
   //   // eslint-disable-next-line react/display-name

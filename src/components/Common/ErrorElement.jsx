@@ -1,33 +1,44 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
+
+//Import Images
+import error from "../../assets/images/error-img.png";
 
 const ErrorElement = () => {
-  const navigate = useNavigate();
+  //meta title
+  document.title =
+    "500 Error Page | Skote - Vite React Admin & Dashboard Template";
+
   return (
-    <section className="bg-white overflow-hidden" style={{ height: "100vh" }}>
-      <div className="container-fluid d-flex align-items-center justify-content-center h-100 px-3 py-5">
-        <div>
-          <p className="text-sm text-danger">500 Internal Server Error</p>
-          <h1 className="mt-3 h3 font-weight-bold text-dark">Oops!</h1>
-          <p className="mt-4 text-muted">
-            Something went wrong. Please try again later.
-          </p>
-
-          <div className="d-flex align-items-center mt-4 gap-2">
-            <Link
-              to={navigate(-1)}
-              className="d-flex align-items-center justify-content-center w-50 btn btn-outline-secondary"
-            >
-              <span className="ml-2">Go back</span>
-            </Link>
-
-            <Link to="/dashboard" className="w-50 btn btn-primary">
-              Take me home
-            </Link>
-          </div>
-        </div>
+    <React.Fragment>
+      <div className="account-pages my-5 pt-5">
+        <Container>
+          <Row>
+            <Col lg="12">
+              <div className="text-center mb-5">
+                <h1 className="display-2 fw-medium">
+                  5<i className="bx bx-buoy bx-spin text-primary display-3" />0
+                </h1>
+                <h4 className="text-uppercase">Internal Server Error</h4>
+                <div className="mt-5 text-center">
+                  <Link className="btn btn-primary " to="/dashboard">
+                    Back to Dashboard
+                  </Link>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col md="8" xl="6">
+              <div>
+                <img src={error} alt="" className="img-fluid" />
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
-    </section>
+    </React.Fragment>
   );
 };
 
