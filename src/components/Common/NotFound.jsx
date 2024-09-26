@@ -1,16 +1,18 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const ErrorElement = () => {
+const NotFound = () => {
   const navigate = useNavigate();
   return (
     <section className="bg-white overflow-hidden" style={{ height: "100vh" }}>
       <div className="container-fluid d-flex align-items-center justify-content-center h-100 px-3 py-5">
         <div>
-          <p className="text-sm text-danger">500 Internal Server Error</p>
-          <h1 className="mt-3 h3 font-weight-bold text-dark">Oops!</h1>
+          <p className="text-sm text-danger">404 Not Found</p>
+          <h1 className="mt-3 h3 font-weight-bold text-dark">
+            We can’t find that page
+          </h1>
           <p className="mt-4 text-muted">
-            Something went wrong. Please try again later.
+            Sorry, the page you are looking for doesn't exist or has been moved.
           </p>
 
           <div className="d-flex align-items-center mt-4 gap-2">
@@ -31,4 +33,4 @@ const ErrorElement = () => {
   );
 };
 
-export default ErrorElement;
+export default NotFound;

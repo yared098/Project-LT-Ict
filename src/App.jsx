@@ -30,6 +30,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorElement from "./components/Common/ErrorElement";
 import { SessionTimeoutProvider } from "./pages/Authentication/Context/SessionTimeoutContext";
+import NotFound from "./components/Common/NotFound";
 
 const App = (props) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -111,6 +112,7 @@ const App = (props) => {
             errorElement={<ErrorElement />}
           />
         ))}
+        <Route path="*" element={<NotFound />} />
       </>
     )
   );

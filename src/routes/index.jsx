@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { components } from "react-select";
 
 // Pages Component
 // import Chat from "../pages/Chat/Chat";
@@ -56,7 +57,7 @@ import PagesFaqs from "../pages/Utility/pages-faqs";
 import PagesPricing from "../pages/Utility/pages-pricing";
 
 import UiProgressbar from "../pages/Ui/UiProgressbar";
-import { components } from "react-select";
+
 // import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
 import AddressStructure from "../pages/AddressTreeStructure/index";
 import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
@@ -84,7 +85,6 @@ import ContractTerminationReason from "../pages/Contractterminationreason/index"
 import ContractorType from "../pages/Contractortype/index";
 import AccessLog from "../pages/Accesslog/index";
 import CascadingDropdowns from "../components/Common/CascadingDropdowns";
-// added new file
 import Dashboardcard from "../Dashboards/Pie";
 import Notifications from "../pages/notifications";
 
@@ -130,6 +130,8 @@ const authProtectedRoutes = [
   { path: "/project_payment", component: <ProjectPayment /> },
   { path: "/pages", component: <Pages /> },
   { path: "/permission", component: <Permission /> },
+  { path: "/dropdowns", component: <CascadingDropdowns /> },
+  { path: "/notifications", component: <Notifications /> },
 
   //   // Ui
   { path: "/ui-alerts", component: <UiAlert /> },
@@ -155,8 +157,7 @@ const authProtectedRoutes = [
   { path: "/ui-placeholders", component: <UiPlaceholders /> },
   { path: "/ui-toasts", component: <UiToasts /> },
   { path: "/ui-utilities", component: <UiUtilities /> },
-  { path: "/dropdowns", component: <CascadingDropdowns /> },
-  { path: "/notifications", component: <Notifications /> },
+
   //   //Utility
   { path: "/pages-starter", component: <PagesStarter /> },
   { path: "/pages-timeline", component: <PagesTimeline /> },
