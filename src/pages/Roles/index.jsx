@@ -529,7 +529,7 @@ const RolesModel = ({ onSelectItem }) => {
                           className="save-user"
                           disabled={update_loading || !validation.dirty}
                         >
-                          <Spinner size={"sm"} color="#fff" />
+                          <Spinner size={"sm"} color="primary" />
                           {t("Save")}
                         </Button>
                       ) : (

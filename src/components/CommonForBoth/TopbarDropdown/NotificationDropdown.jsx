@@ -9,7 +9,10 @@ import { withTranslation } from "react-i18next";
 
 import { createSelector } from "reselect";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchNotificationsRequest } from "../../../store/notification/actions";
+import {
+  fetchNotificationsRequest,
+  markNotificationsAsReadRequest,
+} from "../../../store/notification/actions";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 const NotificationDropdown = (props) => {
@@ -31,7 +34,6 @@ const NotificationDropdown = (props) => {
     notificationProperties
   );
 
-  // Fetch notifications when the component mounts (e.g., when the dashboard loads)
   useEffect(() => {
     dispatch(fetchNotificationsRequest());
   }, [dispatch]);
@@ -48,16 +50,26 @@ const NotificationDropdown = (props) => {
 
   // Function to format notification date to human-readable format
   const formatDate = (dateString) => {
-    const parsedDate = parseISO(dateString); // Parse the string into a Date object
-    return formatDistanceToNow(parsedDate, { addSuffix: true }); // Get a relative time format (e.g., "3 minutes ago")
+    const parsedDate = parseISO(dateString);
+    return formatDistanceToNow(parsedDate, { addSuffix: true });
   };
 
   // Function to handle dropdown toggle
   const toggleMenu = () => {
     setMenu(!menu);
     if (!menu) {
-      setUnreadNotifications(0); // Reset unread notifications when user views them
+      setUnreadNotifications(0);
     }
+  };
+
+  const handleMarkUnreadAsRead = () => {
+    const unreadNotifications = notifications
+      .filter((notification) => notification.not_is_read === 0)
+      .map((notification) => notification.not_id);
+    if (unreadNotifications.length > 0) {
+      dispatch(markNotificationsAsReadRequest(unreadNotifications));
+    }
+    toggleMenu();
   };
 
   return (
@@ -88,13 +100,22 @@ const NotificationDropdown = (props) => {
                 <h6 className="m-0"> {props.t("Notifications")} </h6>
               </Col>
               <div className="col-auto">
-                <Link to={"/notifications"} className="small">
-                  {" "}
-                  View All
-                </Link>
+                {notifications.length > 0 && (
+                  <Link
+                    to={"/notifications"}
+                    className="small"
+                    onClick={handleMarkUnreadAsRead}
+                  >
+                    {" "}
+                    View All
+                  </Link>
+                )}
               </div>
             </Row>
           </div>
+          {notifications.length == 0 && (
+            <h6 className="p-3 text-center">No New Notifications</h6>
+          )}
           {/* If notifications are loading */}
           {loading && <div className="p-3 text-center">Loading...</div>}
 
@@ -138,13 +159,16 @@ const NotificationDropdown = (props) => {
           )}
 
           <div className="p-2 border-top d-grid">
-            <Link
-              className="btn btn-sm btn-link font-size-14 btn-block text-center"
-              to="/notifications"
-            >
-              <i className="mdi mdi-arrow-right-circle me-1"></i>{" "}
-              {props.t("View all")}{" "}
-            </Link>
+            {notifications.length > 0 && (
+              <Link
+                className="btn btn-sm btn-link font-size-14 btn-block text-center"
+                to="/notifications"
+                onClick={handleMarkUnreadAsRead}
+              >
+                <i className="mdi mdi-arrow-right-circle me-1"></i>{" "}
+                {props.t("View all")}{" "}
+              </Link>
+            )}
           </div>
         </DropdownMenu>
       </Dropdown>
