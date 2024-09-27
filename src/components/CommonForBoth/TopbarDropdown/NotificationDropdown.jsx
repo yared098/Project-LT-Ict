@@ -157,8 +157,8 @@ const NotificationDropdown = (props) => {
               ))}
             </SimpleBar>
           )}
-
           <div className="p-2 border-top d-grid">
+
             {notifications.length > 0 && (
               <Link
                 className="btn btn-sm btn-link font-size-14 btn-block text-center"

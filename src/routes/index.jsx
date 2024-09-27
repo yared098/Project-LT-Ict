@@ -1,92 +1,60 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
-// Pages Component
-// import Chat from "../pages/Chat/Chat";
-
-// // File Manager
-import ProjectsTreeView from "../pages/ProjectStatusTree/index";
-
-// Pages Calendar
-import Calendar from "../pages/Calendar/index";
-
-import ProjectLists from "../pages/Projects/ProjectStatusLists/index";
-
-// Authentication related pages
-import Login from "../pages/Authentication/Login";
-import Logout from "../pages/Authentication/Logout";
-import Register from "../pages/Authentication/Register";
-import ForgetPwd from "../pages/Authentication/ForgetPassword";
-
-// // Dashboard
 import Dashboard from "../pages/Dashboard/index";
+import Login from "../pages/Authentication/Login";
 
-// //Ui
-import UiAlert from "../pages/Ui/UiAlerts/index";
-import UiButtons from "../pages/Ui/UiButtons/index";
-import UiCards from "../pages/Ui/UiCard/index";
-import UiCarousel from "../pages/Ui/UiCarousel";
-import UiColors from "../pages/Ui/UiColors";
-import UiDropdown from "../pages/Ui/UiDropdown/index";
-import UiOffCanvas from "../pages/Ui/UiOffCanvas";
+const Calendar = lazy(() => import("../pages/Calendar/index"));
+const ProjectLists = lazy(() =>
+  import("../pages/Projects/ProjectStatusLists/index")
+);
+const ProjectsTreeView = lazy(() => import("../pages/ProjectStatusTree/index"));
+const Logout = lazy(() => import("../pages/Authentication/Logout"));
+const Register = lazy(() => import("../pages/Authentication/Register"));
+const ForgetPwd = lazy(() => import("../pages/Authentication/ForgetPassword"));
 
-import UiGeneral from "../pages/Ui/UiGeneral";
-import UiGrid from "../pages/Ui/UiGrid";
-import UiImages from "../pages/Ui/UiImages";
-import UiLightbox from "../pages/Ui/UiLightbox";
-import UiModal from "../pages/Ui/UiModal/index";
-
-import UiTabsAccordions from "../pages/Ui/UiTabsAccordions";
-import UiTypography from "../pages/Ui/UiTypography";
-import UiVideo from "../pages/Ui/UiVideo";
-import UiSessionTimeout from "../pages/Ui/UiSessionTimeout";
-import UiRating from "../pages/Ui/UiRating";
-import UiRangeSlider from "../pages/Ui/UiRangeSlider";
-import UiNotifications from "../pages/Ui/UINotifications";
-
-import UiPlaceholders from "../pages/Ui/UiPlaceholders";
-import UiToasts from "../pages/Ui/UiToast";
-import UiUtilities from "../pages/Ui/UiUtilities";
-
-// //Pages
-import PagesStarter from "../pages/Utility/pages-starter";
-
-import PagesTimeline from "../pages/Utility/pages-timeline";
-import PagesFaqs from "../pages/Utility/pages-faqs";
-import PagesPricing from "../pages/Utility/pages-pricing";
-
-import UiProgressbar from "../pages/Ui/UiProgressbar";
-import { components } from "react-select";
-// import UiProgressbar from "../../src/pages/Ui/UiProgressbar"
-import AddressStructure from "../pages/AddressTreeStructure/index";
-import ViewProjectPage from "../pages/Projects/ProjectStatusLists/ViewProjectPage";
-import DocumentType from "../pages/Documenttype/index";
-import Project from "../pages/Project/index";
-import ProjectCategory from "../pages/Projectcategory/index";
-import ProjectContractor from "../pages/Projectcontractor/index";
-import ProjectDocument from "../pages/Projectdocument/index";
-import ProjectPayment from "../pages/Projectpayment/index";
-import Pages from "../pages/Pages/index";
-import Permission from "../pages/Permission/index";
-import ProjectStatus from "../pages/Projectstatus/index";
-import SectorCategory from "../pages/Sectorcategory/index";
-import Users from "../pages/Users/index";
-import UserRole from "../pages/Userrole/index";
-import Roles from "../pages/Roles/index";
-import SectorInformation from "../pages/Sectorinformation/index";
-import ProjectStakeholder from "../pages/Projectstakeholder/index";
-import StakeholderType from "../pages/Stakeholdertype/index";
-import Department from "../pages/Department/index";
-import BudgetRequest from "../pages/Budgetrequest/index";
-import BudgetSource from "../pages/Budgetsource/index";
-import BudgetYear from "../pages/Budgetyear/index";
-import ContractTerminationReason from "../pages/Contractterminationreason/index";
-import ContractorType from "../pages/Contractortype/index";
-import AccessLog from "../pages/Accesslog/index";
-import CascadingDropdowns from "../components/Common/CascadingDropdowns";
-// added new file
-import Dashboardcard from "../Dashboards/Pie";
-import Notifications from "../pages/notifications";
+const AddressStructure = lazy(() =>
+  import("../pages/AddressTreeStructure/index")
+);
+const ViewProjectPage = lazy(() =>
+  import("../pages/Projects/ProjectStatusLists/ViewProjectPage")
+);
+const DocumentType = lazy(() => import("../pages/Documenttype/index"));
+const Project = lazy(() => import("../pages/Project/index"));
+const ProjectCategory = lazy(() => import("../pages/Projectcategory/index"));
+const ProjectContractor = lazy(() =>
+  import("../pages/Projectcontractor/index")
+);
+const ProjectDocument = lazy(() => import("../pages/Projectdocument/index"));
+const ProjectPayment = lazy(() => import("../pages/Projectpayment/index"));
+const Pages = lazy(() => import("../pages/Pages/index"));
+const Permission = lazy(() => import("../pages/Permission/index"));
+const ProjectStatus = lazy(() => import("../pages/Projectstatus/index"));
+const SectorCategory = lazy(() => import("../pages/Sectorcategory/index"));
+const Users = lazy(() => import("../pages/Users/index"));
+const UserRole = lazy(() => import("../pages/Userrole/index"));
+const Roles = lazy(() => import("../pages/Roles/index"));
+const SectorInformation = lazy(() =>
+  import("../pages/Sectorinformation/index")
+);
+const ProjectStakeholder = lazy(() =>
+  import("../pages/Projectstakeholder/index")
+);
+const StakeholderType = lazy(() => import("../pages/Stakeholdertype/index"));
+const Department = lazy(() => import("../pages/Department/index"));
+const BudgetRequest = lazy(() => import("../pages/Budgetrequest/index"));
+const BudgetSource = lazy(() => import("../pages/Budgetsource/index"));
+const BudgetYear = lazy(() => import("../pages/Budgetyear/index"));
+const ContractTerminationReason = lazy(() =>
+  import("../pages/Contractterminationreason/index")
+);
+const ContractorType = lazy(() => import("../pages/Contractortype/index"));
+const AccessLog = lazy(() => import("../pages/Accesslog/index"));
+const CascadingDropdowns = lazy(() =>
+  import("../components/Common/CascadingDropdowns")
+);
+const Dashboardcard = lazy(() => import("../Dashboards/Pie"));
+const Notifications = lazy(() => import("../pages/notifications"));
 
 const authProtectedRoutes = [
   { path: "/dash", components: <Dashboardcard /> },
@@ -130,43 +98,12 @@ const authProtectedRoutes = [
   { path: "/project_payment", component: <ProjectPayment /> },
   { path: "/pages", component: <Pages /> },
   { path: "/permission", component: <Permission /> },
-
-  //   // Ui
-  { path: "/ui-alerts", component: <UiAlert /> },
-  { path: "/ui-buttons", component: <UiButtons /> },
-  { path: "/ui-cards", component: <UiCards /> },
-  { path: "/ui-carousel", component: <UiCarousel /> },
-  { path: "/ui-colors", component: <UiColors /> },
-  { path: "/ui-dropdowns", component: <UiDropdown /> },
-  { path: "/ui-offcanvas", component: <UiOffCanvas /> },
-  { path: "/ui-general", component: <UiGeneral /> },
-  { path: "/ui-grid", component: <UiGrid /> },
-  { path: "/ui-images", component: <UiImages /> },
-  { path: "/ui-lightbox", component: <UiLightbox /> },
-  { path: "/ui-modals", component: <UiModal /> },
-  { path: "/ui-progressbars", component: <UiProgressbar /> },
-  { path: "/ui-tabs-accordions", component: <UiTabsAccordions /> },
-  { path: "/ui-typography", component: <UiTypography /> },
-  { path: "/ui-video", component: <UiVideo /> },
-  { path: "/ui-session-timeout", component: <UiSessionTimeout /> },
-  { path: "/ui-rating", component: <UiRating /> },
-  { path: "/ui-rangeslider", component: <UiRangeSlider /> },
-  { path: "/ui-notifications", component: <UiNotifications /> },
-  { path: "/ui-placeholders", component: <UiPlaceholders /> },
-  { path: "/ui-toasts", component: <UiToasts /> },
-  { path: "/ui-utilities", component: <UiUtilities /> },
   { path: "/dropdowns", component: <CascadingDropdowns /> },
   { path: "/notifications", component: <Notifications /> },
-  //   //Utility
-  { path: "/pages-starter", component: <PagesStarter /> },
-  { path: "/pages-timeline", component: <PagesTimeline /> },
-  { path: "/pages-faqs", component: <PagesFaqs /> },
-  { path: "/pages-pricing", component: <PagesPricing /> },
 
   //   // this route should be at the end of all other routes
   //   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
-  // { path: "/tree", component: <Tree /> },
 ];
 
 const publicRoutes = [

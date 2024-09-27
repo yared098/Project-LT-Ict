@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Row, Table, Button, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import SearchComponent from "./SearchComponent";
 
 import {
   useReactTable,
@@ -14,7 +13,6 @@ import {
 } from "@tanstack/react-table";
 
 import { rankItem } from "@tanstack/match-sorter-utils";
-import JobListGlobalFilter from "./GlobalSearchFilter";
 
 // Column Filter
 const Filter = ({ column }) => {

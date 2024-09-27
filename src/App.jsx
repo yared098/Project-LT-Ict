@@ -1,7 +1,12 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 import { connect } from "react-redux";
 
 import { useSelector } from "react-redux";
@@ -14,37 +19,16 @@ import { authProtectedRoutes, publicRoutes } from "./routes/index";
 import Authmiddleware from "./routes/route";
 
 // layouts Format
+import ErrorElement from "./components/Common/ErrorElement";
+import { SessionTimeoutProvider } from "./pages/Authentication/Context/SessionTimeoutContext";
+import NotFound from "./components/Common/NotFound";
+import Spinners from "./components/Common/Spinner";
 import VerticalLayout from "./components/VerticalLayout/";
 import HorizontalLayout from "./components/HorizontalLayout/";
 import NonAuthLayout from "./components/NonAuthLayout";
 
-// Import scss
-import "./assets/scss/theme.scss";
 import { toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper"
-
-import fakeBackend from "/src/helpers/AuthType/projectBackend";
-
-// Activating fake backend
-fakeBackend();
-
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_APP_APIKEY,
-//   authDomain: import.meta.env.VITE_APP_AUTHDOMAIN,
-//   databaseURL: import.meta.env.VITE_APP_DATABASEURL,
-//   projectId: import.meta.env.VITE_APP_PROJECTID,
-//   storageBucket: import.meta.env.VITE_APP_STORAGEBUCKET,
-//   messagingSenderId: import.meta.env.VITE_APP_MESSAGINGSENDERID,
-//   appId: import.meta.env.VITE_APP_APPID,
-//   measurementId: import.meta.env.VITE_APP_MEASUREMENTID,
-// };
-
-// init firebase backend
-// initFirebaseBackend(firebaseConfig)
 
 const App = (props) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -92,15 +76,22 @@ const App = (props) => {
 
   const Layout = getLayout(layoutType);
 
-  return (
-    <React.Fragment>
-      <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
         {publicRoutes.map((route, idx) => (
           <Route
             path={route.path}
-            element={<NonAuthLayout>{route.component}</NonAuthLayout>}
+            element={
+              <NonAuthLayout>
+                <SessionTimeoutProvider>
+                  <Suspense fallback={<Spinners />}>{route.component}</Suspense>
+                </SessionTimeoutProvider>
+              </NonAuthLayout>
+            }
             key={idx}
             exact={true}
+            errorElement={<ErrorElement />}
           />
         ))}
 
@@ -109,16 +100,26 @@ const App = (props) => {
             path={route.path}
             element={
               <Authmiddleware>
-                <Layout>{route.component}</Layout>
+                <SessionTimeoutProvider>
+                  <Layout>
+                    <Suspense fallback={<Spinners />}>
+                      {route.component}
+                    </Suspense>
+                  </Layout>
+                </SessionTimeoutProvider>
               </Authmiddleware>
             }
             key={idx}
             exact={true}
+            errorElement={<ErrorElement />}
           />
         ))}
-      </Routes>
-    </React.Fragment>
+        <Route path="*" element={<NotFound />} />
+      </>
+    )
   );
+
+  return <RouterProvider router={router} />;
 };
 
 App.propTypes = {

@@ -1,15 +1,11 @@
 import React, { useEffect, useMemo,useRef, useState } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isEmpty, update } from "lodash";
-import "bootstrap/dist/css/bootstrap.min.css";
-import TableContainer from "../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Spinner } from "reactstrap";
 import Spinners from "../../components/Common/Spinner";
-import SearchComponent from "../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
@@ -45,18 +41,9 @@ import {
   Input,
   FormFeedback,
   Label,
-  Card,
-  CardBody,
-  FormGroup,
-  Badge,
   
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
-import moment from "moment";
-
-//Import Flatepicker
-import "flatpickr/dist/themes/material_blue.css";
-import Flatpickr from "react-flatpickr";
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
