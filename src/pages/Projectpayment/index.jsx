@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isEmpty, update } from "lodash";
-import "bootstrap/dist/css/bootstrap.min.css";
 import TableContainer from "../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -45,11 +44,6 @@ import {
   Badge,
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
-import moment from "moment";
-
-//Import Flatepicker
-import "flatpickr/dist/themes/material_blue.css";
-import Flatpickr from "react-flatpickr";
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {

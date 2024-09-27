@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import {
   createBrowserRouter,
@@ -19,18 +19,16 @@ import { authProtectedRoutes, publicRoutes } from "./routes/index";
 import Authmiddleware from "./routes/route";
 
 // layouts Format
+import ErrorElement from "./components/Common/ErrorElement";
+import { SessionTimeoutProvider } from "./pages/Authentication/Context/SessionTimeoutContext";
+import NotFound from "./components/Common/NotFound";
+import Spinners from "./components/Common/Spinner";
 import VerticalLayout from "./components/VerticalLayout/";
 import HorizontalLayout from "./components/HorizontalLayout/";
 import NonAuthLayout from "./components/NonAuthLayout";
 
-// Import scss
-import "./assets/scss/theme.scss";
 import { toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-import ErrorElement from "./components/Common/ErrorElement";
-import { SessionTimeoutProvider } from "./pages/Authentication/Context/SessionTimeoutContext";
-import NotFound from "./components/Common/NotFound";
 
 const App = (props) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -87,7 +85,7 @@ const App = (props) => {
             element={
               <NonAuthLayout>
                 <SessionTimeoutProvider>
-                  {route.component}
+                  <Suspense fallback={<Spinners />}>{route.component}</Suspense>
                 </SessionTimeoutProvider>
               </NonAuthLayout>
             }
@@ -103,7 +101,11 @@ const App = (props) => {
             element={
               <Authmiddleware>
                 <SessionTimeoutProvider>
-                  <Layout>{route.component}</Layout>
+                  <Layout>
+                    <Suspense fallback={<Spinners />}>
+                      {route.component}
+                    </Suspense>
+                  </Layout>
                 </SessionTimeoutProvider>
               </Authmiddleware>
             }

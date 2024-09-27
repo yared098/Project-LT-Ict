@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isEmpty, update } from "lodash";
-import "bootstrap/dist/css/bootstrap.min.css";
 import TableContainer from "../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -677,9 +676,6 @@ usr_status:users.usr_status,
   ];
 
   const dropdawntotal = [project_status];
-
-  console.log("data user ",data);
-  console.log("results user",results);
 
   return (
     <React.Fragment>

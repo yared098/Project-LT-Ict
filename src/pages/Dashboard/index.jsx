@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import axios from 'axios'; // Axios for API requests
 import DashboardComponent from "./Dashboardcomp";

@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Example theme CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/scss/theme.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.Fragment>

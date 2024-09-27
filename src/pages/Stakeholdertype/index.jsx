@@ -1,15 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { isEmpty, update } from "lodash";
-import "bootstrap/dist/css/bootstrap.min.css";
 import TableContainer from "../../components/Common/TableContainer";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Spinner } from "reactstrap";
 import Spinners from "../../components/Common/Spinner";
-import SearchComponent from "../../components/Common/SearchComponent";
 //import components
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import DeleteModal from "../../components/Common/DeleteModal";
@@ -18,7 +15,7 @@ import {
   getStakeholderType as onGetStakeholderType,
   addStakeholderType as onAddStakeholderType,
   updateStakeholderType as onUpdateStakeholderType,
-  deleteStakeholderType as onDeleteStakeholderType
+  deleteStakeholderType as onDeleteStakeholderType,
 } from "../../store/stakeholdertype/actions";
 
 //redux
@@ -45,11 +42,6 @@ import {
   Badge,
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
-import moment from "moment";
-
-//Import Flatepicker
-import "flatpickr/dist/themes/material_blue.css";
-import Flatpickr from "react-flatpickr";
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
@@ -73,30 +65,32 @@ const StakeholderTypeModel = () => {
   const [showSearchResults, setShowSearchResults] = useState(false); // To determine if search results should be displayed
   //START FOREIGN CALLS
 
-  
   // validation
   const validation = useFormik({
     // enableReinitialize: use this flag when initial values need to be changed
     enableReinitialize: true,
 
     initialValues: {
-     sht_type_name_or:(stakeholderType && stakeholderType.sht_type_name_or) || "", 
-sht_type_name_am:(stakeholderType && stakeholderType.sht_type_name_am) || "", 
-sht_type_name_en:(stakeholderType && stakeholderType.sht_type_name_en) || "", 
-sht_description:(stakeholderType && stakeholderType.sht_description) || "", 
-sht_status:(stakeholderType && stakeholderType.sht_status) || "", 
+      sht_type_name_or:
+        (stakeholderType && stakeholderType.sht_type_name_or) || "",
+      sht_type_name_am:
+        (stakeholderType && stakeholderType.sht_type_name_am) || "",
+      sht_type_name_en:
+        (stakeholderType && stakeholderType.sht_type_name_en) || "",
+      sht_description:
+        (stakeholderType && stakeholderType.sht_description) || "",
+      sht_status: (stakeholderType && stakeholderType.sht_status) || "",
 
-is_deletable: (stakeholderType && stakeholderType.is_deletable) || 1,
-is_editable: (stakeholderType && stakeholderType.is_editable) || 1
+      is_deletable: (stakeholderType && stakeholderType.is_deletable) || 1,
+      is_editable: (stakeholderType && stakeholderType.is_editable) || 1,
     },
 
     validationSchema: Yup.object({
-      sht_type_name_or: Yup.string().required(t('sht_type_name_or')),
-sht_type_name_am: Yup.string().required(t('sht_type_name_am')),
-sht_type_name_en: Yup.string().required(t('sht_type_name_en')),
-sht_description: Yup.string().required(t('sht_description')),
-sht_status: Yup.string().required(t('sht_status')),
-
+      sht_type_name_or: Yup.string().required(t("sht_type_name_or")),
+      sht_type_name_am: Yup.string().required(t("sht_type_name_am")),
+      sht_type_name_en: Yup.string().required(t("sht_type_name_en")),
+      sht_description: Yup.string().required(t("sht_description")),
+      sht_status: Yup.string().required(t("sht_status")),
     }),
     validateOnBlur: true,
     validateOnChange: false,
@@ -104,12 +98,12 @@ sht_status: Yup.string().required(t('sht_status')),
       if (isEdit) {
         const updateStakeholderType = {
           sht_id: stakeholderType ? stakeholderType.sht_id : 0,
-          // sht_id:stakeholderType.sht_id, 
-sht_type_name_or:values.sht_type_name_or, 
-sht_type_name_am:values.sht_type_name_am, 
-sht_type_name_en:values.sht_type_name_en, 
-sht_description:values.sht_description, 
-sht_status:values.sht_status, 
+          // sht_id:stakeholderType.sht_id,
+          sht_type_name_or: values.sht_type_name_or,
+          sht_type_name_am: values.sht_type_name_am,
+          sht_type_name_en: values.sht_type_name_en,
+          sht_description: values.sht_description,
+          sht_status: values.sht_status,
 
           is_deletable: values.is_deletable,
           is_editable: values.is_editable,
@@ -119,12 +113,11 @@ sht_status:values.sht_status,
         validation.resetForm();
       } else {
         const newStakeholderType = {
-          sht_type_name_or:values.sht_type_name_or, 
-sht_type_name_am:values.sht_type_name_am, 
-sht_type_name_en:values.sht_type_name_en, 
-sht_description:values.sht_description, 
-sht_status:values.sht_status, 
-
+          sht_type_name_or: values.sht_type_name_or,
+          sht_type_name_am: values.sht_type_name_am,
+          sht_type_name_en: values.sht_type_name_en,
+          sht_description: values.sht_description,
+          sht_status: values.sht_status,
         };
         // save new StakeholderTypes
         dispatch(onAddStakeholderType(newStakeholderType));
@@ -191,16 +184,16 @@ sht_status:values.sht_status,
     }
   };
 
-   const handleStakeholderTypeClick = (arg) => {
+  const handleStakeholderTypeClick = (arg) => {
     const stakeholderType = arg;
     // console.log("handleStakeholderTypeClick", stakeholderType);
     setStakeholderType({
-      sht_id:stakeholderType.sht_id, 
-sht_type_name_or:stakeholderType.sht_type_name_or, 
-sht_type_name_am:stakeholderType.sht_type_name_am, 
-sht_type_name_en:stakeholderType.sht_type_name_en, 
-sht_description:stakeholderType.sht_description, 
-sht_status:stakeholderType.sht_status, 
+      sht_id: stakeholderType.sht_id,
+      sht_type_name_or: stakeholderType.sht_type_name_or,
+      sht_type_name_am: stakeholderType.sht_type_name_am,
+      sht_type_name_en: stakeholderType.sht_type_name_en,
+      sht_description: stakeholderType.sht_description,
+      sht_status: stakeholderType.sht_status,
 
       is_deletable: stakeholderType.is_deletable,
       is_editable: stakeholderType.is_editable,
@@ -243,75 +236,70 @@ sht_status:stakeholderType.sht_status,
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        header: '',
-        accessorKey: 'sht_type_name_or',
+        header: "",
+        accessorKey: "sht_type_name_or",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.sht_type_name_or, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.sht_type_name_or, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'sht_type_name_am',
+      },
+      {
+        header: "",
+        accessorKey: "sht_type_name_am",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.sht_type_name_am, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.sht_type_name_am, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'sht_type_name_en',
+      },
+      {
+        header: "",
+        accessorKey: "sht_type_name_en",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.sht_type_name_en, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.sht_type_name_en, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'sht_description',
+      },
+      {
+        header: "",
+        accessorKey: "sht_description",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.sht_description, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.sht_description, 30) || "-"}
             </span>
           );
         },
-      }, 
-{
-        header: '',
-        accessorKey: 'sht_status',
+      },
+      {
+        header: "",
+        accessorKey: "sht_status",
         enableColumnFilter: false,
         enableSorting: true,
         cell: (cellProps) => {
           return (
             <span>
-              {truncateText(cellProps.row.original.sht_status, 30) ||
-                '-'}
+              {truncateText(cellProps.row.original.sht_status, 30) || "-"}
             </span>
           );
         },
-      }, 
+      },
 
       {
         header: t("view_detail"),
@@ -349,7 +337,7 @@ sht_status:stakeholderType.sht_status,
                   to="#"
                   className="text-success"
                   onClick={() => {
-                    const data = cellProps.row.original;                    
+                    const data = cellProps.row.original;
                     handleStakeholderTypeClick(data);
                   }}
                 >
@@ -404,7 +392,7 @@ sht_status:stakeholderType.sht_status,
       />
       <DeleteModal
         show={deleteModal}
-       onDeleteClick={handleDeleteStakeholderType}
+        onDeleteClick={handleDeleteStakeholderType}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
@@ -431,7 +419,7 @@ sht_status:stakeholderType.sht_status,
                       // SearchPlaceholder="26 records..."
                       SearchPlaceholder={26 + " " + t("Results") + "..."}
                       buttonClass="btn btn-success waves-effect waves-light mb-2 me-2 addOrder-modal"
-                      buttonName={t("add") +" "+ t("stakeholder_type")}
+                      buttonName={t("add") + " " + t("stakeholder_type")}
                       tableClass="align-middle table-nowrap dt-responsive nowrap w-100 table-check dataTable no-footer dtr-inline"
                       theadClass="table-light"
                       pagination="pagination"
@@ -444,7 +432,9 @@ sht_status:stakeholderType.sht_status,
           )}
           <Modal isOpen={modal} toggle={toggle} className="modal-xl">
             <ModalHeader toggle={toggle} tag="h4">
-              {!!isEdit ? (t("edit") + " "+t("stakeholder_type")) : (t("add") +" "+t("stakeholder_type"))}
+              {!!isEdit
+                ? t("edit") + " " + t("stakeholder_type")
+                : t("add") + " " + t("stakeholder_type")}
             </ModalHeader>
             <ModalBody>
               <Form
@@ -461,127 +451,126 @@ sht_status:stakeholderType.sht_status,
                 }}
               >
                 <Row>
-                  <Col className='col-md-6 mb-3'>
-                      <Label>{t('sht_type_name_or')}</Label>
-                      <Input
-                        name='sht_type_name_or'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.sht_type_name_or || ''}
-                        invalid={
-                          validation.touched.sht_type_name_or &&
-                          validation.errors.sht_type_name_or
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.sht_type_name_or &&
-                      validation.errors.sht_type_name_or ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.sht_type_name_or}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('sht_type_name_am')}</Label>
-                      <Input
-                        name='sht_type_name_am'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.sht_type_name_am || ''}
-                        invalid={
-                          validation.touched.sht_type_name_am &&
-                          validation.errors.sht_type_name_am
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.sht_type_name_am &&
-                      validation.errors.sht_type_name_am ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.sht_type_name_am}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('sht_type_name_en')}</Label>
-                      <Input
-                        name='sht_type_name_en'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.sht_type_name_en || ''}
-                        invalid={
-                          validation.touched.sht_type_name_en &&
-                          validation.errors.sht_type_name_en
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.sht_type_name_en &&
-                      validation.errors.sht_type_name_en ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.sht_type_name_en}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('sht_description')}</Label>
-                      <Input
-                        name='sht_description'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.sht_description || ''}
-                        invalid={
-                          validation.touched.sht_description &&
-                          validation.errors.sht_description
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.sht_description &&
-                      validation.errors.sht_description ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.sht_description}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-<Col className='col-md-6 mb-3'>
-                      <Label>{t('sht_status')}</Label>
-                      <Input
-                        name='sht_status'
-                        type='text'
-                        placeholder={t('insert_status_name_amharic')}
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.sht_status || ''}
-                        invalid={
-                          validation.touched.sht_status &&
-                          validation.errors.sht_status
-                            ? true
-                            : false
-                        }
-                        maxLength={20}
-                      />
-                      {validation.touched.sht_status &&
-                      validation.errors.sht_status ? (
-                        <FormFeedback type='invalid'>
-                          {validation.errors.sht_status}
-                        </FormFeedback>
-                      ) : null}
-                    </Col> 
-                
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("sht_type_name_or")}</Label>
+                    <Input
+                      name="sht_type_name_or"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.sht_type_name_or || ""}
+                      invalid={
+                        validation.touched.sht_type_name_or &&
+                        validation.errors.sht_type_name_or
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.sht_type_name_or &&
+                    validation.errors.sht_type_name_or ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.sht_type_name_or}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("sht_type_name_am")}</Label>
+                    <Input
+                      name="sht_type_name_am"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.sht_type_name_am || ""}
+                      invalid={
+                        validation.touched.sht_type_name_am &&
+                        validation.errors.sht_type_name_am
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.sht_type_name_am &&
+                    validation.errors.sht_type_name_am ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.sht_type_name_am}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("sht_type_name_en")}</Label>
+                    <Input
+                      name="sht_type_name_en"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.sht_type_name_en || ""}
+                      invalid={
+                        validation.touched.sht_type_name_en &&
+                        validation.errors.sht_type_name_en
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.sht_type_name_en &&
+                    validation.errors.sht_type_name_en ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.sht_type_name_en}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("sht_description")}</Label>
+                    <Input
+                      name="sht_description"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.sht_description || ""}
+                      invalid={
+                        validation.touched.sht_description &&
+                        validation.errors.sht_description
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.sht_description &&
+                    validation.errors.sht_description ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.sht_description}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
+                  <Col className="col-md-6 mb-3">
+                    <Label>{t("sht_status")}</Label>
+                    <Input
+                      name="sht_status"
+                      type="text"
+                      placeholder={t("insert_status_name_amharic")}
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.sht_status || ""}
+                      invalid={
+                        validation.touched.sht_status &&
+                        validation.errors.sht_status
+                          ? true
+                          : false
+                      }
+                      maxLength={20}
+                    />
+                    {validation.touched.sht_status &&
+                    validation.errors.sht_status ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.sht_status}
+                      </FormFeedback>
+                    ) : null}
+                  </Col>
                 </Row>
                 <Row>
                   <Col>

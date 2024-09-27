@@ -1,8 +1,7 @@
-const apiUrl = import.meta.env.VITE_APP_API_TREE_BASE_URL;
+const apiUrl = import.meta.env.VITE_BASE_API_URL;
 import React, { useState, useEffect } from "react";
 import TreeNode from "./TreeNode"; // Import the updated TreeNode component
 import { Container, Row, Col, Button, Input, Spinner, Alert } from "reactstrap"; // Import components from reactstrap
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 
 const Index = () => {
   const [treeDataState, setTreeData] = useState([]);
@@ -16,7 +15,7 @@ const Index = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/listgrid`, {
+        const response = await fetch(`${apiUrl}address_structure/listgrid`, {
           method: "POST",
         });
         if (!response.ok) {
@@ -80,7 +79,7 @@ const Index = () => {
 
     try {
       const response = await fetch(
-        `${apiUrl}/insertgrid?rootId=${encodeURIComponent(
+        `${apiUrl}address_structure/insertgrid?rootId=${encodeURIComponent(
           selectedNode.id
         )}&name=${encodeURIComponent(newSubFolderName)}`,
         {
@@ -129,7 +128,7 @@ const Index = () => {
 
       try {
         const response = await fetch(
-          `${apiUrl}/updategrid?rootId=${encodeURIComponent(
+          `${apiUrl}address_structure/updategrid?rootId=${encodeURIComponent(
             selectedNode.rootId
           )}&name=${encodeURIComponent(newName)}&id=${encodeURIComponent(
             selectedNode.id
@@ -170,7 +169,7 @@ const Index = () => {
 
     try {
       const response = await fetch(
-        `https://pms.awashsol.com/api/address_structure/deletegrid?id=${node.id}`,
+        `${apiUrl}address_structure/deletegrid?id=${node.id}`,
         {
           method: "POST",
         }
@@ -213,7 +212,7 @@ const Index = () => {
   }
 
   return (
-    <Container fluid className="vh-100 bg-danger">
+    <Container fluid className="vh-100 bg-white mt-3">
       <Row className="h-100">
         <Col
           md={4}
