@@ -41,6 +41,8 @@ import {
   CardBody,
 } from "reactstrap";
 import { ToastContainer } from "react-toastify";
+import { error } from "toastr";
+
 
 const truncateText = (text, maxLength) => {
   if (typeof text !== "string") {
@@ -53,6 +55,7 @@ const DepartmentModel = () => {
   //meta title
   document.title = " Department";
 
+ 
   const { t } = useTranslation();
 
   const [modal, setModal] = useState(false);
@@ -158,6 +161,7 @@ const DepartmentModel = () => {
       department: DepartmentReducer.department,
       loading: DepartmentReducer.loading,
       update_loading: DepartmentReducer.update_loading,
+      error:DepartmentReducer.error
     })
   );
 
@@ -171,6 +175,10 @@ const DepartmentModel = () => {
     console.log("update_loading in useEffect", update_loading);
     setModal(false);
   }, [update_loading]);
+
+
+
+
 
   const selectSearchProperties = createSelector(
     (state) => state.search,

@@ -12,6 +12,8 @@ const Logout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    localStorage.clear();
+    sessionStorage.clear();
     dispatch(logoutUser(history));
   }, [dispatch, history]);
 

@@ -3,6 +3,9 @@ import { Navigate } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard/index";
 import Login from "../pages/Authentication/Login";
+// add Unauthorized page
+import Unauthorized  from "../components/Common/NotFound";
+import { components } from "react-select";
 
 const Calendar = lazy(() => import("../pages/Calendar/index"));
 const ProjectLists = lazy(() =>
@@ -58,6 +61,7 @@ const Notifications = lazy(() => import("../pages/notifications"));
 
 const authProtectedRoutes = [
   { path: "/dash", components: <Dashboardcard /> },
+  
 
   { path: "/dashboard", component: <Dashboard /> },
 
@@ -111,6 +115,7 @@ const publicRoutes = [
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
   { path: "/register", component: <Register /> },
+  {path:"/Unauthorized",components :<Unauthorized/> },
 ];
 
 // export { authProtectedRoutes, publicRoutes };

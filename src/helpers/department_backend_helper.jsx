@@ -7,15 +7,23 @@ const GET_DEPARTMENT = "department/listgrid";
 const ADD_DEPARTMENT = "department/insertgrid";
 const UPDATE_DEPARTMENT = "department/updategrid";
 const DELETE_DEPARTMENT = "department/deletegrid";
-// get Projects
+import accessToken from "./jwt-token-access/accessToken";
+
+// Get Projects
 export const getDepartment = async () => {
   try {
-    const response = await post(apiUrl+GET_DEPARTMENT);
+    const response = await post(apiUrl + GET_DEPARTMENT, {
+      headers: {
+        Authorization: accessToken, // Add accessToken in Authorization header
+      },
+    });
+   
     return response;
   } catch (error) {
-    console.log(error); // Handle any errors
+    console.log("Error:", error); // Handle any errors
   }
 };
+
 // add Projects
 export const addDepartment = async (objectName) => {
   try {
@@ -24,7 +32,7 @@ export const addDepartment = async (objectName) => {
       objectName,
       {
         headers: {
-          "Content-Type": "application/json",
+          Authorization: accessToken, // Add accessToken in Authorization header
         },
       }
     );
@@ -36,12 +44,22 @@ export const addDepartment = async (objectName) => {
 };
 // update objectNames
 export const updateDepartment = (objectName) =>
-  post(`${apiUrl}`+UPDATE_DEPARTMENT +`?dep_id=${objectName?.dep_id}`, objectName);
+  post(`${apiUrl}`+UPDATE_DEPARTMENT +`?dep_id=${objectName?.dep_id}`, objectName, {
+    headers: {
+      Authorization: accessToken, // Add accessToken in Authorization header
+    },
+  });
 
 // delete objectNames
 export const deleteDepartment = (objectName) =>
   // post(`${url.DELETE_ORDER}?dep_id=${order?.dep_id}`);
-  post(`${apiUrl}`+DELETE_DEPARTMENT+`?dep_id=${objectName}`);
+  post(`${apiUrl}`+DELETE_DEPARTMENT+`?dep_id=${objectName}`,
+    {
+      headers: {
+        Authorization: accessToken, // Add accessToken in Authorization header
+      },
+    }
+  );
 
 export const fetchSearchResults = async (searchTerm, selectedFields) => {
   let queryParams = [];
@@ -59,7 +77,12 @@ export const fetchSearchResults = async (searchTerm, selectedFields) => {
   });
   const queryString = queryParams.join("&");
   const response = await axios.post(
-    `${apiUrl}department/listgrid?${queryString}`
+    `${apiUrl}department/listgrid?${queryString}`,
+    {
+      headers: {
+        Authorization: accessToken, // Add accessToken in Authorization header
+      },
+    }
   );
   return response.data.data;
 };
